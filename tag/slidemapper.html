@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Articles tagged slidemapper</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="/" /> 
+		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Link Will Go Here</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+<div class="page-title">
+	<h2>Tagged with <span>slidemapper</span> &hellip;</h2>
+</div>
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2014/03/changing-leaflet-slidemapper-to-side-by.html.html">Thu 13 March 2014</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2014/03/changing-leaflet-slidemapper-to-side-by.html.html" title="Permalink to Changing Leaflet Slidemapper to a Side-by-Side View" rel="bookmark">Changing Leaflet Slidemapper to a Side-by-Side View</a>
+		</h2>
+		<div class="entry-content">
+			<p>The default setup in <a href="https://github.com/cavis/slidemapper">slidemapper</a> is to have the slides either above or below the map. However, it is also possible to place the slides to one side of the map.</p>
+<p><img alt="Slides beside map" src="/images/slidemapper-side.png" /></p>
+<h2>CSS changes</h2>
+<p>We need to make a couple of changes to how the smapp-show and smapp-map classes are displayed. You'll want to play around with these some, but this is what worked well for me:</p>
+<div class="highlight"><pre><span class="nc">.smapp-show</span> <span class="p">{</span> 
+    <span class="k">width</span><span class="o">:</span><span class="m">50%</span><span class="p">;</span> 
+<span class="p">}</span>
+<span class="nc">.smapp-show</span> <span class="nc">.slide</span> <span class="p">{</span> 
+    <span class="k">overflow-y</span><span class="o">:</span><span class="k">visible</span><span class="p">;</span> 
+<span class="p">}</span>
+<span class="nc">.smapp-map</span> <span class="p">{</span> 
+    <span class="k">margin</span><span class="o">:</span><span class="m">10px</span><span class="p">;</span> 
+    <span class="k">width</span><span class="o">:</span><span class="m">48%</span><span class="p">;</span> 
+    <span class="k">height</span><span class="o">:</span><span class="m">95%</span><span class="p">;</span> 
+    <span class="k">position</span><span class="o">:</span><span class="k">absolute</span><span class="p">;</span> 
+    <span class="k">top</span><span class="o">:</span><span class="m">0</span><span class="p">;</span> 
+    <span class="k">right</span><span class="o">:</span><span class="m">0</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<h2>Slidemapper changes</h2>
+<p>On the slidemapper side of things, the only edit we need to make is changing the options of our slideshow. Specifically, we need to edit the slideHeight and mapHeight to something appropriate for having the slides beside the map. For example, I chose:</p>
+<div class="highlight"><pre><span class="nx">$mySlideMap</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#slideshow-container&#39;</span><span class="p">).</span><span class="nx">slideMapper</span><span class="p">({</span>
+    <span class="nx">slideHeight</span><span class="o">:</span> <span class="mi">540</span><span class="p">,</span>
+    <span class="nx">mapHeight</span><span class="o">:</span> <span class="s1">&#39;98%&#39;</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>And that's all the changes you need to make to have a side-by-side slideshow in slidemapper! The full code is available as <a href="https://gist.github.com/mollietaylor/9128521">a gist</a>.</p>
+<h2>References</h2>
+<ul>
+<li><a href="https://github.com/cavis/slidemapper">https://github.com/cavis/slidemapper</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/javascript.html" rel="tag">Javascript</a>,  <a href="/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="/tag/slidemapper.html" rel="tag">slidemapper</a>,  <a href="/tag/smapp-map.html" rel="tag">smapp-map</a>,  <a href="/tag/smapp-show.html" rel="tag">smapp-show</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2014/03/link-to-another-slide-in-leaflet.html.html">Thu 06 March 2014</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2014/03/link-to-another-slide-in-leaflet.html.html" title="Permalink to Link to Another Slide in Leaflet Slidemapper" rel="bookmark">Link to Another Slide in Leaflet Slidemapper</a>
+		</h2>
+		<div class="entry-content">
+			<p>The <a href="https://github.com/cavis/slidemapper">slidemapper plugin for Leaflet</a> is very useful, but when building large slideshows, it can be annoying that there is no easy way to link to specific slides. For example, you might want to create a table of contents or link from the last slide back to the first. Fortunately, there's a way to move to specific slides, instead of just advancing or moving back by 1. We'll use jQuery to do this. We already have jQuery loaded for slidemapper.</p>
+<h2>Specify Where Links Will Go</h2>
+<p>After the <code>$mySlideMap</code> code in your html file, you can create a list of links that you will later add to the slides. Generally, this will be the last thing in the <code>&lt;script&gt;</code> tag at the end of the body.</p>
+<p>For example, in the sample code from the slidemapper example, the <code>&lt;script&gt;</code> initially contains:</p>
+<div class="highlight"><pre><span class="nx">$mySlideMap</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#slideshow-container&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">slideMapper</span><span class="p">();</span>
+
+<span class="nx">$mySlideMap</span><span class="p">.</span><span class="nx">slideMapper</span><span class="p">(</span><span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="nx">EXAMPLEDATA</span><span class="p">);</span>
+</pre></div>
+
+
+<p>At the end of the script, let's add a link to the first slide and a link to the last slide. The jQuery we use allows any code with a specific class to be transformed into a link. We can combine that with the slidemapper move method to create links to specific slides.</p>
+<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.toc&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$mySlideMap</span><span class="p">.</span><span class="nx">slideMapper</span><span class="p">(</span><span class="s1">&#39;move&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.end&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$mySlideMap</span><span class="p">.</span><span class="nx">slideMapper</span><span class="p">(</span><span class="s1">&#39;move&#39;</span><span class="p">,</span> <span class="nx">EXAMPLEDATA</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<h2>Add the Links</h2>
+<p>Next, we need to actually include the links in the slides. The links references will go in the data file. In the example, the file is named data.js.</p>
+<p>Here's a link to the last slide from the first slide:</p>
+<div class="highlight"><pre>// intro marker
+{
+    icon: &#39;other.png&#39;,
+    marker: [42.516846, -70.898499],
+    center: [40.423, -98.7372],
+    html: &#39;<span class="nt">&lt;table</span> <span class="na">style=</span><span class="s">&quot;margin:0 40px; padding:10px&quot;</span><span class="nt">&gt;&lt;tr&gt;</span>&#39; +
+            &#39;<span class="nt">&lt;td&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://placehold.it/300x180&amp;text=Map+Stuff&quot;</span><span class="nt">/&gt;&lt;/td&gt;</span>&#39; +
+            &#39;<span class="nt">&lt;td</span> <span class="na">style=</span><span class="s">&quot;padding-left:10px&quot;</span><span class="nt">&gt;</span>&#39; +
+                &#39;<span class="nt">&lt;h1&gt;</span>SlideMapper FTW!<span class="nt">&lt;/h1&gt;</span>&#39; +
+                &#39;<span class="nt">&lt;p&gt;</span>This is a demo of the different sorts of slides you can setup using slidemapper.<span class="nt">&lt;/p&gt;</span>&#39; +
+                &#39;<span class="nt">&lt;p&gt;&lt;a</span> <span class="na">class=</span><span class="s">&quot;end&quot;</span><span class="nt">&gt;</span>Skip to the end.<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>&#39; +
+            &#39;<span class="nt">&lt;/td&gt;</span>&#39; +
+        &#39;<span class="nt">&lt;/tr&gt;&lt;/table&gt;</span>&#39;,
+    popup: &#39;So it begins!&#39;
+},
+</pre></div>
+
+
+<p>And here's a link from the last slide to the first slide:</p>
+<div class="highlight"><pre>// empty slide
+{
+    html: &#39;<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;margin:0 40px; padding:20px 10px&quot;</span><span class="nt">&gt;</span>&#39; +
+            &#39;<span class="nt">&lt;div&gt;</span>&#39; +
+                &#39;<span class="nt">&lt;h2&gt;</span>The End<span class="nt">&lt;/h2&gt;</span>&#39; +
+                &#39;<span class="nt">&lt;p&gt;</span>Goodbye.<span class="nt">&lt;/p&gt;</span>&#39; +
+                &#39;<span class="nt">&lt;p&gt;&lt;a</span> <span class="na">class=</span><span class="s">&quot;toc&quot;</span><span class="nt">&gt;</span>Return to Table of Contents.<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>&#39; +
+            &#39;<span class="nt">&lt;/div&gt;</span>&#39; +
+        &#39;<span class="nt">&lt;/div&gt;</span>&#39;
+}
+</pre></div>
+
+
+<h2>Prettifying</h2>
+<p>Because of the unusual way these links are made using jQuery, we should probably add some css to make them look like links. I added the following css to the <code>&lt;head&gt;</code>, but you can add any css to the head or as a separate stylesheet.</p>
+<div class="highlight"><pre><span class="o">&lt;</span><span class="nt">style</span> <span class="nt">type</span><span class="o">=</span><span class="s2">&quot;text/css&quot;</span><span class="o">&gt;</span>
+    <span class="nt">a</span> <span class="p">{</span>
+        <span class="k">color</span><span class="o">:</span> <span class="nb">orange</span><span class="p">;</span>
+        <span class="k">cursor</span><span class="o">:</span> <span class="k">pointer</span><span class="p">;</span>
+        <span class="k">text-decoration</span><span class="o">:</span> <span class="k">underline</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p><img alt="Here's an example of a link from one slide to another" src="/images/slidemapper-link.png" /></p>
+<p>And now you have an easy way to navigate through a long slidemapper deck. You could even create a table of contents at the beginning and then link back to that from each slide.</p>
+<p>The full code is available in <a href="https://gist.github.com/mollietaylor/9128328">a gist</a>.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/950087/how-to-include-a-javascript-file-in-another-javascript-file">http://stackoverflow.com/questions/950087/how-to-include-a-javascript-file-in-another-javascript-file</a></li>
+<li><a href="https://github.com/cavis/slidemapper#methods">https://github.com/cavis/slidemapper#methods</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/class.html" rel="tag">class</a>,  <a href="/tag/click.html" rel="tag">click</a>,  <a href="/tag/css.html" rel="tag">CSS</a>,  <a href="/tag/javascript.html" rel="tag">Javascript</a>,  <a href="/tag/jquery.html" rel="tag">jQuery</a>,  <a href="/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="/tag/move.html" rel="tag">move</a>,  <a href="/tag/slidemapper.html" rel="tag">slidemapper</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2014/02/lwimw3-trail-magic.html.html">Sun 02 February 2014</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2014/02/lwimw3-trail-magic.html.html" title="Permalink to LWIMW3: Trail Magic" rel="bookmark">LWIMW3: Trail Magic</a>
+		</h2>
+		<div class="entry-content">
+			<p>I just finished my submission for <a href="http://lookwhatimadeweekend.com/">Look What I Made Weekend 3</a>. Look What I Made Weekend (LWIMW) is a chance for people to create something over the course of 48 hours. The concept is based on <a href="http://www.ludumdare.com/">Ludum Dare</a> and other game jams, but for LWIMW you don't have to make a game. Instead, you are free to pursue any creative endeavor and show off your results at the end.</p>
+<blockquote>
+<p>NB: The content below is mostly a reprint of <a href="http://lookwhatimadeweekend.com/contest/3/submission/110/">my submission at LWIMW</a>.</p>
+</blockquote>
+<p>My project is an interactive website that will be part of the companion site to a book <a href="http://www.driven2divide.com/">my friend Scott Thigpen</a> is writing.
+I didn't quite start from scratch on this project. This image shows the progress I had made before the weekend. You can also view it <a href="http://mollietaylor.com/trailmagic/preLWIMW-slide.html">on the web</a>.</p>
+<p><img alt="pre-LWIMW" src="/images/pre-LWIMW.png" /></p>
+<p>The other images show the current status after the weekend.</p>
+<p>I made a lot of progress this weekend. I added GPS routes to the map, added a table of contents, added marker clustering, improved the graphic design (CSS and basemap), and added about 25% of the final content.</p>
+<p><img alt="post-LWIMW" src="/images/post-LWIMW.png" /></p>
+<p><img alt="post-LWIMW" src="/images/post-LWIMW-2.png" /></p>
+<p>The only essential things I have left to do are adding the rest of the content, working with my friend on palette and graphics, and tweaking some small things.</p>
+<p>You can view the current state of the <a href="http://mollietaylor.com/trailmagic/LWIMW.html">Trail Magic site here</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/competitions.html" rel="tag">competitions</a>,  <a href="/tag/javascript.html" rel="tag">Javascript</a>,  <a href="/tag/jquery.html" rel="tag">jQuery</a>,  <a href="/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="/tag/lwimw.html" rel="tag">LWIMW</a>,  <a href="/tag/slidemapper.html" rel="tag">slidemapper</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="navigation">
+</div>
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

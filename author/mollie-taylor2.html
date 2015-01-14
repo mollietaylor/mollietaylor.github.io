@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Articles by Mollie Taylor</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="/" /> 
+		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Link Will Go Here</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+	<h2>Posted by <span>Mollie Taylor</span> &hellip;</h2>
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2014/01/append-layer-to-overlaymaps-in-leaflet.html.html">Thu 30 January 2014</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2014/01/append-layer-to-overlaymaps-in-leaflet.html.html" title="Permalink to Append Layer to overlayMaps in Leaflet" rel="bookmark">Append Layer to overlayMaps in Leaflet</a>
+		</h2>
+		<div class="entry-content">
+			<p>What if we want to create a layer based on geolocation, but have the layer only be added to the map once geolocation occurs? I didn't find this example in any Leaflet tutorials, but it's pretty simple with some basic JavaScript</p>
+<p>I'll start with some code that should look familiar from the <a href="http://leafletjs.com/examples/quick-start.html">Leaflet Quick Start Guide</a>, but with each item as its own layer.</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">marker</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">([</span><span class="mf">51.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">]);</span>
+
+<span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span>
+    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span>
+<span class="p">]);</span>
+
+<span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">51.505</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">],</span>
+    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">13</span><span class="p">,</span>
+    <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span><span class="nx">marker</span><span class="p">,</span> <span class="nx">circle</span><span class="p">,</span> <span class="nx">polygon</span><span class="p">]</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Marker&quot;</span><span class="o">:</span> <span class="nx">marker</span><span class="p">,</span>
+    <span class="s2">&quot;Circle&quot;</span><span class="o">:</span> <span class="nx">circle</span><span class="p">,</span>
+    <span class="s2">&quot;Polygon&quot;</span><span class="o">:</span> <span class="nx">polygon</span>
+<span class="p">};</span>
+<span class="nx">L</span><span class="p">.</span><span class="nx">tileLayer</span><span class="p">(</span><span class="s1">&#39;http://tile.cloudmade.com/[API-KEY]/29889/256/{z}/{x}/{y}.png&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">attribution</span><span class="o">:</span> <span class="s1">&#39;Map data &amp;copy; &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;CC-BY-SA&lt;/a&gt;, Imagery © &lt;a href=&quot;http://cloudmade.com&quot;&gt;CloudMade&lt;/a&gt;&#39;</span><span class="p">,</span>
+  <span class="nx">maxZoom</span><span class="o">:</span> <span class="mi">18</span>
+<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+</pre></div>
+
+
+<p>Next let's add the code that will display the three original layers if geolocation does not occur. In this case, we do not want the geolocated layer to show.</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onLocationError</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+
+    <span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;locationerror&#39;</span><span class="p">,</span> <span class="nx">onLocationError</span><span class="p">);</span>
+</pre></div>
+
+
+<p>You can see in the below screenshot that only the three layers are displayed.</p>
+<p><img alt="With geolocation off" src="/images/append-layer-geolocation-off.png" /></p>
+<p>Finally, we need to add code that will display all the layers (including the geolocation layer) if geolocation does occur. We simply need to add the "yourLocation" layer to overlayMaps and then display the layers as normal.</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onLocationFound</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">yourLocation</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">);</span>
+
+    <span class="nx">overlayMaps</span><span class="p">[</span><span class="s2">&quot;You&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">yourLocation</span><span class="p">;</span>
+
+    <span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;locationfound&#39;</span><span class="p">,</span> <span class="nx">onLocationFound</span><span class="p">);</span>
+</pre></div>
+
+
+<p>The screenshots below show what happens once geolocation has occurred.</p>
+<p><img alt="With geolocation on" src="/images/append-layer-geolocation-on.png" /></p>
+<p><img alt="Showing geolocation layer" src="/images/append-layer-show-geolocation.png" /></p>
+<p>The full code is available in <a href="https://gist.github.com/mollietaylor/8700934">a gist</a>.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/695050/how-do-i-add-a-property-to-a-javascript-object-using-a-variable-as-the-name">http://stackoverflow.com/questions/695050/how-do-i-add-a-property-to-a-javascript-object-using-a-variable-as-the-name</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/geolocation.html" rel="tag">geolocation</a>,  <a href="/tag/javascript.html" rel="tag">Javascript</a>,  <a href="/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="/tag/locationfound.html" rel="tag">locationfound</a>,  <a href="/tag/overlaymaps.html" rel="tag">overlayMaps</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2014/01/add-and-remove-leaflet-circle-on-click.html.html">Thu 23 January 2014</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2014/01/add-and-remove-leaflet-circle-on-click.html.html" title="Permalink to Add and Remove Leaflet Circle on Click" rel="bookmark">Add and Remove Leaflet Circle on Click</a>
+		</h2>
+		<div class="entry-content">
+			<p>Similar to the popup example in the Leaflet tutorial, you might want to allow a user to add a circle centered on the point they click.</p>
+<p>After defining your map, you first need to declare the variable you'll be using:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">clickCircle</span><span class="p">;</span>
+</pre></div>
+
+
+<p>While popups automatically disappear on the next click, circles do not. The following code removes the former circle from the leaflet map before drawing the new circle:</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onMapClick</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">clickCircle</span> <span class="o">!=</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">map</span><span class="p">.</span><span class="nx">removeLayer</span><span class="p">(</span><span class="nx">clickCircle</span><span class="p">);</span>
+    <span class="p">};</span>
+</pre></div>
+
+
+<p>Next, we want our function to draw the new circle (NB: "1609 * 3" is the radius of the circle. This makes the radius equal 3 miles):</p>
+<div class="highlight"><pre>    <span class="nx">clickCircle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">,</span> <span class="mi">1609</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#f07300&#39;</span><span class="p">,</span>
+        <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">opacity</span><span class="o">:</span> <span class="mf">0.5</span>
+  <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>And finally, we need to add an event listener so that the function will be run when a user clicks on the map:</p>
+<div class="highlight"><pre><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">onMapClick</span><span class="p">);</span>
+</pre></div>
+
+
+<p>The full code is available in <a href="https://gist.github.com/mollietaylor/8564724">a gist</a>.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://leafletjs.com/examples/quick-start.html">http://leafletjs.com/examples/quick-start.html</a></li>
+<li><a href="http://stackoverflow.com/questions/15507737/adding-removing-l-control-from-leaflet-js-map">http://stackoverflow.com/questions/15507737/adding-removing-l-control-from-leaflet-js-map</a></li>
+<li><a href="http://stackoverflow.com/questions/11272552/remove-polygon-from-the-map">http://stackoverflow.com/questions/11272552/remove-polygon-from-the-map</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/addto.html" rel="tag">addTo</a>,  <a href="/tag/javascript.html" rel="tag">Javascript</a>,  <a href="/tag/lcircle.html" rel="tag">L.circle</a>,  <a href="/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="/tag/on.html" rel="tag">on</a>,  <a href="/tag/removelayer.html" rel="tag">removeLayer</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2014/01/embed-audio-in-leaflet-pop-up.html.html">Thu 16 January 2014</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2014/01/embed-audio-in-leaflet-pop-up.html.html" title="Permalink to Embed Audio in Leaflet Pop-up" rel="bookmark">Embed Audio in Leaflet Pop-up</a>
+		</h2>
+		<div class="entry-content">
+			<p>Here's how to embed audio in a leaflet map. This example will also show you how to embed most other HTML in a leaflet map, or how to embed audio in an HTML file.</p>
+<p>In your map code:</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onEachAudio</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">layer</span><span class="p">.</span><span class="nx">bindPopup</span><span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;&lt;br&gt;&quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">html</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">GeoJSON</span><span class="p">.</span><span class="nx">AJAX</span><span class="p">(</span><span class="s2">&quot;audio.geojson&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">onEachFeature</span><span class="o">:</span> <span class="nx">onEachAudio</span><span class="p">,</span>
+    <span class="nx">pointToLayer</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">latlng</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">audioIcon</span><span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+</pre></div>
+
+
+<p>And here's the geojson format where you'll include your audio HTML and the coordinates where you want to view each file:</p>
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;a href=&#39;http://www.freesound.org/people/genghis%20attenborough/sounds/212798/&#39;&gt;Deep basement&lt;/a&gt;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;p&gt;&lt;audio width=&#39;300&#39; height=&#39;32&#39; src=&#39;http://www.freesound.org/data/previews/212/212798_205108-lq.mp3&#39; controls=&#39;controls&#39;&gt;&lt;br /&gt;Your browser does not support the audio element.&lt;br /&gt;&lt;/audio&gt;&lt;/p&gt;&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-100</span><span class="p">,</span><span class="mi">34</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">},{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;a href=&#39;http://www.freesound.org/people/John%20Sipos/sounds/125696/&#39;&gt;Atlantis docks then lands.&lt;/a&gt;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;p&gt;&lt;audio width=&#39;300&#39; height=&#39;32&#39; src=&#39;http://www.freesound.org/data/previews/125/125696_593024-lq.mp3&#39; controls=&#39;controls&#39;&gt;&lt;br /&gt;Your browser does not support the audio element.&lt;br /&gt;&lt;/audio&gt;&lt;/p&gt;&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-84</span><span class="p">,</span><span class="mi">40</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Just substitute in the address of your audio files for the sample files above in the "html" property of the geojson features.</p>
+<p><img alt="Example Leaflet map with audio" src="/images/embed-audio-leaflet.png" /></p>
+<p>The full code is available in <a href="https://gist.github.com/mollietaylor/8230639">a gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/audio.html" rel="tag">audio</a>,  <a href="/tag/bindpopup.html" rel="tag">bindPopup</a>,  <a href="/tag/geojson.html" rel="tag">geojson</a>,  <a href="/tag/html.html" rel="tag">HTML</a>,  <a href="/tag/javascript.html" rel="tag">Javascript</a>,  <a href="/tag/leaflet.html" rel="tag">Leaflet</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2014/01/import-json-data-from-external-file-in.html.html">Thu 09 January 2014</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2014/01/import-json-data-from-external-file-in.html.html" title="Permalink to Import JSON Data from an External File in Leaflet" rel="bookmark">Import JSON Data from an External File in Leaflet</a>
+		</h2>
+		<div class="entry-content">
+			<p>If your JSON or GeoJSON data is long, you might want to store it in a separate file to make your code more readable or to reduce repetition and allow you to access the same data file from multiple pages. You can do that with jQuery.</p>
+<p>First, load jQuery 1.10.2 or the newest version of jQuery (2.0 onward does not support Internet Explorer 6, 7, or 8) in the header:</p>
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+
+<p>Next, in your leaflet script at the bottom of the body, you'll need to add all your other code and your basemap, like normal, for example:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">).</span><span class="nx">setView</span><span class="p">([</span><span class="mf">38.0740</span><span class="p">,</span> <span class="o">-</span><span class="mi">55</span><span class="p">],</span> <span class="mi">3</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">onEachFeature</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">layer</span><span class="p">.</span><span class="nx">bindPopup</span><span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">City</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">State</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">Country</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Then, you can just use jQuery to get the JSON or GeoJSON file. A simple version of this would be:</p>
+<div class="highlight"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;cities.geoJSON&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cities</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">L</span><span class="p">.</span><span class="nx">geoJson</span><span class="p">(</span><span class="nx">cities</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<p>But you can also add more options to your <code>L.geoJson</code> code, just like you would if using data stored in the HTML file. For example:</p>
+<div class="highlight"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;cities.geoJSON&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cities</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">L</span><span class="p">.</span><span class="nx">geoJson</span><span class="p">(</span><span class="nx">cities</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">onEachFeature</span><span class="o">:</span> <span class="nx">onEachFeature</span><span class="p">,</span>
+        <span class="nx">pointToLayer</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">latlng</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">switch</span> <span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">Remember</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">case</span> <span class="s1">&#39;1&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">visitedIcon</span><span class="p">});</span>
+                <span class="k">case</span> <span class="s1">&#39;?&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">uncertainIcon</span><span class="p">});</span>
+                <span class="k">case</span> <span class="s1">&#39;0&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">uncertainIcon</span><span class="p">});</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<p>So just a couple lines of jQuery allow you to store your JSON or GeoJSON data in a separate file.</p>
+<p>The <a href="https://gist.github.com/mollietaylor/7582459">example code is available in a gist</a> and the <a href="http://gtg339g.com/skills/js/leaflet/cities/">example is viewable here</a>.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="http://lyzidiamond.com/posts/external-geojson-and-leaflet-the-other-way/">http://lyzidiamond.com/posts/external-geojson-and-leaflet-the-other-way/</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/geojson.html" rel="tag">geojson</a>,  <a href="/tag/getjson.html" rel="tag">getJSON</a>,  <a href="/tag/javascript.html" rel="tag">Javascript</a>,  <a href="/tag/jquery.html" rel="tag">jQuery</a>,  <a href="/tag/json.html" rel="tag">JSON</a>,  <a href="/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="/tag/lgeojson.html" rel="tag">L.geoJson</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/12/make-all-polygons-same-shade-in-leaflet.html.html">Thu 19 December 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/12/make-all-polygons-same-shade-in-leaflet.html.html" title="Permalink to Make All Polygons the Same Shade in Leaflet" rel="bookmark">Make All Polygons the Same Shade in Leaflet</a>
+		</h2>
+		<div class="entry-content">
+			<p>The <a href="http://leafletjs.com/examples/quick-start.html">Quick Start tutorial</a> shows us how to change the color of a polygon:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span>
+    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span>
+<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+</pre></div>
+
+
+<p>But what if we want to change the color and style of all (or a set of the) polygons?</p>
+<p>First we can define the style:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">defaultStyle</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
+    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.2</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>And then we can just add that style to our polygons:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span>
+<span class="p">]).</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">defaultStyle</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">).</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">defaultStyle</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+</pre></div>
+
+
+<p>The full code (based on <a href="http://leafletjs.com/examples/quick-start.html">the Quick Start tutorial</a>) is available in a <a href="https://gist.github.com/mollietaylor/7110969">gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/javascript.html" rel="tag">Javascript</a>,  <a href="/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="/tag/lpolygon.html" rel="tag">L.polygon</a>,  <a href="/tag/setstyle.html" rel="tag">setStyle</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="navigation">
+		<div class="nav-previous">
+				<a href="/author/mollie-taylor.html">
+			<span class="meta-nav">&larr;</span> Newer posts</a>
+		</div>		
+</div>
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>
