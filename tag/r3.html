@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Articles tagged R</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="/" /> 
+		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+<div class="page-title">
+	<h2>Tagged with <span>R</span> &hellip;</h2>
+</div>
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/01/calculating-gini-coefficients-for.html.html">Thu 17 January 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/01/calculating-gini-coefficients-for.html.html" title="Permalink to Calculating Gini Coefficients for a Number of Locales at Once in R" rel="bookmark">Calculating Gini Coefficients for a Number of Locales at Once in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>The <a href="http://en.wikipedia.org/wiki/Gini_coefficient">Gini coefficient</a> is a measure of the inequality of a distribution, most commonly used to compare inequality in income or wealth among countries.</p>
+<p>Let's first generate some random data to analyze. You can <a href="https://gist.github.com/4432069">download my random data</a> or use the code below to generate your own. Of course, if you generate your own, your graphs and results will be different from those shown below.</p>
+<div class="highlight"><pre>city <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">,</span> <span class="s">&quot;D&quot;</span><span class="p">,</span> <span class="s">&quot;E&quot;</span><span class="p">,</span> <span class="s">&quot;F&quot;</span><span class="p">,</span> <span class="s">&quot;G&quot;</span><span class="p">,</span> <span class="s">&quot;H&quot;</span><span class="p">,</span> <span class="s">&quot;I&quot;</span><span class="p">,</span> <span class="s">&quot;J&quot;</span><span class="p">)</span>
+income <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">100000</span><span class="p">,</span>
+    <span class="m">100</span><span class="p">,</span>
+    replace <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+cities <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>city<span class="p">,</span> income<span class="p">)</span>
+</pre></div>
+
+
+<p>Next, let's graph our data:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+ggplot<span class="p">(</span>cities<span class="p">,</span>
+    aes<span class="p">(</span>income<span class="p">))</span> <span class="o">+</span>
+    stat_density<span class="p">(</span>geom <span class="o">=</span> <span class="s">&quot;path&quot;</span><span class="p">,</span>
+        position <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">)</span> <span class="o">+</span>
+    facet_wrap<span class="p">(</span><span class="o">~</span> city<span class="p">,</span> ncol <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Histogram of each city's incomes // Your results will differ if using random data" src="/images/r-gini-hist.png" /></p>
+<p>The Gini coefficient is easy enough to calculate in R for a single locale using the <code>gini</code> function from the <strong>reldist</strong> package.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>reldist<span class="p">)</span>
+gini<span class="p">(</span>cities<span class="p">[</span><span class="kp">which</span><span class="p">(</span>cities<span class="o">$</span>city <span class="o">==</span> <span class="s">&quot;A&quot;</span><span class="p">),</span> <span class="p">]</span><span class="o">$</span>income<span class="p">)</span>
+</pre></div>
+
+
+<p>But we don't want to replicate this code over and over to calculate the Gini coefficient for a large number of locales. We also want the coefficients to be in a data frame for easy use in R or for export for use in another program.</p>
+<p>There are <a href="http://www.slideshare.net/jeffreybreen/grouping-summarizing-data-in-r">many ways to automate a function</a> to run over many subsets of a data frame. The most straightforward in our particular case is <code>aggregate</code>:</p>
+<div class="highlight"><pre>ginicities <span class="o">&lt;-</span> aggregate<span class="p">(</span>income <span class="o">~</span> city<span class="p">,</span>
+    data <span class="o">=</span> cities<span class="p">,</span>
+    FUN <span class="o">=</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span>
+<span class="kp">names</span><span class="p">(</span>ginisec<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span>
+
+<span class="o">&gt;</span> ginisec
+   city      gini
+<span class="m">1</span>     A <span class="m">0.2856827</span>
+<span class="m">2</span>     B <span class="m">0.3639070</span>
+<span class="m">3</span>     C <span class="m">0.3288934</span>
+<span class="m">4</span>     D <span class="m">0.1863783</span>
+<span class="m">5</span>     E <span class="m">0.3565739</span>
+<span class="m">6</span>     <span class="bp">F</span> <span class="m">0.2587475</span>
+<span class="m">7</span>     G <span class="m">0.3022642</span>
+<span class="m">8</span>     H <span class="m">0.3795288</span>
+<span class="m">9</span>     I <span class="m">0.3311034</span>
+<span class="m">10</span>    J <span class="m">0.2496933</span>
+</pre></div>
+
+
+<p>And finally, let's go ahead and export our data using <code>write.csv</code>:</p>
+<div class="highlight"><pre>write.csv<span class="p">(</span>ginicities<span class="p">,</span> <span class="s">&quot;gini.csv&quot;</span><span class="p">,</span>
+    row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>While you're at it, you might want to try using other functions on your dataset, such as <code>mean</code>, <code>median</code>, and <code>length</code>.</p>
+<p>The full code is available in a <a href="https://gist.github.com/4432069">gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://rss.acs.unt.edu/Rdoc/library/reldist/html/gini.html">http://rss.acs.unt.edu/Rdoc/library/reldist/html/gini.html</a></li>
+<li><a href="http://www.slideshare.net/jeffreybreen/grouping-summarizing-data-in-r">http://www.slideshare.net/jeffreybreen/grouping-summarizing-data-in-r</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/aggregate.html" rel="tag">aggregate</a>,  <a href="/tag/analysis.html" rel="tag">analysis</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gini.html" rel="tag">gini</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/reldist.html" rel="tag">reldist</a>,  <a href="/tag/sample.html" rel="tag">sample</a>,  <a href="/tag/stat_density.html" rel="tag">stat_density</a>,  <a href="/tag/writecsv.html" rel="tag">write.csv</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/01/stacked-bar-charts-in-r.html.html">Thu 10 January 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/01/stacked-bar-charts-in-r.html.html" title="Permalink to Stacked Bar Charts in R" rel="bookmark">Stacked Bar Charts in R</a>
+		</h2>
+		<div class="entry-content">
+			<h2>Reshape Wide to Long</h2>
+<p>Let's use the <code>Loblolly</code> dataset from the <strong>datasets</strong> package. These data track the growth of some loblolly pine trees.</p>
+<div class="highlight"><pre><span class="o">&gt;</span> Loblolly<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,]</span>
+   height age Seed
+<span class="m">1</span>    <span class="m">4.51</span>   <span class="m">3</span>  <span class="m">301</span>
+<span class="m">15</span>  <span class="m">10.89</span>   <span class="m">5</span>  <span class="m">301</span>
+<span class="m">29</span>  <span class="m">28.72</span>  <span class="m">10</span>  <span class="m">301</span>
+<span class="m">43</span>  <span class="m">41.74</span>  <span class="m">15</span>  <span class="m">301</span>
+<span class="m">57</span>  <span class="m">52.70</span>  <span class="m">20</span>  <span class="m">301</span>
+<span class="m">71</span>  <span class="m">60.92</span>  <span class="m">25</span>  <span class="m">301</span>
+<span class="m">2</span>    <span class="m">4.55</span>   <span class="m">3</span>  <span class="m">303</span>
+<span class="m">16</span>  <span class="m">10.92</span>   <span class="m">5</span>  <span class="m">303</span>
+<span class="m">30</span>  <span class="m">29.07</span>  <span class="m">10</span>  <span class="m">303</span>
+<span class="m">44</span>  <span class="m">42.83</span>  <span class="m">15</span>  <span class="m">303</span>
+</pre></div>
+
+
+<p>First, we need to convert the data to wide form, so each age (i.e. 3, 5, 10, 15, 20, 25) will have its own variable.</p>
+<div class="highlight"><pre>wide <span class="o">&lt;-</span> reshape<span class="p">(</span>Loblolly<span class="p">,</span>
+    v.names <span class="o">=</span> <span class="s">&quot;height&quot;</span><span class="p">,</span>
+    timevar <span class="o">=</span> <span class="s">&quot;age&quot;</span><span class="p">,</span>
+    idvar <span class="o">=</span> <span class="s">&quot;Seed&quot;</span><span class="p">,</span>
+    direction <span class="o">=</span> <span class="s">&quot;wide&quot;</span><span class="p">)</span>
+
+<span class="o">&gt;</span> wide<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,]</span>
+  Seed height.3 height.5 height.10 height.15 height.20 height.25
+<span class="m">1</span>  <span class="m">301</span>     <span class="m">4.51</span>    <span class="m">10.89</span>     <span class="m">28.72</span>     <span class="m">41.74</span>     <span class="m">52.70</span>     <span class="m">60.92</span>
+<span class="m">2</span>  <span class="m">303</span>     <span class="m">4.55</span>    <span class="m">10.92</span>     <span class="m">29.07</span>     <span class="m">42.83</span>     <span class="m">53.88</span>     <span class="m">63.39</span>
+<span class="m">3</span>  <span class="m">305</span>     <span class="m">4.79</span>    <span class="m">11.37</span>     <span class="m">30.21</span>     <span class="m">44.40</span>     <span class="m">55.82</span>     <span class="m">64.10</span>
+<span class="m">4</span>  <span class="m">307</span>     <span class="m">3.91</span>     <span class="m">9.48</span>     <span class="m">25.66</span>     <span class="m">39.07</span>     <span class="m">50.78</span>     <span class="m">59.07</span>
+<span class="m">5</span>  <span class="m">309</span>     <span class="m">4.81</span>    <span class="m">11.20</span>     <span class="m">28.66</span>     <span class="m">41.66</span>     <span class="m">53.31</span>     <span class="m">63.05</span>
+</pre></div>
+
+
+<h2>Create Variables</h2>
+<p>Then we want to create new columns showing how much each tree has grown between data points. For example, instead of knowing a tree's height at age 10, we want to know how much it's grown between age 5 and age 10, so that can be a bar in our graph.</p>
+<div class="highlight"><pre>wide<span class="o">$</span>h0.3 <span class="o">&lt;-</span> wide<span class="o">$</span>height.3
+wide<span class="o">$</span>h3.5 <span class="o">&lt;-</span> wide<span class="o">$</span>height.5 <span class="o">-</span> wide<span class="o">$</span>height.3
+wide<span class="o">$</span>h5.10 <span class="o">&lt;-</span> wide<span class="o">$</span>height.10 <span class="o">-</span> wide<span class="o">$</span>height.5
+wide<span class="o">$</span>h10.15 <span class="o">&lt;-</span> wide<span class="o">$</span>height.15 <span class="o">-</span> wide<span class="o">$</span>height.10
+wide<span class="o">$</span>h15.20 <span class="o">&lt;-</span> wide<span class="o">$</span>height.20 <span class="o">-</span> wide<span class="o">$</span>height.15
+wide<span class="o">$</span>h20.25 <span class="o">&lt;-</span> wide<span class="o">$</span>height.25 <span class="o">-</span> wide<span class="o">$</span>height.20
+</pre></div>
+
+
+<h2>Plot Stacked Bar Chart</h2>
+<p>Finally, we want to plot all the new data points:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+sequential <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span>
+barplot<span class="p">(</span><span class="kp">t</span><span class="p">(</span>wide<span class="p">[,</span><span class="m">8</span><span class="o">:</span><span class="m">13</span><span class="p">]),</span>
+    names.arg <span class="o">=</span> wide<span class="o">$</span>Seed<span class="p">,</span> <span class="c1"># x-axis labels</span>
+    cex.names <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> <span class="c1"># makes x-axis labels small enough to show all</span>
+    col <span class="o">=</span> sequential<span class="p">,</span> <span class="c1"># colors</span>
+    xlab <span class="o">=</span> <span class="s">&quot;Seed Source&quot;</span><span class="p">,</span>
+    ylab <span class="o">=</span> <span class="s">&quot;Height, Feet&quot;</span><span class="p">,</span>
+    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20</span><span class="p">),</span> <span class="c1"># these two lines allow space for the legend</span>
+    width <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># these two lines allow space for the legend</span>
+legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span> 
+    legend <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;20-25&quot;</span><span class="p">,</span> <span class="s">&quot;15-20&quot;</span><span class="p">,</span> <span class="s">&quot;10-15&quot;</span><span class="p">,</span> <span class="s">&quot;5-10&quot;</span><span class="p">,</span> <span class="s">&quot;3-5&quot;</span><span class="p">,</span> <span class="s">&quot;0-3&quot;</span><span class="p">),</span> <span class="c1">#in order from top to bottom</span>
+    fill <span class="o">=</span> sequential<span class="p">[</span><span class="m">6</span><span class="o">:</span><span class="m">1</span><span class="p">],</span> <span class="c1"># 6:1 reorders so legend order matches graph</span>
+    title <span class="o">=</span> <span class="s">&quot;Years&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Stacked bar chart" src="/images/r-stacked-bars.png" /></p>
+<p>If you decide you'd rather have clustered bars instead of stacked bars, you can just add the option <code>beside = TRUE</code> to the <code>barplot</code>.</p>
+<p>The full code is available in a <a href="https://gist.github.com/4263515">gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li>Reshape<ul>
+<li><a href="http://stat.ethz.ch/R-manual/R-patched/library/stats/html/reshape.html">http://stat.ethz.ch/R-manual/R-patched/library/stats/html/reshape.html</a></li>
+</ul>
+</li>
+<li>Stacked bar graphs<ul>
+<li><a href="http://www.cs.grinnell.edu/~rebelsky/Courses/MAT115/2008S/R/stacked-bar-graphs.html">http://www.cs.grinnell.edu/~rebelsky/Courses/MAT115/2008S/R/stacked-bar-graphs.html</a></li>
+<li><a href="http://www.harding.edu/fmccown/r/#barcharts">http://www.harding.edu/fmccown/r/#barcharts</a></li>
+</ul>
+</li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/barplot.html" rel="tag">barplot</a>,  <a href="/tag/datasets.html" rel="tag">datasets</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-r.html.html">Thu 13 December 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/12/mapping-gps-tracks-in-r.html.html" title="Permalink to Mapping GPS Tracks in R" rel="bookmark">Mapping GPS Tracks in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>This is an explanation of how I used R to combine all my GPS cycling tracks from my Garmin Forerunner 305.</p>
+<h2>Converting to CSV</h2>
+<p>You can convert pretty much any GPS data to .csv by using <a href="http://www.gpsbabel.org/htmldoc-1.4.4/readme.html">GPSBabel</a>. For importing directly from my Garmin, I used the command:</p>
+<div class="highlight"><pre><span class="go">gpsbabel -t -i garmin -f usb: -o unicsv -F out.csv</span>
+</pre></div>
+
+
+<p>[Note: you'll probably need to work as root to access your device directly]</p>
+<p>For importing from a .tcx file, you can use:</p>
+<div class="highlight"><pre><span class="go">gpsbabel -t -i gtrnctr -f test2.tcx -o unicsv -F old.csv</span>
+</pre></div>
+
+
+<h2>Mapping in R</h2>
+<p>After converting to .csv, we'll have a file with several columns, such as latitude, longitude, date, and time. We can now easily import this into R.</p>
+<div class="highlight"><pre>gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;out.csv&quot;</span><span class="p">,</span> 
+    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Next we want to load up ggmap and get our base map. To determine how zoomed in we are, we can set <code>zoom</code> and <code>size</code>. We can also choose the <code>maptype</code>, with options of terrain, satellite, roadmap, or hybrid (satellite + roadmap).</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span>
+mapImageData <span class="o">&lt;-</span> get_googlemap<span class="p">(</span>center <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span> lat <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Latitude<span class="p">)),</span>
+    zoom <span class="o">=</span> <span class="m">11</span><span class="p">,</span>
+<span class="c1"># size = c(500, 500),</span>
+    maptype <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;terrain&quot;</span><span class="p">))</span>
+</pre></div>
+
+
+<p>I chose to set the <code>center</code> of the map to the median of my latitudes and the median of my longitudes. I've done some biking when traveling, so median made more sense for me than mean.
+Finally we want to map our GPS data. There are several <a href="http://www.endmemo.com/program/R/pchsymbols.php"><code>pch</code> options</a> to try.</p>
+<div class="highlight"><pre>ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
+    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># takes out axes, etc.</span>
+    geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span>
+        y <span class="o">=</span> Latitude<span class="p">),</span>
+    data <span class="o">=</span> gps<span class="p">,</span>
+    colour <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span>
+    size <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
+</pre></div>
+
+
+<p><img alt="All my metro Atlanta bike rides" src="/images/r-gps-tracks.png" /></p>
+<p>Previously, I've used Google Earth to create these maps, but I actually found it to be easier and way less time and resource efficient to do it in R. The only tricky part was converting the data into .csv, and there are <a href="http://www.gpsvisualizer.com/convert_input?convert_output=gpx">other ways</a> to do that, if GPSBabel isn't working for you. You might also be interested in trying <a href="/2012/12/mapping-gps-tracks-in-google-earth.html.html">Google Earth</a> for mapping your tracks, instead of R.</p>
+<p><a href="https://gist.github.com/4210660">Here's the gist</a> with the code.</p>
+<blockquote>
+<p>This post is one part of my series on Mapping GPS Tracks.</p>
+</blockquote>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://www.gpsbabel.org/htmldoc-1.4.4/readme.html">http://www.gpsbabel.org/htmldoc-1.4.4/readme.html</a></li>
+<li><a href="http://www.olberg.se/?q=node/25">http://www.olberg.se/?q=node/25</a></li>
+<li><a href="http://stackoverflow.com/questions/11648870/offline-plotting-of-map-coordinates-on-static-maps-of-google">http://stackoverflow.com/questions/11648870/offline-plotting-of-map-coordinates-on-static-maps-of-google</a></li>
+<li><a href="http://stackoverflow.com/questions/11590193/saving-image-in-ggplot-ggmap">http://stackoverflow.com/questions/11590193/saving-image-in-ggplot-ggmap</a></li>
+</ul>
+<p>pch = 20)</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gpsbabel.html" rel="tag">GPSBabel</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/11/sorting-within-lattice-graphics-in-r.html.html">Thu 29 November 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/11/sorting-within-lattice-graphics-in-r.html.html" title="Permalink to Sorting Within Lattice Graphics in R" rel="bookmark">Sorting Within Lattice Graphics in R</a>
+		</h2>
+		<div class="entry-content">
+			<h2>Default</h2>
+<p>By default, <strong>lattice</strong> sorts the observations by the axis values, starting at the bottom left.</p>
+<p>For example,</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span>
+colors <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#1B9E77&quot;</span><span class="p">,</span> <span class="s">&quot;#D95F02&quot;</span><span class="p">,</span> <span class="s">&quot;#7570B3&quot;</span><span class="p">)</span>
+dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span>
+    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p>produces:</p>
+<p><img alt="Default lattice dotplot" src="/images/r-lattice-default.png" /></p>
+<p>(Note: The <code>rownames(cars)</code> bit is just because of how this data set is stored. For your data, you might just type the variable name (<code>model</code>, for example) instead.)</p>
+<h2>Graphing one variable, sorting by another</h2>
+<p>If we want to show the same data, but we want to sort by another variable (or the same variable, for that matter), we can just add <code>reorder(yvar, sortvar)</code>. For example, to sort by the number of cylinders, we could:</p>
+<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span>
+</pre></div>
+
+
+<p><img alt="Sorted by number of cylinders" src="/images/r-lattice-by-cyl.png" /></p>
+<h2>Graphing two variables</h2>
+<p>To better show how this works, let's graph <code>cyl</code> alongside <code>mpg</code>, so we can see how it is sorting:</p>
+<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">,</span>
+    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
+    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Graph of mpg and cyl, sorted by cyl" src="/images/r-lattice-mpg-cyl.png" /></p>
+<h2>Reverse order</h2>
+<p>We can also sort in reverse order, by adding a "-" before the variable name:</p>
+<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">,</span>
+    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
+</pre></div>
+
+
+<p><img alt="Graph of mpg and cyl, sorted by cyl, reversed" src="/images/r-lattice-mpg-cyl-reverse.png" /></p>
+<h2>Adding a legend</h2>
+<p>We can also add a legend:</p>
+<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    xlab <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">,</span>
+    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span>
+    key <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>points <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">],</span> pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">)),</span>
+        text <span class="o">=</span> <span class="kt">list</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Miles per gallon&quot;</span><span class="p">,</span> <span class="s">&quot;Number of cylinders&quot;</span><span class="p">)),</span>
+        space <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">))</span>
+</pre></div>
+
+
+<p><img alt="With legend" src="/images/r-lattice-legend.png" /></p>
+<h2>Other lattice types</h2>
+<p>The same technique will work with other lattice graphs, such as barchart, bwplot, and stripplot.</p>
+<p>Full code available as a <a href="https://gist.github.com/4063837">gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/barchart.html" rel="tag">barchart</a>,  <a href="/tag/dotplot.html" rel="tag">dotplot</a>,  <a href="/tag/key.html" rel="tag">key</a>,  <a href="/tag/lattice.html" rel="tag">lattice</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/reorder.html" rel="tag">reorder</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/10/palettes-in-r.html.html">Thu 25 October 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/10/palettes-in-r.html.html" title="Permalink to Palettes in R" rel="bookmark">Palettes in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>In its simplest form, a palette in R is simply a vector of colors. This vector can be include the hex triplet or R color names.</p>
+<p>The default palette can be seen through <code>palette()</code>: </p>
+<div class="highlight"><pre><span class="o">&gt;</span> palette<span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">)</span> <span class="c1"># you&#39;ll only need this line if you&#39;ve previously changed the palette from the default</span>
+<span class="o">&gt;</span> palette<span class="p">()</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;black&quot;</span>   <span class="s">&quot;red&quot;</span>     <span class="s">&quot;green3&quot;</span>  <span class="s">&quot;blue&quot;</span>    <span class="s">&quot;cyan&quot;</span>    <span class="s">&quot;magenta&quot;</span> <span class="s">&quot;yellow&quot;</span>
+<span class="p">[</span><span class="m">8</span><span class="p">]</span> <span class="s">&quot;gray&quot;</span>
+</pre></div>
+
+
+<h2>Defining your own palettes</h2>
+<p>If you want to make your own palette, you can just create your own vector of colors. It's fine for your vector to include a mixture of hex triplets and R color names. You can use the <code>palette</code> function above, but generally it's best to just store each palette as a standard vector. For one thing, you can use more than one palette that way. Here's how you can define your own palette:</p>
+<div class="highlight"><pre>colors <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#A7A7A7&quot;</span><span class="p">,</span>
+    <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span>
+    <span class="s">&quot;firebrick&quot;</span><span class="p">,</span>
+    <span class="s">&quot;forestgreen&quot;</span><span class="p">,</span>
+    <span class="s">&quot;gold&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now let's try using our palette. For now let's just color each bar of a histogram. This is a silly example, but I think it's the easiest way to show how to get R to utilize your palette. In the following example, there are six bars, but only five colors. You can see that R will cycle through your palette to fill all the shapes.</p>
+<div class="highlight"><pre>hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="One color per bar" src="/images/r-palette-color-by-bar.png" /></p>
+<p>A more sensible use of color is to use a different color for each of a number of summary statistics:</p>
+<div class="highlight"><pre>colors <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#A7A7A7&quot;</span><span class="p">,</span>
+    <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span>
+    <span class="s">&quot;firebrick&quot;</span><span class="p">,</span>
+    <span class="s">&quot;forestgreen&quot;</span><span class="p">,</span>
+    <span class="s">&quot;gold&quot;</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">])</span>
+abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>discoveries<span class="p">),</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">2</span><span class="p">],</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+abline<span class="p">(</span>v <span class="o">=</span> median<span class="p">(</span>discoveries<span class="p">),</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">3</span><span class="p">],</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">min</span><span class="p">(</span>discoveries<span class="p">),</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">4</span><span class="p">],</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">max</span><span class="p">(</span>discoveries<span class="p">),</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">5</span><span class="p">],</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+legend<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;topright&quot;</span><span class="p">,</span> <span class="c1"># location of legend within plot area</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">2</span><span class="o">:</span><span class="m">5</span><span class="p">],</span>
+
+<span class="kt">c</span><span class="p">(</span><span class="s">&quot;Mean&quot;</span><span class="p">,</span> <span class="s">&quot;Median&quot;</span><span class="p">,</span> <span class="s">&quot;Minimum&quot;</span><span class="p">,</span> <span class="s">&quot;Maximum&quot;</span><span class="p">),</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Summary statistics" src="/images/r-palette-stats.png" /></p>
+<h2>Predefined palettes: default R palettes</h2>
+<p>The package <strong>grDevices</strong> (you probably already have this loaded) contains a number of palettes.</p>
+<div class="highlight"><pre><span class="o">?</span>rainbow
+rainbowcols <span class="o">&lt;-</span> rainbow<span class="p">(</span><span class="m">6</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> rainbowcols<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Rainbow palette" src="/images/r-palette-rainbow.png" /></p>
+<p>For <code>rainbow</code>, you can adjust the saturation and value. For example:</p>
+<div class="highlight"><pre>rainbowcols <span class="o">&lt;-</span> rainbow<span class="p">(</span><span class="m">6</span><span class="p">,</span>
+    s <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> rainbowcols<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Rainbow palette desaturated" src="/images/r-palette-rainbow-pale.png" /></p>
+<div class="highlight"><pre>heatcols <span class="o">&lt;-</span> heat.colors<span class="p">(</span><span class="m">6</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> heatcols<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="heat.colors palette" src="/images/r-palette-heat.png" /></p>
+<p>As well as <code>rainbow</code> and <code>heat.colors</code>, there are also <code>terrain.colors</code>, <code>topo.colors</code>, and <code>cm.colors</code>.</p>
+<h2>Predefined palettes: RColorBrewer</h2>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+display.brewer.all<span class="p">()</span>
+</pre></div>
+
+
+<p>The above lines will show us all the <strong>RColorBrewer</strong> palettes (output shown below). The top section of palettes are sequential, the middle section are qualitative, and the lower section are diverging. <a href="http://blog.ggplot2.org/post/24607351280/choosing-colour-palettes-part-ii-educated-choices">Here is some information about how to choose a good palette</a>.</p>
+<p><img alt="RColorBrewer palettes" src="/images/r-display-brewer-all.png" /></p>
+<p><strong>RColorBrewer</strong> works a little different than how we've defined palettes previously. We'll have to use <code>brewer.pal</code> to create a palette.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+darkcols <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> darkcols<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Dark2 color palette" src="/images/r-palette-dark2.png" /></p>
+<p>Even though we have to provide <code>brewer.pal</code> with the number of colors we want, we won't necessarily need to use all those colors later. We can still choose a color from the vector like we have previously. When we're setting a <code>col</code> setting to the full palette, we'll be more concerned with how many colors are included in the palette , but even there, we can choose a subset of the whole palette:</p>
+<div class="highlight"><pre>darkcols <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> darkcols<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">])</span>
+</pre></div>
+
+
+<p><img alt="Dark 2 color palette, two colors" src="/images/r-palette-dark2-2.png" /></p>
+<p><a href="https://gist.github.com/3943476">Here</a>'s the code from this post.</p>
+<p>Now that we're familiar with making our own palettes and using the built-in palettes in <strong>grDevices</strong> and <strong>RColorBrewer</strong>, I'm planning a future post about a more practical (but also more complicated) example of using palettes: making maps.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/brewerpal.html" rel="tag">brewer.pal</a>,  <a href="/tag/palette.html" rel="tag">palette</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/10/random-name-generator-in-r.html.html">Thu 11 October 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/10/random-name-generator-in-r.html.html" title="Permalink to Random Name Generator in R" rel="bookmark">Random Name Generator in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Just for the heck of it, let's recreate my <a href="http://realitytvgenerator.com/">Reality TV Show Name Generator</a> in R. This isn't really the sort of thing you'd normally do in R, but we can try out a bunch of different functions this way: random integers/sampling, concatenation, sorting, and determining the length of an object.</p>
+<p>First, let's create a dictionary for R to randomly pull names from. In this case, we want a first word and a last word, that we'll later combine to create a name similar to so many current TV shows. (Note: In some cases, I've made the first "word" or last "word" multiple words for some variety.) Feel free to make your own lists.</p>
+<div class="highlight"><pre>first <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;Fear&quot;</span><span class="p">,</span> <span class="s">&quot;Frontier&quot;</span><span class="p">,</span> <span class="s">&quot;Nanny&quot;</span><span class="p">,</span> <span class="s">&quot;Job&quot;</span><span class="p">,</span> <span class="s">&quot;Yard&quot;</span><span class="p">,</span> <span class="s">&quot;Airport&quot;</span><span class="p">,</span> <span class="s">&quot;Half Pint&quot;</span><span class="p">,</span> <span class="s">&quot;Commando&quot;</span><span class="p">,</span> <span class="s">&quot;Fast Food&quot;</span><span class="p">,</span> <span class="s">&quot;Basketball&quot;</span><span class="p">,</span> <span class="s">&quot;Bachelorette&quot;</span><span class="p">,</span> <span class="s">&quot;Diva&quot;</span><span class="p">,</span> <span class="s">&quot;Baggage&quot;</span><span class="p">,</span> <span class="s">&quot;College&quot;</span><span class="p">,</span> <span class="s">&quot;Octane&quot;</span><span class="p">,</span> <span class="s">&quot;Clean&quot;</span><span class="p">,</span> <span class="s">&quot;Sister&quot;</span><span class="p">,</span> <span class="s">&quot;Army&quot;</span><span class="p">,</span> <span class="s">&quot;Drama&quot;</span><span class="p">,</span> <span class="s">&quot;Backyard&quot;</span><span class="p">,</span> <span class="s">&quot;Pirate&quot;</span><span class="p">,</span> <span class="s">&quot;Shark&quot;</span><span class="p">,</span> <span class="s">&quot;Project&quot;</span><span class="p">,</span> <span class="s">&quot;Model&quot;</span><span class="p">,</span> <span class="s">&quot;Survival&quot;</span><span class="p">,</span> <span class="s">&quot;Justice&quot;</span><span class="p">,</span> <span class="s">&quot;Mom&quot;</span><span class="p">,</span> <span class="s">&quot;New York&quot;</span><span class="p">,</span> <span class="s">&quot;Jersey&quot;</span><span class="p">,</span> <span class="s">&quot;Ax&quot;</span><span class="p">,</span> <span class="s">&quot;Warrior&quot;</span><span class="p">,</span> <span class="s">&quot;Ancient&quot;</span><span class="p">,</span> <span class="s">&quot;Pawn&quot;</span><span class="p">,</span> <span class="s">&quot;Throttle&quot;</span><span class="p">,</span> <span class="s">&quot;The Great American&quot;</span><span class="p">,</span> <span class="s">&quot;Knight&quot;</span><span class="p">,</span> <span class="s">&quot;American&quot;</span><span class="p">,</span> <span class="s">&quot;Outback&quot;</span><span class="p">,</span> <span class="s">&quot;Celebrity&quot;</span><span class="p">,</span> <span class="s">&quot;Air&quot;</span><span class="p">,</span> <span class="s">&quot;Restaurant&quot;</span><span class="p">,</span> <span class="s">&quot;Bachelor&quot;</span><span class="p">,</span> <span class="s">&quot;Family&quot;</span><span class="p">,</span> <span class="s">&quot;Royal&quot;</span><span class="p">,</span> <span class="s">&quot;Surf&quot;</span><span class="p">,</span> <span class="s">&quot;Ulitmate&quot;</span><span class="p">,</span> <span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;Operation&quot;</span><span class="p">,</span> <span class="s">&quot;Fish Tank&quot;</span><span class="p">,</span> <span class="s">&quot;Logging&quot;</span><span class="p">,</span> <span class="s">&quot;Hollywood&quot;</span><span class="p">,</span> <span class="s">&quot;Amateur&quot;</span><span class="p">,</span> <span class="s">&quot;Craft&quot;</span><span class="p">,</span> <span class="s">&quot;Mystery&quot;</span><span class="p">,</span> <span class="s">&quot;Intervention&quot;</span><span class="p">,</span> <span class="s">&quot;Dog&quot;</span><span class="p">,</span> <span class="s">&quot;Human&quot;</span><span class="p">,</span> <span class="s">&quot;Rock&quot;</span><span class="p">,</span> <span class="s">&quot;Ice Road&quot;</span><span class="p">,</span> <span class="s">&quot;Shipping&quot;</span><span class="p">,</span> <span class="s">&quot;Modern&quot;</span><span class="p">,</span> <span class="s">&quot;Crocodile&quot;</span><span class="p">,</span> <span class="s">&quot;Farm&quot;</span><span class="p">,</span> <span class="s">&quot;Amish&quot;</span><span class="p">,</span> <span class="s">&quot;Single&quot;</span><span class="p">,</span> <span class="s">&quot;Tool&quot;</span><span class="p">,</span> <span class="s">&quot;Boot Camp&quot;</span><span class="p">,</span> <span class="s">&quot;Pioneer&quot;</span><span class="p">,</span> <span class="s">&quot;Kid&quot;</span><span class="p">,</span> <span class="s">&quot;Action&quot;</span><span class="p">,</span> <span class="s">&quot;Bounty&quot;</span><span class="p">,</span> <span class="s">&quot;Paradise&quot;</span><span class="p">,</span> <span class="s">&quot;Mega&quot;</span><span class="p">,</span> <span class="s">&quot;Love&quot;</span><span class="p">,</span> <span class="s">&quot;Style&quot;</span><span class="p">,</span> <span class="s">&quot;Teen&quot;</span><span class="p">,</span> <span class="s">&quot;Pop&quot;</span><span class="p">,</span> <span class="s">&quot;Wedding&quot;</span><span class="p">,</span> <span class="s">&quot;An American&quot;</span><span class="p">,</span> <span class="s">&quot;Treasure&quot;</span><span class="p">,</span> <span class="s">&quot;Myth&quot;</span><span class="p">,</span> <span class="s">&quot;Empire&quot;</span><span class="p">,</span> <span class="s">&quot;Motorway&quot;</span><span class="p">,</span> <span class="s">&quot;Room&quot;</span><span class="p">,</span> <span class="s">&quot;Casino&quot;</span><span class="p">,</span> <span class="s">&quot;Comedy&quot;</span><span class="p">,</span> <span class="s">&quot;Undercover&quot;</span><span class="p">,</span> <span class="s">&quot;Millionaire&quot;</span><span class="p">,</span> <span class="s">&quot;Chopper&quot;</span><span class="p">,</span> <span class="s">&quot;Space&quot;</span><span class="p">,</span> <span class="s">&quot;Cajun&quot;</span><span class="p">,</span> <span class="s">&quot;Hot Rod&quot;</span><span class="p">,</span> <span class="s">&quot;The&quot;</span><span class="p">,</span> <span class="s">&quot;Colonial&quot;</span><span class="p">,</span> <span class="s">&quot;Dance&quot;</span><span class="p">,</span> <span class="s">&quot;Flying&quot;</span><span class="p">,</span> <span class="s">&quot;Sorority&quot;</span><span class="p">,</span> <span class="s">&quot;Mountain&quot;</span><span class="p">,</span> <span class="s">&quot;Auction&quot;</span><span class="p">,</span> <span class="s">&quot;Extreme&quot;</span><span class="p">,</span> <span class="s">&quot;Whale&quot;</span><span class="p">,</span> <span class="s">&quot;Storage&quot;</span><span class="p">,</span> <span class="s">&quot;Cake&quot;</span><span class="p">,</span> <span class="s">&quot;Turf&quot;</span><span class="p">,</span> <span class="s">&quot;UFO&quot;</span><span class="p">,</span> <span class="s">&quot;The Real&quot;</span><span class="p">,</span> <span class="s">&quot;Wild&quot;</span><span class="p">,</span> <span class="s">&quot;Duck&quot;</span><span class="p">,</span> <span class="s">&quot;Queer&quot;</span><span class="p">,</span> <span class="s">&quot;Voice&quot;</span><span class="p">,</span> <span class="s">&quot;Fame&quot;</span><span class="p">,</span> <span class="s">&quot;Music&quot;</span><span class="p">,</span> <span class="s">&quot;Rock Star&quot;</span><span class="p">,</span> <span class="s">&quot;BBQ&quot;</span><span class="p">,</span> <span class="s">&quot;Spouse&quot;</span><span class="p">,</span> <span class="s">&quot;Wife&quot;</span><span class="p">,</span> <span class="s">&quot;Road&quot;</span><span class="p">,</span> <span class="s">&quot;Star&quot;</span><span class="p">,</span> <span class="s">&quot;Renovation&quot;</span><span class="p">,</span> <span class="s">&quot;Comic&quot;</span><span class="p">,</span> <span class="s">&quot;Chef&quot;</span><span class="p">,</span> <span class="s">&quot;Band&quot;</span><span class="p">,</span> <span class="s">&quot;House&quot;</span><span class="p">,</span> <span class="s">&quot;Sweet&quot;</span><span class="p">)</span>
+
+second <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;Hunters&quot;</span><span class="p">,</span> <span class="s">&quot;Hoarders&quot;</span><span class="p">,</span> <span class="s">&quot;Contest&quot;</span><span class="p">,</span> <span class="s">&quot;Party&quot;</span><span class="p">,</span> <span class="s">&quot;Stars&quot;</span><span class="p">,</span> <span class="s">&quot;Truckers&quot;</span><span class="p">,</span> <span class="s">&quot;Camp&quot;</span><span class="p">,</span> <span class="s">&quot;Dance Crew&quot;</span><span class="p">,</span> <span class="s">&quot;Casting Call&quot;</span><span class="p">,</span> <span class="s">&quot;Inventor&quot;</span><span class="p">,</span> <span class="s">&quot;Search&quot;</span><span class="p">,</span> <span class="s">&quot;Pitmasters&quot;</span><span class="p">,</span> <span class="s">&quot;Blitz&quot;</span><span class="p">,</span> <span class="s">&quot;Marvels&quot;</span><span class="p">,</span> <span class="s">&quot;Wedding&quot;</span><span class="p">,</span> <span class="s">&quot;Crew&quot;</span><span class="p">,</span> <span class="s">&quot;Men&quot;</span><span class="p">,</span> <span class="s">&quot;Project&quot;</span><span class="p">,</span> <span class="s">&quot;Intervention&quot;</span><span class="p">,</span> <span class="s">&quot;Celebrities&quot;</span><span class="p">,</span> <span class="s">&quot;Treasure&quot;</span><span class="p">,</span> <span class="s">&quot;Master&quot;</span><span class="p">,</span> <span class="s">&quot;Days&quot;</span><span class="p">,</span> <span class="s">&quot;Wishes&quot;</span><span class="p">,</span> <span class="s">&quot;Sweets&quot;</span><span class="p">,</span> <span class="s">&quot;Haul&quot;</span><span class="p">,</span> <span class="s">&quot;Hour&quot;</span><span class="p">,</span> <span class="s">&quot;Mania&quot;</span><span class="p">,</span> <span class="s">&quot;Warrior&quot;</span><span class="p">,</span> <span class="s">&quot;Wrangler&quot;</span><span class="p">,</span> <span class="s">&quot;Restoration&quot;</span><span class="p">,</span> <span class="s">&quot;Factor&quot;</span><span class="p">,</span> <span class="s">&quot;Hot Rod&quot;</span><span class="p">,</span> <span class="s">&quot;of Love&quot;</span><span class="p">,</span> <span class="s">&quot;Inventors&quot;</span><span class="p">,</span> <span class="s">&quot;Kitchen&quot;</span><span class="p">,</span> <span class="s">&quot;Casino&quot;</span><span class="p">,</span> <span class="s">&quot;Queens&quot;</span><span class="p">,</span> <span class="s">&quot;Academy&quot;</span><span class="p">,</span> <span class="s">&quot;Superhero&quot;</span><span class="p">,</span> <span class="s">&quot;Battles&quot;</span><span class="p">,</span> <span class="s">&quot;Behavior&quot;</span><span class="p">,</span> <span class="s">&quot;Rules&quot;</span><span class="p">,</span> <span class="s">&quot;Justice&quot;</span><span class="p">,</span> <span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;Discoveries&quot;</span><span class="p">,</span> <span class="s">&quot;Club&quot;</span><span class="p">,</span> <span class="s">&quot;Brother&quot;</span><span class="p">,</span> <span class="s">&quot;Showdown&quot;</span><span class="p">,</span> <span class="s">&quot;Disasters&quot;</span><span class="p">,</span> <span class="s">&quot;Attack&quot;</span><span class="p">,</span> <span class="s">&quot;Contender&quot;</span><span class="p">,</span> <span class="s">&quot;People&quot;</span><span class="p">,</span> <span class="s">&quot;Raiders&quot;</span><span class="p">,</span> <span class="s">&quot;Story&quot;</span><span class="p">,</span> <span class="s">&quot;Patrol&quot;</span><span class="p">,</span> <span class="s">&quot;House&quot;</span><span class="p">,</span> <span class="s">&quot;Gypsies&quot;</span><span class="p">,</span> <span class="s">&quot;Challenge&quot;</span><span class="p">,</span> <span class="s">&quot;School&quot;</span><span class="p">,</span> <span class="s">&quot;Aliens&quot;</span><span class="p">,</span> <span class="s">&quot;Towers&quot;</span><span class="p">,</span> <span class="s">&quot;Brawlers&quot;</span><span class="p">,</span> <span class="s">&quot;Garage&quot;</span><span class="p">,</span> <span class="s">&quot;Whisperer&quot;</span><span class="p">,</span> <span class="s">&quot;Supermodel&quot;</span><span class="p">,</span> <span class="s">&quot;Boss&quot;</span><span class="p">,</span> <span class="s">&quot;Secrets&quot;</span><span class="p">,</span> <span class="s">&quot;Apprentice&quot;</span><span class="p">,</span> <span class="s">&quot;Icon&quot;</span><span class="p">,</span> <span class="s">&quot;House Party&quot;</span><span class="p">,</span> <span class="s">&quot;Pickers&quot;</span><span class="p">,</span> <span class="s">&quot;Crashers&quot;</span><span class="p">,</span> <span class="s">&quot;Nation&quot;</span><span class="p">,</span> <span class="s">&quot;Files&quot;</span><span class="p">,</span> <span class="s">&quot;Office&quot;</span><span class="p">,</span> <span class="s">&quot;Wars&quot;</span><span class="p">,</span> <span class="s">&quot;Rescue&quot;</span><span class="p">,</span> <span class="s">&quot;VIP&quot;</span><span class="p">,</span> <span class="s">&quot;Fighter&quot;</span><span class="p">,</span> <span class="s">&quot;Job&quot;</span><span class="p">,</span> <span class="s">&quot;Experiment&quot;</span><span class="p">,</span> <span class="s">&quot;Girls&quot;</span><span class="p">,</span> <span class="s">&quot;Quest&quot;</span><span class="p">,</span> <span class="s">&quot;Eats&quot;</span><span class="p">,</span> <span class="s">&quot;Moms&quot;</span><span class="p">,</span> <span class="s">&quot;Idol&quot;</span><span class="p">,</span> <span class="s">&quot;Consignment&quot;</span><span class="p">,</span> <span class="s">&quot;Life&quot;</span><span class="p">,</span> <span class="s">&quot;Dynasty&quot;</span><span class="p">,</span> <span class="s">&quot;Diners&quot;</span><span class="p">,</span> <span class="s">&quot;Chef&quot;</span><span class="p">,</span> <span class="s">&quot;Makeover&quot;</span><span class="p">,</span> <span class="s">&quot;Ninja&quot;</span><span class="p">,</span> <span class="s">&quot;Show&quot;</span><span class="p">,</span> <span class="s">&quot;Ladies&quot;</span><span class="p">,</span> <span class="s">&quot;Dancing&quot;</span><span class="p">,</span> <span class="s">&quot;Greenlight&quot;</span><span class="p">,</span> <span class="s">&quot;Mates&quot;</span><span class="p">,</span> <span class="s">&quot;Wives&quot;</span><span class="p">,</span> <span class="s">&quot;Jail&quot;</span><span class="p">,</span> <span class="s">&quot;Model&quot;</span><span class="p">,</span> <span class="s">&quot;Ship&quot;</span><span class="p">,</span> <span class="s">&quot;Family&quot;</span><span class="p">,</span> <span class="s">&quot;Videos&quot;</span><span class="p">,</span> <span class="s">&quot;Repo&quot;</span><span class="p">,</span> <span class="s">&quot;Rivals&quot;</span><span class="p">,</span> <span class="s">&quot;Room&quot;</span><span class="p">,</span> <span class="s">&quot;Dad&quot;</span><span class="p">,</span> <span class="s">&quot;Star&quot;</span><span class="p">,</span> <span class="s">&quot;Exes&quot;</span><span class="p">,</span> <span class="s">&quot;Island&quot;</span><span class="p">,</span> <span class="s">&quot;Next Door&quot;</span><span class="p">,</span> <span class="s">&quot;Missions&quot;</span><span class="p">,</span> <span class="s">&quot;Kings&quot;</span><span class="p">,</span> <span class="s">&quot;Loser&quot;</span><span class="p">,</span> <span class="s">&quot;Shore&quot;</span><span class="p">,</span> <span class="s">&quot;Assistant&quot;</span><span class="p">,</span> <span class="s">&quot;Comedians&quot;</span><span class="p">,</span> <span class="s">&quot;Rooms&quot;</span><span class="p">,</span> <span class="s">&quot;Boys&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Whew, that was long. Instead, let's look at a random sample of those.</p>
+<p>We can make random lists using <code>sample</code>. Sample wants you to provide it with a vector, the sample size you want, and whether or not it should reuse items from the vector. In this case, we don't want any duplicates, so we add <code>replace = FALSE</code>.</p>
+<div class="highlight"><pre>first <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span>first<span class="p">,</span>
+    <span class="m">10</span><span class="p">,</span> replace <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+
+second <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span>second<span class="p">,</span>
+    <span class="m">12</span><span class="p">,</span>
+    replace <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This gives us something more like</p>
+<div class="highlight"><pre><span class="o">&gt;</span> first
+ <span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;Teen&quot;</span>       <span class="s">&quot;Fame&quot;</span>       <span class="s">&quot;Basketball&quot;</span> <span class="s">&quot;Sister&quot;</span>     <span class="s">&quot;Bachelor&quot;</span> 
+ <span class="p">[</span><span class="m">6</span><span class="p">]</span> <span class="s">&quot;Half Pint&quot;</span>  <span class="s">&quot;Myth&quot;</span>       <span class="s">&quot;Paradise&quot;</span>   <span class="s">&quot;Frontier&quot;</span>   <span class="s">&quot;Fast Food&quot;</span>
+<span class="o">&gt;</span> second
+ <span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;Comedians&quot;</span>    <span class="s">&quot;Boss&quot;</span>         <span class="s">&quot;Experiment&quot;</span>   <span class="s">&quot;Wives&quot;</span>        <span class="s">&quot;Wedding&quot;</span>    
+ <span class="p">[</span><span class="m">6</span><span class="p">]</span> <span class="s">&quot;Intervention&quot;</span> <span class="s">&quot;Days&quot;</span>         <span class="s">&quot;Raiders&quot;</span>      <span class="s">&quot;Attack&quot;</span>       <span class="s">&quot;Sweets&quot;</span>     
+<span class="p">[</span><span class="m">11</span><span class="p">]</span> <span class="s">&quot;Jail&quot;</span>         <span class="s">&quot;Whisperer&quot;</span>
+</pre></div>
+
+
+<p>It's random, so your list will probably be different.</p>
+<p>If you want to <code>sort</code> them alphabetically, use</p>
+<div class="highlight"><pre>first <span class="o">&lt;-</span> <span class="kp">sort</span><span class="p">(</span>first<span class="p">)</span>
+</pre></div>
+
+
+<p>If we had wanted to randomly resort the whole "first" list, we could have entered the command</p>
+<div class="highlight"><pre>first <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span>first<span class="p">,</span> <span class="kp">length</span><span class="p">(</span>first<span class="p">),</span> replace <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Using <code>length</code> makes it easy to resort the whole list. You don't have to look up how many items there are in <code>first</code>.</p>
+<p>Let's use <code>length</code> again to choose a random number that we'll use to grab a number from the <code>first</code> list, and then again to choose a random number that we'll use to grab a number from the <code>second</code> list:</p>
+<div class="highlight"><pre>rand1 <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>first<span class="p">),</span> <span class="m">1</span><span class="p">)</span>
+rand2 <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>second<span class="p">),</span> <span class="m">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And finally, we want to pull an item from each list and con<code>cat</code>enate them. We could concatenate to a file, but here we'll just let it print to the console.</p>
+<div class="highlight"><pre><span class="kp">cat</span><span class="p">(</span>first<span class="p">[</span>rand1<span class="p">],</span> second<span class="p">[</span>rand2<span class="p">],</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>"<code>\n</code>" produces a line break so we can do <code>source(reality.R)</code> again and have another name pop up on the next line.</p>
+<p>If you've made a dictionary of your own and want to check for duplicates, you can do the following:</p>
+<div class="highlight"><pre><span class="kp">anyDuplicated</span><span class="p">(</span>first<span class="p">)</span> <span class="c1"># if not 0, there are that many duplicates</span>
+<span class="kp">duplicated</span><span class="p">(</span>first<span class="p">)</span> <span class="c1"># this will show which items are duplicates</span>
+</pre></div>
+
+
+<p>Feel free to improve on my dictionary or generator. I'd love to see it.</p>
+<p>Code available as a <a href="https://gist.github.com/3837835">gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/anyduplicated.html" rel="tag">anyDuplicated</a>,  <a href="/tag/cat.html" rel="tag">cat</a>,  <a href="/tag/duplicated.html" rel="tag">duplicated</a>,  <a href="/tag/length.html" rel="tag">length</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/sample.html" rel="tag">sample</a>,  <a href="/tag/sort.html" rel="tag">sort</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/10/adding-measures-of-central-tendency-to.html.html">Thu 04 October 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/10/adding-measures-of-central-tendency-to.html.html" title="Permalink to Adding Measures of Central Tendency to Histograms in R" rel="bookmark">Adding Measures of Central Tendency to Histograms in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Building on the basic histogram with a density plot, we can add measures of central tendency (in this case, mean and median) and a legend.</p>
+<p>Like last time, we'll use the beaver data from the <strong>datasets</strong> package.</p>
+<div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
+    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
+    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span> 
+    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
+    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span>
+    ylim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">3</span><span class="p">),</span>
+    xlab <span class="o">=</span> <span class="s">&quot;Temperature&quot;</span><span class="p">,</span>
+    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span>
+lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span>
+    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Next we'll add a line for the mean: </p>
+<div class="highlight"><pre>abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span>
+    col <span class="o">=</span> <span class="s">&quot;royalblue&quot;</span><span class="p">,</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And a line for the median: </p>
+<div class="highlight"><pre>abline<span class="p">(</span>v <span class="o">=</span> median<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span>
+    col <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And then we can also add a legend, so it will be easy to tell which line is which. 
+    :::r
+    legend(x = "topright", # location of legend within plot area
+        c("Density plot", "Mean", "Median"),
+        col = c("chocolate3", "royalblue", "red"),
+        lwd = c(2, 2, 2))</p>
+<p>All of this together gives us the following graphic:</p>
+<p><img alt="Beaver #1 central tendency" src="/images/r-histogram-tendency-1.png" /></p>
+<p>In this example, the mean and median are very close, as we can see by using <code>median()</code> and <code>mode()</code>.</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="kp">mean</span><span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">36.86219</span>
+<span class="o">&gt;</span> median<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">36.87</span>
+</pre></div>
+
+
+<p>We can do like we did in the previous post and graph beaver1 and beaver2 together by adding a layout line and changing the limits of x and y. The full code for this is available in a <a href="https://gist.github.com/3768715#file_histdens2.r">gist</a>.</p>
+<p>Here's the output from that code: </p>
+<p><img alt="Beaver #1 and #2 central tendency" src="/images/r-histogram-tendency-2.png" /></p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/abline.html" rel="tag">abline</a>,  <a href="/tag/hist.html" rel="tag">hist</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/09/histogram-density-plot-combo-in-r.html.html">Thu 27 September 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/09/histogram-density-plot-combo-in-r.html.html" title="Permalink to Histogram + Density Plot Combo in R" rel="bookmark">Histogram + Density Plot Combo in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Plotting a histogram using <code>hist</code> from the <strong>graphics</strong> package is pretty straightforward, but what if you want to view the density plot on top of the histogram? This combination of graphics can help us compare the distributions of groups.</p>
+<p>Let's use some of the data included with R in the package <strong>datasets</strong>. It will help to have two things to compare, so we'll use the <a href="http://stat.ethz.ch/R-manual/R-patched/library/datasets/html/beavers.html"><code>beaver</code> data sets</a>, <code>beaver1</code> and <code>beaver2</code>: the body temperatures of two beavers, taken at 10 minute intervals.</p>
+<p>First we want to plot the histogram of one beaver:</p>
+<div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
+    col<span class="o">=</span><span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
+    border<span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span>
+    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
+    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span>
+    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Histogram" src="/images/r-histogram.png" /></p>
+<p>Next, we want to add in the density line, using <code>lines</code>:</p>
+<div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
+    col<span class="o">=</span><span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
+    border<span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span>
+    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
+    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span>
+    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span>
+lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span>
+    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Histogram and density" src="/images/r-histogram-density.png" /></p>
+<p>Now let's show the plots for both beavers on the same image. We'll make a histogram and density plot for Beaver #2, wrap the graphs in a <code>layout</code> and <code>png</code>, and change the x-axis to be the same, using <code>xlim</code>.</p>
+<p><img alt="Histogram and density" src="/images/r-histogram-density-2.png" /></p>
+<p>Here's the final code, <a href="https://gist.github.com/3685924">also available on gist</a>:</p>
+<div class="highlight"><pre>png<span class="p">(</span><span class="s">&quot;beaverhist.png&quot;</span><span class="p">)</span>
+layout<span class="p">(</span><span class="kt">matrix</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">),</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span>
+    byrow <span class="o">=</span> <span class="kc">TRUE</span><span class="p">))</span>
+hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
+    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
+    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span>
+    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
+    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span>
+    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span>
+    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span>
+lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span>
+    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span>
+hist<span class="p">(</span>beaver2<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
+    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
+    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span>
+    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
+    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span>
+    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span>
+    main <span class="o">=</span> <span class="s">&quot;Beaver #2&quot;</span><span class="p">)</span>
+lines<span class="p">(</span>density<span class="p">(</span>beaver2<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span>
+    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span>
+dev.off<span class="p">()</span>
+</pre></div>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/hist.html" rel="tag">hist</a>,  <a href="/tag/lines.html" rel="tag">lines</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/09/descriptive-statistics-of-groups-in-r.html.html">Thu 20 September 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/09/descriptive-statistics-of-groups-in-r.html.html" title="Permalink to Descriptive Statistics of Groups in R" rel="bookmark">Descriptive Statistics of Groups in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>The <a href="http://stat.ethz.ch/R-manual/R-patched/library/datasets/html/sleep.html">sleep data set</a>—provided by the <strong>datasets</strong> package—shows the effects of two different drugs on ten patients. <code>Extra</code> is the increase in hours of sleep; <code>group</code> is the drug given, 1 or 2; and <code>ID</code> is the patient ID, 1 to 10.</p>
+<p>I'll be using this data set to show how to perform descriptive statistics of groups within a data set, when the data set is <a href="http://www.r-bloggers.com/reshape-package-in-r-long-data-format-to-wide-back-to-long-again/">long (as opposed to wide)</a>.</p>
+<p>First, we'll need to load up the psych package. The datasets package containing our data is probably already loaded.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>psych<span class="p">)</span>
+</pre></div>
+
+
+<p>The <code>describe.by</code> function in the <strong>psych</strong> package is what does the magic for us here. It will group our data by a variable we give it, and output descriptive statistics for each of the groups.</p>
+<div class="highlight"><pre><span class="o">&gt;</span> describe.by<span class="p">(</span>sleep<span class="p">,</span> sleep<span class="o">$</span>group<span class="p">)</span>
+group<span class="o">:</span> <span class="m">1</span>
+       var  n mean   sd median trimmed  mad  min  max range skew kurtosis   se
+extra    <span class="m">1</span> <span class="m">10</span> <span class="m">0.75</span> <span class="m">1.79</span>   <span class="m">0.35</span>    <span class="m">0.68</span> <span class="m">1.56</span> <span class="m">-1.6</span>  <span class="m">3.7</span>   <span class="m">5.3</span> <span class="m">0.42</span>    <span class="m">-1.30</span> <span class="m">0.57</span>
+group<span class="o">*</span>   <span class="m">2</span> <span class="m">10</span> <span class="m">1.00</span> <span class="m">0.00</span>   <span class="m">1.00</span>    <span class="m">1.00</span> <span class="m">0.00</span>  <span class="m">1.0</span>  <span class="m">1.0</span>   <span class="m">0.0</span>  <span class="kc">NaN</span>      <span class="kc">NaN</span> <span class="m">0.00</span>
+ID<span class="o">*</span>      <span class="m">3</span> <span class="m">10</span> <span class="m">5.50</span> <span class="m">3.03</span>   <span class="m">5.50</span>    <span class="m">5.50</span> <span class="m">3.71</span>  <span class="m">1.0</span> <span class="m">10.0</span>   <span class="m">9.0</span> <span class="m">0.00</span>    <span class="m">-1.56</span> <span class="m">0.96</span>
+<span class="o">------------------------------------------------------------</span> 
+group<span class="o">:</span> <span class="m">2</span>
+       var  n mean   sd median trimmed  mad  min  max range skew kurtosis   se
+extra    <span class="m">1</span> <span class="m">10</span> <span class="m">2.33</span> <span class="m">2.00</span>   <span class="m">1.75</span>    <span class="m">2.24</span> <span class="m">2.45</span> <span class="m">-0.1</span>  <span class="m">5.5</span>   <span class="m">5.6</span> <span class="m">0.28</span>    <span class="m">-1.66</span> <span class="m">0.63</span>
+group<span class="o">*</span>   <span class="m">2</span> <span class="m">10</span> <span class="m">2.00</span> <span class="m">0.00</span>   <span class="m">2.00</span>    <span class="m">2.00</span> <span class="m">0.00</span>  <span class="m">2.0</span>  <span class="m">2.0</span>   <span class="m">0.0</span>  <span class="kc">NaN</span>      <span class="kc">NaN</span> <span class="m">0.00</span>
+ID<span class="o">*</span>      <span class="m">3</span> <span class="m">10</span> <span class="m">5.50</span> <span class="m">3.03</span>   <span class="m">5.50</span>    <span class="m">5.50</span> <span class="m">3.71</span>  <span class="m">1.0</span> <span class="m">10.0</span>   <span class="m">9.0</span> <span class="m">0.00</span>    <span class="m">-1.56</span> <span class="m">0.96</span>
+</pre></div>
+
+
+<p>Of course, there are other ways to find the descriptive statistics of groups, and since you'll probably be doing further analysis on the groups, and you may be splitting the whole data into subsets by groups, it may be easiest to just use describe on each subset. But that's a topic for another post. And this is an easy way to quickly look at many groups, and a quick look is particularly essential for descriptive statistics.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/analysis.html" rel="tag">analysis</a>,  <a href="/tag/datasets.html" rel="tag">datasets</a>,  <a href="/tag/describeby.html" rel="tag">describe.by</a>,  <a href="/tag/psych.html" rel="tag">psych</a>,  <a href="/tag/r.html" rel="tag">R</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/09/word-clouds-in-r.html.html">Thu 13 September 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/09/word-clouds-in-r.html.html" title="Permalink to Word Clouds in R" rel="bookmark">Word Clouds in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Thanks to the <strong>wordcloud</strong> package, it's super easy to make a word cloud or tag cloud in R.</p>
+<p>In this case, the words have been counted already. If you are starting with plain text, you can use the text mining package <strong>tm</strong> to obtain the counts. <a href="http://onertipaday.blogspot.com/2011/07/word-cloud-in-r.html">Other bloggers</a> have provided good examples of this. I'll just be covering the simple case where we already have the frequencies.</p>
+<p>Let's look at some commonly used words during the National Conventions this year. <a href="http://www.nytimes.com/interactive/2012/09/06/us/politics/convention-word-counts.html">The New York Times produced a cool infographic</a> that we'll use as our data source. The data in csv format (and the R code too) are available in a <a href="https://gist.github.com/3671518">gist</a>.</p>
+<p>First we need to load up the packages and our data:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>wordcloud<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+
+conventions <span class="o">&lt;-</span> read.table<span class="p">(</span><span class="s">&quot;conventions.csv&quot;</span><span class="p">,</span>
+    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And then we can get to using the <strong>wordcloud</strong> library to produce our clouds in R:</p>
+<div class="highlight"><pre>
+</pre></div>
+
+
+<p>png("dnc.png")
+    wordcloud(conventions$wordper25k, # words
+        conventions$democrats, # frequencies
+        scale = c(4,1), # size of largest and smallest words
+        colors = brewer.pal(9,"Blues"), # number of colors, palette
+        rot.per = 0) # proportion of words to rotate 90 degrees
+    dev.off()</p>
+<div class="highlight"><pre><span class="x">png(&quot;rnc.png&quot;)</span>
+<span class="x">wordcloud(conventions</span><span class="p">$</span><span class="nv">wordper25k</span><span class="x">,</span>
+<span class="x">    conventions</span><span class="p">$</span><span class="nv">republicans</span><span class="x">,</span>
+<span class="x">    scale = c(4,1),</span>
+<span class="x">    colors = brewer.pal(9,&quot;Reds&quot;),</span>
+<span class="x">    rot.per = 0)</span>
+<span class="x">dev.off()</span>
+</pre></div>
+
+
+<p><img alt="DNC word cloud" src="/images/r-word-cloud-dnc.png" /></p>
+<p><img alt="RNC word cloud" src="/images/r-word-cloud-rnc.png" /></p>
+<p>The default word cloud has some words rotated 90 degrees, but I prefer to use rot.per = 0 to make them all horizontal for readability.</p>
+<p>You can easily change to just one color if you prefer that since the size already denotes the frequency of the word, by changing color to "red3", for example:</p>
+<p><img alt="RNC single color" src="/images/r-word-cloud-rnc-alt.png" /></p>
+<div class="highlight"><pre>png<span class="p">(</span><span class="s">&quot;rncalt.png&quot;</span><span class="p">)</span>
+wordcloud<span class="p">(</span>conventions<span class="o">$</span>wordper25k<span class="p">,</span>
+    conventions<span class="o">$</span>republicans<span class="p">,</span>
+    scale <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">1</span><span class="p">),</span>
+    colors <span class="o">=</span> <span class="s">&quot;red3&quot;</span><span class="p">,</span>
+    rot.per <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+dev.off<span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="DNC single color" src="/images/r-word-cloud-dnc-alt.png" /></p>
+<p>And there you have it, a simple way to generate a word count from frequency data using R.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>,  <a href="/tag/wordcloud.html" rel="tag">wordcloud</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="navigation">
+		<div class="nav-previous">
+				<a href="/tag/r2.html">
+			<span class="meta-nav">&larr;</span> Newer posts</a>
+		</div>		
+</div>
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

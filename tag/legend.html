@@ -210,6 +210,271 @@ legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p"
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/classint.html" rel="tag">classInt</a>,  <a href="/tag/classintervals.html" rel="tag">classIntervals</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/map.html" rel="tag">map</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/01/using-line-segments-to-compare-values.html.html">Thu 31 January 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/01/using-line-segments-to-compare-values.html.html" title="Permalink to Using Line Segments to Compare Values in R" rel="bookmark">Using Line Segments to Compare Values in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Sometimes you want to create a graph that will allow the viewer to see in one glance:</p>
+<ul>
+<li>The original value of a variable</li>
+<li>The new value of the variable</li>
+<li>The change between old and new</li>
+</ul>
+<p>One method I like to use to do this is using <code>geom_segment</code> and <code>geom_point</code> in the <strong>ggplot2</strong> package.</p>
+<p>First, let's load <strong>ggplot2</strong> and our data:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+
+data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span>
+data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span>
+</pre></div>
+
+
+<p>Next, we'll set up our plot and axes:</p>
+<div class="highlight"><pre>ggplot<span class="p">(</span>data<span class="p">,</span>
+    aes<span class="p">(</span>y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span>
+labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span>
+    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>For <code>geom_segment</code>, we need to provide four variables. (Sometimes two of the four will be the same, like in this case.) <code>x</code> and <code>y</code> provide the start points, and <code>xend</code> and <code>yend</code> provide the endpoints.</p>
+<p>In this case, we want to show the change between 1940 and 1960 for each category. Therefore our variables are the following:</p>
+<ul>
+<li>x: "1940"</li>
+<li>y: Category</li>
+<li>xend: "1960"</li>
+<li>yend: Category</li>
+</ul>
+<!--end the list-->
+
+<div class="highlight"><pre>geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+  y <span class="o">=</span> Category<span class="p">,</span>
+  xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+  yend <span class="o">=</span> Category<span class="p">),</span>
+ size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>Next, we want to plot points for the 1940 and 1960 values. We could do the same for the 1945, 1950, and 1955 values, if we wanted to.</p>
+<div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+    color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span>
+    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+    color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
+    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>Finally, we'll finish up by touching up the legend for the plot:</p>
+<div class="highlight"><pre>scale_color_discrete<span class="p">(</span>name <span class="o">=</span> <span class="s">&quot;Year&quot;</span><span class="p">)</span> <span class="o">+</span>
+theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="geom_segment, then geom_point" src="/images/r-line-segments.png" /></p>
+<p>The order of <code>geom_segment</code> and the <code>geom_points</code> matters. The first <code>geom</code> line in the code will get plotted first. Therefore, if you want the points displayed over the segments, put the segments first in the code. Likewise, if you want the segments displayed over the points, put the points first in the code.</p>
+<p>For example, we could change the middle section of the code to:</p>
+<div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+  color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span>
+  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+  color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
+  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+
+geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+    y <span class="o">=</span> Category<span class="p">,</span>
+    xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+    yend <span class="o">=</span> Category<span class="p">),</span>
+  size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>And the output would look like:</p>
+<p><img alt="geom_point, then geom_segment" src="/images/r-line-segments.png" /></p>
+<p>Similarly, if you have points that will be overlapping, make sure you think about which of the point lines you want R to plot first.</p>
+<p>The code is available in a <a href="https://gist.github.com/4543148">gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/datasets.html" rel="tag">datasets</a>,  <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/01/stacked-bar-charts-in-r.html.html">Thu 10 January 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/01/stacked-bar-charts-in-r.html.html" title="Permalink to Stacked Bar Charts in R" rel="bookmark">Stacked Bar Charts in R</a>
+		</h2>
+		<div class="entry-content">
+			<h2>Reshape Wide to Long</h2>
+<p>Let's use the <code>Loblolly</code> dataset from the <strong>datasets</strong> package. These data track the growth of some loblolly pine trees.</p>
+<div class="highlight"><pre><span class="o">&gt;</span> Loblolly<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,]</span>
+   height age Seed
+<span class="m">1</span>    <span class="m">4.51</span>   <span class="m">3</span>  <span class="m">301</span>
+<span class="m">15</span>  <span class="m">10.89</span>   <span class="m">5</span>  <span class="m">301</span>
+<span class="m">29</span>  <span class="m">28.72</span>  <span class="m">10</span>  <span class="m">301</span>
+<span class="m">43</span>  <span class="m">41.74</span>  <span class="m">15</span>  <span class="m">301</span>
+<span class="m">57</span>  <span class="m">52.70</span>  <span class="m">20</span>  <span class="m">301</span>
+<span class="m">71</span>  <span class="m">60.92</span>  <span class="m">25</span>  <span class="m">301</span>
+<span class="m">2</span>    <span class="m">4.55</span>   <span class="m">3</span>  <span class="m">303</span>
+<span class="m">16</span>  <span class="m">10.92</span>   <span class="m">5</span>  <span class="m">303</span>
+<span class="m">30</span>  <span class="m">29.07</span>  <span class="m">10</span>  <span class="m">303</span>
+<span class="m">44</span>  <span class="m">42.83</span>  <span class="m">15</span>  <span class="m">303</span>
+</pre></div>
+
+
+<p>First, we need to convert the data to wide form, so each age (i.e. 3, 5, 10, 15, 20, 25) will have its own variable.</p>
+<div class="highlight"><pre>wide <span class="o">&lt;-</span> reshape<span class="p">(</span>Loblolly<span class="p">,</span>
+    v.names <span class="o">=</span> <span class="s">&quot;height&quot;</span><span class="p">,</span>
+    timevar <span class="o">=</span> <span class="s">&quot;age&quot;</span><span class="p">,</span>
+    idvar <span class="o">=</span> <span class="s">&quot;Seed&quot;</span><span class="p">,</span>
+    direction <span class="o">=</span> <span class="s">&quot;wide&quot;</span><span class="p">)</span>
+
+<span class="o">&gt;</span> wide<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,]</span>
+  Seed height.3 height.5 height.10 height.15 height.20 height.25
+<span class="m">1</span>  <span class="m">301</span>     <span class="m">4.51</span>    <span class="m">10.89</span>     <span class="m">28.72</span>     <span class="m">41.74</span>     <span class="m">52.70</span>     <span class="m">60.92</span>
+<span class="m">2</span>  <span class="m">303</span>     <span class="m">4.55</span>    <span class="m">10.92</span>     <span class="m">29.07</span>     <span class="m">42.83</span>     <span class="m">53.88</span>     <span class="m">63.39</span>
+<span class="m">3</span>  <span class="m">305</span>     <span class="m">4.79</span>    <span class="m">11.37</span>     <span class="m">30.21</span>     <span class="m">44.40</span>     <span class="m">55.82</span>     <span class="m">64.10</span>
+<span class="m">4</span>  <span class="m">307</span>     <span class="m">3.91</span>     <span class="m">9.48</span>     <span class="m">25.66</span>     <span class="m">39.07</span>     <span class="m">50.78</span>     <span class="m">59.07</span>
+<span class="m">5</span>  <span class="m">309</span>     <span class="m">4.81</span>    <span class="m">11.20</span>     <span class="m">28.66</span>     <span class="m">41.66</span>     <span class="m">53.31</span>     <span class="m">63.05</span>
+</pre></div>
+
+
+<h2>Create Variables</h2>
+<p>Then we want to create new columns showing how much each tree has grown between data points. For example, instead of knowing a tree's height at age 10, we want to know how much it's grown between age 5 and age 10, so that can be a bar in our graph.</p>
+<div class="highlight"><pre>wide<span class="o">$</span>h0.3 <span class="o">&lt;-</span> wide<span class="o">$</span>height.3
+wide<span class="o">$</span>h3.5 <span class="o">&lt;-</span> wide<span class="o">$</span>height.5 <span class="o">-</span> wide<span class="o">$</span>height.3
+wide<span class="o">$</span>h5.10 <span class="o">&lt;-</span> wide<span class="o">$</span>height.10 <span class="o">-</span> wide<span class="o">$</span>height.5
+wide<span class="o">$</span>h10.15 <span class="o">&lt;-</span> wide<span class="o">$</span>height.15 <span class="o">-</span> wide<span class="o">$</span>height.10
+wide<span class="o">$</span>h15.20 <span class="o">&lt;-</span> wide<span class="o">$</span>height.20 <span class="o">-</span> wide<span class="o">$</span>height.15
+wide<span class="o">$</span>h20.25 <span class="o">&lt;-</span> wide<span class="o">$</span>height.25 <span class="o">-</span> wide<span class="o">$</span>height.20
+</pre></div>
+
+
+<h2>Plot Stacked Bar Chart</h2>
+<p>Finally, we want to plot all the new data points:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+sequential <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span>
+barplot<span class="p">(</span><span class="kp">t</span><span class="p">(</span>wide<span class="p">[,</span><span class="m">8</span><span class="o">:</span><span class="m">13</span><span class="p">]),</span>
+    names.arg <span class="o">=</span> wide<span class="o">$</span>Seed<span class="p">,</span> <span class="c1"># x-axis labels</span>
+    cex.names <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> <span class="c1"># makes x-axis labels small enough to show all</span>
+    col <span class="o">=</span> sequential<span class="p">,</span> <span class="c1"># colors</span>
+    xlab <span class="o">=</span> <span class="s">&quot;Seed Source&quot;</span><span class="p">,</span>
+    ylab <span class="o">=</span> <span class="s">&quot;Height, Feet&quot;</span><span class="p">,</span>
+    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20</span><span class="p">),</span> <span class="c1"># these two lines allow space for the legend</span>
+    width <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># these two lines allow space for the legend</span>
+legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span> 
+    legend <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;20-25&quot;</span><span class="p">,</span> <span class="s">&quot;15-20&quot;</span><span class="p">,</span> <span class="s">&quot;10-15&quot;</span><span class="p">,</span> <span class="s">&quot;5-10&quot;</span><span class="p">,</span> <span class="s">&quot;3-5&quot;</span><span class="p">,</span> <span class="s">&quot;0-3&quot;</span><span class="p">),</span> <span class="c1">#in order from top to bottom</span>
+    fill <span class="o">=</span> sequential<span class="p">[</span><span class="m">6</span><span class="o">:</span><span class="m">1</span><span class="p">],</span> <span class="c1"># 6:1 reorders so legend order matches graph</span>
+    title <span class="o">=</span> <span class="s">&quot;Years&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Stacked bar chart" src="/images/r-stacked-bars.png" /></p>
+<p>If you decide you'd rather have clustered bars instead of stacked bars, you can just add the option <code>beside = TRUE</code> to the <code>barplot</code>.</p>
+<p>The full code is available in a <a href="https://gist.github.com/4263515">gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li>Reshape<ul>
+<li><a href="http://stat.ethz.ch/R-manual/R-patched/library/stats/html/reshape.html">http://stat.ethz.ch/R-manual/R-patched/library/stats/html/reshape.html</a></li>
+</ul>
+</li>
+<li>Stacked bar graphs<ul>
+<li><a href="http://www.cs.grinnell.edu/~rebelsky/Courses/MAT115/2008S/R/stacked-bar-graphs.html">http://www.cs.grinnell.edu/~rebelsky/Courses/MAT115/2008S/R/stacked-bar-graphs.html</a></li>
+<li><a href="http://www.harding.edu/fmccown/r/#barcharts">http://www.harding.edu/fmccown/r/#barcharts</a></li>
+</ul>
+</li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/barplot.html" rel="tag">barplot</a>,  <a href="/tag/datasets.html" rel="tag">datasets</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/11/sorting-within-lattice-graphics-in-r.html.html">Thu 29 November 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/11/sorting-within-lattice-graphics-in-r.html.html" title="Permalink to Sorting Within Lattice Graphics in R" rel="bookmark">Sorting Within Lattice Graphics in R</a>
+		</h2>
+		<div class="entry-content">
+			<h2>Default</h2>
+<p>By default, <strong>lattice</strong> sorts the observations by the axis values, starting at the bottom left.</p>
+<p>For example,</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span>
+colors <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#1B9E77&quot;</span><span class="p">,</span> <span class="s">&quot;#D95F02&quot;</span><span class="p">,</span> <span class="s">&quot;#7570B3&quot;</span><span class="p">)</span>
+dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span>
+    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p>produces:</p>
+<p><img alt="Default lattice dotplot" src="/images/r-lattice-default.png" /></p>
+<p>(Note: The <code>rownames(cars)</code> bit is just because of how this data set is stored. For your data, you might just type the variable name (<code>model</code>, for example) instead.)</p>
+<h2>Graphing one variable, sorting by another</h2>
+<p>If we want to show the same data, but we want to sort by another variable (or the same variable, for that matter), we can just add <code>reorder(yvar, sortvar)</code>. For example, to sort by the number of cylinders, we could:</p>
+<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span>
+</pre></div>
+
+
+<p><img alt="Sorted by number of cylinders" src="/images/r-lattice-by-cyl.png" /></p>
+<h2>Graphing two variables</h2>
+<p>To better show how this works, let's graph <code>cyl</code> alongside <code>mpg</code>, so we can see how it is sorting:</p>
+<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">,</span>
+    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
+    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Graph of mpg and cyl, sorted by cyl" src="/images/r-lattice-mpg-cyl.png" /></p>
+<h2>Reverse order</h2>
+<p>We can also sort in reverse order, by adding a "-" before the variable name:</p>
+<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">,</span>
+    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
+</pre></div>
+
+
+<p><img alt="Graph of mpg and cyl, sorted by cyl, reversed" src="/images/r-lattice-mpg-cyl-reverse.png" /></p>
+<h2>Adding a legend</h2>
+<p>We can also add a legend:</p>
+<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    xlab <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">,</span>
+    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span>
+    key <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>points <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">],</span> pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">)),</span>
+        text <span class="o">=</span> <span class="kt">list</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Miles per gallon&quot;</span><span class="p">,</span> <span class="s">&quot;Number of cylinders&quot;</span><span class="p">)),</span>
+        space <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">))</span>
+</pre></div>
+
+
+<p><img alt="With legend" src="/images/r-lattice-legend.png" /></p>
+<h2>Other lattice types</h2>
+<p>The same technique will work with other lattice graphs, such as barchart, bwplot, and stripplot.</p>
+<p>Full code available as a <a href="https://gist.github.com/4063837">gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/barchart.html" rel="tag">barchart</a>,  <a href="/tag/dotplot.html" rel="tag">dotplot</a>,  <a href="/tag/key.html" rel="tag">key</a>,  <a href="/tag/lattice.html" rel="tag">lattice</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/reorder.html" rel="tag">reorder</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 </div>
 		</div>

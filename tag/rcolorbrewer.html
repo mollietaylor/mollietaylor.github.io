@@ -171,6 +171,224 @@ labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Lon
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/fortify.html" rel="tag">fortify</a>,  <a href="/tag/geom_polygon.html" rel="tag">geom_polygon</a>,  <a href="/tag/get_map.html" rel="tag">get_map</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gps.html" rel="tag">gps</a>,  <a href="/tag/maptools.html" rel="tag">maptools</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/readshapepoly.html" rel="tag">readShapePoly</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/01/stacked-bar-charts-in-r.html.html">Thu 10 January 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/01/stacked-bar-charts-in-r.html.html" title="Permalink to Stacked Bar Charts in R" rel="bookmark">Stacked Bar Charts in R</a>
+		</h2>
+		<div class="entry-content">
+			<h2>Reshape Wide to Long</h2>
+<p>Let's use the <code>Loblolly</code> dataset from the <strong>datasets</strong> package. These data track the growth of some loblolly pine trees.</p>
+<div class="highlight"><pre><span class="o">&gt;</span> Loblolly<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,]</span>
+   height age Seed
+<span class="m">1</span>    <span class="m">4.51</span>   <span class="m">3</span>  <span class="m">301</span>
+<span class="m">15</span>  <span class="m">10.89</span>   <span class="m">5</span>  <span class="m">301</span>
+<span class="m">29</span>  <span class="m">28.72</span>  <span class="m">10</span>  <span class="m">301</span>
+<span class="m">43</span>  <span class="m">41.74</span>  <span class="m">15</span>  <span class="m">301</span>
+<span class="m">57</span>  <span class="m">52.70</span>  <span class="m">20</span>  <span class="m">301</span>
+<span class="m">71</span>  <span class="m">60.92</span>  <span class="m">25</span>  <span class="m">301</span>
+<span class="m">2</span>    <span class="m">4.55</span>   <span class="m">3</span>  <span class="m">303</span>
+<span class="m">16</span>  <span class="m">10.92</span>   <span class="m">5</span>  <span class="m">303</span>
+<span class="m">30</span>  <span class="m">29.07</span>  <span class="m">10</span>  <span class="m">303</span>
+<span class="m">44</span>  <span class="m">42.83</span>  <span class="m">15</span>  <span class="m">303</span>
+</pre></div>
+
+
+<p>First, we need to convert the data to wide form, so each age (i.e. 3, 5, 10, 15, 20, 25) will have its own variable.</p>
+<div class="highlight"><pre>wide <span class="o">&lt;-</span> reshape<span class="p">(</span>Loblolly<span class="p">,</span>
+    v.names <span class="o">=</span> <span class="s">&quot;height&quot;</span><span class="p">,</span>
+    timevar <span class="o">=</span> <span class="s">&quot;age&quot;</span><span class="p">,</span>
+    idvar <span class="o">=</span> <span class="s">&quot;Seed&quot;</span><span class="p">,</span>
+    direction <span class="o">=</span> <span class="s">&quot;wide&quot;</span><span class="p">)</span>
+
+<span class="o">&gt;</span> wide<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,]</span>
+  Seed height.3 height.5 height.10 height.15 height.20 height.25
+<span class="m">1</span>  <span class="m">301</span>     <span class="m">4.51</span>    <span class="m">10.89</span>     <span class="m">28.72</span>     <span class="m">41.74</span>     <span class="m">52.70</span>     <span class="m">60.92</span>
+<span class="m">2</span>  <span class="m">303</span>     <span class="m">4.55</span>    <span class="m">10.92</span>     <span class="m">29.07</span>     <span class="m">42.83</span>     <span class="m">53.88</span>     <span class="m">63.39</span>
+<span class="m">3</span>  <span class="m">305</span>     <span class="m">4.79</span>    <span class="m">11.37</span>     <span class="m">30.21</span>     <span class="m">44.40</span>     <span class="m">55.82</span>     <span class="m">64.10</span>
+<span class="m">4</span>  <span class="m">307</span>     <span class="m">3.91</span>     <span class="m">9.48</span>     <span class="m">25.66</span>     <span class="m">39.07</span>     <span class="m">50.78</span>     <span class="m">59.07</span>
+<span class="m">5</span>  <span class="m">309</span>     <span class="m">4.81</span>    <span class="m">11.20</span>     <span class="m">28.66</span>     <span class="m">41.66</span>     <span class="m">53.31</span>     <span class="m">63.05</span>
+</pre></div>
+
+
+<h2>Create Variables</h2>
+<p>Then we want to create new columns showing how much each tree has grown between data points. For example, instead of knowing a tree's height at age 10, we want to know how much it's grown between age 5 and age 10, so that can be a bar in our graph.</p>
+<div class="highlight"><pre>wide<span class="o">$</span>h0.3 <span class="o">&lt;-</span> wide<span class="o">$</span>height.3
+wide<span class="o">$</span>h3.5 <span class="o">&lt;-</span> wide<span class="o">$</span>height.5 <span class="o">-</span> wide<span class="o">$</span>height.3
+wide<span class="o">$</span>h5.10 <span class="o">&lt;-</span> wide<span class="o">$</span>height.10 <span class="o">-</span> wide<span class="o">$</span>height.5
+wide<span class="o">$</span>h10.15 <span class="o">&lt;-</span> wide<span class="o">$</span>height.15 <span class="o">-</span> wide<span class="o">$</span>height.10
+wide<span class="o">$</span>h15.20 <span class="o">&lt;-</span> wide<span class="o">$</span>height.20 <span class="o">-</span> wide<span class="o">$</span>height.15
+wide<span class="o">$</span>h20.25 <span class="o">&lt;-</span> wide<span class="o">$</span>height.25 <span class="o">-</span> wide<span class="o">$</span>height.20
+</pre></div>
+
+
+<h2>Plot Stacked Bar Chart</h2>
+<p>Finally, we want to plot all the new data points:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+sequential <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span>
+barplot<span class="p">(</span><span class="kp">t</span><span class="p">(</span>wide<span class="p">[,</span><span class="m">8</span><span class="o">:</span><span class="m">13</span><span class="p">]),</span>
+    names.arg <span class="o">=</span> wide<span class="o">$</span>Seed<span class="p">,</span> <span class="c1"># x-axis labels</span>
+    cex.names <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> <span class="c1"># makes x-axis labels small enough to show all</span>
+    col <span class="o">=</span> sequential<span class="p">,</span> <span class="c1"># colors</span>
+    xlab <span class="o">=</span> <span class="s">&quot;Seed Source&quot;</span><span class="p">,</span>
+    ylab <span class="o">=</span> <span class="s">&quot;Height, Feet&quot;</span><span class="p">,</span>
+    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20</span><span class="p">),</span> <span class="c1"># these two lines allow space for the legend</span>
+    width <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># these two lines allow space for the legend</span>
+legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span> 
+    legend <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;20-25&quot;</span><span class="p">,</span> <span class="s">&quot;15-20&quot;</span><span class="p">,</span> <span class="s">&quot;10-15&quot;</span><span class="p">,</span> <span class="s">&quot;5-10&quot;</span><span class="p">,</span> <span class="s">&quot;3-5&quot;</span><span class="p">,</span> <span class="s">&quot;0-3&quot;</span><span class="p">),</span> <span class="c1">#in order from top to bottom</span>
+    fill <span class="o">=</span> sequential<span class="p">[</span><span class="m">6</span><span class="o">:</span><span class="m">1</span><span class="p">],</span> <span class="c1"># 6:1 reorders so legend order matches graph</span>
+    title <span class="o">=</span> <span class="s">&quot;Years&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Stacked bar chart" src="/images/r-stacked-bars.png" /></p>
+<p>If you decide you'd rather have clustered bars instead of stacked bars, you can just add the option <code>beside = TRUE</code> to the <code>barplot</code>.</p>
+<p>The full code is available in a <a href="https://gist.github.com/4263515">gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li>Reshape<ul>
+<li><a href="http://stat.ethz.ch/R-manual/R-patched/library/stats/html/reshape.html">http://stat.ethz.ch/R-manual/R-patched/library/stats/html/reshape.html</a></li>
+</ul>
+</li>
+<li>Stacked bar graphs<ul>
+<li><a href="http://www.cs.grinnell.edu/~rebelsky/Courses/MAT115/2008S/R/stacked-bar-graphs.html">http://www.cs.grinnell.edu/~rebelsky/Courses/MAT115/2008S/R/stacked-bar-graphs.html</a></li>
+<li><a href="http://www.harding.edu/fmccown/r/#barcharts">http://www.harding.edu/fmccown/r/#barcharts</a></li>
+</ul>
+</li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/barplot.html" rel="tag">barplot</a>,  <a href="/tag/datasets.html" rel="tag">datasets</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/10/palettes-in-r.html.html">Thu 25 October 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/10/palettes-in-r.html.html" title="Permalink to Palettes in R" rel="bookmark">Palettes in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>In its simplest form, a palette in R is simply a vector of colors. This vector can be include the hex triplet or R color names.</p>
+<p>The default palette can be seen through <code>palette()</code>: </p>
+<div class="highlight"><pre><span class="o">&gt;</span> palette<span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">)</span> <span class="c1"># you&#39;ll only need this line if you&#39;ve previously changed the palette from the default</span>
+<span class="o">&gt;</span> palette<span class="p">()</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;black&quot;</span>   <span class="s">&quot;red&quot;</span>     <span class="s">&quot;green3&quot;</span>  <span class="s">&quot;blue&quot;</span>    <span class="s">&quot;cyan&quot;</span>    <span class="s">&quot;magenta&quot;</span> <span class="s">&quot;yellow&quot;</span>
+<span class="p">[</span><span class="m">8</span><span class="p">]</span> <span class="s">&quot;gray&quot;</span>
+</pre></div>
+
+
+<h2>Defining your own palettes</h2>
+<p>If you want to make your own palette, you can just create your own vector of colors. It's fine for your vector to include a mixture of hex triplets and R color names. You can use the <code>palette</code> function above, but generally it's best to just store each palette as a standard vector. For one thing, you can use more than one palette that way. Here's how you can define your own palette:</p>
+<div class="highlight"><pre>colors <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#A7A7A7&quot;</span><span class="p">,</span>
+    <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span>
+    <span class="s">&quot;firebrick&quot;</span><span class="p">,</span>
+    <span class="s">&quot;forestgreen&quot;</span><span class="p">,</span>
+    <span class="s">&quot;gold&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now let's try using our palette. For now let's just color each bar of a histogram. This is a silly example, but I think it's the easiest way to show how to get R to utilize your palette. In the following example, there are six bars, but only five colors. You can see that R will cycle through your palette to fill all the shapes.</p>
+<div class="highlight"><pre>hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="One color per bar" src="/images/r-palette-color-by-bar.png" /></p>
+<p>A more sensible use of color is to use a different color for each of a number of summary statistics:</p>
+<div class="highlight"><pre>colors <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#A7A7A7&quot;</span><span class="p">,</span>
+    <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span>
+    <span class="s">&quot;firebrick&quot;</span><span class="p">,</span>
+    <span class="s">&quot;forestgreen&quot;</span><span class="p">,</span>
+    <span class="s">&quot;gold&quot;</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">])</span>
+abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>discoveries<span class="p">),</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">2</span><span class="p">],</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+abline<span class="p">(</span>v <span class="o">=</span> median<span class="p">(</span>discoveries<span class="p">),</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">3</span><span class="p">],</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">min</span><span class="p">(</span>discoveries<span class="p">),</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">4</span><span class="p">],</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">max</span><span class="p">(</span>discoveries<span class="p">),</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">5</span><span class="p">],</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+legend<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;topright&quot;</span><span class="p">,</span> <span class="c1"># location of legend within plot area</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">2</span><span class="o">:</span><span class="m">5</span><span class="p">],</span>
+
+<span class="kt">c</span><span class="p">(</span><span class="s">&quot;Mean&quot;</span><span class="p">,</span> <span class="s">&quot;Median&quot;</span><span class="p">,</span> <span class="s">&quot;Minimum&quot;</span><span class="p">,</span> <span class="s">&quot;Maximum&quot;</span><span class="p">),</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Summary statistics" src="/images/r-palette-stats.png" /></p>
+<h2>Predefined palettes: default R palettes</h2>
+<p>The package <strong>grDevices</strong> (you probably already have this loaded) contains a number of palettes.</p>
+<div class="highlight"><pre><span class="o">?</span>rainbow
+rainbowcols <span class="o">&lt;-</span> rainbow<span class="p">(</span><span class="m">6</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> rainbowcols<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Rainbow palette" src="/images/r-palette-rainbow.png" /></p>
+<p>For <code>rainbow</code>, you can adjust the saturation and value. For example:</p>
+<div class="highlight"><pre>rainbowcols <span class="o">&lt;-</span> rainbow<span class="p">(</span><span class="m">6</span><span class="p">,</span>
+    s <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> rainbowcols<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Rainbow palette desaturated" src="/images/r-palette-rainbow-pale.png" /></p>
+<div class="highlight"><pre>heatcols <span class="o">&lt;-</span> heat.colors<span class="p">(</span><span class="m">6</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> heatcols<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="heat.colors palette" src="/images/r-palette-heat.png" /></p>
+<p>As well as <code>rainbow</code> and <code>heat.colors</code>, there are also <code>terrain.colors</code>, <code>topo.colors</code>, and <code>cm.colors</code>.</p>
+<h2>Predefined palettes: RColorBrewer</h2>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+display.brewer.all<span class="p">()</span>
+</pre></div>
+
+
+<p>The above lines will show us all the <strong>RColorBrewer</strong> palettes (output shown below). The top section of palettes are sequential, the middle section are qualitative, and the lower section are diverging. <a href="http://blog.ggplot2.org/post/24607351280/choosing-colour-palettes-part-ii-educated-choices">Here is some information about how to choose a good palette</a>.</p>
+<p><img alt="RColorBrewer palettes" src="/images/r-display-brewer-all.png" /></p>
+<p><strong>RColorBrewer</strong> works a little different than how we've defined palettes previously. We'll have to use <code>brewer.pal</code> to create a palette.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+darkcols <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> darkcols<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Dark2 color palette" src="/images/r-palette-dark2.png" /></p>
+<p>Even though we have to provide <code>brewer.pal</code> with the number of colors we want, we won't necessarily need to use all those colors later. We can still choose a color from the vector like we have previously. When we're setting a <code>col</code> setting to the full palette, we'll be more concerned with how many colors are included in the palette , but even there, we can choose a subset of the whole palette:</p>
+<div class="highlight"><pre>darkcols <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> darkcols<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">])</span>
+</pre></div>
+
+
+<p><img alt="Dark 2 color palette, two colors" src="/images/r-palette-dark2-2.png" /></p>
+<p><a href="https://gist.github.com/3943476">Here</a>'s the code from this post.</p>
+<p>Now that we're familiar with making our own palettes and using the built-in palettes in <strong>grDevices</strong> and <strong>RColorBrewer</strong>, I'm planning a future post about a more practical (but also more complicated) example of using palettes: making maps.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/brewerpal.html" rel="tag">brewer.pal</a>,  <a href="/tag/palette.html" rel="tag">palette</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 </div>
 		</div>

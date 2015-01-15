@@ -465,6 +465,177 @@ scale_y_continuous<span class="p">(</span>limits <span class="o">=</span> <span 
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/geom_ribbon.html" rel="tag">geom_ribbon</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gps.html" rel="tag">gps</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/sma.html" rel="tag">SMA</a>,  <a href="/tag/sp.html" rel="tag">sp</a>,  <a href="/tag/spdistsn1.html" rel="tag">spDistsN1</a>,  <a href="/tag/ttr.html" rel="tag">TTR</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/01/using-line-segments-to-compare-values.html.html">Thu 31 January 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/01/using-line-segments-to-compare-values.html.html" title="Permalink to Using Line Segments to Compare Values in R" rel="bookmark">Using Line Segments to Compare Values in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Sometimes you want to create a graph that will allow the viewer to see in one glance:</p>
+<ul>
+<li>The original value of a variable</li>
+<li>The new value of the variable</li>
+<li>The change between old and new</li>
+</ul>
+<p>One method I like to use to do this is using <code>geom_segment</code> and <code>geom_point</code> in the <strong>ggplot2</strong> package.</p>
+<p>First, let's load <strong>ggplot2</strong> and our data:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+
+data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span>
+data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span>
+</pre></div>
+
+
+<p>Next, we'll set up our plot and axes:</p>
+<div class="highlight"><pre>ggplot<span class="p">(</span>data<span class="p">,</span>
+    aes<span class="p">(</span>y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span>
+labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span>
+    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>For <code>geom_segment</code>, we need to provide four variables. (Sometimes two of the four will be the same, like in this case.) <code>x</code> and <code>y</code> provide the start points, and <code>xend</code> and <code>yend</code> provide the endpoints.</p>
+<p>In this case, we want to show the change between 1940 and 1960 for each category. Therefore our variables are the following:</p>
+<ul>
+<li>x: "1940"</li>
+<li>y: Category</li>
+<li>xend: "1960"</li>
+<li>yend: Category</li>
+</ul>
+<!--end the list-->
+
+<div class="highlight"><pre>geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+  y <span class="o">=</span> Category<span class="p">,</span>
+  xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+  yend <span class="o">=</span> Category<span class="p">),</span>
+ size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>Next, we want to plot points for the 1940 and 1960 values. We could do the same for the 1945, 1950, and 1955 values, if we wanted to.</p>
+<div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+    color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span>
+    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+    color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
+    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>Finally, we'll finish up by touching up the legend for the plot:</p>
+<div class="highlight"><pre>scale_color_discrete<span class="p">(</span>name <span class="o">=</span> <span class="s">&quot;Year&quot;</span><span class="p">)</span> <span class="o">+</span>
+theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="geom_segment, then geom_point" src="/images/r-line-segments.png" /></p>
+<p>The order of <code>geom_segment</code> and the <code>geom_points</code> matters. The first <code>geom</code> line in the code will get plotted first. Therefore, if you want the points displayed over the segments, put the segments first in the code. Likewise, if you want the segments displayed over the points, put the points first in the code.</p>
+<p>For example, we could change the middle section of the code to:</p>
+<div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+  color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span>
+  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+  color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
+  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+
+geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+    y <span class="o">=</span> Category<span class="p">,</span>
+    xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+    yend <span class="o">=</span> Category<span class="p">),</span>
+  size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>And the output would look like:</p>
+<p><img alt="geom_point, then geom_segment" src="/images/r-line-segments.png" /></p>
+<p>Similarly, if you have points that will be overlapping, make sure you think about which of the point lines you want R to plot first.</p>
+<p>The code is available in a <a href="https://gist.github.com/4543148">gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/datasets.html" rel="tag">datasets</a>,  <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/01/calculating-gini-coefficients-for.html.html">Thu 17 January 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/01/calculating-gini-coefficients-for.html.html" title="Permalink to Calculating Gini Coefficients for a Number of Locales at Once in R" rel="bookmark">Calculating Gini Coefficients for a Number of Locales at Once in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>The <a href="http://en.wikipedia.org/wiki/Gini_coefficient">Gini coefficient</a> is a measure of the inequality of a distribution, most commonly used to compare inequality in income or wealth among countries.</p>
+<p>Let's first generate some random data to analyze. You can <a href="https://gist.github.com/4432069">download my random data</a> or use the code below to generate your own. Of course, if you generate your own, your graphs and results will be different from those shown below.</p>
+<div class="highlight"><pre>city <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">,</span> <span class="s">&quot;D&quot;</span><span class="p">,</span> <span class="s">&quot;E&quot;</span><span class="p">,</span> <span class="s">&quot;F&quot;</span><span class="p">,</span> <span class="s">&quot;G&quot;</span><span class="p">,</span> <span class="s">&quot;H&quot;</span><span class="p">,</span> <span class="s">&quot;I&quot;</span><span class="p">,</span> <span class="s">&quot;J&quot;</span><span class="p">)</span>
+income <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">100000</span><span class="p">,</span>
+    <span class="m">100</span><span class="p">,</span>
+    replace <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+cities <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>city<span class="p">,</span> income<span class="p">)</span>
+</pre></div>
+
+
+<p>Next, let's graph our data:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+ggplot<span class="p">(</span>cities<span class="p">,</span>
+    aes<span class="p">(</span>income<span class="p">))</span> <span class="o">+</span>
+    stat_density<span class="p">(</span>geom <span class="o">=</span> <span class="s">&quot;path&quot;</span><span class="p">,</span>
+        position <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">)</span> <span class="o">+</span>
+    facet_wrap<span class="p">(</span><span class="o">~</span> city<span class="p">,</span> ncol <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Histogram of each city's incomes // Your results will differ if using random data" src="/images/r-gini-hist.png" /></p>
+<p>The Gini coefficient is easy enough to calculate in R for a single locale using the <code>gini</code> function from the <strong>reldist</strong> package.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>reldist<span class="p">)</span>
+gini<span class="p">(</span>cities<span class="p">[</span><span class="kp">which</span><span class="p">(</span>cities<span class="o">$</span>city <span class="o">==</span> <span class="s">&quot;A&quot;</span><span class="p">),</span> <span class="p">]</span><span class="o">$</span>income<span class="p">)</span>
+</pre></div>
+
+
+<p>But we don't want to replicate this code over and over to calculate the Gini coefficient for a large number of locales. We also want the coefficients to be in a data frame for easy use in R or for export for use in another program.</p>
+<p>There are <a href="http://www.slideshare.net/jeffreybreen/grouping-summarizing-data-in-r">many ways to automate a function</a> to run over many subsets of a data frame. The most straightforward in our particular case is <code>aggregate</code>:</p>
+<div class="highlight"><pre>ginicities <span class="o">&lt;-</span> aggregate<span class="p">(</span>income <span class="o">~</span> city<span class="p">,</span>
+    data <span class="o">=</span> cities<span class="p">,</span>
+    FUN <span class="o">=</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span>
+<span class="kp">names</span><span class="p">(</span>ginisec<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span>
+
+<span class="o">&gt;</span> ginisec
+   city      gini
+<span class="m">1</span>     A <span class="m">0.2856827</span>
+<span class="m">2</span>     B <span class="m">0.3639070</span>
+<span class="m">3</span>     C <span class="m">0.3288934</span>
+<span class="m">4</span>     D <span class="m">0.1863783</span>
+<span class="m">5</span>     E <span class="m">0.3565739</span>
+<span class="m">6</span>     <span class="bp">F</span> <span class="m">0.2587475</span>
+<span class="m">7</span>     G <span class="m">0.3022642</span>
+<span class="m">8</span>     H <span class="m">0.3795288</span>
+<span class="m">9</span>     I <span class="m">0.3311034</span>
+<span class="m">10</span>    J <span class="m">0.2496933</span>
+</pre></div>
+
+
+<p>And finally, let's go ahead and export our data using <code>write.csv</code>:</p>
+<div class="highlight"><pre>write.csv<span class="p">(</span>ginicities<span class="p">,</span> <span class="s">&quot;gini.csv&quot;</span><span class="p">,</span>
+    row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>While you're at it, you might want to try using other functions on your dataset, such as <code>mean</code>, <code>median</code>, and <code>length</code>.</p>
+<p>The full code is available in a <a href="https://gist.github.com/4432069">gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://rss.acs.unt.edu/Rdoc/library/reldist/html/gini.html">http://rss.acs.unt.edu/Rdoc/library/reldist/html/gini.html</a></li>
+<li><a href="http://www.slideshare.net/jeffreybreen/grouping-summarizing-data-in-r">http://www.slideshare.net/jeffreybreen/grouping-summarizing-data-in-r</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/aggregate.html" rel="tag">aggregate</a>,  <a href="/tag/analysis.html" rel="tag">analysis</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gini.html" rel="tag">gini</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/reldist.html" rel="tag">reldist</a>,  <a href="/tag/sample.html" rel="tag">sample</a>,  <a href="/tag/stat_density.html" rel="tag">stat_density</a>,  <a href="/tag/writecsv.html" rel="tag">write.csv</a>    		</span>
+	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 </div>
 		</div>

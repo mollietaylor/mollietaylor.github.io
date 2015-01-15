@@ -112,6 +112,70 @@ coord_flip<span class="p">()</span>
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/abline.html" rel="tag">abline</a>,  <a href="/tag/coord_flip.html" rel="tag">coord_flip</a>,  <a href="/tag/geom_boxplot.html" rel="tag">geom_boxplot</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gsub.html" rel="tag">gsub</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/regular-expressions.html" rel="tag">regular expressions</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/10/adding-measures-of-central-tendency-to.html.html">Thu 04 October 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/10/adding-measures-of-central-tendency-to.html.html" title="Permalink to Adding Measures of Central Tendency to Histograms in R" rel="bookmark">Adding Measures of Central Tendency to Histograms in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Building on the basic histogram with a density plot, we can add measures of central tendency (in this case, mean and median) and a legend.</p>
+<p>Like last time, we'll use the beaver data from the <strong>datasets</strong> package.</p>
+<div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
+    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
+    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span> 
+    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
+    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span>
+    ylim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">3</span><span class="p">),</span>
+    xlab <span class="o">=</span> <span class="s">&quot;Temperature&quot;</span><span class="p">,</span>
+    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span>
+lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span>
+    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Next we'll add a line for the mean: </p>
+<div class="highlight"><pre>abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span>
+    col <span class="o">=</span> <span class="s">&quot;royalblue&quot;</span><span class="p">,</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And a line for the median: </p>
+<div class="highlight"><pre>abline<span class="p">(</span>v <span class="o">=</span> median<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span>
+    col <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And then we can also add a legend, so it will be easy to tell which line is which. 
+    :::r
+    legend(x = "topright", # location of legend within plot area
+        c("Density plot", "Mean", "Median"),
+        col = c("chocolate3", "royalblue", "red"),
+        lwd = c(2, 2, 2))</p>
+<p>All of this together gives us the following graphic:</p>
+<p><img alt="Beaver #1 central tendency" src="/images/r-histogram-tendency-1.png" /></p>
+<p>In this example, the mean and median are very close, as we can see by using <code>median()</code> and <code>mode()</code>.</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="kp">mean</span><span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">36.86219</span>
+<span class="o">&gt;</span> median<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">36.87</span>
+</pre></div>
+
+
+<p>We can do like we did in the previous post and graph beaver1 and beaver2 together by adding a layout line and changing the limits of x and y. The full code for this is available in a <a href="https://gist.github.com/3768715#file_histdens2.r">gist</a>.</p>
+<p>Here's the output from that code: </p>
+<p><img alt="Beaver #1 and #2 central tendency" src="/images/r-histogram-tendency-2.png" /></p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/abline.html" rel="tag">abline</a>,  <a href="/tag/hist.html" rel="tag">hist</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 </div>
 		</div>

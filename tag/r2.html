@@ -835,11 +835,150 @@ ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/base-map.html" rel="tag">base map</a>,  <a href="/tag/basemap.html" rel="tag">basemap</a>,  <a href="/tag/geom_path.html" rel="tag">geom_path</a>,  <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="/tag/get_cloudmademap.html" rel="tag">get_cloudmademap</a>,  <a href="/tag/get_googlemap.html" rel="tag">get_googlemap</a>,  <a href="/tag/get_map.html" rel="tag">get_map</a>,  <a href="/tag/get_openstreetmap.html" rel="tag">get_openstreetmap</a>,  <a href="/tag/get_stamenmap.html" rel="tag">get_stamenmap</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gps.html" rel="tag">gps</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/01/using-line-segments-to-compare-values.html.html">Thu 31 January 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/01/using-line-segments-to-compare-values.html.html" title="Permalink to Using Line Segments to Compare Values in R" rel="bookmark">Using Line Segments to Compare Values in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Sometimes you want to create a graph that will allow the viewer to see in one glance:</p>
+<ul>
+<li>The original value of a variable</li>
+<li>The new value of the variable</li>
+<li>The change between old and new</li>
+</ul>
+<p>One method I like to use to do this is using <code>geom_segment</code> and <code>geom_point</code> in the <strong>ggplot2</strong> package.</p>
+<p>First, let's load <strong>ggplot2</strong> and our data:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+
+data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span>
+data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span>
+</pre></div>
+
+
+<p>Next, we'll set up our plot and axes:</p>
+<div class="highlight"><pre>ggplot<span class="p">(</span>data<span class="p">,</span>
+    aes<span class="p">(</span>y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span>
+labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span>
+    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>For <code>geom_segment</code>, we need to provide four variables. (Sometimes two of the four will be the same, like in this case.) <code>x</code> and <code>y</code> provide the start points, and <code>xend</code> and <code>yend</code> provide the endpoints.</p>
+<p>In this case, we want to show the change between 1940 and 1960 for each category. Therefore our variables are the following:</p>
+<ul>
+<li>x: "1940"</li>
+<li>y: Category</li>
+<li>xend: "1960"</li>
+<li>yend: Category</li>
+</ul>
+<!--end the list-->
+
+<div class="highlight"><pre>geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+  y <span class="o">=</span> Category<span class="p">,</span>
+  xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+  yend <span class="o">=</span> Category<span class="p">),</span>
+ size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>Next, we want to plot points for the 1940 and 1960 values. We could do the same for the 1945, 1950, and 1955 values, if we wanted to.</p>
+<div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+    color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span>
+    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+    color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
+    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>Finally, we'll finish up by touching up the legend for the plot:</p>
+<div class="highlight"><pre>scale_color_discrete<span class="p">(</span>name <span class="o">=</span> <span class="s">&quot;Year&quot;</span><span class="p">)</span> <span class="o">+</span>
+theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="geom_segment, then geom_point" src="/images/r-line-segments.png" /></p>
+<p>The order of <code>geom_segment</code> and the <code>geom_points</code> matters. The first <code>geom</code> line in the code will get plotted first. Therefore, if you want the points displayed over the segments, put the segments first in the code. Likewise, if you want the segments displayed over the points, put the points first in the code.</p>
+<p>For example, we could change the middle section of the code to:</p>
+<div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+  color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span>
+  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+  color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
+  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+
+geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+    y <span class="o">=</span> Category<span class="p">,</span>
+    xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+    yend <span class="o">=</span> Category<span class="p">),</span>
+  size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>And the output would look like:</p>
+<p><img alt="geom_point, then geom_segment" src="/images/r-line-segments.png" /></p>
+<p>Similarly, if you have points that will be overlapping, make sure you think about which of the point lines you want R to plot first.</p>
+<p>The code is available in a <a href="https://gist.github.com/4543148">gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/datasets.html" rel="tag">datasets</a>,  <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/01/storing-function-in-separate-file-in-r.html.html">Thu 24 January 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/01/storing-function-in-separate-file-in-r.html.html" title="Permalink to Storing a Function in a Separate File in R" rel="bookmark">Storing a Function in a Separate File in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>If you're going to be using a function across several different R files, you might want to store the function in its own file.</p>
+<h3>If you want to name the function in its own file</h3>
+<p>This is probably the best option in general, if only because you may want to put more than one function in a single file.</p>
+<p>Next, let's make our function in the file <code>fun.R</code>:
+    :::r
+    mult &lt;- function(x, y) {
+        x*y
+    }</p>
+<p>If you get the warning message "In readLines(file) : incomplete final line found on 'fun.R'", just insert a line break at the end of the fun.R file.</p>
+<h3>If you want to name the function in the file running it</h3>
+<p>First let's make the same function (but this time unnamed) in the file times.R:</p>
+<div class="highlight"><pre><span class="kr">function</span><span class="p">(</span>x<span class="p">,</span> y<span class="p">)</span> <span class="p">{</span>
+    x<span class="o">*</span>y
+<span class="p">}</span>
+</pre></div>
+
+
+<h3>Calling the functions</h3>
+<p>And finally we'll make a file file.R to call our functions:</p>
+<div class="highlight"><pre>times <span class="o">&lt;-</span> <span class="kp">dget</span><span class="p">(</span><span class="s">&quot;times.R&quot;</span><span class="p">)</span>
+times<span class="p">(</span><span class="m">-4</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
+
+<span class="kn">source</span><span class="p">(</span><span class="s">&quot;fun.R&quot;</span><span class="p">)</span>
+mult<span class="p">(</span><span class="m">-4</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Note: if you are used to using source to run your R code, note that in this case we are using the <code>source</code> command <em>within</em> a file.</p>
+<p>All files are available as a <a href="https://gist.github.com/4472146">gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/dget.html" rel="tag">dget</a>,  <a href="/tag/function.html" rel="tag">function</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/source.html" rel="tag">source</a>    		</span>
+	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">
 				<a href="/tag/r.html">
 			<span class="meta-nav">&larr;</span> Newer posts</a>
 		</div>		
+		<div class="nav-next"><a href="/tag/r3.html" >Older posts <span class="meta-nav">&rarr;</span></a></div>
 </div>
 		</div>
 		

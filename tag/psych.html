@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Articles tagged psych</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="/" /> 
+		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+<div class="page-title">
+	<h2>Tagged with <span>psych</span> &hellip;</h2>
+</div>
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/09/descriptive-statistics-of-groups-in-r.html.html">Thu 20 September 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/09/descriptive-statistics-of-groups-in-r.html.html" title="Permalink to Descriptive Statistics of Groups in R" rel="bookmark">Descriptive Statistics of Groups in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>The <a href="http://stat.ethz.ch/R-manual/R-patched/library/datasets/html/sleep.html">sleep data set</a>—provided by the <strong>datasets</strong> package—shows the effects of two different drugs on ten patients. <code>Extra</code> is the increase in hours of sleep; <code>group</code> is the drug given, 1 or 2; and <code>ID</code> is the patient ID, 1 to 10.</p>
+<p>I'll be using this data set to show how to perform descriptive statistics of groups within a data set, when the data set is <a href="http://www.r-bloggers.com/reshape-package-in-r-long-data-format-to-wide-back-to-long-again/">long (as opposed to wide)</a>.</p>
+<p>First, we'll need to load up the psych package. The datasets package containing our data is probably already loaded.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>psych<span class="p">)</span>
+</pre></div>
+
+
+<p>The <code>describe.by</code> function in the <strong>psych</strong> package is what does the magic for us here. It will group our data by a variable we give it, and output descriptive statistics for each of the groups.</p>
+<div class="highlight"><pre><span class="o">&gt;</span> describe.by<span class="p">(</span>sleep<span class="p">,</span> sleep<span class="o">$</span>group<span class="p">)</span>
+group<span class="o">:</span> <span class="m">1</span>
+       var  n mean   sd median trimmed  mad  min  max range skew kurtosis   se
+extra    <span class="m">1</span> <span class="m">10</span> <span class="m">0.75</span> <span class="m">1.79</span>   <span class="m">0.35</span>    <span class="m">0.68</span> <span class="m">1.56</span> <span class="m">-1.6</span>  <span class="m">3.7</span>   <span class="m">5.3</span> <span class="m">0.42</span>    <span class="m">-1.30</span> <span class="m">0.57</span>
+group<span class="o">*</span>   <span class="m">2</span> <span class="m">10</span> <span class="m">1.00</span> <span class="m">0.00</span>   <span class="m">1.00</span>    <span class="m">1.00</span> <span class="m">0.00</span>  <span class="m">1.0</span>  <span class="m">1.0</span>   <span class="m">0.0</span>  <span class="kc">NaN</span>      <span class="kc">NaN</span> <span class="m">0.00</span>
+ID<span class="o">*</span>      <span class="m">3</span> <span class="m">10</span> <span class="m">5.50</span> <span class="m">3.03</span>   <span class="m">5.50</span>    <span class="m">5.50</span> <span class="m">3.71</span>  <span class="m">1.0</span> <span class="m">10.0</span>   <span class="m">9.0</span> <span class="m">0.00</span>    <span class="m">-1.56</span> <span class="m">0.96</span>
+<span class="o">------------------------------------------------------------</span> 
+group<span class="o">:</span> <span class="m">2</span>
+       var  n mean   sd median trimmed  mad  min  max range skew kurtosis   se
+extra    <span class="m">1</span> <span class="m">10</span> <span class="m">2.33</span> <span class="m">2.00</span>   <span class="m">1.75</span>    <span class="m">2.24</span> <span class="m">2.45</span> <span class="m">-0.1</span>  <span class="m">5.5</span>   <span class="m">5.6</span> <span class="m">0.28</span>    <span class="m">-1.66</span> <span class="m">0.63</span>
+group<span class="o">*</span>   <span class="m">2</span> <span class="m">10</span> <span class="m">2.00</span> <span class="m">0.00</span>   <span class="m">2.00</span>    <span class="m">2.00</span> <span class="m">0.00</span>  <span class="m">2.0</span>  <span class="m">2.0</span>   <span class="m">0.0</span>  <span class="kc">NaN</span>      <span class="kc">NaN</span> <span class="m">0.00</span>
+ID<span class="o">*</span>      <span class="m">3</span> <span class="m">10</span> <span class="m">5.50</span> <span class="m">3.03</span>   <span class="m">5.50</span>    <span class="m">5.50</span> <span class="m">3.71</span>  <span class="m">1.0</span> <span class="m">10.0</span>   <span class="m">9.0</span> <span class="m">0.00</span>    <span class="m">-1.56</span> <span class="m">0.96</span>
+</pre></div>
+
+
+<p>Of course, there are other ways to find the descriptive statistics of groups, and since you'll probably be doing further analysis on the groups, and you may be splitting the whole data into subsets by groups, it may be easiest to just use describe on each subset. But that's a topic for another post. And this is an easy way to quickly look at many groups, and a quick look is particularly essential for descriptive statistics.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/analysis.html" rel="tag">analysis</a>,  <a href="/tag/datasets.html" rel="tag">datasets</a>,  <a href="/tag/describeby.html" rel="tag">describe.by</a>,  <a href="/tag/psych.html" rel="tag">psych</a>,  <a href="/tag/r.html" rel="tag">R</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="navigation">
+</div>
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

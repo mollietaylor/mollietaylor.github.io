@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Random Name Generator in R</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="/" /> 
+		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+		</div>
+	
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/10/random-name-generator-in-r.html.html">Thu 11 October 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/10/random-name-generator-in-r.html.html" title="Permalink to Random Name Generator in R" rel="bookmark">Random Name Generator in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Just for the heck of it, let's recreate my <a href="http://realitytvgenerator.com/">Reality TV Show Name Generator</a> in R. This isn't really the sort of thing you'd normally do in R, but we can try out a bunch of different functions this way: random integers/sampling, concatenation, sorting, and determining the length of an object.</p>
+<p>First, let's create a dictionary for R to randomly pull names from. In this case, we want a first word and a last word, that we'll later combine to create a name similar to so many current TV shows. (Note: In some cases, I've made the first "word" or last "word" multiple words for some variety.) Feel free to make your own lists.</p>
+<div class="highlight"><pre>first <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;Fear&quot;</span><span class="p">,</span> <span class="s">&quot;Frontier&quot;</span><span class="p">,</span> <span class="s">&quot;Nanny&quot;</span><span class="p">,</span> <span class="s">&quot;Job&quot;</span><span class="p">,</span> <span class="s">&quot;Yard&quot;</span><span class="p">,</span> <span class="s">&quot;Airport&quot;</span><span class="p">,</span> <span class="s">&quot;Half Pint&quot;</span><span class="p">,</span> <span class="s">&quot;Commando&quot;</span><span class="p">,</span> <span class="s">&quot;Fast Food&quot;</span><span class="p">,</span> <span class="s">&quot;Basketball&quot;</span><span class="p">,</span> <span class="s">&quot;Bachelorette&quot;</span><span class="p">,</span> <span class="s">&quot;Diva&quot;</span><span class="p">,</span> <span class="s">&quot;Baggage&quot;</span><span class="p">,</span> <span class="s">&quot;College&quot;</span><span class="p">,</span> <span class="s">&quot;Octane&quot;</span><span class="p">,</span> <span class="s">&quot;Clean&quot;</span><span class="p">,</span> <span class="s">&quot;Sister&quot;</span><span class="p">,</span> <span class="s">&quot;Army&quot;</span><span class="p">,</span> <span class="s">&quot;Drama&quot;</span><span class="p">,</span> <span class="s">&quot;Backyard&quot;</span><span class="p">,</span> <span class="s">&quot;Pirate&quot;</span><span class="p">,</span> <span class="s">&quot;Shark&quot;</span><span class="p">,</span> <span class="s">&quot;Project&quot;</span><span class="p">,</span> <span class="s">&quot;Model&quot;</span><span class="p">,</span> <span class="s">&quot;Survival&quot;</span><span class="p">,</span> <span class="s">&quot;Justice&quot;</span><span class="p">,</span> <span class="s">&quot;Mom&quot;</span><span class="p">,</span> <span class="s">&quot;New York&quot;</span><span class="p">,</span> <span class="s">&quot;Jersey&quot;</span><span class="p">,</span> <span class="s">&quot;Ax&quot;</span><span class="p">,</span> <span class="s">&quot;Warrior&quot;</span><span class="p">,</span> <span class="s">&quot;Ancient&quot;</span><span class="p">,</span> <span class="s">&quot;Pawn&quot;</span><span class="p">,</span> <span class="s">&quot;Throttle&quot;</span><span class="p">,</span> <span class="s">&quot;The Great American&quot;</span><span class="p">,</span> <span class="s">&quot;Knight&quot;</span><span class="p">,</span> <span class="s">&quot;American&quot;</span><span class="p">,</span> <span class="s">&quot;Outback&quot;</span><span class="p">,</span> <span class="s">&quot;Celebrity&quot;</span><span class="p">,</span> <span class="s">&quot;Air&quot;</span><span class="p">,</span> <span class="s">&quot;Restaurant&quot;</span><span class="p">,</span> <span class="s">&quot;Bachelor&quot;</span><span class="p">,</span> <span class="s">&quot;Family&quot;</span><span class="p">,</span> <span class="s">&quot;Royal&quot;</span><span class="p">,</span> <span class="s">&quot;Surf&quot;</span><span class="p">,</span> <span class="s">&quot;Ulitmate&quot;</span><span class="p">,</span> <span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;Operation&quot;</span><span class="p">,</span> <span class="s">&quot;Fish Tank&quot;</span><span class="p">,</span> <span class="s">&quot;Logging&quot;</span><span class="p">,</span> <span class="s">&quot;Hollywood&quot;</span><span class="p">,</span> <span class="s">&quot;Amateur&quot;</span><span class="p">,</span> <span class="s">&quot;Craft&quot;</span><span class="p">,</span> <span class="s">&quot;Mystery&quot;</span><span class="p">,</span> <span class="s">&quot;Intervention&quot;</span><span class="p">,</span> <span class="s">&quot;Dog&quot;</span><span class="p">,</span> <span class="s">&quot;Human&quot;</span><span class="p">,</span> <span class="s">&quot;Rock&quot;</span><span class="p">,</span> <span class="s">&quot;Ice Road&quot;</span><span class="p">,</span> <span class="s">&quot;Shipping&quot;</span><span class="p">,</span> <span class="s">&quot;Modern&quot;</span><span class="p">,</span> <span class="s">&quot;Crocodile&quot;</span><span class="p">,</span> <span class="s">&quot;Farm&quot;</span><span class="p">,</span> <span class="s">&quot;Amish&quot;</span><span class="p">,</span> <span class="s">&quot;Single&quot;</span><span class="p">,</span> <span class="s">&quot;Tool&quot;</span><span class="p">,</span> <span class="s">&quot;Boot Camp&quot;</span><span class="p">,</span> <span class="s">&quot;Pioneer&quot;</span><span class="p">,</span> <span class="s">&quot;Kid&quot;</span><span class="p">,</span> <span class="s">&quot;Action&quot;</span><span class="p">,</span> <span class="s">&quot;Bounty&quot;</span><span class="p">,</span> <span class="s">&quot;Paradise&quot;</span><span class="p">,</span> <span class="s">&quot;Mega&quot;</span><span class="p">,</span> <span class="s">&quot;Love&quot;</span><span class="p">,</span> <span class="s">&quot;Style&quot;</span><span class="p">,</span> <span class="s">&quot;Teen&quot;</span><span class="p">,</span> <span class="s">&quot;Pop&quot;</span><span class="p">,</span> <span class="s">&quot;Wedding&quot;</span><span class="p">,</span> <span class="s">&quot;An American&quot;</span><span class="p">,</span> <span class="s">&quot;Treasure&quot;</span><span class="p">,</span> <span class="s">&quot;Myth&quot;</span><span class="p">,</span> <span class="s">&quot;Empire&quot;</span><span class="p">,</span> <span class="s">&quot;Motorway&quot;</span><span class="p">,</span> <span class="s">&quot;Room&quot;</span><span class="p">,</span> <span class="s">&quot;Casino&quot;</span><span class="p">,</span> <span class="s">&quot;Comedy&quot;</span><span class="p">,</span> <span class="s">&quot;Undercover&quot;</span><span class="p">,</span> <span class="s">&quot;Millionaire&quot;</span><span class="p">,</span> <span class="s">&quot;Chopper&quot;</span><span class="p">,</span> <span class="s">&quot;Space&quot;</span><span class="p">,</span> <span class="s">&quot;Cajun&quot;</span><span class="p">,</span> <span class="s">&quot;Hot Rod&quot;</span><span class="p">,</span> <span class="s">&quot;The&quot;</span><span class="p">,</span> <span class="s">&quot;Colonial&quot;</span><span class="p">,</span> <span class="s">&quot;Dance&quot;</span><span class="p">,</span> <span class="s">&quot;Flying&quot;</span><span class="p">,</span> <span class="s">&quot;Sorority&quot;</span><span class="p">,</span> <span class="s">&quot;Mountain&quot;</span><span class="p">,</span> <span class="s">&quot;Auction&quot;</span><span class="p">,</span> <span class="s">&quot;Extreme&quot;</span><span class="p">,</span> <span class="s">&quot;Whale&quot;</span><span class="p">,</span> <span class="s">&quot;Storage&quot;</span><span class="p">,</span> <span class="s">&quot;Cake&quot;</span><span class="p">,</span> <span class="s">&quot;Turf&quot;</span><span class="p">,</span> <span class="s">&quot;UFO&quot;</span><span class="p">,</span> <span class="s">&quot;The Real&quot;</span><span class="p">,</span> <span class="s">&quot;Wild&quot;</span><span class="p">,</span> <span class="s">&quot;Duck&quot;</span><span class="p">,</span> <span class="s">&quot;Queer&quot;</span><span class="p">,</span> <span class="s">&quot;Voice&quot;</span><span class="p">,</span> <span class="s">&quot;Fame&quot;</span><span class="p">,</span> <span class="s">&quot;Music&quot;</span><span class="p">,</span> <span class="s">&quot;Rock Star&quot;</span><span class="p">,</span> <span class="s">&quot;BBQ&quot;</span><span class="p">,</span> <span class="s">&quot;Spouse&quot;</span><span class="p">,</span> <span class="s">&quot;Wife&quot;</span><span class="p">,</span> <span class="s">&quot;Road&quot;</span><span class="p">,</span> <span class="s">&quot;Star&quot;</span><span class="p">,</span> <span class="s">&quot;Renovation&quot;</span><span class="p">,</span> <span class="s">&quot;Comic&quot;</span><span class="p">,</span> <span class="s">&quot;Chef&quot;</span><span class="p">,</span> <span class="s">&quot;Band&quot;</span><span class="p">,</span> <span class="s">&quot;House&quot;</span><span class="p">,</span> <span class="s">&quot;Sweet&quot;</span><span class="p">)</span>
+
+second <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;Hunters&quot;</span><span class="p">,</span> <span class="s">&quot;Hoarders&quot;</span><span class="p">,</span> <span class="s">&quot;Contest&quot;</span><span class="p">,</span> <span class="s">&quot;Party&quot;</span><span class="p">,</span> <span class="s">&quot;Stars&quot;</span><span class="p">,</span> <span class="s">&quot;Truckers&quot;</span><span class="p">,</span> <span class="s">&quot;Camp&quot;</span><span class="p">,</span> <span class="s">&quot;Dance Crew&quot;</span><span class="p">,</span> <span class="s">&quot;Casting Call&quot;</span><span class="p">,</span> <span class="s">&quot;Inventor&quot;</span><span class="p">,</span> <span class="s">&quot;Search&quot;</span><span class="p">,</span> <span class="s">&quot;Pitmasters&quot;</span><span class="p">,</span> <span class="s">&quot;Blitz&quot;</span><span class="p">,</span> <span class="s">&quot;Marvels&quot;</span><span class="p">,</span> <span class="s">&quot;Wedding&quot;</span><span class="p">,</span> <span class="s">&quot;Crew&quot;</span><span class="p">,</span> <span class="s">&quot;Men&quot;</span><span class="p">,</span> <span class="s">&quot;Project&quot;</span><span class="p">,</span> <span class="s">&quot;Intervention&quot;</span><span class="p">,</span> <span class="s">&quot;Celebrities&quot;</span><span class="p">,</span> <span class="s">&quot;Treasure&quot;</span><span class="p">,</span> <span class="s">&quot;Master&quot;</span><span class="p">,</span> <span class="s">&quot;Days&quot;</span><span class="p">,</span> <span class="s">&quot;Wishes&quot;</span><span class="p">,</span> <span class="s">&quot;Sweets&quot;</span><span class="p">,</span> <span class="s">&quot;Haul&quot;</span><span class="p">,</span> <span class="s">&quot;Hour&quot;</span><span class="p">,</span> <span class="s">&quot;Mania&quot;</span><span class="p">,</span> <span class="s">&quot;Warrior&quot;</span><span class="p">,</span> <span class="s">&quot;Wrangler&quot;</span><span class="p">,</span> <span class="s">&quot;Restoration&quot;</span><span class="p">,</span> <span class="s">&quot;Factor&quot;</span><span class="p">,</span> <span class="s">&quot;Hot Rod&quot;</span><span class="p">,</span> <span class="s">&quot;of Love&quot;</span><span class="p">,</span> <span class="s">&quot;Inventors&quot;</span><span class="p">,</span> <span class="s">&quot;Kitchen&quot;</span><span class="p">,</span> <span class="s">&quot;Casino&quot;</span><span class="p">,</span> <span class="s">&quot;Queens&quot;</span><span class="p">,</span> <span class="s">&quot;Academy&quot;</span><span class="p">,</span> <span class="s">&quot;Superhero&quot;</span><span class="p">,</span> <span class="s">&quot;Battles&quot;</span><span class="p">,</span> <span class="s">&quot;Behavior&quot;</span><span class="p">,</span> <span class="s">&quot;Rules&quot;</span><span class="p">,</span> <span class="s">&quot;Justice&quot;</span><span class="p">,</span> <span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;Discoveries&quot;</span><span class="p">,</span> <span class="s">&quot;Club&quot;</span><span class="p">,</span> <span class="s">&quot;Brother&quot;</span><span class="p">,</span> <span class="s">&quot;Showdown&quot;</span><span class="p">,</span> <span class="s">&quot;Disasters&quot;</span><span class="p">,</span> <span class="s">&quot;Attack&quot;</span><span class="p">,</span> <span class="s">&quot;Contender&quot;</span><span class="p">,</span> <span class="s">&quot;People&quot;</span><span class="p">,</span> <span class="s">&quot;Raiders&quot;</span><span class="p">,</span> <span class="s">&quot;Story&quot;</span><span class="p">,</span> <span class="s">&quot;Patrol&quot;</span><span class="p">,</span> <span class="s">&quot;House&quot;</span><span class="p">,</span> <span class="s">&quot;Gypsies&quot;</span><span class="p">,</span> <span class="s">&quot;Challenge&quot;</span><span class="p">,</span> <span class="s">&quot;School&quot;</span><span class="p">,</span> <span class="s">&quot;Aliens&quot;</span><span class="p">,</span> <span class="s">&quot;Towers&quot;</span><span class="p">,</span> <span class="s">&quot;Brawlers&quot;</span><span class="p">,</span> <span class="s">&quot;Garage&quot;</span><span class="p">,</span> <span class="s">&quot;Whisperer&quot;</span><span class="p">,</span> <span class="s">&quot;Supermodel&quot;</span><span class="p">,</span> <span class="s">&quot;Boss&quot;</span><span class="p">,</span> <span class="s">&quot;Secrets&quot;</span><span class="p">,</span> <span class="s">&quot;Apprentice&quot;</span><span class="p">,</span> <span class="s">&quot;Icon&quot;</span><span class="p">,</span> <span class="s">&quot;House Party&quot;</span><span class="p">,</span> <span class="s">&quot;Pickers&quot;</span><span class="p">,</span> <span class="s">&quot;Crashers&quot;</span><span class="p">,</span> <span class="s">&quot;Nation&quot;</span><span class="p">,</span> <span class="s">&quot;Files&quot;</span><span class="p">,</span> <span class="s">&quot;Office&quot;</span><span class="p">,</span> <span class="s">&quot;Wars&quot;</span><span class="p">,</span> <span class="s">&quot;Rescue&quot;</span><span class="p">,</span> <span class="s">&quot;VIP&quot;</span><span class="p">,</span> <span class="s">&quot;Fighter&quot;</span><span class="p">,</span> <span class="s">&quot;Job&quot;</span><span class="p">,</span> <span class="s">&quot;Experiment&quot;</span><span class="p">,</span> <span class="s">&quot;Girls&quot;</span><span class="p">,</span> <span class="s">&quot;Quest&quot;</span><span class="p">,</span> <span class="s">&quot;Eats&quot;</span><span class="p">,</span> <span class="s">&quot;Moms&quot;</span><span class="p">,</span> <span class="s">&quot;Idol&quot;</span><span class="p">,</span> <span class="s">&quot;Consignment&quot;</span><span class="p">,</span> <span class="s">&quot;Life&quot;</span><span class="p">,</span> <span class="s">&quot;Dynasty&quot;</span><span class="p">,</span> <span class="s">&quot;Diners&quot;</span><span class="p">,</span> <span class="s">&quot;Chef&quot;</span><span class="p">,</span> <span class="s">&quot;Makeover&quot;</span><span class="p">,</span> <span class="s">&quot;Ninja&quot;</span><span class="p">,</span> <span class="s">&quot;Show&quot;</span><span class="p">,</span> <span class="s">&quot;Ladies&quot;</span><span class="p">,</span> <span class="s">&quot;Dancing&quot;</span><span class="p">,</span> <span class="s">&quot;Greenlight&quot;</span><span class="p">,</span> <span class="s">&quot;Mates&quot;</span><span class="p">,</span> <span class="s">&quot;Wives&quot;</span><span class="p">,</span> <span class="s">&quot;Jail&quot;</span><span class="p">,</span> <span class="s">&quot;Model&quot;</span><span class="p">,</span> <span class="s">&quot;Ship&quot;</span><span class="p">,</span> <span class="s">&quot;Family&quot;</span><span class="p">,</span> <span class="s">&quot;Videos&quot;</span><span class="p">,</span> <span class="s">&quot;Repo&quot;</span><span class="p">,</span> <span class="s">&quot;Rivals&quot;</span><span class="p">,</span> <span class="s">&quot;Room&quot;</span><span class="p">,</span> <span class="s">&quot;Dad&quot;</span><span class="p">,</span> <span class="s">&quot;Star&quot;</span><span class="p">,</span> <span class="s">&quot;Exes&quot;</span><span class="p">,</span> <span class="s">&quot;Island&quot;</span><span class="p">,</span> <span class="s">&quot;Next Door&quot;</span><span class="p">,</span> <span class="s">&quot;Missions&quot;</span><span class="p">,</span> <span class="s">&quot;Kings&quot;</span><span class="p">,</span> <span class="s">&quot;Loser&quot;</span><span class="p">,</span> <span class="s">&quot;Shore&quot;</span><span class="p">,</span> <span class="s">&quot;Assistant&quot;</span><span class="p">,</span> <span class="s">&quot;Comedians&quot;</span><span class="p">,</span> <span class="s">&quot;Rooms&quot;</span><span class="p">,</span> <span class="s">&quot;Boys&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Whew, that was long. Instead, let's look at a random sample of those.</p>
+<p>We can make random lists using <code>sample</code>. Sample wants you to provide it with a vector, the sample size you want, and whether or not it should reuse items from the vector. In this case, we don't want any duplicates, so we add <code>replace = FALSE</code>.</p>
+<div class="highlight"><pre>first <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span>first<span class="p">,</span>
+    <span class="m">10</span><span class="p">,</span> replace <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+
+second <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span>second<span class="p">,</span>
+    <span class="m">12</span><span class="p">,</span>
+    replace <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This gives us something more like</p>
+<div class="highlight"><pre><span class="o">&gt;</span> first
+ <span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;Teen&quot;</span>       <span class="s">&quot;Fame&quot;</span>       <span class="s">&quot;Basketball&quot;</span> <span class="s">&quot;Sister&quot;</span>     <span class="s">&quot;Bachelor&quot;</span> 
+ <span class="p">[</span><span class="m">6</span><span class="p">]</span> <span class="s">&quot;Half Pint&quot;</span>  <span class="s">&quot;Myth&quot;</span>       <span class="s">&quot;Paradise&quot;</span>   <span class="s">&quot;Frontier&quot;</span>   <span class="s">&quot;Fast Food&quot;</span>
+<span class="o">&gt;</span> second
+ <span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;Comedians&quot;</span>    <span class="s">&quot;Boss&quot;</span>         <span class="s">&quot;Experiment&quot;</span>   <span class="s">&quot;Wives&quot;</span>        <span class="s">&quot;Wedding&quot;</span>    
+ <span class="p">[</span><span class="m">6</span><span class="p">]</span> <span class="s">&quot;Intervention&quot;</span> <span class="s">&quot;Days&quot;</span>         <span class="s">&quot;Raiders&quot;</span>      <span class="s">&quot;Attack&quot;</span>       <span class="s">&quot;Sweets&quot;</span>     
+<span class="p">[</span><span class="m">11</span><span class="p">]</span> <span class="s">&quot;Jail&quot;</span>         <span class="s">&quot;Whisperer&quot;</span>
+</pre></div>
+
+
+<p>It's random, so your list will probably be different.</p>
+<p>If you want to <code>sort</code> them alphabetically, use</p>
+<div class="highlight"><pre>first <span class="o">&lt;-</span> <span class="kp">sort</span><span class="p">(</span>first<span class="p">)</span>
+</pre></div>
+
+
+<p>If we had wanted to randomly resort the whole "first" list, we could have entered the command</p>
+<div class="highlight"><pre>first <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span>first<span class="p">,</span> <span class="kp">length</span><span class="p">(</span>first<span class="p">),</span> replace <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Using <code>length</code> makes it easy to resort the whole list. You don't have to look up how many items there are in <code>first</code>.</p>
+<p>Let's use <code>length</code> again to choose a random number that we'll use to grab a number from the <code>first</code> list, and then again to choose a random number that we'll use to grab a number from the <code>second</code> list:</p>
+<div class="highlight"><pre>rand1 <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>first<span class="p">),</span> <span class="m">1</span><span class="p">)</span>
+rand2 <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>second<span class="p">),</span> <span class="m">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And finally, we want to pull an item from each list and con<code>cat</code>enate them. We could concatenate to a file, but here we'll just let it print to the console.</p>
+<div class="highlight"><pre><span class="kp">cat</span><span class="p">(</span>first<span class="p">[</span>rand1<span class="p">],</span> second<span class="p">[</span>rand2<span class="p">],</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>"<code>\n</code>" produces a line break so we can do <code>source(reality.R)</code> again and have another name pop up on the next line.</p>
+<p>If you've made a dictionary of your own and want to check for duplicates, you can do the following:</p>
+<div class="highlight"><pre><span class="kp">anyDuplicated</span><span class="p">(</span>first<span class="p">)</span> <span class="c1"># if not 0, there are that many duplicates</span>
+<span class="kp">duplicated</span><span class="p">(</span>first<span class="p">)</span> <span class="c1"># this will show which items are duplicates</span>
+</pre></div>
+
+
+<p>Feel free to improve on my dictionary or generator. I'd love to see it.</p>
+<p>Code available as a <a href="https://gist.github.com/3837835">gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/anyduplicated.html" rel="tag">anyDuplicated</a>,  <a href="/tag/cat.html" rel="tag">cat</a>,  <a href="/tag/duplicated.html" rel="tag">duplicated</a>,  <a href="/tag/length.html" rel="tag">length</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/sample.html" rel="tag">sample</a>,  <a href="/tag/sort.html" rel="tag">sort</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

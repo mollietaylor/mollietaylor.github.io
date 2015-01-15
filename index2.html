@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="/" /> 
+		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2014/01/append-layer-to-overlaymaps-in-leaflet.html.html">Thu 30 January 2014</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2014/01/append-layer-to-overlaymaps-in-leaflet.html.html" title="Permalink to Append Layer to overlayMaps in Leaflet" rel="bookmark">Append Layer to overlayMaps in Leaflet</a>
+		</h2>
+		<div class="entry-content">
+			<p>What if we want to create a layer based on geolocation, but have the layer only be added to the map once geolocation occurs? I didn't find this example in any Leaflet tutorials, but it's pretty simple with some basic JavaScript</p>
+<p>I'll start with some code that should look familiar from the <a href="http://leafletjs.com/examples/quick-start.html">Leaflet Quick Start Guide</a>, but with each item as its own layer.</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">marker</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">([</span><span class="mf">51.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">]);</span>
+
+<span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span>
+    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span>
+<span class="p">]);</span>
+
+<span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">51.505</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">],</span>
+    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">13</span><span class="p">,</span>
+    <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span><span class="nx">marker</span><span class="p">,</span> <span class="nx">circle</span><span class="p">,</span> <span class="nx">polygon</span><span class="p">]</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Marker&quot;</span><span class="o">:</span> <span class="nx">marker</span><span class="p">,</span>
+    <span class="s2">&quot;Circle&quot;</span><span class="o">:</span> <span class="nx">circle</span><span class="p">,</span>
+    <span class="s2">&quot;Polygon&quot;</span><span class="o">:</span> <span class="nx">polygon</span>
+<span class="p">};</span>
+<span class="nx">L</span><span class="p">.</span><span class="nx">tileLayer</span><span class="p">(</span><span class="s1">&#39;http://tile.cloudmade.com/[API-KEY]/29889/256/{z}/{x}/{y}.png&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">attribution</span><span class="o">:</span> <span class="s1">&#39;Map data &amp;copy; &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;CC-BY-SA&lt;/a&gt;, Imagery © &lt;a href=&quot;http://cloudmade.com&quot;&gt;CloudMade&lt;/a&gt;&#39;</span><span class="p">,</span>
+  <span class="nx">maxZoom</span><span class="o">:</span> <span class="mi">18</span>
+<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+</pre></div>
+
+
+<p>Next let's add the code that will display the three original layers if geolocation does not occur. In this case, we do not want the geolocated layer to show.</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onLocationError</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+
+    <span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;locationerror&#39;</span><span class="p">,</span> <span class="nx">onLocationError</span><span class="p">);</span>
+</pre></div>
+
+
+<p>You can see in the below screenshot that only the three layers are displayed.</p>
+<p><img alt="With geolocation off" src="/images/append-layer-geolocation-off.png" /></p>
+<p>Finally, we need to add code that will display all the layers (including the geolocation layer) if geolocation does occur. We simply need to add the "yourLocation" layer to overlayMaps and then display the layers as normal.</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onLocationFound</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">yourLocation</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">);</span>
+
+    <span class="nx">overlayMaps</span><span class="p">[</span><span class="s2">&quot;You&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">yourLocation</span><span class="p">;</span>
+
+    <span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;locationfound&#39;</span><span class="p">,</span> <span class="nx">onLocationFound</span><span class="p">);</span>
+</pre></div>
+
+
+<p>The screenshots below show what happens once geolocation has occurred.</p>
+<p><img alt="With geolocation on" src="/images/append-layer-geolocation-on.png" /></p>
+<p><img alt="Showing geolocation layer" src="/images/append-layer-show-geolocation.png" /></p>
+<p>The full code is available in <a href="https://gist.github.com/mollietaylor/8700934">a gist</a>.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/695050/how-do-i-add-a-property-to-a-javascript-object-using-a-variable-as-the-name">http://stackoverflow.com/questions/695050/how-do-i-add-a-property-to-a-javascript-object-using-a-variable-as-the-name</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/geolocation.html" rel="tag">geolocation</a>,  <a href="/tag/javascript.html" rel="tag">Javascript</a>,  <a href="/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="/tag/locationfound.html" rel="tag">locationfound</a>,  <a href="/tag/overlaymaps.html" rel="tag">overlayMaps</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2014/01/add-and-remove-leaflet-circle-on-click.html.html">Thu 23 January 2014</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2014/01/add-and-remove-leaflet-circle-on-click.html.html" title="Permalink to Add and Remove Leaflet Circle on Click" rel="bookmark">Add and Remove Leaflet Circle on Click</a>
+		</h2>
+		<div class="entry-content">
+			<p>Similar to the popup example in the Leaflet tutorial, you might want to allow a user to add a circle centered on the point they click.</p>
+<p>After defining your map, you first need to declare the variable you'll be using:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">clickCircle</span><span class="p">;</span>
+</pre></div>
+
+
+<p>While popups automatically disappear on the next click, circles do not. The following code removes the former circle from the leaflet map before drawing the new circle:</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onMapClick</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">clickCircle</span> <span class="o">!=</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">map</span><span class="p">.</span><span class="nx">removeLayer</span><span class="p">(</span><span class="nx">clickCircle</span><span class="p">);</span>
+    <span class="p">};</span>
+</pre></div>
+
+
+<p>Next, we want our function to draw the new circle (NB: "1609 * 3" is the radius of the circle. This makes the radius equal 3 miles):</p>
+<div class="highlight"><pre>    <span class="nx">clickCircle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">,</span> <span class="mi">1609</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#f07300&#39;</span><span class="p">,</span>
+        <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">opacity</span><span class="o">:</span> <span class="mf">0.5</span>
+  <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>And finally, we need to add an event listener so that the function will be run when a user clicks on the map:</p>
+<div class="highlight"><pre><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">onMapClick</span><span class="p">);</span>
+</pre></div>
+
+
+<p>The full code is available in <a href="https://gist.github.com/mollietaylor/8564724">a gist</a>.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://leafletjs.com/examples/quick-start.html">http://leafletjs.com/examples/quick-start.html</a></li>
+<li><a href="http://stackoverflow.com/questions/15507737/adding-removing-l-control-from-leaflet-js-map">http://stackoverflow.com/questions/15507737/adding-removing-l-control-from-leaflet-js-map</a></li>
+<li><a href="http://stackoverflow.com/questions/11272552/remove-polygon-from-the-map">http://stackoverflow.com/questions/11272552/remove-polygon-from-the-map</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/addto.html" rel="tag">addTo</a>,  <a href="/tag/javascript.html" rel="tag">Javascript</a>,  <a href="/tag/lcircle.html" rel="tag">L.circle</a>,  <a href="/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="/tag/on.html" rel="tag">on</a>,  <a href="/tag/removelayer.html" rel="tag">removeLayer</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2014/01/embed-audio-in-leaflet-pop-up.html.html">Thu 16 January 2014</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2014/01/embed-audio-in-leaflet-pop-up.html.html" title="Permalink to Embed Audio in Leaflet Pop-up" rel="bookmark">Embed Audio in Leaflet Pop-up</a>
+		</h2>
+		<div class="entry-content">
+			<p>Here's how to embed audio in a leaflet map. This example will also show you how to embed most other HTML in a leaflet map, or how to embed audio in an HTML file.</p>
+<p>In your map code:</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onEachAudio</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">layer</span><span class="p">.</span><span class="nx">bindPopup</span><span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;&lt;br&gt;&quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">html</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">GeoJSON</span><span class="p">.</span><span class="nx">AJAX</span><span class="p">(</span><span class="s2">&quot;audio.geojson&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">onEachFeature</span><span class="o">:</span> <span class="nx">onEachAudio</span><span class="p">,</span>
+    <span class="nx">pointToLayer</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">latlng</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">audioIcon</span><span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+</pre></div>
+
+
+<p>And here's the geojson format where you'll include your audio HTML and the coordinates where you want to view each file:</p>
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;a href=&#39;http://www.freesound.org/people/genghis%20attenborough/sounds/212798/&#39;&gt;Deep basement&lt;/a&gt;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;p&gt;&lt;audio width=&#39;300&#39; height=&#39;32&#39; src=&#39;http://www.freesound.org/data/previews/212/212798_205108-lq.mp3&#39; controls=&#39;controls&#39;&gt;&lt;br /&gt;Your browser does not support the audio element.&lt;br /&gt;&lt;/audio&gt;&lt;/p&gt;&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-100</span><span class="p">,</span><span class="mi">34</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">},{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;a href=&#39;http://www.freesound.org/people/John%20Sipos/sounds/125696/&#39;&gt;Atlantis docks then lands.&lt;/a&gt;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;p&gt;&lt;audio width=&#39;300&#39; height=&#39;32&#39; src=&#39;http://www.freesound.org/data/previews/125/125696_593024-lq.mp3&#39; controls=&#39;controls&#39;&gt;&lt;br /&gt;Your browser does not support the audio element.&lt;br /&gt;&lt;/audio&gt;&lt;/p&gt;&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-84</span><span class="p">,</span><span class="mi">40</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Just substitute in the address of your audio files for the sample files above in the "html" property of the geojson features.</p>
+<p><img alt="Example Leaflet map with audio" src="/images/embed-audio-leaflet.png" /></p>
+<p>The full code is available in <a href="https://gist.github.com/mollietaylor/8230639">a gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/audio.html" rel="tag">audio</a>,  <a href="/tag/bindpopup.html" rel="tag">bindPopup</a>,  <a href="/tag/geojson.html" rel="tag">geojson</a>,  <a href="/tag/html.html" rel="tag">HTML</a>,  <a href="/tag/javascript.html" rel="tag">Javascript</a>,  <a href="/tag/leaflet.html" rel="tag">Leaflet</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2014/01/import-json-data-from-external-file-in.html.html">Thu 09 January 2014</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2014/01/import-json-data-from-external-file-in.html.html" title="Permalink to Import JSON Data from an External File in Leaflet" rel="bookmark">Import JSON Data from an External File in Leaflet</a>
+		</h2>
+		<div class="entry-content">
+			<p>If your JSON or GeoJSON data is long, you might want to store it in a separate file to make your code more readable or to reduce repetition and allow you to access the same data file from multiple pages. You can do that with jQuery.</p>
+<p>First, load jQuery 1.10.2 or the newest version of jQuery (2.0 onward does not support Internet Explorer 6, 7, or 8) in the header:</p>
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+
+<p>Next, in your leaflet script at the bottom of the body, you'll need to add all your other code and your basemap, like normal, for example:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">).</span><span class="nx">setView</span><span class="p">([</span><span class="mf">38.0740</span><span class="p">,</span> <span class="o">-</span><span class="mi">55</span><span class="p">],</span> <span class="mi">3</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">onEachFeature</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">layer</span><span class="p">.</span><span class="nx">bindPopup</span><span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">City</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">State</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">Country</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Then, you can just use jQuery to get the JSON or GeoJSON file. A simple version of this would be:</p>
+<div class="highlight"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;cities.geoJSON&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cities</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">L</span><span class="p">.</span><span class="nx">geoJson</span><span class="p">(</span><span class="nx">cities</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<p>But you can also add more options to your <code>L.geoJson</code> code, just like you would if using data stored in the HTML file. For example:</p>
+<div class="highlight"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;cities.geoJSON&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cities</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">L</span><span class="p">.</span><span class="nx">geoJson</span><span class="p">(</span><span class="nx">cities</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">onEachFeature</span><span class="o">:</span> <span class="nx">onEachFeature</span><span class="p">,</span>
+        <span class="nx">pointToLayer</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">latlng</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">switch</span> <span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">Remember</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">case</span> <span class="s1">&#39;1&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">visitedIcon</span><span class="p">});</span>
+                <span class="k">case</span> <span class="s1">&#39;?&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">uncertainIcon</span><span class="p">});</span>
+                <span class="k">case</span> <span class="s1">&#39;0&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">uncertainIcon</span><span class="p">});</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<p>So just a couple lines of jQuery allow you to store your JSON or GeoJSON data in a separate file.</p>
+<p>The <a href="https://gist.github.com/mollietaylor/7582459">example code is available in a gist</a> and the <a href="http://gtg339g.com/skills/js/leaflet/cities/">example is viewable here</a>.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="http://lyzidiamond.com/posts/external-geojson-and-leaflet-the-other-way/">http://lyzidiamond.com/posts/external-geojson-and-leaflet-the-other-way/</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/geojson.html" rel="tag">geojson</a>,  <a href="/tag/getjson.html" rel="tag">getJSON</a>,  <a href="/tag/javascript.html" rel="tag">Javascript</a>,  <a href="/tag/jquery.html" rel="tag">jQuery</a>,  <a href="/tag/json.html" rel="tag">JSON</a>,  <a href="/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="/tag/lgeojson.html" rel="tag">L.geoJson</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/12/make-all-polygons-same-shade-in-leaflet.html.html">Thu 19 December 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/12/make-all-polygons-same-shade-in-leaflet.html.html" title="Permalink to Make All Polygons the Same Shade in Leaflet" rel="bookmark">Make All Polygons the Same Shade in Leaflet</a>
+		</h2>
+		<div class="entry-content">
+			<p>The <a href="http://leafletjs.com/examples/quick-start.html">Quick Start tutorial</a> shows us how to change the color of a polygon:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span>
+    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span>
+<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+</pre></div>
+
+
+<p>But what if we want to change the color and style of all (or a set of the) polygons?</p>
+<p>First we can define the style:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">defaultStyle</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
+    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.2</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>And then we can just add that style to our polygons:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span>
+<span class="p">]).</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">defaultStyle</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">).</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">defaultStyle</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+</pre></div>
+
+
+<p>The full code (based on <a href="http://leafletjs.com/examples/quick-start.html">the Quick Start tutorial</a>) is available in a <a href="https://gist.github.com/mollietaylor/7110969">gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/javascript.html" rel="tag">Javascript</a>,  <a href="/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="/tag/lpolygon.html" rel="tag">L.polygon</a>,  <a href="/tag/setstyle.html" rel="tag">setStyle</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/12/add-spaces-between-citations-in-latex.html.html">Thu 12 December 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/latex.html" title="View all posts in LaTeX" rel="category tag">LaTeX</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/12/add-spaces-between-citations-in-latex.html.html" title="Permalink to Add Spaces Between Citations in LaTeX" rel="bookmark">Add Spaces Between Citations in LaTeX</a>
+		</h2>
+		<div class="entry-content">
+			<p>I had an issue where LaTeX wasn't adding spaces between references when I had multiple references in the same place.</p>
+<p>So this:</p>
+<div class="highlight"><pre>of their own <span class="k">\cite</span><span class="nb">{</span>moretti:2012,saxenian:1996,casper:2007<span class="nb">}</span>.
+</pre></div>
+
+
+<p>was compiling as this:</p>
+<div class="highlight"><pre>of their own [Moretti, 2012,Saxenian, 1996,Casper, 2007].
+</pre></div>
+
+
+<p>To fix the problem, I simply added the space option for the <strong>cite</strong> package.</p>
+<div class="highlight"><pre><span class="k">\usepackage</span><span class="na">[space]</span><span class="nb">{</span>cite<span class="nb">}</span>
+</pre></div>
+
+
+<p>And now it looks as it should:</p>
+<div class="highlight"><pre>of their own [Moretti, 2012, Saxenian, 1996, Casper, 2007].
+</pre></div>
+
+
+<p>If you have spaces and don't want them, you can instead use the <code>nospace</code> option to remove the space between each citation.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://texdoc.net/texmf-dist/doc/latex/cite/cite.pdf">http://texdoc.net/texmf-dist/doc/latex/cite/cite.pdf</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/cite.html" rel="tag">cite</a>,  <a href="/tag/latex.html" rel="tag">LaTeX</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/12/check-if-variable-exists-in-r.html.html">Thu 05 December 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/12/check-if-variable-exists-in-r.html.html" title="Permalink to Check if a Variable Exists in R" rel="bookmark">Check if a Variable Exists in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>If you use <code>attach</code>, it is easy to tell if a variable exists. You can simply use <code>exists</code> to check:</p>
+<div class="highlight"><pre><span class="o">&gt;</span><span class="kn">attach</span><span class="p">(</span>df<span class="p">)</span>
+
+<span class="o">&gt;</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;varName&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+</pre></div>
+
+
+<p>However, if you don't use <code>attach</code> (and I find you generally don't want to), this simple solution doesn't work.</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="kn">detach</span><span class="p">(</span>df<span class="p">)</span>
+<span class="o">&gt;</span> <span class="kp">exists</span><span class="p">(</span><span class="s">&quot;df$varName&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">FALSE</span>
+</pre></div>
+
+
+<p>Instead of using <code>exists</code>, you can use <code>in</code> or <code>any</code> from the <strong>base</strong> package to determine if a variable is defined in a data frame:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">names</span><span class="p">(</span>df<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+<span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">names</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+</pre></div>
+
+
+<p>Or to determine if a variable is defined in a matrix:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+<span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+</pre></div>
+
+
+<h2>References</h2>
+<ul>
+<li><a href="https://stat.ethz.ch/pipermail/r-help/2009-June/202178.html">https://stat.ethz.ch/pipermail/r-help/2009-June/202178.html</a></li>
+<li><a href="https://stat.ethz.ch/pipermail/r-help/2011-February/267518.html">https://stat.ethz.ch/pipermail/r-help/2011-February/267518.html</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/any.html" rel="tag">any</a>,  <a href="/tag/attach.html" rel="tag">attach</a>,  <a href="/tag/colnames.html" rel="tag">colnames</a>,  <a href="/tag/exists.html" rel="tag">exists</a>,  <a href="/tag/in.html" rel="tag">in</a>,  <a href="/tag/names.html" rel="tag">names</a>,  <a href="/tag/r.html" rel="tag">R</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/10/table-as-image-in-r.html.html">Thu 24 October 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/10/table-as-image-in-r.html.html" title="Permalink to Table as an Image in R" rel="bookmark">Table as an Image in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Usually, it's best to keep tables as text, but if you're making a lot of graphics, it can be helpful to be able to create images of tables.</p>
+<p><img alt="PNG table" src="/images/r-table-image.png" /></p>
+<h2>Creating the Table</h2>
+<p>After loading the data, let's first use <a href="http://www.mollietaylor.com/2013/10/line-breaks-between-words-in-axis.html">this trick</a> to put line breaks between the levels of the effect variable. Depending on your data, you may or may not need or want to do this.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
+data<span class="p">(</span>birds<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>gridExtra<span class="p">)</span>
+
+<span class="c1"># line breaks between words for levels of birds$effect:</span>
+<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
+</pre></div>
+
+
+<p>Next let's make our table: </p>
+<div class="highlight"><pre>xyTable <span class="o">&lt;-</span> <span class="kp">table</span><span class="p">(</span>birds<span class="o">$</span>sky<span class="p">,</span> birds<span class="o">$</span>effect<span class="p">)</span>
+</pre></div>
+
+
+<p>Now we can create an empty plot, center our table in it, and use the <code>grid.table</code> function from the <strong>gridExtra</strong> package to display the table and choose a font size.</p>
+<div class="highlight"><pre>plot.new<span class="p">()</span>
+grid.table<span class="p">(</span>xyTable<span class="p">,</span>
+    <span class="c1"># change font sizes:</span>
+    gpar.coltext <span class="o">=</span> gpar<span class="p">(</span>cex <span class="o">=</span> <span class="m">1.2</span><span class="p">),</span>
+    gpar.rowtext <span class="o">=</span> gpar<span class="p">(</span>cex <span class="o">=</span> <span class="m">1.2</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Now you can view and save the image just like any other plot.</p>
+<p><a href="https://gist.github.com/mollietaylor/6930567#file-tableasimage-simple-r">The code is available in a gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/12318120/adding-table-within-the-plotting-region-of-a-ggplot-in-r">http://stackoverflow.com/questions/12318120/adding-table-within-the-plotting-region-of-a-ggplot-in-r</a></li>
+<li><a href="http://stackoverflow.com/questions/12518387/can-i-create-an-empty-ggplot2-plot-in-r">http://stackoverflow.com/questions/12518387/can-i-create-an-empty-ggplot2-plot-in-r</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gridextra.html" rel="tag">gridExtra</a>,  <a href="/tag/qplot.html" rel="tag">qplot</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/table.html" rel="tag">table</a>,  <a href="/tag/tablegrob.html" rel="tag">tableGrob</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/10/line-breaks-between-words-in-axis.html.html">Thu 17 October 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/10/line-breaks-between-words-in-axis.html.html" title="Permalink to Line Breaks Between Words in Axis Labels in ggplot in R" rel="bookmark">Line Breaks Between Words in Axis Labels in ggplot in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Sometimes when plotting factor variables in R, the graphics can look pretty messy thanks to long factor levels. If the level attributes have multiple words, there is an easy fix to this that often makes the axis labels look much cleaner.</p>
+<h2>Without Line Breaks</h2>
+<p>Here's the messy looking example:</p>
+<p><img alt="No line breaks in axis labels" src="/images/line-breaks-none.png" /></p>
+<p>And here's the code for the messy looking example:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
+data<span class="p">(</span>birds<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+
+ggplot<span class="p">(</span>birds<span class="p">,</span>
+    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
+        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
+geom_boxplot<span class="p">()</span>
+</pre></div>
+
+
+<h2>With Line Breaks</h2>
+<p>We can use <a href="http://regex.learncodethehardway.org/">regular expressions</a> to add line breaks to the factor levels by substituting any spaces with line breaks:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
+data<span class="p">(</span>birds<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+
+<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
+ggplot<span class="p">(</span>birds<span class="p">,</span>
+    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
+        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
+geom_boxplot<span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="Line breaks in axis labels" src="/images/line-breaks.png" /></p>
+<p>Just one line made the plot look much better, and it will carry over to other plots you make as well. For example, you could <a href="http://www.mollietaylor.com/2013/10/table-as-image-in-r.html">create a table with the same variable</a>.</p>
+<h2>Horizontal Boxes</h2>
+<p>Here we can see the difference in a box plot with horizontal boxes. It's up to you to decide which style looks better:</p>
+<p><img alt="No line breaks in axis labels" src="/images/line-breaks-flip-none.png" /></p>
+<p><img alt="Line breaks in axis labels" src="/images/line-breaks-flip.png" /></p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
+data<span class="p">(</span>birds<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+
+<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
+ggplot<span class="p">(</span>birds<span class="p">,</span>
+    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
+        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
+geom_boxplot<span class="p">()</span> <span class="o">+</span> 
+coord_flip<span class="p">()</span>
+</pre></div>
+
+
+<p>Just a note: if you're not using <strong>ggplot</strong>, the multi-line axis labels might overflow into the graph.</p>
+<p><a href="https://gist.github.com/mollietaylor/6930567#file-linebreaks-r">The code is available in a gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://regex.learncodethehardway.org/">http://regex.learncodethehardway.org/</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/abline.html" rel="tag">abline</a>,  <a href="/tag/coord_flip.html" rel="tag">coord_flip</a>,  <a href="/tag/geom_boxplot.html" rel="tag">geom_boxplot</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gsub.html" rel="tag">gsub</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/regular-expressions.html" rel="tag">regular expressions</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/10/custom-legend-in-r.html.html">Thu 10 October 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/10/custom-legend-in-r.html.html" title="Permalink to Custom Legend in R" rel="bookmark">Custom Legend in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>This particular custom legend was designed with three purposes:</p>
+<ul>
+<li>To effectively bin values based on a theoretical minimum and maximum value for that variable (e.g. -1 and 1 or 0 and 100)</li>
+<li>To use a <a href="http://en.wikipedia.org/wiki/Interval_(mathematics)">different interval</a> notation than the default</li>
+<li>To handle NA values</li>
+</ul>
+<p>Even though this particular legend was designed with those needs, it should be simple to extrapolate from that to build legends based on other criteria.</p>
+<h2>Standard Legend</h2>
+<p>For this post, I'll be assuming you've looked through the <a href="http://geography.uoregon.edu/geogr/topics/maps.htm">Oregon map tutorial</a> or have other experience making legends in R. If not, you'll probably want to check that link out. It's an awesome tutorial.</p>
+<p>Let's start by creating a map with a standard legend, and then we move on to customization later.</p>
+<p>First, we'll load the packages we need and the data from <strong>OIdata</strong>:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>classInt<span class="p">)</span>
+
+<span class="c1"># load state data from OIdata package:</span>
+data<span class="p">(</span>state<span class="p">)</span>
+</pre></div>
+
+
+<p>Next we want to set some constants. This will save us a bunch of typing and will make the code easier to read, especially once we start creating a custom legend. Also, it will allow us to easily change the values if we want a different number of bins or a different min and max.</p>
+<p>In this example, we're assuming we have a theoretical minimum and maximum and want to determine our choropleth bins based on that.</p>
+<div class="highlight"><pre>nclr <span class="o">&lt;-</span> <span class="m">8</span> <span class="c1"># number of bins</span>
+min <span class="o">&lt;-</span> <span class="m">0</span> <span class="c1"># theoretical minimum</span>
+max <span class="o">&lt;-</span> <span class="m">100</span> <span class="c1"># theoretical maximum</span>
+breaks <span class="o">&lt;-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr
+</pre></div>
+
+
+<p>Next, we'll set up our choropleth colors (this should look familiar from the <a href="http://geography.uoregon.edu/geogr/topics/maps.htm">Oregon tutorial</a>):</p>
+<div class="highlight"><pre><span class="c1"># set up colors:</span>
+plotclr <span class="o">&lt;-</span> brewer.pal<span class="p">(</span>nclr<span class="p">,</span> <span class="s">&quot;Oranges&quot;</span><span class="p">)</span>
+plotvar <span class="o">&lt;-</span> state<span class="o">$</span>coal
+class <span class="o">&lt;-</span> classIntervals<span class="p">(</span>plotvar<span class="p">,</span>
+    nclr<span class="p">,</span>
+    style <span class="o">=</span> <span class="s">&quot;fixed&quot;</span><span class="p">,</span>
+    fixedBreaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> <span class="kp">max</span><span class="p">,</span> breaks<span class="p">))</span>
+colcode <span class="o">&lt;-</span> findColours<span class="p">(</span><span class="kp">class</span><span class="p">,</span> 
+    plotclr<span class="p">)</span>
+</pre></div>
+
+
+<p>And now let's map the data:</p>
+<div class="highlight"><pre><span class="c1"># map data:</span>
+map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># base</span>
+    col <span class="o">=</span> <span class="s">&quot;gray80&quot;</span><span class="p">,</span>
+    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+    lty <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># data</span>
+    col <span class="o">=</span> colcode<span class="p">,</span>
+    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+    lty <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
+    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># border</span>
+    col <span class="o">=</span> <span class="s">&quot;gray&quot;</span><span class="p">,</span>
+    lwd <span class="o">=</span> <span class="m">1.4</span><span class="p">,</span>
+    lty <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
+    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And finally let's add our default legend:</p>
+<div class="highlight"><pre>legend<span class="p">(</span><span class="s">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="c1"># position</span>
+    legend <span class="o">=</span> <span class="kp">names</span><span class="p">(</span><span class="kp">attr</span><span class="p">(</span>colcode<span class="p">,</span> <span class="s">&quot;table&quot;</span><span class="p">)),</span> 
+    title <span class="o">=</span> <span class="s">&quot;Percent&quot;</span><span class="p">,</span>
+    fill <span class="o">=</span> <span class="kp">attr</span><span class="p">(</span>colcode<span class="p">,</span> <span class="s">&quot;palette&quot;</span><span class="p">),</span>
+    cex <span class="o">=</span> <span class="m">0.56</span><span class="p">,</span>
+    bty <span class="o">=</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="c1"># border</span>
+</pre></div>
+
+
+<p>Here's the output of this code (see <a href="https://gist.github.com/mollietaylor/6757351#file-map-standard-legend-r">map-standard-legend.R</a> in the gist):</p>
+<p><img alt="Percent of power coming from coal sources (standard legend)" src="/images/r-legend-standard.png" /></p>
+<h2>Custom Legend</h2>
+<p>Next we want to add a few lines here and there to enhance the legend.</p>
+<p>For starters, let's deal with NA values. We don't have any in this particular dataset, but if we did, we would have seen they were left as the base color of the map and not included in the legend.</p>
+<p>After our former code setting up the colors, we should add the color for NAs. It's important that these lines go after all the other set up code, or the wrong colors will be mapped.</p>
+<div class="highlight"><pre><span class="c1"># set up colors:</span>
+plotclr <span class="o">&lt;-</span> brewer.pal<span class="p">(</span>nclr<span class="p">,</span> <span class="s">&quot;Oranges&quot;</span><span class="p">)</span>
+plotvar <span class="o">&lt;-</span> state<span class="o">$</span>coal
+class <span class="o">&lt;-</span> classIntervals<span class="p">(</span>plotvar<span class="p">,</span>
+    nclr<span class="p">,</span>
+    style <span class="o">=</span> <span class="s">&quot;fixed&quot;</span><span class="p">,</span>
+    fixedBreaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> <span class="kp">max</span><span class="p">,</span> breaks<span class="p">))</span>
+colcode <span class="o">&lt;-</span> findColours<span class="p">(</span><span class="kp">class</span><span class="p">,</span> 
+    plotclr<span class="p">)</span>
+NAColor <span class="o">&lt;-</span> <span class="s">&quot;gray80&quot;</span>
+plotclr <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>plotclr<span class="p">,</span> NAColor<span class="p">)</span>
+</pre></div>
+
+
+<p>We also want to let the map know to have our NA color as the default color, so the map will use that instead of having those areas be transparent:</p>
+<div class="highlight"><pre><span class="c1"># map data:</span>
+map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># base</span>
+    col <span class="o">=</span> NAColor<span class="p">,</span>
+    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+    lty <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># data</span>
+    col <span class="o">=</span> colcode<span class="p">,</span>
+    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+    lty <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
+    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># border</span>
+    col <span class="o">=</span> <span class="s">&quot;gray&quot;</span><span class="p">,</span>
+    lwd <span class="o">=</span> <span class="m">1.4</span><span class="p">,</span>
+    lty <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
+    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Next, we want to set up the legend text. For all but the last interval, we want it to say <code>i ≤ n &lt; (i + breaks)</code>. The last interval should be <code>i ≤ n ≤ (i + breaks)</code>. This can be accomplished by</p>
+<div class="highlight"><pre><span class="c1"># set legend text:</span>
+legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">()</span>
+<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">))</span> <span class="p">{</span>
+    <span class="kr">if</span> <span class="p">(</span>i <span class="o">==</span> <span class="kp">max</span><span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">)))</span> <span class="p">{</span>
+        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n \u2264&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span>
+    <span class="p">}</span> <span class="kp">else</span>
+        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n &lt;&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>But we also want to include NAs in the legend, so we need to add a line:</p>
+<div class="highlight"><pre><span class="c1"># set legend text:</span>
+legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">()</span>
+<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">))</span> <span class="p">{</span>
+    <span class="kr">if</span> <span class="p">(</span>i <span class="o">==</span> <span class="kp">max</span><span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">)))</span> <span class="p">{</span>
+        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n \u2264&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span>
+        <span class="kr">if</span> <span class="p">(</span><span class="o">!</span><span class="kp">is.na</span><span class="p">(</span>NAColor<span class="p">))</span> legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="s">&quot;NA&quot;</span><span class="p">)</span>
+    <span class="p">}</span> <span class="kp">else</span>
+        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n &lt;&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>And finally we need to add the legend to the map:</p>
+<div class="highlight"><pre>legend<span class="p">(</span><span class="s">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="c1"># position</span>
+    legend <span class="o">=</span> legendText<span class="p">,</span> 
+    title <span class="o">=</span> <span class="s">&quot;Percent&quot;</span><span class="p">,</span>
+    fill <span class="o">=</span> plotclr<span class="p">,</span>
+    cex <span class="o">=</span> <span class="m">0.56</span><span class="p">,</span>
+    bty <span class="o">=</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="c1"># border</span>
+</pre></div>
+
+
+<p>The new map (see <a href="https://gist.github.com/mollietaylor/6757351#file-map-new-legend-r">map-new-legend.R</a>) meets all the criteria we started with that the original legend didn't have.</p>
+<p><img alt="Percent of power coming from coal sources (custom legend)" src="/images/r-legend-custom.png" /></p>
+<p>Code is available in a <a href="https://gist.github.com/mollietaylor/6757351">gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://geography.uoregon.edu/geogr/topics/maps.htm">http://geography.uoregon.edu/geogr/topics/maps.htm</a></li>
+<li><a href="http://stackoverflow.com/questions/13192984/displaying-a-greater-than-or-equal-sign">http://stackoverflow.com/questions/13192984/displaying-a-greater-than-or-equal-sign</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/classint.html" rel="tag">classInt</a>,  <a href="/tag/classintervals.html" rel="tag">classIntervals</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/map.html" rel="tag">map</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="navigation">
+		<div class="nav-previous">
+				<a href="/index.html">
+			<span class="meta-nav">&larr;</span> Newer posts</a>
+		</div>		
+		<div class="nav-next"><a href="/index3.html" >Older posts <span class="meta-nav">&rarr;</span></a></div>
+</div>
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

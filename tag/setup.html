@@ -482,6 +482,35 @@ correctCentury <span class="o">&lt;-</span> <span class="kp">as.Date</span><span
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/asdate.html" rel="tag">as.Date</a>,  <a href="/tag/format.html" rel="tag">format</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/setup.html" rel="tag">setup</a>,  <a href="/tag/sysdate.html" rel="tag">Sys.Date</a>    		</span>
 	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/09/text-to-columns-in-stata.html.html">Thu 06 September 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/09/text-to-columns-in-stata.html.html" title="Permalink to Text to Columns in Stata" rel="bookmark">Text to Columns in Stata</a>
+		</h2>
+		<div class="entry-content">
+			<p>If you've ever used Excel's text to columns feature, you know how valuable it can be. If you haven't ever used text to columns, it allows you to take one column of data and separate it into multiple columns using delimiters that you provide. One time this is helpful is when converting data from other formats.</p>
+<p>If you're learning Stata, you may wonder how you can gain this useful functionality. There are a few different ways, but for now we'll be discussing <code>split</code>.</p>
+<p>For the following example, I have imported some patent data where the four most relevant primary patent classes for each observation are listed in a single column. These are delimited by a "/" as can be seen below.</p>
+<p><img alt="Data before transformation" src="/images/stata-before.png" /></p>
+<p>I would like each of these classes to be included in its own column. To do this, I give Stata the following command:</p>
+<p><code>split class, parse(/) generate(class)</code></p>
+<p><img alt="Stata command and feedback" src="/images/stata-command-line.png" /></p>
+<p>In this command, the first <code>class</code> is the name of the variable I want to transform, <code>/</code> is the delimiter, and <code>generate(class)</code> lets Stata to know that I would like the names of the new variables to each be class followed by an integer. In the example, the most <code>/</code>'s there were in <code>class</code> was two, so three <code>class[n]</code> variables are created.</p>
+<p><img alt="Data after transformation" src="/images/stata-after.png" /></p>
+<p>I can then <code>drop class</code> if I want to remove the original class variable.</p>
+<p>I could have also used the option <code>destring</code> if I wanted to treat the patent classes as numbers.</p>
+<p><img alt="Stata documentation excerpt" src="/images/stata-docs.png" /></p>
+<p>More use cases are shown in the <a href="http://www.stata.com/help.cgi?split">split documentation</a>. One example they provide allows you to use multiple delimiters. In this instance showing how to separate the names of court cases even if some are delimited by "v." and some by "vs."</p>
+<p>For more complex situations, you can also use <a href="http://www.ats.ucla.edu/stat/Stata/faq/regex.htm">regular expressions</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/cleaning.html" rel="tag">cleaning</a>,  <a href="/tag/setup.html" rel="tag">setup</a>,  <a href="/tag/split.html" rel="tag">split</a>,  <a href="/tag/stata.html" rel="tag">Stata</a>    		</span>
+	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 </div>
 		</div>

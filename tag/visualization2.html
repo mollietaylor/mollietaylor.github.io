@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Articles tagged visualization</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="/" /> 
+		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+<div class="page-title">
+	<h2>Tagged with <span>visualization</span> &hellip;</h2>
+</div>
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-google-earth.html.html">Thu 20 December 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/12/mapping-gps-tracks-in-google-earth.html.html" title="Permalink to Mapping GPS Tracks in Google Earth" rel="bookmark">Mapping GPS Tracks in Google Earth</a>
+		</h2>
+		<div class="entry-content">
+			<p>Even though I find the R solution easier, I'm sure not everyone agrees with me, so here's the Google Earth way to import a bunch of GPS tracks and map them:</p>
+<h2>Export to TCX</h2>
+<p>From inside Garmin Training Center or other GPS device software, export a huge TCX file with all your tracks.</p>
+<h2>Mapping in Google Earth</h2>
+<p><img alt="Opening your TCX file" src="/images/earth-gpx-open.png" /></p>
+<p>Select File -&gt; Open. Change the dropbox for "Files of type" to "Gps", and then find your file and open it. Make sure the "Create KML LineStrings" box is checked and the "Create KML Tracks" box is unchecked. This will save us some work later.</p>
+<p><img alt="Import settings" src="/images/earth-gpx-import.png" /></p>
+<p>Next, zoom in, zoom out, and recenter as desired. If you want North to be up, you can click the "N" in the compass in the upper right. </p>
+<p>In the layers (bottom left), I personally like to check Roads and uncheck everything else.</p>
+<p>In the places (just above layers), right click "GPS device" and select "Properties". Click over to the "Style, Color" tab, and then click "Share Style".</p>
+<p><img alt="Share style" src="/images/earth-gpx-style.png" /></p>
+<p>I like to use the following settings:</p>
+<p>Lines:</p>
+<ul>
+<li>Color: red</li>
+<li>Width: 3.0</li>
+<li>Opacity: 100%</li>
+</ul>
+<p>Label:</p>
+<ul>
+<li>Opacity: 0%</li>
+</ul>
+<p>Icon:</p>
+<ul>
+<li>Opacity: 0%</li>
+</ul>
+<p><img alt="Example style and color settings" src="/images/earth-gpx-settings.png" /></p>
+<p>Make sure you've selected all the dates you want on the date slider. Then you can select "Print" to export to a PDF, or you can take a screenshot.</p>
+<p><img alt="Export image" src="/images/earth-gpx-export.png" /></p>
+<p><img alt="Date slider and final map" src="/images/earth-gpx-final.png" /></p>
+<p>And that's all there is to it. Large maps may take a long time to load and edit.</p>
+<p>--
+This post is one part of my series on Mapping GPS Tracks.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/google-earth.html" rel="tag">Google Earth</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-r.html.html">Thu 13 December 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/12/mapping-gps-tracks-in-r.html.html" title="Permalink to Mapping GPS Tracks in R" rel="bookmark">Mapping GPS Tracks in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>This is an explanation of how I used R to combine all my GPS cycling tracks from my Garmin Forerunner 305.</p>
+<h2>Converting to CSV</h2>
+<p>You can convert pretty much any GPS data to .csv by using <a href="http://www.gpsbabel.org/htmldoc-1.4.4/readme.html">GPSBabel</a>. For importing directly from my Garmin, I used the command:</p>
+<div class="highlight"><pre><span class="go">gpsbabel -t -i garmin -f usb: -o unicsv -F out.csv</span>
+</pre></div>
+
+
+<p>[Note: you'll probably need to work as root to access your device directly]</p>
+<p>For importing from a .tcx file, you can use:</p>
+<div class="highlight"><pre><span class="go">gpsbabel -t -i gtrnctr -f test2.tcx -o unicsv -F old.csv</span>
+</pre></div>
+
+
+<h2>Mapping in R</h2>
+<p>After converting to .csv, we'll have a file with several columns, such as latitude, longitude, date, and time. We can now easily import this into R.</p>
+<div class="highlight"><pre>gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;out.csv&quot;</span><span class="p">,</span> 
+    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Next we want to load up ggmap and get our base map. To determine how zoomed in we are, we can set <code>zoom</code> and <code>size</code>. We can also choose the <code>maptype</code>, with options of terrain, satellite, roadmap, or hybrid (satellite + roadmap).</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span>
+mapImageData <span class="o">&lt;-</span> get_googlemap<span class="p">(</span>center <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span> lat <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Latitude<span class="p">)),</span>
+    zoom <span class="o">=</span> <span class="m">11</span><span class="p">,</span>
+<span class="c1"># size = c(500, 500),</span>
+    maptype <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;terrain&quot;</span><span class="p">))</span>
+</pre></div>
+
+
+<p>I chose to set the <code>center</code> of the map to the median of my latitudes and the median of my longitudes. I've done some biking when traveling, so median made more sense for me than mean.
+Finally we want to map our GPS data. There are several <a href="http://www.endmemo.com/program/R/pchsymbols.php"><code>pch</code> options</a> to try.</p>
+<div class="highlight"><pre>ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
+    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># takes out axes, etc.</span>
+    geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span>
+        y <span class="o">=</span> Latitude<span class="p">),</span>
+    data <span class="o">=</span> gps<span class="p">,</span>
+    colour <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span>
+    size <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
+</pre></div>
+
+
+<p><img alt="All my metro Atlanta bike rides" src="/images/r-gps-tracks.png" /></p>
+<p>Previously, I've used Google Earth to create these maps, but I actually found it to be easier and way less time and resource efficient to do it in R. The only tricky part was converting the data into .csv, and there are <a href="http://www.gpsvisualizer.com/convert_input?convert_output=gpx">other ways</a> to do that, if GPSBabel isn't working for you. You might also be interested in trying <a href="/2012/12/mapping-gps-tracks-in-google-earth.html.html">Google Earth</a> for mapping your tracks, instead of R.</p>
+<p><a href="https://gist.github.com/4210660">Here's the gist</a> with the code.</p>
+<blockquote>
+<p>This post is one part of my series on Mapping GPS Tracks.</p>
+</blockquote>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://www.gpsbabel.org/htmldoc-1.4.4/readme.html">http://www.gpsbabel.org/htmldoc-1.4.4/readme.html</a></li>
+<li><a href="http://www.olberg.se/?q=node/25">http://www.olberg.se/?q=node/25</a></li>
+<li><a href="http://stackoverflow.com/questions/11648870/offline-plotting-of-map-coordinates-on-static-maps-of-google">http://stackoverflow.com/questions/11648870/offline-plotting-of-map-coordinates-on-static-maps-of-google</a></li>
+<li><a href="http://stackoverflow.com/questions/11590193/saving-image-in-ggplot-ggmap">http://stackoverflow.com/questions/11590193/saving-image-in-ggplot-ggmap</a></li>
+</ul>
+<p>pch = 20)</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gpsbabel.html" rel="tag">GPSBabel</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/11/sorting-within-lattice-graphics-in-r.html.html">Thu 29 November 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/11/sorting-within-lattice-graphics-in-r.html.html" title="Permalink to Sorting Within Lattice Graphics in R" rel="bookmark">Sorting Within Lattice Graphics in R</a>
+		</h2>
+		<div class="entry-content">
+			<h2>Default</h2>
+<p>By default, <strong>lattice</strong> sorts the observations by the axis values, starting at the bottom left.</p>
+<p>For example,</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span>
+colors <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#1B9E77&quot;</span><span class="p">,</span> <span class="s">&quot;#D95F02&quot;</span><span class="p">,</span> <span class="s">&quot;#7570B3&quot;</span><span class="p">)</span>
+dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span>
+    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p>produces:</p>
+<p><img alt="Default lattice dotplot" src="/images/r-lattice-default.png" /></p>
+<p>(Note: The <code>rownames(cars)</code> bit is just because of how this data set is stored. For your data, you might just type the variable name (<code>model</code>, for example) instead.)</p>
+<h2>Graphing one variable, sorting by another</h2>
+<p>If we want to show the same data, but we want to sort by another variable (or the same variable, for that matter), we can just add <code>reorder(yvar, sortvar)</code>. For example, to sort by the number of cylinders, we could:</p>
+<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span>
+</pre></div>
+
+
+<p><img alt="Sorted by number of cylinders" src="/images/r-lattice-by-cyl.png" /></p>
+<h2>Graphing two variables</h2>
+<p>To better show how this works, let's graph <code>cyl</code> alongside <code>mpg</code>, so we can see how it is sorting:</p>
+<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">,</span>
+    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
+    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Graph of mpg and cyl, sorted by cyl" src="/images/r-lattice-mpg-cyl.png" /></p>
+<h2>Reverse order</h2>
+<p>We can also sort in reverse order, by adding a "-" before the variable name:</p>
+<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">,</span>
+    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
+</pre></div>
+
+
+<p><img alt="Graph of mpg and cyl, sorted by cyl, reversed" src="/images/r-lattice-mpg-cyl-reverse.png" /></p>
+<h2>Adding a legend</h2>
+<p>We can also add a legend:</p>
+<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
+    data <span class="o">=</span> mtcars<span class="p">,</span>
+    xlab <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">,</span>
+    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span>
+    key <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>points <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">],</span> pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">)),</span>
+        text <span class="o">=</span> <span class="kt">list</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Miles per gallon&quot;</span><span class="p">,</span> <span class="s">&quot;Number of cylinders&quot;</span><span class="p">)),</span>
+        space <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">))</span>
+</pre></div>
+
+
+<p><img alt="With legend" src="/images/r-lattice-legend.png" /></p>
+<h2>Other lattice types</h2>
+<p>The same technique will work with other lattice graphs, such as barchart, bwplot, and stripplot.</p>
+<p>Full code available as a <a href="https://gist.github.com/4063837">gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/barchart.html" rel="tag">barchart</a>,  <a href="/tag/dotplot.html" rel="tag">dotplot</a>,  <a href="/tag/key.html" rel="tag">key</a>,  <a href="/tag/lattice.html" rel="tag">lattice</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/reorder.html" rel="tag">reorder</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/10/palettes-in-r.html.html">Thu 25 October 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/10/palettes-in-r.html.html" title="Permalink to Palettes in R" rel="bookmark">Palettes in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>In its simplest form, a palette in R is simply a vector of colors. This vector can be include the hex triplet or R color names.</p>
+<p>The default palette can be seen through <code>palette()</code>: </p>
+<div class="highlight"><pre><span class="o">&gt;</span> palette<span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">)</span> <span class="c1"># you&#39;ll only need this line if you&#39;ve previously changed the palette from the default</span>
+<span class="o">&gt;</span> palette<span class="p">()</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;black&quot;</span>   <span class="s">&quot;red&quot;</span>     <span class="s">&quot;green3&quot;</span>  <span class="s">&quot;blue&quot;</span>    <span class="s">&quot;cyan&quot;</span>    <span class="s">&quot;magenta&quot;</span> <span class="s">&quot;yellow&quot;</span>
+<span class="p">[</span><span class="m">8</span><span class="p">]</span> <span class="s">&quot;gray&quot;</span>
+</pre></div>
+
+
+<h2>Defining your own palettes</h2>
+<p>If you want to make your own palette, you can just create your own vector of colors. It's fine for your vector to include a mixture of hex triplets and R color names. You can use the <code>palette</code> function above, but generally it's best to just store each palette as a standard vector. For one thing, you can use more than one palette that way. Here's how you can define your own palette:</p>
+<div class="highlight"><pre>colors <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#A7A7A7&quot;</span><span class="p">,</span>
+    <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span>
+    <span class="s">&quot;firebrick&quot;</span><span class="p">,</span>
+    <span class="s">&quot;forestgreen&quot;</span><span class="p">,</span>
+    <span class="s">&quot;gold&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now let's try using our palette. For now let's just color each bar of a histogram. This is a silly example, but I think it's the easiest way to show how to get R to utilize your palette. In the following example, there are six bars, but only five colors. You can see that R will cycle through your palette to fill all the shapes.</p>
+<div class="highlight"><pre>hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="One color per bar" src="/images/r-palette-color-by-bar.png" /></p>
+<p>A more sensible use of color is to use a different color for each of a number of summary statistics:</p>
+<div class="highlight"><pre>colors <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#A7A7A7&quot;</span><span class="p">,</span>
+    <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span>
+    <span class="s">&quot;firebrick&quot;</span><span class="p">,</span>
+    <span class="s">&quot;forestgreen&quot;</span><span class="p">,</span>
+    <span class="s">&quot;gold&quot;</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">])</span>
+abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>discoveries<span class="p">),</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">2</span><span class="p">],</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+abline<span class="p">(</span>v <span class="o">=</span> median<span class="p">(</span>discoveries<span class="p">),</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">3</span><span class="p">],</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">min</span><span class="p">(</span>discoveries<span class="p">),</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">4</span><span class="p">],</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">max</span><span class="p">(</span>discoveries<span class="p">),</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">5</span><span class="p">],</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+legend<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;topright&quot;</span><span class="p">,</span> <span class="c1"># location of legend within plot area</span>
+    col <span class="o">=</span> colors<span class="p">[</span><span class="m">2</span><span class="o">:</span><span class="m">5</span><span class="p">],</span>
+
+<span class="kt">c</span><span class="p">(</span><span class="s">&quot;Mean&quot;</span><span class="p">,</span> <span class="s">&quot;Median&quot;</span><span class="p">,</span> <span class="s">&quot;Minimum&quot;</span><span class="p">,</span> <span class="s">&quot;Maximum&quot;</span><span class="p">),</span>
+    lwd <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Summary statistics" src="/images/r-palette-stats.png" /></p>
+<h2>Predefined palettes: default R palettes</h2>
+<p>The package <strong>grDevices</strong> (you probably already have this loaded) contains a number of palettes.</p>
+<div class="highlight"><pre><span class="o">?</span>rainbow
+rainbowcols <span class="o">&lt;-</span> rainbow<span class="p">(</span><span class="m">6</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> rainbowcols<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Rainbow palette" src="/images/r-palette-rainbow.png" /></p>
+<p>For <code>rainbow</code>, you can adjust the saturation and value. For example:</p>
+<div class="highlight"><pre>rainbowcols <span class="o">&lt;-</span> rainbow<span class="p">(</span><span class="m">6</span><span class="p">,</span>
+    s <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> rainbowcols<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Rainbow palette desaturated" src="/images/r-palette-rainbow-pale.png" /></p>
+<div class="highlight"><pre>heatcols <span class="o">&lt;-</span> heat.colors<span class="p">(</span><span class="m">6</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> heatcols<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="heat.colors palette" src="/images/r-palette-heat.png" /></p>
+<p>As well as <code>rainbow</code> and <code>heat.colors</code>, there are also <code>terrain.colors</code>, <code>topo.colors</code>, and <code>cm.colors</code>.</p>
+<h2>Predefined palettes: RColorBrewer</h2>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+display.brewer.all<span class="p">()</span>
+</pre></div>
+
+
+<p>The above lines will show us all the <strong>RColorBrewer</strong> palettes (output shown below). The top section of palettes are sequential, the middle section are qualitative, and the lower section are diverging. <a href="http://blog.ggplot2.org/post/24607351280/choosing-colour-palettes-part-ii-educated-choices">Here is some information about how to choose a good palette</a>.</p>
+<p><img alt="RColorBrewer palettes" src="/images/r-display-brewer-all.png" /></p>
+<p><strong>RColorBrewer</strong> works a little different than how we've defined palettes previously. We'll have to use <code>brewer.pal</code> to create a palette.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+darkcols <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> darkcols<span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Dark2 color palette" src="/images/r-palette-dark2.png" /></p>
+<p>Even though we have to provide <code>brewer.pal</code> with the number of colors we want, we won't necessarily need to use all those colors later. We can still choose a color from the vector like we have previously. When we're setting a <code>col</code> setting to the full palette, we'll be more concerned with how many colors are included in the palette , but even there, we can choose a subset of the whole palette:</p>
+<div class="highlight"><pre>darkcols <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
+hist<span class="p">(</span>discoveries<span class="p">,</span>
+    col <span class="o">=</span> darkcols<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">])</span>
+</pre></div>
+
+
+<p><img alt="Dark 2 color palette, two colors" src="/images/r-palette-dark2-2.png" /></p>
+<p><a href="https://gist.github.com/3943476">Here</a>'s the code from this post.</p>
+<p>Now that we're familiar with making our own palettes and using the built-in palettes in <strong>grDevices</strong> and <strong>RColorBrewer</strong>, I'm planning a future post about a more practical (but also more complicated) example of using palettes: making maps.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/brewerpal.html" rel="tag">brewer.pal</a>,  <a href="/tag/palette.html" rel="tag">palette</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/10/adding-measures-of-central-tendency-to.html.html">Thu 04 October 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/10/adding-measures-of-central-tendency-to.html.html" title="Permalink to Adding Measures of Central Tendency to Histograms in R" rel="bookmark">Adding Measures of Central Tendency to Histograms in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Building on the basic histogram with a density plot, we can add measures of central tendency (in this case, mean and median) and a legend.</p>
+<p>Like last time, we'll use the beaver data from the <strong>datasets</strong> package.</p>
+<div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
+    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
+    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span> 
+    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
+    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span>
+    ylim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">3</span><span class="p">),</span>
+    xlab <span class="o">=</span> <span class="s">&quot;Temperature&quot;</span><span class="p">,</span>
+    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span>
+lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span>
+    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Next we'll add a line for the mean: </p>
+<div class="highlight"><pre>abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span>
+    col <span class="o">=</span> <span class="s">&quot;royalblue&quot;</span><span class="p">,</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And a line for the median: </p>
+<div class="highlight"><pre>abline<span class="p">(</span>v <span class="o">=</span> median<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span>
+    col <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And then we can also add a legend, so it will be easy to tell which line is which. 
+    :::r
+    legend(x = "topright", # location of legend within plot area
+        c("Density plot", "Mean", "Median"),
+        col = c("chocolate3", "royalblue", "red"),
+        lwd = c(2, 2, 2))</p>
+<p>All of this together gives us the following graphic:</p>
+<p><img alt="Beaver #1 central tendency" src="/images/r-histogram-tendency-1.png" /></p>
+<p>In this example, the mean and median are very close, as we can see by using <code>median()</code> and <code>mode()</code>.</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="kp">mean</span><span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">36.86219</span>
+<span class="o">&gt;</span> median<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">36.87</span>
+</pre></div>
+
+
+<p>We can do like we did in the previous post and graph beaver1 and beaver2 together by adding a layout line and changing the limits of x and y. The full code for this is available in a <a href="https://gist.github.com/3768715#file_histdens2.r">gist</a>.</p>
+<p>Here's the output from that code: </p>
+<p><img alt="Beaver #1 and #2 central tendency" src="/images/r-histogram-tendency-2.png" /></p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/abline.html" rel="tag">abline</a>,  <a href="/tag/hist.html" rel="tag">hist</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/09/histogram-density-plot-combo-in-r.html.html">Thu 27 September 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/09/histogram-density-plot-combo-in-r.html.html" title="Permalink to Histogram + Density Plot Combo in R" rel="bookmark">Histogram + Density Plot Combo in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Plotting a histogram using <code>hist</code> from the <strong>graphics</strong> package is pretty straightforward, but what if you want to view the density plot on top of the histogram? This combination of graphics can help us compare the distributions of groups.</p>
+<p>Let's use some of the data included with R in the package <strong>datasets</strong>. It will help to have two things to compare, so we'll use the <a href="http://stat.ethz.ch/R-manual/R-patched/library/datasets/html/beavers.html"><code>beaver</code> data sets</a>, <code>beaver1</code> and <code>beaver2</code>: the body temperatures of two beavers, taken at 10 minute intervals.</p>
+<p>First we want to plot the histogram of one beaver:</p>
+<div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
+    col<span class="o">=</span><span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
+    border<span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span>
+    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
+    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span>
+    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Histogram" src="/images/r-histogram.png" /></p>
+<p>Next, we want to add in the density line, using <code>lines</code>:</p>
+<div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
+    col<span class="o">=</span><span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
+    border<span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span>
+    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
+    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span>
+    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span>
+lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span>
+    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Histogram and density" src="/images/r-histogram-density.png" /></p>
+<p>Now let's show the plots for both beavers on the same image. We'll make a histogram and density plot for Beaver #2, wrap the graphs in a <code>layout</code> and <code>png</code>, and change the x-axis to be the same, using <code>xlim</code>.</p>
+<p><img alt="Histogram and density" src="/images/r-histogram-density-2.png" /></p>
+<p>Here's the final code, <a href="https://gist.github.com/3685924">also available on gist</a>:</p>
+<div class="highlight"><pre>png<span class="p">(</span><span class="s">&quot;beaverhist.png&quot;</span><span class="p">)</span>
+layout<span class="p">(</span><span class="kt">matrix</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">),</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span>
+    byrow <span class="o">=</span> <span class="kc">TRUE</span><span class="p">))</span>
+hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
+    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
+    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span>
+    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
+    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span>
+    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span>
+    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span>
+lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span>
+    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span>
+hist<span class="p">(</span>beaver2<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
+    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
+    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span>
+    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
+    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span>
+    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span>
+    main <span class="o">=</span> <span class="s">&quot;Beaver #2&quot;</span><span class="p">)</span>
+lines<span class="p">(</span>density<span class="p">(</span>beaver2<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span>
+    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span>
+    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span>
+dev.off<span class="p">()</span>
+</pre></div>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/hist.html" rel="tag">hist</a>,  <a href="/tag/lines.html" rel="tag">lines</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/09/word-clouds-in-r.html.html">Thu 13 September 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/09/word-clouds-in-r.html.html" title="Permalink to Word Clouds in R" rel="bookmark">Word Clouds in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Thanks to the <strong>wordcloud</strong> package, it's super easy to make a word cloud or tag cloud in R.</p>
+<p>In this case, the words have been counted already. If you are starting with plain text, you can use the text mining package <strong>tm</strong> to obtain the counts. <a href="http://onertipaday.blogspot.com/2011/07/word-cloud-in-r.html">Other bloggers</a> have provided good examples of this. I'll just be covering the simple case where we already have the frequencies.</p>
+<p>Let's look at some commonly used words during the National Conventions this year. <a href="http://www.nytimes.com/interactive/2012/09/06/us/politics/convention-word-counts.html">The New York Times produced a cool infographic</a> that we'll use as our data source. The data in csv format (and the R code too) are available in a <a href="https://gist.github.com/3671518">gist</a>.</p>
+<p>First we need to load up the packages and our data:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>wordcloud<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+
+conventions <span class="o">&lt;-</span> read.table<span class="p">(</span><span class="s">&quot;conventions.csv&quot;</span><span class="p">,</span>
+    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And then we can get to using the <strong>wordcloud</strong> library to produce our clouds in R:</p>
+<div class="highlight"><pre>
+</pre></div>
+
+
+<p>png("dnc.png")
+    wordcloud(conventions$wordper25k, # words
+        conventions$democrats, # frequencies
+        scale = c(4,1), # size of largest and smallest words
+        colors = brewer.pal(9,"Blues"), # number of colors, palette
+        rot.per = 0) # proportion of words to rotate 90 degrees
+    dev.off()</p>
+<div class="highlight"><pre><span class="x">png(&quot;rnc.png&quot;)</span>
+<span class="x">wordcloud(conventions</span><span class="p">$</span><span class="nv">wordper25k</span><span class="x">,</span>
+<span class="x">    conventions</span><span class="p">$</span><span class="nv">republicans</span><span class="x">,</span>
+<span class="x">    scale = c(4,1),</span>
+<span class="x">    colors = brewer.pal(9,&quot;Reds&quot;),</span>
+<span class="x">    rot.per = 0)</span>
+<span class="x">dev.off()</span>
+</pre></div>
+
+
+<p><img alt="DNC word cloud" src="/images/r-word-cloud-dnc.png" /></p>
+<p><img alt="RNC word cloud" src="/images/r-word-cloud-rnc.png" /></p>
+<p>The default word cloud has some words rotated 90 degrees, but I prefer to use rot.per = 0 to make them all horizontal for readability.</p>
+<p>You can easily change to just one color if you prefer that since the size already denotes the frequency of the word, by changing color to "red3", for example:</p>
+<p><img alt="RNC single color" src="/images/r-word-cloud-rnc-alt.png" /></p>
+<div class="highlight"><pre>png<span class="p">(</span><span class="s">&quot;rncalt.png&quot;</span><span class="p">)</span>
+wordcloud<span class="p">(</span>conventions<span class="o">$</span>wordper25k<span class="p">,</span>
+    conventions<span class="o">$</span>republicans<span class="p">,</span>
+    scale <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">1</span><span class="p">),</span>
+    colors <span class="o">=</span> <span class="s">&quot;red3&quot;</span><span class="p">,</span>
+    rot.per <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+dev.off<span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="DNC single color" src="/images/r-word-cloud-dnc-alt.png" /></p>
+<p>And there you have it, a simple way to generate a word count from frequency data using R.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>,  <a href="/tag/wordcloud.html" rel="tag">wordcloud</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="navigation">
+		<div class="nav-previous">
+				<a href="/tag/visualization.html">
+			<span class="meta-nav">&larr;</span> Newer posts</a>
+		</div>		
+</div>
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

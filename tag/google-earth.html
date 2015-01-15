@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-		<title>Maps & Apps &mdash; Articles in Category </title>
+		<title>Maps & Apps &mdash; Articles tagged Google Earth</title>
 		<meta charset="utf-8" />
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
 		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
@@ -37,53 +37,58 @@
 		
 		<div class="page-title">
 <div class="page-title">
-	<h2>Filed under <span></span> &hellip;</h2>
+	<h2>Tagged with <span>Google Earth</span> &hellip;</h2>
 </div>
 		</div>
 	
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/02/get-citrix-xendesktop-to-work-on-linux.html.html">Thu 07 February 2013</a></div>
+		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-google-earth.html.html">Thu 20 December 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/02/get-citrix-xendesktop-to-work-on-linux.html.html" title="Permalink to Get Citrix XenDesktop to Work on Linux" rel="bookmark">Get Citrix XenDesktop to Work on Linux</a>
+			<a href="/2012/12/mapping-gps-tracks-in-google-earth.html.html" title="Permalink to Mapping GPS Tracks in Google Earth" rel="bookmark">Mapping GPS Tracks in Google Earth</a>
 		</h2>
 		<div class="entry-content">
-			<p>I had some difficulty figuring out how to get Citrix XenDesktop to work properly on Linux.</p>
-<p>I was having the same problem I had had on Windows — when I would try to access XenDesktop, the browser would try to download launch.ica instead of running it.</p>
-<h2>Citrix Receiver</h2>
-<p>However, on other operating systems, I had always downloaded the Citrix Online Plug-in to fix the problem. For some reason, the Citrix Online Plug-in is not available for Linux. However, the <a href="http://receiver.citrix.com/?ntref=receiverdownload">Citrix Receiver</a> is available for Linux, and seems to do the same thing.</p>
-<p>After installing Citrix Receiver, your browser will ask for your permission to run it.</p>
-<p><img alt="" class="size-auto" src="/images/citrix-permission.png" /></p>
-<h2>Open Motif</h2>
-<p>You may need to install Open Motif before you can install Citrix Receiver.</p>
-<p>If so, download Open Motif, extract it, and follow the directions in INSTALL.configure, namely:</p>
-<div class="highlight"><pre><span class="go">cd</span>
-<span class="go">./configure</span>
-<span class="go">make check</span>
-<span class="go">make install</span>
-<span class="go">make clean</span>
-</pre></div>
-
-
-<h2>Security Certificate</h2>
-<p><img alt="" class="size-auto" src="/images/citrix-error.png" /></p>
-<p>If you try to log on to your virtual desktop and get an error about "AddTrust External CA Root", you can just do</p>
-<div class="highlight"><pre><span class="go">sudo cp /usr/share/ca-certificates/mozilla/*.* /opt/Citrix/ICAClient/keystore/cacerts/</span>
-</pre></div>
-
-
-<h2>References</h2>
+			<p>Even though I find the R solution easier, I'm sure not everyone agrees with me, so here's the Google Earth way to import a bunch of GPS tracks and map them:</p>
+<h2>Export to TCX</h2>
+<p>From inside Garmin Training Center or other GPS device software, export a huge TCX file with all your tracks.</p>
+<h2>Mapping in Google Earth</h2>
+<p><img alt="Opening your TCX file" src="/images/earth-gpx-open.png" /></p>
+<p>Select File -&gt; Open. Change the dropbox for "Files of type" to "Gps", and then find your file and open it. Make sure the "Create KML LineStrings" box is checked and the "Create KML Tracks" box is unchecked. This will save us some work later.</p>
+<p><img alt="Import settings" src="/images/earth-gpx-import.png" /></p>
+<p>Next, zoom in, zoom out, and recenter as desired. If you want North to be up, you can click the "N" in the compass in the upper right. </p>
+<p>In the layers (bottom left), I personally like to check Roads and uncheck everything else.</p>
+<p>In the places (just above layers), right click "GPS device" and select "Properties". Click over to the "Style, Color" tab, and then click "Share Style".</p>
+<p><img alt="Share style" src="/images/earth-gpx-style.png" /></p>
+<p>I like to use the following settings:</p>
+<p>Lines:</p>
 <ul>
-<li><a href="http://www.jorink.nl/2010/11/you-have-not-chosen-to-trust-addtrust-external-ca-root-the-issuer-of-the-servers-security-certificate/">http://www.jorink.nl/2010/11/you-have-not-chosen-to-trust-addtrust-external-ca-root-the-issuer-of-the-servers-security-certificate/</a></li>
+<li>Color: red</li>
+<li>Width: 3.0</li>
+<li>Opacity: 100%</li>
 </ul>
+<p>Label:</p>
+<ul>
+<li>Opacity: 0%</li>
+</ul>
+<p>Icon:</p>
+<ul>
+<li>Opacity: 0%</li>
+</ul>
+<p><img alt="Example style and color settings" src="/images/earth-gpx-settings.png" /></p>
+<p>Make sure you've selected all the dates you want on the date slider. Then you can select "Print" to export to a PDF, or you can take a screenshot.</p>
+<p><img alt="Export image" src="/images/earth-gpx-export.png" /></p>
+<p><img alt="Date slider and final map" src="/images/earth-gpx-final.png" /></p>
+<p>And that's all there is to it. Large maps may take a long time to load and edit.</p>
+<p>--
+This post is one part of my series on Mapping GPS Tracks.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/citrix.html" rel="tag">Citrix</a>,  <a href="/tag/linux.html" rel="tag">Linux</a>,  <a href="/tag/ubuntu.html" rel="tag">ubuntu</a>,  <a href="/tag/xendesktop.html" rel="tag">XenDesktop</a>    		</span>
+ <a href="/tag/google-earth.html" rel="tag">Google Earth</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 </div>
