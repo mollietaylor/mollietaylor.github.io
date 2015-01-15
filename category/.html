@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Articles in Category </title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="/" /> 
+		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+<div class="page-title">
+	<h2>Filed under <span></span> &hellip;</h2>
+</div>
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/02/get-citrix-xendesktop-to-work-on-linux.html">Thu 07 February 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/02/get-citrix-xendesktop-to-work-on-linux.html" title="Permalink to Get Citrix XenDesktop to Work on Linux" rel="bookmark">Get Citrix XenDesktop to Work on Linux</a>
+		</h2>
+		<div class="entry-content">
+			<p>I had some difficulty figuring out how to get Citrix XenDesktop to work properly on Linux.</p>
+<p>I was having the same problem I had had on Windows — when I would try to access XenDesktop, the browser would try to download launch.ica instead of running it.</p>
+<h2>Citrix Receiver</h2>
+<p>However, on other operating systems, I had always downloaded the Citrix Online Plug-in to fix the problem. For some reason, the Citrix Online Plug-in is not available for Linux. However, the <a href="http://receiver.citrix.com/?ntref=receiverdownload">Citrix Receiver</a> is available for Linux, and seems to do the same thing.</p>
+<p>After installing Citrix Receiver, your browser will ask for your permission to run it.</p>
+<p><img alt="Permission" class="size-auto" src="/images/citrix-permission.png" /></p>
+<h2>Open Motif</h2>
+<p>You may need to install Open Motif before you can install Citrix Receiver.</p>
+<p>If so, download Open Motif, extract it, and follow the directions in INSTALL.configure, namely:</p>
+<div class="highlight"><pre><span class="go">cd</span>
+<span class="go">./configure</span>
+<span class="go">make check</span>
+<span class="go">make install</span>
+<span class="go">make clean</span>
+</pre></div>
+
+
+<h2>Security Certificate</h2>
+<p><img alt="Error" class="size-auto" src="/images/citrix-error.png" /></p>
+<p>If you try to log on to your virtual desktop and get an error about "AddTrust External CA Root", you can just do</p>
+<div class="highlight"><pre><span class="go">sudo cp /usr/share/ca-certificates/mozilla/*.* /opt/Citrix/ICAClient/keystore/cacerts/</span>
+</pre></div>
+
+
+<h2>References</h2>
+<ul>
+<li><a href="http://www.jorink.nl/2010/11/you-have-not-chosen-to-trust-addtrust-external-ca-root-the-issuer-of-the-servers-security-certificate/">http://www.jorink.nl/2010/11/you-have-not-chosen-to-trust-addtrust-external-ca-root-the-issuer-of-the-servers-security-certificate/</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/citrix.html" rel="tag">Citrix</a>,  <a href="/tag/linux.html" rel="tag">Linux</a>,  <a href="/tag/ubuntu.html" rel="tag">ubuntu</a>,  <a href="/tag/xendesktop.html" rel="tag">XenDesktop</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-google-earth.html">Thu 20 December 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/12/mapping-gps-tracks-in-google-earth.html" title="Permalink to Mapping GPS Tracks in Google Earth" rel="bookmark">Mapping GPS Tracks in Google Earth</a>
+		</h2>
+		<div class="entry-content">
+			<p>Even though I find the <a href="/2012/12/mapping-gps-tracks-in-r.html">R solution</a> easier, I'm sure not everyone agrees with me, so here's the Google Earth way to import a bunch of GPS tracks and map them:</p>
+<h2>Export to TCX</h2>
+<p>From inside Garmin Training Center or other GPS device software, export a huge TCX file with all your tracks.</p>
+<h2>Mapping in Google Earth</h2>
+<p><img alt="Opening your TCX file" class="size-auto" src="/images/earth-gpx-open.png" /></p>
+<p>Select File -&gt; Open. Change the dropbox for "Files of type" to "Gps", and then find your file and open it. Make sure the "Create KML LineStrings" box is checked and the "Create KML Tracks" box is unchecked. This will save us some work later.</p>
+<p><img alt="Import settings" class="size-auto" src="/images/earth-gpx-import.png" /></p>
+<p>Next, zoom in, zoom out, and recenter as desired. If you want North to be up, you can click the "N" in the compass in the upper right. </p>
+<p>In the layers (bottom left), I personally like to check Roads and uncheck everything else.</p>
+<p>In the places (just above layers), right click "GPS device" and select "Properties". Click over to the "Style, Color" tab, and then click "Share Style".</p>
+<p><img alt="Share style" class="size-auto" src="/images/earth-gpx-style.png" /></p>
+<p>I like to use the following settings:</p>
+<p>Lines:</p>
+<ul>
+<li>Color: red</li>
+<li>Width: 3.0</li>
+<li>Opacity: 100%</li>
+</ul>
+<p>Label:</p>
+<ul>
+<li>Opacity: 0%</li>
+</ul>
+<p>Icon:</p>
+<ul>
+<li>Opacity: 0%</li>
+</ul>
+<p><img alt="Example style and color settings" class="size-auto" src="/images/earth-gpx-settings.png" /></p>
+<p>Make sure you've selected all the dates you want on the date slider. Then you can select "Print" to export to a PDF, or you can take a screenshot.</p>
+<p><img alt="Export image" class="size-auto" src="/images/earth-gpx-export.png" /></p>
+<p><img alt="Date slider and final map" class="size-auto" src="/images/earth-gpx-final.png" /></p>
+<p>And that's all there is to it. Large maps may take a long time to load and edit.</p>
+<blockquote>
+<p>This post is one part of my series on Mapping GPS Tracks.</p>
+</blockquote>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/google-earth.html" rel="tag">Google Earth</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/12/workflowy-or-how-i-organize-everything.html">Thu 06 December 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/12/workflowy-or-how-i-organize-everything.html" title="Permalink to WorkFlowy (or How I Organize Everything)" rel="bookmark">WorkFlowy (or How I Organize Everything)</a>
+		</h2>
+		<div class="entry-content">
+			<p>Being organized is crucial to doing a PhD.</p>
+<p>One of the main ways I get and stay organized is by using <a href="https://workflowy.com/?ref=8a2f747">WorkFlowy</a>. WorkFlowy is a simple (perhaps startlingly simple) webapp that can function as to-do list, planning software, and outliner.</p>
+<p>I've tried tons of to-do apps for desktop and mobile, but I've found I always revert to post-its and a todo.txt. WorkFlowy is the first service I've found that has changed that. It's pretty similar to a text file, but easier to navigate.</p>
+<iframe width="420" height="315" src="//www.youtube.com/embed/CSmbnaPZVHE" frameborder="0" allowfullscreen></iframe>
+
+<h2>How I use WorkFlowy</h2>
+<h3>To-do list</h3>
+<p>For my to-do list, I have one list for each week and then one list inside that for each day. It's easy to move stuff from day to day. When I finish items, I check them off.</p>
+<p><img alt="Daily" src="/images/workflowy-daily.png" /></p>
+<p>When I'm finished with a week, I move it to a completed list at the bottom of my WorkFlowy. Since I mark off items as I finish them instead of deleting them, this gives me a quick way to look through and see what I've accomplished in the past week. This is helpful for self-assessment and for preparing for meetings with committee members.</p>
+<p><img alt="Completed" src="/images/workflowy-completed.png" /></p>
+<p>You can also get WorkFlowy to send you a daily email with summaries of your changes.</p>
+<p><img alt="Settings" src="/images/workflowy-settings.png" /></p>
+<h3>Organizing papers</h3>
+<p>I tend toward being an excessive outliner. I outline my papers or sections of papers down to the paragraph or even sentence level before I write them. Some people prefer the edit-and-edit-again route, but I've found that outlining works better for me, personally.</p>
+<p>In the preliminary stages of a paper, I use WorkFlowy for my outlines.</p>
+<p>I have one list for each paper I have planned. Inside each list, I include things like a summary of the paper, research questions, hypotheses, possible data sources, variables, literature citations, possible cases to analyze, and a to-do list of things I need to remember to do.</p>
+<p><img alt="Papers" src="/images/workflowy-paper-list.png" /></p>
+<h2>Other features</h2>
+<h3>Sharing</h3>
+<p>WorkFlowy lists can also be shared and used for collaboration. Free accounts can share through links that are accessible to anyone using the link. This link feature can either allow other people to edit the list or only view it. Paid accounts can also share privately to email addresses, with login required to view or edit.</p>
+<h3>Backup</h3>
+<p>Paid accounts can have automatic backup to Dropbox. Any user can export manually as text at any time.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/organization.html" rel="tag">organization</a>,  <a href="/tag/workflowy.html" rel="tag">WorkFlowy</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/09/text-to-columns-in-stata.html">Thu 06 September 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/09/text-to-columns-in-stata.html" title="Permalink to Text to Columns in Stata" rel="bookmark">Text to Columns in Stata</a>
+		</h2>
+		<div class="entry-content">
+			<p>If you've ever used Excel's text to columns feature, you know how valuable it can be. If you haven't ever used text to columns, it allows you to take one column of data and separate it into multiple columns using delimiters that you provide. One time this is helpful is when converting data from other formats.</p>
+<p>If you're learning Stata, you may wonder how you can gain this useful functionality. There are a few different ways, but for now we'll be discussing <code>split</code>.</p>
+<p>For the following example, I have imported some patent data where the four most relevant primary patent classes for each observation are listed in a single column. These are delimited by a "/" as can be seen below.</p>
+<p><img alt="Data before transformation" class="size-auto" src="/images/stata-before.png" /></p>
+<p>I would like each of these classes to be included in its own column. To do this, I give Stata the following command:</p>
+<p><code>split class, parse(/) generate(class)</code></p>
+<p><img alt="Stata command and feedback" src="/images/stata-command-line.png" /></p>
+<p>In this command, the first <code>class</code> is the name of the variable I want to transform, <code>/</code> is the delimiter, and <code>generate(class)</code> lets Stata to know that I would like the names of the new variables to each be class followed by an integer. In the example, the most <code>/</code>'s there were in <code>class</code> was two, so three <code>class[n]</code> variables are created.</p>
+<p><img alt="Data after transformation" class="size-auto" src="/images/stata-after.png" /></p>
+<p>I can then <code>drop class</code> if I want to remove the original class variable.</p>
+<p>I could have also used the option <code>destring</code> if I wanted to treat the patent classes as numbers.</p>
+<p><img alt="Stata documentation excerpt" class="size-auto" src="/images/stata-docs.png" /></p>
+<p>More use cases are shown in the <a href="http://www.stata.com/help.cgi?split">split documentation</a>. One example they provide allows you to use multiple delimiters. In this instance showing how to separate the names of court cases even if some are delimited by "v." and some by "vs."</p>
+<p>For more complex situations, you can also use <a href="http://www.ats.ucla.edu/stat/Stata/faq/regex.htm">regular expressions</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/cleaning.html" rel="tag">cleaning</a>,  <a href="/tag/setup.html" rel="tag">setup</a>,  <a href="/tag/split.html" rel="tag">split</a>,  <a href="/tag/stata.html" rel="tag">Stata</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="navigation">
+</div>
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

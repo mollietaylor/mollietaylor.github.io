@@ -44,26 +44,26 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-google-earth.html.html">Thu 20 December 2012</a></div>
+		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-google-earth.html">Thu 20 December 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/12/mapping-gps-tracks-in-google-earth.html.html" title="Permalink to Mapping GPS Tracks in Google Earth" rel="bookmark">Mapping GPS Tracks in Google Earth</a>
+			<a href="/2012/12/mapping-gps-tracks-in-google-earth.html" title="Permalink to Mapping GPS Tracks in Google Earth" rel="bookmark">Mapping GPS Tracks in Google Earth</a>
 		</h2>
 		<div class="entry-content">
-			<p>Even though I find the R solution easier, I'm sure not everyone agrees with me, so here's the Google Earth way to import a bunch of GPS tracks and map them:</p>
+			<p>Even though I find the <a href="/2012/12/mapping-gps-tracks-in-r.html">R solution</a> easier, I'm sure not everyone agrees with me, so here's the Google Earth way to import a bunch of GPS tracks and map them:</p>
 <h2>Export to TCX</h2>
 <p>From inside Garmin Training Center or other GPS device software, export a huge TCX file with all your tracks.</p>
 <h2>Mapping in Google Earth</h2>
-<p><img alt="Opening your TCX file" src="/images/earth-gpx-open.png" /></p>
+<p><img alt="Opening your TCX file" class="size-auto" src="/images/earth-gpx-open.png" /></p>
 <p>Select File -&gt; Open. Change the dropbox for "Files of type" to "Gps", and then find your file and open it. Make sure the "Create KML LineStrings" box is checked and the "Create KML Tracks" box is unchecked. This will save us some work later.</p>
-<p><img alt="Import settings" src="/images/earth-gpx-import.png" /></p>
+<p><img alt="Import settings" class="size-auto" src="/images/earth-gpx-import.png" /></p>
 <p>Next, zoom in, zoom out, and recenter as desired. If you want North to be up, you can click the "N" in the compass in the upper right. </p>
 <p>In the layers (bottom left), I personally like to check Roads and uncheck everything else.</p>
 <p>In the places (just above layers), right click "GPS device" and select "Properties". Click over to the "Style, Color" tab, and then click "Share Style".</p>
-<p><img alt="Share style" src="/images/earth-gpx-style.png" /></p>
+<p><img alt="Share style" class="size-auto" src="/images/earth-gpx-style.png" /></p>
 <p>I like to use the following settings:</p>
 <p>Lines:</p>
 <ul>
@@ -79,26 +79,27 @@
 <ul>
 <li>Opacity: 0%</li>
 </ul>
-<p><img alt="Example style and color settings" src="/images/earth-gpx-settings.png" /></p>
+<p><img alt="Example style and color settings" class="size-auto" src="/images/earth-gpx-settings.png" /></p>
 <p>Make sure you've selected all the dates you want on the date slider. Then you can select "Print" to export to a PDF, or you can take a screenshot.</p>
-<p><img alt="Export image" src="/images/earth-gpx-export.png" /></p>
-<p><img alt="Date slider and final map" src="/images/earth-gpx-final.png" /></p>
+<p><img alt="Export image" class="size-auto" src="/images/earth-gpx-export.png" /></p>
+<p><img alt="Date slider and final map" class="size-auto" src="/images/earth-gpx-final.png" /></p>
 <p>And that's all there is to it. Large maps may take a long time to load and edit.</p>
-<p>--
-This post is one part of my series on Mapping GPS Tracks.</p>
+<blockquote>
+<p>This post is one part of my series on Mapping GPS Tracks.</p>
+</blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/google-earth.html" rel="tag">Google Earth</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-r.html.html">Thu 13 December 2012</a></div>
+		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-r.html">Thu 13 December 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/12/mapping-gps-tracks-in-r.html.html" title="Permalink to Mapping GPS Tracks in R" rel="bookmark">Mapping GPS Tracks in R</a>
+			<a href="/2012/12/mapping-gps-tracks-in-r.html" title="Permalink to Mapping GPS Tracks in R" rel="bookmark">Mapping GPS Tracks in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>This is an explanation of how I used R to combine all my GPS cycling tracks from my Garmin Forerunner 305.</p>
@@ -143,7 +144,7 @@ Finally we want to map our GPS data. There are several <a href="http://www.endme
 
 
 <p><img alt="All my metro Atlanta bike rides" src="/images/r-gps-tracks.png" /></p>
-<p>Previously, I've used Google Earth to create these maps, but I actually found it to be easier and way less time and resource efficient to do it in R. The only tricky part was converting the data into .csv, and there are <a href="http://www.gpsvisualizer.com/convert_input?convert_output=gpx">other ways</a> to do that, if GPSBabel isn't working for you. You might also be interested in trying <a href="/2012/12/mapping-gps-tracks-in-google-earth.html.html">Google Earth</a> for mapping your tracks, instead of R.</p>
+<p>Previously, I've used Google Earth to create these maps, but I actually found it to be easier and way less time and resource efficient to do it in R. The only tricky part was converting the data into .csv, and there are <a href="http://www.gpsvisualizer.com/convert_input?convert_output=gpx">other ways</a> to do that, if GPSBabel isn't working for you. You might also be interested in trying <a href="/2012/12/mapping-gps-tracks-in-google-earth.html">Google Earth</a> for mapping your tracks, instead of R.</p>
 <p><a href="https://gist.github.com/4210660">Here's the gist</a> with the code.</p>
 <blockquote>
 <p>This post is one part of my series on Mapping GPS Tracks.</p>
@@ -162,13 +163,13 @@ Finally we want to map our GPS data. There are several <a href="http://www.endme
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/11/sorting-within-lattice-graphics-in-r.html.html">Thu 29 November 2012</a></div>
+		<div class="date"><a href="/2012/11/sorting-within-lattice-graphics-in-r.html">Thu 29 November 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/11/sorting-within-lattice-graphics-in-r.html.html" title="Permalink to Sorting Within Lattice Graphics in R" rel="bookmark">Sorting Within Lattice Graphics in R</a>
+			<a href="/2012/11/sorting-within-lattice-graphics-in-r.html" title="Permalink to Sorting Within Lattice Graphics in R" rel="bookmark">Sorting Within Lattice Graphics in R</a>
 		</h2>
 		<div class="entry-content">
 			<h2>Default</h2>
@@ -239,13 +240,13 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/10/palettes-in-r.html.html">Thu 25 October 2012</a></div>
+		<div class="date"><a href="/2012/10/palettes-in-r.html">Thu 25 October 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/10/palettes-in-r.html.html" title="Permalink to Palettes in R" rel="bookmark">Palettes in R</a>
+			<a href="/2012/10/palettes-in-r.html" title="Permalink to Palettes in R" rel="bookmark">Palettes in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>In its simplest form, a palette in R is simply a vector of colors. This vector can be include the hex triplet or R color names.</p>
@@ -363,16 +364,16 @@ hist<span class="p">(</span>discoveries<span class="p">,</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/10/adding-measures-of-central-tendency-to.html.html">Thu 04 October 2012</a></div>
+		<div class="date"><a href="/2012/10/adding-measures-of-central-tendency-to.html">Thu 04 October 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/10/adding-measures-of-central-tendency-to.html.html" title="Permalink to Adding Measures of Central Tendency to Histograms in R" rel="bookmark">Adding Measures of Central Tendency to Histograms in R</a>
+			<a href="/2012/10/adding-measures-of-central-tendency-to.html" title="Permalink to Adding Measures of Central Tendency to Histograms in R" rel="bookmark">Adding Measures of Central Tendency to Histograms in R</a>
 		</h2>
 		<div class="entry-content">
-			<p>Building on the basic histogram with a density plot, we can add measures of central tendency (in this case, mean and median) and a legend.</p>
+			<p>Building on the <a href="/2012/09/histogram-density-plot-combo-in-r.html">basic histogram with a density plot</a>, we can add measures of central tendency (in this case, mean and median) and a legend.</p>
 <p>Like last time, we'll use the beaver data from the <strong>datasets</strong> package.</p>
 <div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
     col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
@@ -427,13 +428,13 @@ lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/09/histogram-density-plot-combo-in-r.html.html">Thu 27 September 2012</a></div>
+		<div class="date"><a href="/2012/09/histogram-density-plot-combo-in-r.html">Thu 27 September 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/09/histogram-density-plot-combo-in-r.html.html" title="Permalink to Histogram + Density Plot Combo in R" rel="bookmark">Histogram + Density Plot Combo in R</a>
+			<a href="/2012/09/histogram-density-plot-combo-in-r.html" title="Permalink to Histogram + Density Plot Combo in R" rel="bookmark">Histogram + Density Plot Combo in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Plotting a histogram using <code>hist</code> from the <strong>graphics</strong> package is pretty straightforward, but what if you want to view the density plot on top of the histogram? This combination of graphics can help us compare the distributions of groups.</p>
@@ -497,13 +498,13 @@ dev.off<span class="p">()</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/09/word-clouds-in-r.html.html">Thu 13 September 2012</a></div>
+		<div class="date"><a href="/2012/09/word-clouds-in-r.html">Thu 13 September 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/09/word-clouds-in-r.html.html" title="Permalink to Word Clouds in R" rel="bookmark">Word Clouds in R</a>
+			<a href="/2012/09/word-clouds-in-r.html" title="Permalink to Word Clouds in R" rel="bookmark">Word Clouds in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Thanks to the <strong>wordcloud</strong> package, it's super easy to make a word cloud or tag cloud in R.</p>

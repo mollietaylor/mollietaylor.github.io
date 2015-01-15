@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Mapping GPS Tracks in R</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="/" /> 
+		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+		</div>
+	
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-r.html">Thu 13 December 2012</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2012/12/mapping-gps-tracks-in-r.html" title="Permalink to Mapping GPS Tracks in R" rel="bookmark">Mapping GPS Tracks in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>This is an explanation of how I used R to combine all my GPS cycling tracks from my Garmin Forerunner 305.</p>
+<h2>Converting to CSV</h2>
+<p>You can convert pretty much any GPS data to .csv by using <a href="http://www.gpsbabel.org/htmldoc-1.4.4/readme.html">GPSBabel</a>. For importing directly from my Garmin, I used the command:</p>
+<div class="highlight"><pre><span class="go">gpsbabel -t -i garmin -f usb: -o unicsv -F out.csv</span>
+</pre></div>
+
+
+<p>[Note: you'll probably need to work as root to access your device directly]</p>
+<p>For importing from a .tcx file, you can use:</p>
+<div class="highlight"><pre><span class="go">gpsbabel -t -i gtrnctr -f test2.tcx -o unicsv -F old.csv</span>
+</pre></div>
+
+
+<h2>Mapping in R</h2>
+<p>After converting to .csv, we'll have a file with several columns, such as latitude, longitude, date, and time. We can now easily import this into R.</p>
+<div class="highlight"><pre>gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;out.csv&quot;</span><span class="p">,</span> 
+    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Next we want to load up ggmap and get our base map. To determine how zoomed in we are, we can set <code>zoom</code> and <code>size</code>. We can also choose the <code>maptype</code>, with options of terrain, satellite, roadmap, or hybrid (satellite + roadmap).</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span>
+mapImageData <span class="o">&lt;-</span> get_googlemap<span class="p">(</span>center <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span> lat <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Latitude<span class="p">)),</span>
+    zoom <span class="o">=</span> <span class="m">11</span><span class="p">,</span>
+<span class="c1"># size = c(500, 500),</span>
+    maptype <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;terrain&quot;</span><span class="p">))</span>
+</pre></div>
+
+
+<p>I chose to set the <code>center</code> of the map to the median of my latitudes and the median of my longitudes. I've done some biking when traveling, so median made more sense for me than mean.
+Finally we want to map our GPS data. There are several <a href="http://www.endmemo.com/program/R/pchsymbols.php"><code>pch</code> options</a> to try.</p>
+<div class="highlight"><pre>ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
+    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># takes out axes, etc.</span>
+    geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span>
+        y <span class="o">=</span> Latitude<span class="p">),</span>
+    data <span class="o">=</span> gps<span class="p">,</span>
+    colour <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span>
+    size <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
+</pre></div>
+
+
+<p><img alt="All my metro Atlanta bike rides" src="/images/r-gps-tracks.png" /></p>
+<p>Previously, I've used Google Earth to create these maps, but I actually found it to be easier and way less time and resource efficient to do it in R. The only tricky part was converting the data into .csv, and there are <a href="http://www.gpsvisualizer.com/convert_input?convert_output=gpx">other ways</a> to do that, if GPSBabel isn't working for you. You might also be interested in trying <a href="/2012/12/mapping-gps-tracks-in-google-earth.html">Google Earth</a> for mapping your tracks, instead of R.</p>
+<p><a href="https://gist.github.com/4210660">Here's the gist</a> with the code.</p>
+<blockquote>
+<p>This post is one part of my series on Mapping GPS Tracks.</p>
+</blockquote>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://www.gpsbabel.org/htmldoc-1.4.4/readme.html">http://www.gpsbabel.org/htmldoc-1.4.4/readme.html</a></li>
+<li><a href="http://www.olberg.se/?q=node/25">http://www.olberg.se/?q=node/25</a></li>
+<li><a href="http://stackoverflow.com/questions/11648870/offline-plotting-of-map-coordinates-on-static-maps-of-google">http://stackoverflow.com/questions/11648870/offline-plotting-of-map-coordinates-on-static-maps-of-google</a></li>
+<li><a href="http://stackoverflow.com/questions/11590193/saving-image-in-ggplot-ggmap">http://stackoverflow.com/questions/11590193/saving-image-in-ggplot-ggmap</a></li>
+</ul>
+<p>pch = 20)</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gpsbabel.html" rel="tag">GPSBabel</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

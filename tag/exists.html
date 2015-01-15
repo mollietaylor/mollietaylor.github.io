@@ -44,13 +44,13 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/12/check-if-variable-exists-in-r.html.html">Thu 05 December 2013</a></div>
+		<div class="date"><a href="/2013/12/check-if-variable-exists-in-r.html">Thu 05 December 2013</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/12/check-if-variable-exists-in-r.html.html" title="Permalink to Check if a Variable Exists in R" rel="bookmark">Check if a Variable Exists in R</a>
+			<a href="/2013/12/check-if-variable-exists-in-r.html" title="Permalink to Check if a Variable Exists in R" rel="bookmark">Check if a Variable Exists in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>If you use <code>attach</code>, it is easy to tell if a variable exists. You can simply use <code>exists</code> to check:</p>
@@ -95,13 +95,13 @@
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/09/only-load-data-if-not-already-open-in-r.html.html">Thu 12 September 2013</a></div>
+		<div class="date"><a href="/2013/09/only-load-data-if-not-already-open-in-r.html">Thu 12 September 2013</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/09/only-load-data-if-not-already-open-in-r.html.html" title="Permalink to Only Load Data If Not Already Open in R" rel="bookmark">Only Load Data If Not Already Open in R</a>
+			<a href="/2013/09/only-load-data-if-not-already-open-in-r.html" title="Permalink to Only Load Data If Not Already Open in R" rel="bookmark">Only Load Data If Not Already Open in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>I often find it beneficial to check to see whether or not a dataset is already loaded into R at the beginning of a file. This is particularly helpful when I'm dealing with a large file that I don't want to load repeatedly, and when I might be using the same dataset with multiple R scripts or re-running the same script while making changes to the code.</p>
@@ -113,7 +113,7 @@
 </pre></div>
 
 
-<p>You will probably also find it useful to use the "<a href="http://www.mollietaylor.com/2013/09/using-colclasses-to-load-data-more.html">colClasses</a>" option of <code>read.csv</code> or <code>read.table</code> to help the file load faster and make sure your data are in the right format. For example:</p>
+<p>You will probably also find it useful to use the "<a href="/2013/09/using-colclasses-to-load-data-more.html">colClasses</a>" option of <code>read.csv</code> or <code>read.table</code> to help the file load faster and make sure your data are in the right format. For example:</p>
 <div class="highlight"><pre><span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;largeData&quot;</span><span class="p">))</span> <span class="p">{</span>
     largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span>
         header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>

@@ -44,13 +44,13 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/02/shapefiles-in-r.html.html">Thu 28 February 2013</a></div>
+		<div class="date"><a href="/2013/02/shapefiles-in-r.html">Thu 28 February 2013</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/02/shapefiles-in-r.html.html" title="Permalink to Shapefiles in R" rel="bookmark">Shapefiles in R</a>
+			<a href="/2013/02/shapefiles-in-r.html" title="Permalink to Shapefiles in R" rel="bookmark">Shapefiles in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Let's learn how to use <a href="http://en.wikipedia.org/wiki/Shapefile">Shapefiles</a> in R. This will allow us to map data for complicated areas or jurisdictions like zipcodes or school districts. For the United States, many shapefiles are available from the [Census Bureau](http://www.census.gov/geo/www/tiger/tgrshp2010/tgrshp2010.html. Our example will map U.S. national parks.</p>
@@ -65,7 +65,7 @@ area <span class="o">&lt;-</span> readShapePoly<span class="p">(</span><span cla
 </pre></div>
 
 
-<p>Next we can set the colors we want to use. And then we can set up our basemap.</p>
+<p>Next we can set the colors we want to use. And then we can set up our <a href="/2013/02/gps-basemaps-in-r-using-getmap.html">basemap</a>.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
 colors <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span>
 
@@ -112,13 +112,13 @@ labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Lon
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/02/elevation-profiles-in-r.html.html">Thu 21 February 2013</a></div>
+		<div class="date"><a href="/2013/02/elevation-profiles-in-r.html">Thu 21 February 2013</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/02/elevation-profiles-in-r.html.html" title="Permalink to Elevation Profiles in R" rel="bookmark">Elevation Profiles in R</a>
+			<a href="/2013/02/elevation-profiles-in-r.html" title="Permalink to Elevation Profiles in R" rel="bookmark">Elevation Profiles in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>First, let's load up our data. <a href="https://gist.github.com/mollietaylor/4969793">The data are available in a gist</a>. You can convert your own GPS data to .csv by following the instructions <a href="http://www.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">here, using gpsbabel</a>.</p>
@@ -176,13 +176,13 @@ scale_y_continuous<span class="p">(</span>limits <span class="o">=</span> <span 
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/02/gps-basemaps-in-r-using-getmap.html.html">Thu 14 February 2013</a></div>
+		<div class="date"><a href="/2013/02/gps-basemaps-in-r-using-getmap.html">Thu 14 February 2013</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/02/gps-basemaps-in-r-using-getmap.html.html" title="Permalink to GPS Basemaps in R Using get_map" rel="bookmark">GPS Basemaps in R Using get_map</a>
+			<a href="/2013/02/gps-basemaps-in-r-using-getmap.html" title="Permalink to GPS Basemaps in R Using get_map" rel="bookmark">GPS Basemaps in R Using get_map</a>
 		</h2>
 		<div class="entry-content">
 			<p>There are <em>many</em> different maps you can use for a background map for your gps or other latitude/longitude data (i.e. any time you're using <code>geom_path</code>, <code>geom_segment</code>, or <code>geom_point</code>.)</p>

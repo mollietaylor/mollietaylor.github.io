@@ -42,26 +42,26 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/11/subfigures-in-latex.html.html">Thu 15 November 2012</a></div>
+		<div class="date"><a href="/2012/11/subfigures-in-latex.html">Thu 15 November 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/latex.html" title="View all posts in LaTeX" rel="category tag">LaTeX</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/11/subfigures-in-latex.html.html" title="Permalink to Subfigures in LaTeX" rel="bookmark">Subfigures in LaTeX</a>
+			<a href="/2012/11/subfigures-in-latex.html" title="Permalink to Subfigures in LaTeX" rel="bookmark">Subfigures in LaTeX</a>
 		</h2>
 		<div class="entry-content">
 			<p>How can you create subfigures or subfloats in LaTeX? It's often easy to combine multiple figures from within a statistical package or image software, but it's generally best not to if you want to include subcaptions as text, for improved searchability.</p>
 <p>Fortunately the <strong>subcaption</strong> package in LaTeX allows us to do this easily. (The subfigure and subfig packages have been deprecated, so it's best to use subcaption instead.)</p>
 <p>How can you make more than one image or table be part of a LaTeX figure while still being able to create text captions for each?</p>
-<p>Using the word clouds from my R word cloud tutorial, let's look at an example:</p>
-<p><img alt="Wordcloud of national conventions" src="/images/latex-wordcloud.png" /></p>
+<p>Using the word clouds from my <a href="/2012/09/word-clouds-in-r.html">R word cloud tutorial</a>, let's look at an example:</p>
+<p><img alt="Wordcloud of national conventions" class="size-auto" src="/images/latex-wordcloud.png" /></p>
 <p>In order to make the figure containing the subfigures, we'll need to decide a few things first. Then it's just a matter of letting LaTeX know our preferences:</p>
 <ul>
 <li>The precise or proportional width of the subfigures</li>
 <li>The filenames</li>
 <li>The subcaptions</li>
-<li>How much horizontal or vertical space should be between subfigures</li>
+<li><a href="/2012/11/white-space-in-latex.html">How much horizontal or vertical space should be between subfigures</a></li>
 <li>The overall figure caption</li>
 </ul>
 <p>We also need to let LaTeX know to use the <strong>caption</strong> and <strong>subcaption</strong> packages. The full code for the example image above is included below, and also <a href="https://gist.github.com/3984730">in a gist</a>.</p>
@@ -92,34 +92,31 @@
 
 
 <p>For more information, <a href="http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Subfloats">this wikibooks article</a> is useful.</p>
-<blockquote>
-<p>This post is one part of my series on LaTeX.</p>
-</blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/latex.html" rel="tag">LaTeX</a>,  <a href="/tag/series-latex.html" rel="tag">Series: LaTeX</a>,  <a href="/tag/subcaption.html" rel="tag">subcaption</a>,  <a href="/tag/subfigure.html" rel="tag">subfigure</a>,  <a href="/tag/subfloat.html" rel="tag">subfloat</a>    		</span>
+ <a href="/tag/latex.html" rel="tag">LaTeX</a>,  <a href="/tag/subcaption.html" rel="tag">subcaption</a>,  <a href="/tag/subfigure.html" rel="tag">subfigure</a>,  <a href="/tag/subfloat.html" rel="tag">subfloat</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/11/white-space-in-latex.html.html">Thu 08 November 2012</a></div>
+		<div class="date"><a href="/2012/11/white-space-in-latex.html">Thu 08 November 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/latex.html" title="View all posts in LaTeX" rel="category tag">LaTeX</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/11/white-space-in-latex.html.html" title="Permalink to White Space in LaTeX" rel="bookmark">White Space in LaTeX</a>
+			<a href="/2012/11/white-space-in-latex.html" title="Permalink to White Space in LaTeX" rel="bookmark">White Space in LaTeX</a>
 		</h2>
 		<div class="entry-content">
 			<p>Extra spaces and line breaks in your source file are ignored. But there are several ways to force LaTeX to introduce white space to your documents.</p>
 <p>The most simple commands to insert a specific amount of white space into your document are \hspace and \vspace.</p>
-<p>To produce vertical space, use \vspace followed by the length of the space in brackets. This length can be represented in any <a href="http://www.mollietaylor.com/2012/11/units-in-latex.html">units</a> recognized by LaTeX, e.g. \vspace{2 in}. The space between the number and the unit is optional, so \vspace{2in} will also work.</p>
+<p>To produce vertical space, use \vspace followed by the length of the space in brackets. This length can be represented in any <a href="/2012/11/units-in-latex.html">units</a> recognized by LaTeX, e.g. \vspace{2 in}. The space between the number and the unit is optional, so \vspace{2in} will also work.</p>
 <p>Similarly, you can use \hspace to insert horizontal space in your document, e.g., \hspace{2 in}.</p>
 <p>If \hspace and \vspace are not working as you would like (often at the beginning or end of a line or page), you can instead use \hspace<em> and \vspace</em>, which will force space to appear.</p>
 <p>If you want to put in as much blank space as possible (while still maintaining page margins, etc.), you can use \hfill and \vfill.</p>
 <p>Multiples of \vfill or \hfill on a particular page or in an environment will fill an even amount of the space. (E.g., if there are 6 inches to be filled and 3 \vfill's, each will take 2 inches.)</p>
 <h2>Horizontal</h2>
 <p>As well as \hspace{} and \hfill, there are some horizontal-specific commands for adding white space.</p>
-<p>\quad creates a space whose size is relative to the current font size and font face. \quad is equal to \hspace{1em}. There are other commands that make spaces of sizes relative to \quad:</p>
+<p>\quad creates a space whose size is relative to the current font size and font face. \quad is equal to \hspace{<a href="/2012/11/units-in-latex.html">1em</a>}. There are other commands that make spaces of sizes relative to \quad:</p>
 <p><img alt="Horizontal space commands in LaTeX" src="/images/latex-quad.png" /></p>
 <h2>Vertical</h2>
 <p>Probably the most common white space command is <code>\\</code>. It is used to start a new paragraph.</p>
@@ -190,22 +187,19 @@
 <li><a href="http://www.personal.ceu.hu/tex/breaking.htm">http://www.personal.ceu.hu/tex/breaking.htm</a></li>
 <li><a href="http://www.mollietaylor.com/2012/11/units-in-latex.html">http://www.mollietaylor.com/2012/11/units-in-latex.html</a></li>
 </ul>
-<blockquote>
-<p>This post is one part of my series on LaTeX.</p>
-</blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/latex.html" rel="tag">LaTeX</a>,  <a href="/tag/series-latex.html" rel="tag">Series: LaTeX</a>    		</span>
+ <a href="/tag/latex.html" rel="tag">LaTeX</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/11/units-in-latex.html.html">Thu 01 November 2012</a></div>
+		<div class="date"><a href="/2012/11/units-in-latex.html">Thu 01 November 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/latex.html" title="View all posts in LaTeX" rel="category tag">LaTeX</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/11/units-in-latex.html.html" title="Permalink to Units in LaTeX" rel="bookmark">Units in LaTeX</a>
+			<a href="/2012/11/units-in-latex.html" title="Permalink to Units in LaTeX" rel="bookmark">Units in LaTeX</a>
 		</h2>
 		<div class="entry-content">
 			<h2>Discrete units</h2>
@@ -294,20 +288,20 @@ There also are units that have definitions relative to your document. These are 
 </tr>
 </tbody>
 </table>
-<p>Next, we'll learn how to use these units to add <a href="/2012/11/white-space-in-latex.html.html">white space</a>.</p>
+<p>Next, we'll learn how to use these units to add <a href="/2012/11/white-space-in-latex.html">white space</a>.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/latex.html" rel="tag">LaTeX</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/10/palettes-in-r.html.html">Thu 25 October 2012</a></div>
+		<div class="date"><a href="/2012/10/palettes-in-r.html">Thu 25 October 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/10/palettes-in-r.html.html" title="Permalink to Palettes in R" rel="bookmark">Palettes in R</a>
+			<a href="/2012/10/palettes-in-r.html" title="Permalink to Palettes in R" rel="bookmark">Palettes in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>In its simplest form, a palette in R is simply a vector of colors. This vector can be include the hex triplet or R color names.</p>
@@ -425,13 +419,13 @@ hist<span class="p">(</span>discoveries<span class="p">,</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/10/random-name-generator-in-r.html.html">Thu 11 October 2012</a></div>
+		<div class="date"><a href="/2012/10/random-name-generator-in-r.html">Thu 11 October 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/10/random-name-generator-in-r.html.html" title="Permalink to Random Name Generator in R" rel="bookmark">Random Name Generator in R</a>
+			<a href="/2012/10/random-name-generator-in-r.html" title="Permalink to Random Name Generator in R" rel="bookmark">Random Name Generator in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Just for the heck of it, let's recreate my <a href="http://realitytvgenerator.com/">Reality TV Show Name Generator</a> in R. This isn't really the sort of thing you'd normally do in R, but we can try out a bunch of different functions this way: random integers/sampling, concatenation, sorting, and determining the length of an object.</p>
@@ -502,16 +496,16 @@ rand2 <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p"
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/10/adding-measures-of-central-tendency-to.html.html">Thu 04 October 2012</a></div>
+		<div class="date"><a href="/2012/10/adding-measures-of-central-tendency-to.html">Thu 04 October 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/10/adding-measures-of-central-tendency-to.html.html" title="Permalink to Adding Measures of Central Tendency to Histograms in R" rel="bookmark">Adding Measures of Central Tendency to Histograms in R</a>
+			<a href="/2012/10/adding-measures-of-central-tendency-to.html" title="Permalink to Adding Measures of Central Tendency to Histograms in R" rel="bookmark">Adding Measures of Central Tendency to Histograms in R</a>
 		</h2>
 		<div class="entry-content">
-			<p>Building on the basic histogram with a density plot, we can add measures of central tendency (in this case, mean and median) and a legend.</p>
+			<p>Building on the <a href="/2012/09/histogram-density-plot-combo-in-r.html">basic histogram with a density plot</a>, we can add measures of central tendency (in this case, mean and median) and a legend.</p>
 <p>Like last time, we'll use the beaver data from the <strong>datasets</strong> package.</p>
 <div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
     col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
@@ -566,13 +560,13 @@ lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/09/histogram-density-plot-combo-in-r.html.html">Thu 27 September 2012</a></div>
+		<div class="date"><a href="/2012/09/histogram-density-plot-combo-in-r.html">Thu 27 September 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/09/histogram-density-plot-combo-in-r.html.html" title="Permalink to Histogram + Density Plot Combo in R" rel="bookmark">Histogram + Density Plot Combo in R</a>
+			<a href="/2012/09/histogram-density-plot-combo-in-r.html" title="Permalink to Histogram + Density Plot Combo in R" rel="bookmark">Histogram + Density Plot Combo in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Plotting a histogram using <code>hist</code> from the <strong>graphics</strong> package is pretty straightforward, but what if you want to view the density plot on top of the histogram? This combination of graphics can help us compare the distributions of groups.</p>
@@ -636,13 +630,13 @@ dev.off<span class="p">()</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/09/descriptive-statistics-of-groups-in-r.html.html">Thu 20 September 2012</a></div>
+		<div class="date"><a href="/2012/09/descriptive-statistics-of-groups-in-r.html">Thu 20 September 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/09/descriptive-statistics-of-groups-in-r.html.html" title="Permalink to Descriptive Statistics of Groups in R" rel="bookmark">Descriptive Statistics of Groups in R</a>
+			<a href="/2012/09/descriptive-statistics-of-groups-in-r.html" title="Permalink to Descriptive Statistics of Groups in R" rel="bookmark">Descriptive Statistics of Groups in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>The <a href="http://stat.ethz.ch/R-manual/R-patched/library/datasets/html/sleep.html">sleep data set</a>—provided by the <strong>datasets</strong> package—shows the effects of two different drugs on ten patients. <code>Extra</code> is the increase in hours of sleep; <code>group</code> is the drug given, 1 or 2; and <code>ID</code> is the patient ID, 1 to 10.</p>
@@ -675,13 +669,13 @@ ID<span class="o">*</span>      <span class="m">3</span> <span class="m">10</spa
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/09/word-clouds-in-r.html.html">Thu 13 September 2012</a></div>
+		<div class="date"><a href="/2012/09/word-clouds-in-r.html">Thu 13 September 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/09/word-clouds-in-r.html.html" title="Permalink to Word Clouds in R" rel="bookmark">Word Clouds in R</a>
+			<a href="/2012/09/word-clouds-in-r.html" title="Permalink to Word Clouds in R" rel="bookmark">Word Clouds in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Thanks to the <strong>wordcloud</strong> package, it's super easy to make a word cloud or tag cloud in R.</p>
@@ -742,27 +736,27 @@ dev.off<span class="p">()</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/09/text-to-columns-in-stata.html.html">Thu 06 September 2012</a></div>
+		<div class="date"><a href="/2012/09/text-to-columns-in-stata.html">Thu 06 September 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/09/text-to-columns-in-stata.html.html" title="Permalink to Text to Columns in Stata" rel="bookmark">Text to Columns in Stata</a>
+			<a href="/2012/09/text-to-columns-in-stata.html" title="Permalink to Text to Columns in Stata" rel="bookmark">Text to Columns in Stata</a>
 		</h2>
 		<div class="entry-content">
 			<p>If you've ever used Excel's text to columns feature, you know how valuable it can be. If you haven't ever used text to columns, it allows you to take one column of data and separate it into multiple columns using delimiters that you provide. One time this is helpful is when converting data from other formats.</p>
 <p>If you're learning Stata, you may wonder how you can gain this useful functionality. There are a few different ways, but for now we'll be discussing <code>split</code>.</p>
 <p>For the following example, I have imported some patent data where the four most relevant primary patent classes for each observation are listed in a single column. These are delimited by a "/" as can be seen below.</p>
-<p><img alt="Data before transformation" src="/images/stata-before.png" /></p>
+<p><img alt="Data before transformation" class="size-auto" src="/images/stata-before.png" /></p>
 <p>I would like each of these classes to be included in its own column. To do this, I give Stata the following command:</p>
 <p><code>split class, parse(/) generate(class)</code></p>
 <p><img alt="Stata command and feedback" src="/images/stata-command-line.png" /></p>
 <p>In this command, the first <code>class</code> is the name of the variable I want to transform, <code>/</code> is the delimiter, and <code>generate(class)</code> lets Stata to know that I would like the names of the new variables to each be class followed by an integer. In the example, the most <code>/</code>'s there were in <code>class</code> was two, so three <code>class[n]</code> variables are created.</p>
-<p><img alt="Data after transformation" src="/images/stata-after.png" /></p>
+<p><img alt="Data after transformation" class="size-auto" src="/images/stata-after.png" /></p>
 <p>I can then <code>drop class</code> if I want to remove the original class variable.</p>
 <p>I could have also used the option <code>destring</code> if I wanted to treat the patent classes as numbers.</p>
-<p><img alt="Stata documentation excerpt" src="/images/stata-docs.png" /></p>
+<p><img alt="Stata documentation excerpt" class="size-auto" src="/images/stata-docs.png" /></p>
 <p>More use cases are shown in the <a href="http://www.stata.com/help.cgi?split">split documentation</a>. One example they provide allows you to use multiple delimiters. In this instance showing how to separate the names of court cases even if some are delimited by "v." and some by "vs."</p>
 <p>For more complex situations, you can also use <a href="http://www.ats.ucla.edu/stat/Stata/faq/regex.htm">regular expressions</a>.</p>
 		</div> <!--/#entry-content-->

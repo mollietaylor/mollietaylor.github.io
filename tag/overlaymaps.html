@@ -44,13 +44,13 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2014/03/add-icons-to-layer-control-in-leaflet.html.html">Thu 27 March 2014</a></div>
+		<div class="date"><a href="/2014/03/add-icons-to-layer-control-in-leaflet.html">Thu 27 March 2014</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2014/03/add-icons-to-layer-control-in-leaflet.html.html" title="Permalink to Add Icons to Layer Control in Leaflet" rel="bookmark">Add Icons to Layer Control in Leaflet</a>
+			<a href="/2014/03/add-icons-to-layer-control-in-leaflet.html" title="Permalink to Add Icons to Layer Control in Leaflet" rel="bookmark">Add Icons to Layer Control in Leaflet</a>
 		</h2>
 		<div class="entry-content">
 			<p>When you have multiple layers, it can help to add a legend to the map. This tutorial shows how to add icons to the layer control in Leaflet. This tutorial shows only marker layers, but you could create icons for polygon layers and use those as well.</p>
@@ -90,13 +90,13 @@
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2014/01/append-layer-to-overlaymaps-in-leaflet.html.html">Thu 30 January 2014</a></div>
+		<div class="date"><a href="/2014/01/append-layer-to-overlaymaps-in-leaflet.html">Thu 30 January 2014</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2014/01/append-layer-to-overlaymaps-in-leaflet.html.html" title="Permalink to Append Layer to overlayMaps in Leaflet" rel="bookmark">Append Layer to overlayMaps in Leaflet</a>
+			<a href="/2014/01/append-layer-to-overlaymaps-in-leaflet.html" title="Permalink to Append Layer to overlayMaps in Leaflet" rel="bookmark">Append Layer to overlayMaps in Leaflet</a>
 		</h2>
 		<div class="entry-content">
 			<p>What if we want to create a layer based on geolocation, but have the layer only be added to the map once geolocation occurs? I didn't find this example in any Leaflet tutorials, but it's pretty simple with some basic JavaScript</p>
@@ -145,7 +145,7 @@
 
 
 <p>You can see in the below screenshot that only the three layers are displayed.</p>
-<p><img alt="With geolocation off" src="/images/append-layer-geolocation-off.png" /></p>
+<p><img alt="With geolocation off" class="size-auto" src="/images/append-layer-geolocation-off.png" /></p>
 <p>Finally, we need to add code that will display all the layers (including the geolocation layer) if geolocation does occur. We simply need to add the "yourLocation" layer to overlayMaps and then display the layers as normal.</p>
 <div class="highlight"><pre><span class="kd">function</span> <span class="nx">onLocationFound</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">yourLocation</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">);</span>
@@ -160,8 +160,8 @@
 
 
 <p>The screenshots below show what happens once geolocation has occurred.</p>
-<p><img alt="With geolocation on" src="/images/append-layer-geolocation-on.png" /></p>
-<p><img alt="Showing geolocation layer" src="/images/append-layer-show-geolocation.png" /></p>
+<p><img alt="With geolocation on" class="size-auto" src="/images/append-layer-geolocation-on.png" /></p>
+<p><img alt="Showing geolocation layer" class="size-auto" src="/images/append-layer-show-geolocation.png" /></p>
 <p>The full code is available in <a href="https://gist.github.com/mollietaylor/8700934">a gist</a>.</p>
 <h2>References</h2>
 <ul>

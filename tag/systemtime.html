@@ -44,13 +44,13 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/09/using-colclasses-to-load-data-more.html.html">Thu 05 September 2013</a></div>
+		<div class="date"><a href="/2013/09/using-colclasses-to-load-data-more.html">Thu 05 September 2013</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/09/using-colclasses-to-load-data-more.html.html" title="Permalink to Using colClasses to Load Data More Quickly in R" rel="bookmark">Using colClasses to Load Data More Quickly in R</a>
+			<a href="/2013/09/using-colclasses-to-load-data-more.html" title="Permalink to Using colClasses to Load Data More Quickly in R" rel="bookmark">Using colClasses to Load Data More Quickly in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Specifying a <code>colClasses</code> argument to <code>read.table</code> or <code>read.csv</code> can save time on importing data, while also saving steps to specify classes for each variable later.</p>
@@ -67,7 +67,7 @@
 </pre></div>
 
 
-<p>Dates that are in the <a href="http://www.mollietaylor.com/2013/08/date-formats-in-r.html">form %Y-%m-%d or Y/%m/%d</a> will import correctly. <a href="http://stackoverflow.com/a/13022441">This tip allows you to import dates properly</a> for dates in other formats.</p>
+<p>Dates that are in the <a href="/2013/08/date-formats-in-r.html">form %Y-%m-%d or Y/%m/%d</a> will import correctly. <a href="http://stackoverflow.com/a/13022441">This tip allows you to import dates properly</a> for dates in other formats.</p>
 <div class="highlight"><pre><span class="kp">system.time</span><span class="p">(</span>largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span>
     header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
     colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;complex&quot;</span><span class="p">,</span> 
@@ -102,7 +102,7 @@ str<span class="p">(</span>largeData<span class="p">)</span>
 <ul>
 <li><a href="http://stackoverflow.com/questions/2805357/specifying-colclasses-in-the-read-csv">http://stackoverflow.com/questions/2805357/specifying-colclasses-in-the-read-csv</a></li>
 <li><a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html</a></li>
-<li><a href="http://www.mollietaylor.com/2013/08/date-formats-in-r.html">http://www.mollietaylor.com/2013/08/date-formats-in-r.html</a></li>
+<li><a href="/2013/08/date-formats-in-r.html">Date Formats in R</a></li>
 <li><a href="http://stackoverflow.com/a/13022441">http://stackoverflow.com/a/13022441</a></li>
 </ul>
 		</div> <!--/#entry-content-->

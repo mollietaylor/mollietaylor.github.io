@@ -44,18 +44,18 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/03/geompoint-legend-with-custom-colors-in.html.html">Thu 07 March 2013</a></div>
+		<div class="date"><a href="/2013/03/geompoint-legend-with-custom-colors-in.html">Thu 07 March 2013</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/03/geompoint-legend-with-custom-colors-in.html.html" title="Permalink to geom_point Legend with Custom Colors in ggplot" rel="bookmark">geom_point Legend with Custom Colors in ggplot</a>
+			<a href="/2013/03/geompoint-legend-with-custom-colors-in.html" title="Permalink to geom_point Legend with Custom Colors in ggplot" rel="bookmark">geom_point Legend with Custom Colors in ggplot</a>
 		</h2>
 		<div class="entry-content">
-			<p>Formerly, I showed how to make line segments using ggplot.</p>
+			<p>Formerly, I showed <a href="/2013/01/using-line-segments-to-compare-values.html">how to make line segments using ggplot</a>.</p>
 <p>Working from that previous example, there are only a few things we need to change to add custom colors to our plot and legend in <strong>ggplot</strong>.</p>
-<p>First, we'll add the colors of our choice. I'll do this using RColorBrewer, but you can choose whatever method you'd like.</p>
+<p>First, we'll add the colors of our choice. I'll do this using RColorBrewer, but you can choose <a href="/2012/10/palettes-in-r.html">whatever method you'd like</a>.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
 colors <span class="o">=</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
 </pre></div>
@@ -105,13 +105,13 @@ theme<span class="p">(</span>legend.position <span class="o">=</span> <span clas
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/02/shapefiles-in-r.html.html">Thu 28 February 2013</a></div>
+		<div class="date"><a href="/2013/02/shapefiles-in-r.html">Thu 28 February 2013</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/02/shapefiles-in-r.html.html" title="Permalink to Shapefiles in R" rel="bookmark">Shapefiles in R</a>
+			<a href="/2013/02/shapefiles-in-r.html" title="Permalink to Shapefiles in R" rel="bookmark">Shapefiles in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Let's learn how to use <a href="http://en.wikipedia.org/wiki/Shapefile">Shapefiles</a> in R. This will allow us to map data for complicated areas or jurisdictions like zipcodes or school districts. For the United States, many shapefiles are available from the [Census Bureau](http://www.census.gov/geo/www/tiger/tgrshp2010/tgrshp2010.html. Our example will map U.S. national parks.</p>
@@ -126,7 +126,7 @@ area <span class="o">&lt;-</span> readShapePoly<span class="p">(</span><span cla
 </pre></div>
 
 
-<p>Next we can set the colors we want to use. And then we can set up our basemap.</p>
+<p>Next we can set the colors we want to use. And then we can set up our <a href="/2013/02/gps-basemaps-in-r-using-getmap.html">basemap</a>.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
 colors <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span>
 
@@ -173,13 +173,13 @@ labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Lon
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/01/stacked-bar-charts-in-r.html.html">Thu 10 January 2013</a></div>
+		<div class="date"><a href="/2013/01/stacked-bar-charts-in-r.html">Thu 10 January 2013</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/01/stacked-bar-charts-in-r.html.html" title="Permalink to Stacked Bar Charts in R" rel="bookmark">Stacked Bar Charts in R</a>
+			<a href="/2013/01/stacked-bar-charts-in-r.html" title="Permalink to Stacked Bar Charts in R" rel="bookmark">Stacked Bar Charts in R</a>
 		</h2>
 		<div class="entry-content">
 			<h2>Reshape Wide to Long</h2>
@@ -267,13 +267,13 @@ legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><spa
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/10/palettes-in-r.html.html">Thu 25 October 2012</a></div>
+		<div class="date"><a href="/2012/10/palettes-in-r.html">Thu 25 October 2012</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/10/palettes-in-r.html.html" title="Permalink to Palettes in R" rel="bookmark">Palettes in R</a>
+			<a href="/2012/10/palettes-in-r.html" title="Permalink to Palettes in R" rel="bookmark">Palettes in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>In its simplest form, a palette in R is simply a vector of colors. This vector can be include the hex triplet or R color names.</p>
