@@ -24,10 +24,12 @@
 		<div id="menu">
 			<div class="menu-navigation-container">
 				<ul id="menu-navigation" class="menu">
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
-						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Link Will Go Here</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
 
 				</ul>
 			</div> <!--/#menu-navigation-container-->
@@ -287,7 +289,604 @@ Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/lm.html" rel="tag">lm</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/relevel.html" rel="tag">relevel</a>    		</span>
 	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/12/check-if-variable-exists-in-r.html.html">Thu 05 December 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/12/check-if-variable-exists-in-r.html.html" title="Permalink to Check if a Variable Exists in R" rel="bookmark">Check if a Variable Exists in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>If you use <code>attach</code>, it is easy to tell if a variable exists. You can simply use <code>exists</code> to check:</p>
+<div class="highlight"><pre><span class="o">&gt;</span><span class="kn">attach</span><span class="p">(</span>df<span class="p">)</span>
+
+<span class="o">&gt;</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;varName&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+</pre></div>
+
+
+<p>However, if you don't use <code>attach</code> (and I find you generally don't want to), this simple solution doesn't work.</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="kn">detach</span><span class="p">(</span>df<span class="p">)</span>
+<span class="o">&gt;</span> <span class="kp">exists</span><span class="p">(</span><span class="s">&quot;df$varName&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">FALSE</span>
+</pre></div>
+
+
+<p>Instead of using <code>exists</code>, you can use <code>in</code> or <code>any</code> from the <strong>base</strong> package to determine if a variable is defined in a data frame:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">names</span><span class="p">(</span>df<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+<span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">names</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+</pre></div>
+
+
+<p>Or to determine if a variable is defined in a matrix:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+<span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+</pre></div>
+
+
+<h2>References</h2>
+<ul>
+<li><a href="https://stat.ethz.ch/pipermail/r-help/2009-June/202178.html">https://stat.ethz.ch/pipermail/r-help/2009-June/202178.html</a></li>
+<li><a href="https://stat.ethz.ch/pipermail/r-help/2011-February/267518.html">https://stat.ethz.ch/pipermail/r-help/2011-February/267518.html</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/any.html" rel="tag">any</a>,  <a href="/tag/attach.html" rel="tag">attach</a>,  <a href="/tag/colnames.html" rel="tag">colnames</a>,  <a href="/tag/exists.html" rel="tag">exists</a>,  <a href="/tag/in.html" rel="tag">in</a>,  <a href="/tag/names.html" rel="tag">names</a>,  <a href="/tag/r.html" rel="tag">R</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/10/table-as-image-in-r.html.html">Thu 24 October 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/10/table-as-image-in-r.html.html" title="Permalink to Table as an Image in R" rel="bookmark">Table as an Image in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Usually, it's best to keep tables as text, but if you're making a lot of graphics, it can be helpful to be able to create images of tables.</p>
+<p><img alt="PNG table" src="/images/r-table-image.png" /></p>
+<h2>Creating the Table</h2>
+<p>After loading the data, let's first use <a href="http://www.mollietaylor.com/2013/10/line-breaks-between-words-in-axis.html">this trick</a> to put line breaks between the levels of the effect variable. Depending on your data, you may or may not need or want to do this.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
+data<span class="p">(</span>birds<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>gridExtra<span class="p">)</span>
+
+<span class="c1"># line breaks between words for levels of birds$effect:</span>
+<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
+</pre></div>
+
+
+<p>Next let's make our table: </p>
+<div class="highlight"><pre>xyTable <span class="o">&lt;-</span> <span class="kp">table</span><span class="p">(</span>birds<span class="o">$</span>sky<span class="p">,</span> birds<span class="o">$</span>effect<span class="p">)</span>
+</pre></div>
+
+
+<p>Now we can create an empty plot, center our table in it, and use the <code>grid.table</code> function from the <strong>gridExtra</strong> package to display the table and choose a font size.</p>
+<div class="highlight"><pre>plot.new<span class="p">()</span>
+grid.table<span class="p">(</span>xyTable<span class="p">,</span>
+    <span class="c1"># change font sizes:</span>
+    gpar.coltext <span class="o">=</span> gpar<span class="p">(</span>cex <span class="o">=</span> <span class="m">1.2</span><span class="p">),</span>
+    gpar.rowtext <span class="o">=</span> gpar<span class="p">(</span>cex <span class="o">=</span> <span class="m">1.2</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Now you can view and save the image just like any other plot.</p>
+<p><a href="https://gist.github.com/mollietaylor/6930567#file-tableasimage-simple-r">The code is available in a gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/12318120/adding-table-within-the-plotting-region-of-a-ggplot-in-r">http://stackoverflow.com/questions/12318120/adding-table-within-the-plotting-region-of-a-ggplot-in-r</a></li>
+<li><a href="http://stackoverflow.com/questions/12518387/can-i-create-an-empty-ggplot2-plot-in-r">http://stackoverflow.com/questions/12518387/can-i-create-an-empty-ggplot2-plot-in-r</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gridextra.html" rel="tag">gridExtra</a>,  <a href="/tag/qplot.html" rel="tag">qplot</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/table.html" rel="tag">table</a>,  <a href="/tag/tablegrob.html" rel="tag">tableGrob</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/10/line-breaks-between-words-in-axis.html.html">Thu 17 October 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/10/line-breaks-between-words-in-axis.html.html" title="Permalink to Line Breaks Between Words in Axis Labels in ggplot in R" rel="bookmark">Line Breaks Between Words in Axis Labels in ggplot in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Sometimes when plotting factor variables in R, the graphics can look pretty messy thanks to long factor levels. If the level attributes have multiple words, there is an easy fix to this that often makes the axis labels look much cleaner.</p>
+<h2>Without Line Breaks</h2>
+<p>Here's the messy looking example:</p>
+<p><img alt="No line breaks in axis labels" src="/images/line-breaks-none.png" /></p>
+<p>And here's the code for the messy looking example:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
+data<span class="p">(</span>birds<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+
+ggplot<span class="p">(</span>birds<span class="p">,</span>
+    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
+        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
+geom_boxplot<span class="p">()</span>
+</pre></div>
+
+
+<h2>With Line Breaks</h2>
+<p>We can use <a href="http://regex.learncodethehardway.org/">regular expressions</a> to add line breaks to the factor levels by substituting any spaces with line breaks:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
+data<span class="p">(</span>birds<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+
+<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
+ggplot<span class="p">(</span>birds<span class="p">,</span>
+    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
+        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
+geom_boxplot<span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="Line breaks in axis labels" src="/images/line-breaks.png" /></p>
+<p>Just one line made the plot look much better, and it will carry over to other plots you make as well. For example, you could <a href="http://www.mollietaylor.com/2013/10/table-as-image-in-r.html">create a table with the same variable</a>.</p>
+<h2>Horizontal Boxes</h2>
+<p>Here we can see the difference in a box plot with horizontal boxes. It's up to you to decide which style looks better:</p>
+<p><img alt="No line breaks in axis labels" src="/images/line-breaks-flip-none.png" /></p>
+<p><img alt="Line breaks in axis labels" src="/images/line-breaks-flip.png" /></p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
+data<span class="p">(</span>birds<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+
+<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
+ggplot<span class="p">(</span>birds<span class="p">,</span>
+    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
+        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
+geom_boxplot<span class="p">()</span> <span class="o">+</span> 
+coord_flip<span class="p">()</span>
+</pre></div>
+
+
+<p>Just a note: if you're not using <strong>ggplot</strong>, the multi-line axis labels might overflow into the graph.</p>
+<p><a href="https://gist.github.com/mollietaylor/6930567#file-linebreaks-r">The code is available in a gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://regex.learncodethehardway.org/">http://regex.learncodethehardway.org/</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/abline.html" rel="tag">abline</a>,  <a href="/tag/coord_flip.html" rel="tag">coord_flip</a>,  <a href="/tag/geom_boxplot.html" rel="tag">geom_boxplot</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gsub.html" rel="tag">gsub</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/regular-expressions.html" rel="tag">regular expressions</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/10/custom-legend-in-r.html.html">Thu 10 October 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/10/custom-legend-in-r.html.html" title="Permalink to Custom Legend in R" rel="bookmark">Custom Legend in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>This particular custom legend was designed with three purposes:</p>
+<ul>
+<li>To effectively bin values based on a theoretical minimum and maximum value for that variable (e.g. -1 and 1 or 0 and 100)</li>
+<li>To use a <a href="http://en.wikipedia.org/wiki/Interval_(mathematics)">different interval</a> notation than the default</li>
+<li>To handle NA values</li>
+</ul>
+<p>Even though this particular legend was designed with those needs, it should be simple to extrapolate from that to build legends based on other criteria.</p>
+<h2>Standard Legend</h2>
+<p>For this post, I'll be assuming you've looked through the <a href="http://geography.uoregon.edu/geogr/topics/maps.htm">Oregon map tutorial</a> or have other experience making legends in R. If not, you'll probably want to check that link out. It's an awesome tutorial.</p>
+<p>Let's start by creating a map with a standard legend, and then we move on to customization later.</p>
+<p>First, we'll load the packages we need and the data from <strong>OIdata</strong>:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>classInt<span class="p">)</span>
+
+<span class="c1"># load state data from OIdata package:</span>
+data<span class="p">(</span>state<span class="p">)</span>
+</pre></div>
+
+
+<p>Next we want to set some constants. This will save us a bunch of typing and will make the code easier to read, especially once we start creating a custom legend. Also, it will allow us to easily change the values if we want a different number of bins or a different min and max.</p>
+<p>In this example, we're assuming we have a theoretical minimum and maximum and want to determine our choropleth bins based on that.</p>
+<div class="highlight"><pre>nclr <span class="o">&lt;-</span> <span class="m">8</span> <span class="c1"># number of bins</span>
+min <span class="o">&lt;-</span> <span class="m">0</span> <span class="c1"># theoretical minimum</span>
+max <span class="o">&lt;-</span> <span class="m">100</span> <span class="c1"># theoretical maximum</span>
+breaks <span class="o">&lt;-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr
+</pre></div>
+
+
+<p>Next, we'll set up our choropleth colors (this should look familiar from the <a href="http://geography.uoregon.edu/geogr/topics/maps.htm">Oregon tutorial</a>):</p>
+<div class="highlight"><pre><span class="c1"># set up colors:</span>
+plotclr <span class="o">&lt;-</span> brewer.pal<span class="p">(</span>nclr<span class="p">,</span> <span class="s">&quot;Oranges&quot;</span><span class="p">)</span>
+plotvar <span class="o">&lt;-</span> state<span class="o">$</span>coal
+class <span class="o">&lt;-</span> classIntervals<span class="p">(</span>plotvar<span class="p">,</span>
+    nclr<span class="p">,</span>
+    style <span class="o">=</span> <span class="s">&quot;fixed&quot;</span><span class="p">,</span>
+    fixedBreaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> <span class="kp">max</span><span class="p">,</span> breaks<span class="p">))</span>
+colcode <span class="o">&lt;-</span> findColours<span class="p">(</span><span class="kp">class</span><span class="p">,</span> 
+    plotclr<span class="p">)</span>
+</pre></div>
+
+
+<p>And now let's map the data:</p>
+<div class="highlight"><pre><span class="c1"># map data:</span>
+map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># base</span>
+    col <span class="o">=</span> <span class="s">&quot;gray80&quot;</span><span class="p">,</span>
+    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+    lty <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># data</span>
+    col <span class="o">=</span> colcode<span class="p">,</span>
+    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+    lty <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
+    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># border</span>
+    col <span class="o">=</span> <span class="s">&quot;gray&quot;</span><span class="p">,</span>
+    lwd <span class="o">=</span> <span class="m">1.4</span><span class="p">,</span>
+    lty <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
+    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And finally let's add our default legend:</p>
+<div class="highlight"><pre>legend<span class="p">(</span><span class="s">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="c1"># position</span>
+    legend <span class="o">=</span> <span class="kp">names</span><span class="p">(</span><span class="kp">attr</span><span class="p">(</span>colcode<span class="p">,</span> <span class="s">&quot;table&quot;</span><span class="p">)),</span> 
+    title <span class="o">=</span> <span class="s">&quot;Percent&quot;</span><span class="p">,</span>
+    fill <span class="o">=</span> <span class="kp">attr</span><span class="p">(</span>colcode<span class="p">,</span> <span class="s">&quot;palette&quot;</span><span class="p">),</span>
+    cex <span class="o">=</span> <span class="m">0.56</span><span class="p">,</span>
+    bty <span class="o">=</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="c1"># border</span>
+</pre></div>
+
+
+<p>Here's the output of this code (see <a href="https://gist.github.com/mollietaylor/6757351#file-map-standard-legend-r">map-standard-legend.R</a> in the gist):</p>
+<p><img alt="Percent of power coming from coal sources (standard legend)" src="/images/r-legend-standard.png" /></p>
+<h2>Custom Legend</h2>
+<p>Next we want to add a few lines here and there to enhance the legend.</p>
+<p>For starters, let's deal with NA values. We don't have any in this particular dataset, but if we did, we would have seen they were left as the base color of the map and not included in the legend.</p>
+<p>After our former code setting up the colors, we should add the color for NAs. It's important that these lines go after all the other set up code, or the wrong colors will be mapped.</p>
+<div class="highlight"><pre><span class="c1"># set up colors:</span>
+plotclr <span class="o">&lt;-</span> brewer.pal<span class="p">(</span>nclr<span class="p">,</span> <span class="s">&quot;Oranges&quot;</span><span class="p">)</span>
+plotvar <span class="o">&lt;-</span> state<span class="o">$</span>coal
+class <span class="o">&lt;-</span> classIntervals<span class="p">(</span>plotvar<span class="p">,</span>
+    nclr<span class="p">,</span>
+    style <span class="o">=</span> <span class="s">&quot;fixed&quot;</span><span class="p">,</span>
+    fixedBreaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> <span class="kp">max</span><span class="p">,</span> breaks<span class="p">))</span>
+colcode <span class="o">&lt;-</span> findColours<span class="p">(</span><span class="kp">class</span><span class="p">,</span> 
+    plotclr<span class="p">)</span>
+NAColor <span class="o">&lt;-</span> <span class="s">&quot;gray80&quot;</span>
+plotclr <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>plotclr<span class="p">,</span> NAColor<span class="p">)</span>
+</pre></div>
+
+
+<p>We also want to let the map know to have our NA color as the default color, so the map will use that instead of having those areas be transparent:</p>
+<div class="highlight"><pre><span class="c1"># map data:</span>
+map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># base</span>
+    col <span class="o">=</span> NAColor<span class="p">,</span>
+    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+    lty <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># data</span>
+    col <span class="o">=</span> colcode<span class="p">,</span>
+    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+    lty <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
+    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># border</span>
+    col <span class="o">=</span> <span class="s">&quot;gray&quot;</span><span class="p">,</span>
+    lwd <span class="o">=</span> <span class="m">1.4</span><span class="p">,</span>
+    lty <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
+    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Next, we want to set up the legend text. For all but the last interval, we want it to say <code>i ≤ n &lt; (i + breaks)</code>. The last interval should be <code>i ≤ n ≤ (i + breaks)</code>. This can be accomplished by</p>
+<div class="highlight"><pre><span class="c1"># set legend text:</span>
+legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">()</span>
+<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">))</span> <span class="p">{</span>
+    <span class="kr">if</span> <span class="p">(</span>i <span class="o">==</span> <span class="kp">max</span><span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">)))</span> <span class="p">{</span>
+        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n \u2264&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span>
+    <span class="p">}</span> <span class="kp">else</span>
+        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n &lt;&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>But we also want to include NAs in the legend, so we need to add a line:</p>
+<div class="highlight"><pre><span class="c1"># set legend text:</span>
+legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">()</span>
+<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">))</span> <span class="p">{</span>
+    <span class="kr">if</span> <span class="p">(</span>i <span class="o">==</span> <span class="kp">max</span><span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">)))</span> <span class="p">{</span>
+        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n \u2264&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span>
+        <span class="kr">if</span> <span class="p">(</span><span class="o">!</span><span class="kp">is.na</span><span class="p">(</span>NAColor<span class="p">))</span> legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="s">&quot;NA&quot;</span><span class="p">)</span>
+    <span class="p">}</span> <span class="kp">else</span>
+        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n &lt;&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>And finally we need to add the legend to the map:</p>
+<div class="highlight"><pre>legend<span class="p">(</span><span class="s">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="c1"># position</span>
+    legend <span class="o">=</span> legendText<span class="p">,</span> 
+    title <span class="o">=</span> <span class="s">&quot;Percent&quot;</span><span class="p">,</span>
+    fill <span class="o">=</span> plotclr<span class="p">,</span>
+    cex <span class="o">=</span> <span class="m">0.56</span><span class="p">,</span>
+    bty <span class="o">=</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="c1"># border</span>
+</pre></div>
+
+
+<p>The new map (see <a href="https://gist.github.com/mollietaylor/6757351#file-map-new-legend-r">map-new-legend.R</a>) meets all the criteria we started with that the original legend didn't have.</p>
+<p><img alt="Percent of power coming from coal sources (custom legend)" src="/images/r-legend-custom.png" /></p>
+<p>Code is available in a <a href="https://gist.github.com/mollietaylor/6757351">gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://geography.uoregon.edu/geogr/topics/maps.htm">http://geography.uoregon.edu/geogr/topics/maps.htm</a></li>
+<li><a href="http://stackoverflow.com/questions/13192984/displaying-a-greater-than-or-equal-sign">http://stackoverflow.com/questions/13192984/displaying-a-greater-than-or-equal-sign</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/classint.html" rel="tag">classInt</a>,  <a href="/tag/classintervals.html" rel="tag">classIntervals</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/map.html" rel="tag">map</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/10/how-to-set-up-your-app-on-shiny-beta.html.html">Thu 03 October 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/10/how-to-set-up-your-app-on-shiny-beta.html.html" title="Permalink to How to Set Up Your App on Shiny Beta Hosting" rel="bookmark">How to Set Up Your App on Shiny Beta Hosting</a>
+		</h2>
+		<div class="entry-content">
+			<p>This is a short tutorial on how to create a web version of a <a href="http://www.rstudio.com/shiny/">Shiny</a> app you've built once you've received <a href="https://rstudio.wufoo.com/forms/shiny-server-beta-program/">access to the shiny hosting beta</a>.</p>
+<h2>SSH: Setting Up Directories</h2>
+<p>To connect to your account, input this line into a terminal (obviously input your own username instead of "username"):</p>
+<div class="highlight"><pre><span class="go">ssh username@spark.rstudio.com</span>
+</pre></div>
+
+
+<p>It will prompt you for your password. Enter the password you received in the email.</p>
+<p>Next, create a folder to put your first app in. Like the email says, you want to put this at <code>~/ShinyApps/myapp/</code>. The "myapp" folder can be named whatever you want, but the "ShinyApps" folder needs to have that name.</p>
+<div class="highlight"><pre><span class="go">mkdir ShinyApps</span>
+<span class="go">mkdir ShinyApps/myapp</span>
+</pre></div>
+
+
+<h2>SSH: Installing R Packages</h2>
+<p>Next, you can go ahead and install R packages, if you know which ones your application will need.</p>
+<p>First, open R just like you would on your own computer:</p>
+<div class="highlight"><pre><span class="go">R</span>
+</pre></div>
+
+
+<p>Next, install a package (e.g. "maps"):</p>
+<div class="highlight"><pre><span class="go">install.packages(&quot;maps&quot;, dependencies = TRUE)</span>
+</pre></div>
+
+
+<p>It will ask you the following questions:</p>
+<div class="highlight"><pre><span class="go">Would you like to use a personal library instead?  (y/n)</span>
+<span class="go">Would you like to create a personal library </span>
+<span class="go">~/R/library </span>
+<span class="go">to install packages into?  (y/n)</span>
+</pre></div>
+
+
+<p>You can answer "y" to both of these. Your applications will be able to use packages installed here.</p>
+<p>Then you can follow the standard procedure for installing R packages.</p>
+<p>You can now quit R and exit ssh:</p>
+<div class="highlight"><pre><span class="go">q()</span>
+<span class="go">exit</span>
+</pre></div>
+
+
+<h2>Copying Files</h2>
+<p>On your own computer, navigate to the directory your Shiny application's folder is in, e.g.:</p>
+<div class="highlight"><pre><span class="go">cd Shiny</span>
+</pre></div>
+
+
+<p>Once you're there, you can copy the application folder to the server:</p>
+<div class="highlight"><pre><span class="go">scp -r myapp/ username@spark.rstudio.com:ShinyApps/</span>
+</pre></div>
+
+
+<p>Or if you don't want to copy all the files, you can move them one at a time:</p>
+<div class="highlight"><pre><span class="go">scp myapp/ui.R username@spark.rstudio.com:ShinyApps/myapp/ui.R</span>
+</pre></div>
+
+
+<h2>Try It Out</h2>
+<p>Now you should be able to access your application at http://spark.rstudio.com/username/myapp/</p>
+<p>You can now send it to all your friends or leave a link in the comments!</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/linux.html" rel="tag">Linux</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/shiny.html" rel="tag">shiny</a>,  <a href="/tag/ssh.html" rel="tag">ssh</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/09/perform-function-on-each-file-in-r.html.html">Thu 26 September 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/09/perform-function-on-each-file-in-r.html.html" title="Permalink to Perform a Function on Each File in R" rel="bookmark">Perform a Function on Each File in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Sometimes you might have several data files and want to use R to perform the same function across all of them. Or maybe you have multiple files and want to systematically combine them into one file without having to open each file and manually copy the data out.</p>
+<p>Fortunately, it's not complicated to use R to systematically iterate across files.</p>
+<h2>Finding or Choosing the Names of Data Files</h2>
+<p>There are multiple ways to find or choose the names of the files you want to analyze.</p>
+<p>You can explicitly state the file names or you can get R to find any files with a particular extension.</p>
+<h3>Explicitly Stating File Names</h3>
+<div class="highlight"><pre>fileNames <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;sample1.csv&quot;</span><span class="p">,</span> <span class="s">&quot;sample2.csv&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>Finding Files with a Specific Extension</h3>
+<p>In this case, we use <code>Sys.glob</code> from the <strong>base</strong> package to find all files including the wildcard "*.csv".</p>
+<div class="highlight"><pre>fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="s">&quot;*.csv&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>Iterating Across All Files</h2>
+<p>We'll start with a loop and then we can add whatever functions we want to the inside of the loop:</p>
+<div class="highlight"><pre><span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1"># read data:</span>
+    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span>
+        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
+
+    <span class="c1"># add more stuff here</span>
+
+<span class="p">}</span>
+</pre></div>
+
+
+<p>For example, we could add one to every "Widget" value in each file and overwrite the old data with the new data:</p>
+<div class="highlight"><pre><span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1"># read old data:</span>
+    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span>
+        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
+
+    <span class="c1"># add one to every widget value in every file:</span>
+    <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">&lt;-</span> <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">+</span> <span class="m">1</span>
+
+    <span class="c1"># overwrite old data with new data:</span>
+    write.table<span class="p">(</span><span class="kp">sample</span><span class="p">,</span> 
+        fileName<span class="p">,</span>
+        append <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+        quote <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span>
+        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+        col.names <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Or we could do the same thing, but create a new copy of each file:</p>
+<div class="highlight"><pre>extension <span class="o">&lt;-</span> <span class="s">&quot;csv&quot;</span>
+
+fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;*.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+
+fileNumbers <span class="o">&lt;-</span> <span class="kp">seq</span><span class="p">(</span>fileNames<span class="p">)</span>
+
+<span class="kr">for</span> <span class="p">(</span>fileNumber <span class="kr">in</span> fileNumbers<span class="p">)</span> <span class="p">{</span>
+
+    newFileName <span class="o">&lt;-</span>  <span class="kp">paste</span><span class="p">(</span><span class="s">&quot;new-&quot;</span><span class="p">,</span> 
+        <span class="kp">sub</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;\\.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">),</span> <span class="s">&quot;&quot;</span><span class="p">,</span> fileNames<span class="p">[</span>fileNumber<span class="p">]),</span> 
+        <span class="s">&quot;.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="c1"># read old data:</span>
+    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileNames<span class="p">[</span>fileNumber<span class="p">],</span>
+        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
+
+    <span class="c1"># add one to every widget value in every file:</span>
+    <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">&lt;-</span> <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">+</span> <span class="m">1</span>
+
+    <span class="c1"># write old data to new files:</span>
+    write.table<span class="p">(</span><span class="kp">sample</span><span class="p">,</span> 
+        newFileName<span class="p">,</span>
+        append <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+        quote <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span>
+        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+        col.names <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+
+<span class="p">}</span>
+</pre></div>
+
+
+<p>In the above example, we used the <code>paste</code> and <code>sub</code> functions from the <strong>base</strong> package to automatically create new file names based on the old file names.</p>
+<p>Or we could instead use each dataset to create an entirely new dataset, where each row is based on data from one file:</p>
+<div class="highlight"><pre>fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="s">&quot;*.csv&quot;</span><span class="p">)</span>
+
+<span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1"># read original data:</span>
+    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span>
+        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
+
+    <span class="c1"># create new data based on contents of original file:</span>
+    allWidgets <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>
+        File <span class="o">=</span> fileName<span class="p">,</span>
+        Widgets <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span><span class="kp">sample</span><span class="o">$</span>Widgets<span class="p">))</span>
+
+    <span class="c1"># write new data to separate file:</span>
+    write.table<span class="p">(</span>allWidgets<span class="p">,</span> 
+        <span class="s">&quot;Output/sample-allSamples.csv&quot;</span><span class="p">,</span>
+        append <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span>
+        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+        col.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+
+<span class="p">}</span>
+</pre></div>
+
+
+<p>In the above example, <code>data.frame</code> is used to create a new data row based on each data file. Then the append option of <code>write.table</code> is set to <code>TRUE</code> so that row can be added to the other rows created from other data files.</p>
+<p>Those are just a few examples of how you can use R to perform the same function(s) on a large number of files without having to manually run each one. I'm sure you can think of more uses.</p>
+<p>All the files are available <a href="https://github.com/mollietaylor/iterate-across-files">on GitHub</a>. You can see how eachFile.R, eachfile-newNames.R, and eachFile-append.R each do something different to the sample datasets.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/analysis.html" rel="tag">analysis</a>,  <a href="/tag/dataframe.html" rel="tag">data.frame</a>,  <a href="/tag/for.html" rel="tag">for</a>,  <a href="/tag/paste.html" rel="tag">paste</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/sub.html" rel="tag">sub</a>,  <a href="/tag/sysglob.html" rel="tag">Sys.glob</a>,  <a href="/tag/writetable.html" rel="tag">write.table</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/09/truncate-by-delimiter-in-r.html.html">Thu 19 September 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/09/truncate-by-delimiter-in-r.html.html" title="Permalink to Truncate by Delimiter in R" rel="bookmark">Truncate by Delimiter in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Sometimes, you only need to analyze part of the data stored as a vector. In this example, there is a list of patents. Each patent has been assigned to one or more patent classes. Let's say that we want to analyze the dataset based on only the first patent class listed for each patent.</p>
+<div class="highlight"><pre>patents <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>
+    patent <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,</span>
+    class <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;405&quot;</span><span class="p">,</span> <span class="s">&quot;33/209&quot;</span><span class="p">,</span> <span class="s">&quot;549/514&quot;</span><span class="p">,</span> <span class="s">&quot;110&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;43&quot;</span><span class="p">,</span> 
+    <span class="s">&quot;315/327&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;536/514&quot;</span><span class="p">,</span> <span class="s">&quot;523/522&quot;</span><span class="p">,</span> <span class="s">&quot;315&quot;</span><span class="p">,</span> 
+    <span class="s">&quot;138/248/285&quot;</span><span class="p">,</span> <span class="s">&quot;24&quot;</span><span class="p">,</span> <span class="s">&quot;365&quot;</span><span class="p">,</span> <span class="s">&quot;73/116/137&quot;</span><span class="p">,</span> <span class="s">&quot;73/200&quot;</span><span class="p">,</span> 
+    <span class="s">&quot;252/508&quot;</span><span class="p">,</span> <span class="s">&quot;96/261&quot;</span><span class="p">,</span> <span class="s">&quot;327/318&quot;</span><span class="p">,</span> <span class="s">&quot;426/424/512&quot;</span><span class="p">,</span> 
+    <span class="s">&quot;75/423&quot;</span><span class="p">,</span> <span class="s">&quot;430&quot;</span><span class="p">,</span> <span class="s">&quot;416&quot;</span><span class="p">,</span> <span class="s">&quot;536/423/530&quot;</span><span class="p">,</span> <span class="s">&quot;381/181&quot;</span><span class="p">,</span> <span class="s">&quot;4&quot;</span><span class="p">,</span> 
+    <span class="s">&quot;340/187&quot;</span><span class="p">,</span> <span class="s">&quot;423/75&quot;</span><span class="p">,</span> <span class="s">&quot;360/392/G9B&quot;</span><span class="p">,</span> <span class="s">&quot;524/106/423&quot;</span><span class="p">))</span>
+</pre></div>
+
+
+<p>We can use <a href="http://en.wikipedia.org/wiki/Regular_expression">regular expressions</a> to truncate each element of the vector just before the first "/".</p>
+<p><code>grep</code>,<code>grepl</code>,<code>sub</code>,<code>gsub</code>,<code>regexpr</code>,<code>gregexpr</code>, and <code>regexec</code> are all functions in the <strong>base</strong> package that allow you to use regular expressions within each element of a character vector. <code>sub</code> and <code>gsub</code> allow you to replace within each element of the vector. <code>sub</code> replaces the first match within each element, while <code>gsub</code> replaces all matches within each element. In this case, we want to remove everything from the first "/" on, and we want to replace it with nothing. Here's how we can use <code>sub</code> to do that:</p>
+<div class="highlight"><pre>patents<span class="o">$</span>primaryClass <span class="o">&lt;-</span> <span class="kp">sub</span><span class="p">(</span><span class="s">&quot;/.*&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> patents<span class="o">$</span><span class="kp">class</span><span class="p">)</span>
+
+<span class="o">&gt;</span> <span class="kp">table</span><span class="p">(</span>patents<span class="o">$</span>primaryClass<span class="p">)</span>
+
+<span class="m">110</span> <span class="m">138</span>  <span class="m">24</span> <span class="m">252</span> <span class="m">315</span> <span class="m">327</span>  <span class="m">33</span> <span class="m">340</span> <span class="m">360</span> <span class="m">365</span> <span class="m">381</span>   <span class="m">4</span> <span class="m">405</span> <span class="m">416</span> <span class="m">423</span> <span class="m">426</span>  <span class="m">43</span> <span class="m">430</span> <span class="m">523</span> <span class="m">524</span> 
+  <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span> 
+<span class="m">536</span> <span class="m">540</span> <span class="m">549</span>  <span class="m">73</span>  <span class="m">75</span>  <span class="m">96</span> 
+  <span class="m">2</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span>
+</pre></div>
+
+
+<blockquote>
+<p>This post is one part of my series on Text to Columns.</p>
+</blockquote>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://www.cheatography.com/davechild/cheat-sheets/regular-expressions/">Regular Expressions Cheat Sheet</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/cleaning.html" rel="tag">cleaning</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/regular-expressions.html" rel="tag">regular expressions</a>,  <a href="/tag/series-text-to-columns.html" rel="tag">Series: Text to Columns</a>,  <a href="/tag/setup.html" rel="tag">setup</a>,  <a href="/tag/sub.html" rel="tag">sub</a>    		</span>
+	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
+		<div class="nav-next"><a href="/tag/r2.html" >Older posts <span class="meta-nav">&rarr;</span></a></div>
 </div>
 		</div>
 		

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; geom_point Legend with Custom Colors in ggplot</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="/" /> 
+		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+		</div>
+	
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/03/geompoint-legend-with-custom-colors-in.html.html">Thu 07 March 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/03/geompoint-legend-with-custom-colors-in.html.html" title="Permalink to geom_point Legend with Custom Colors in ggplot" rel="bookmark">geom_point Legend with Custom Colors in ggplot</a>
+		</h2>
+		<div class="entry-content">
+			<p>Formerly, I showed how to make line segments using ggplot.</p>
+<p>Working from that previous example, there are only a few things we need to change to add custom colors to our plot and legend in <strong>ggplot</strong>.</p>
+<p>First, we'll add the colors of our choice. I'll do this using RColorBrewer, but you can choose whatever method you'd like.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+colors <span class="o">=</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The next section will be exactly the same as the previous example, except for removing the <code>scale_color_discrete</code> line to make way for the <code>scale_color_manual</code> we'll be adding later.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+
+data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span>
+data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span>
+
+ggplot<span class="p">(</span>data<span class="p">,</span>
+    aes<span class="p">(</span>x <span class="o">=</span> Expenditure<span class="p">,</span>
+        y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span>
+labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span>
+    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span>
+geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+        y <span class="o">=</span> Category<span class="p">,</span>
+        xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+        yend <span class="o">=</span> Category<span class="p">),</span>
+    size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+        color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span> <span class="c1"># these can be any string, they just need to be unique identifiers</span>
+    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span>
+    shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+        color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
+    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span>
+    shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>And finally, we'll add a <code>scale_color_manual</code> line to our plot. We need to define the name, labels, and colors of the plot.</p>
+<div class="highlight"><pre>scale_color_manual(name = &quot;Year&quot;, # or name = element_blank()
+    labels = c(1940, 1960),
+    values = colors)
+</pre></div>
+
+
+<p>And here's our final plot, complete with whatever custom colors we've chosen in both the plot and legend:</p>
+<p><img alt="geom_point in ggplot with custom colors in the graph and legend" src="/images/ggplot-custom-legend.png" /></p>
+<p>I've updated the <a href="https://gist.github.com/mollietaylor/4543148#file-customlegend-r">gist</a> from the previous post to also include a file that has custom colors.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/scale_color_manual.html" rel="tag">scale_color_manual</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

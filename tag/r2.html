@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Articles tagged R</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="/" /> 
+		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+<div class="page-title">
+	<h2>Tagged with <span>R</span> &hellip;</h2>
+</div>
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/09/only-load-data-if-not-already-open-in-r.html.html">Thu 12 September 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/09/only-load-data-if-not-already-open-in-r.html.html" title="Permalink to Only Load Data If Not Already Open in R" rel="bookmark">Only Load Data If Not Already Open in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>I often find it beneficial to check to see whether or not a dataset is already loaded into R at the beginning of a file. This is particularly helpful when I'm dealing with a large file that I don't want to load repeatedly, and when I might be using the same dataset with multiple R scripts or re-running the same script while making changes to the code.</p>
+<p>To check to see if an object with that name is already loaded, we can use the <code>exists</code> function from the <strong>base</strong> package. We can then wrap our <code>read.csv</code> command with an <code>if</code> statement to cause the file to only load if an object with that name is not already loaded.</p>
+<div class="highlight"><pre><span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;largeData&quot;</span><span class="p">))</span> <span class="p">{</span>
+    largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span>
+        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>You will probably also find it useful to use the "<a href="http://www.mollietaylor.com/2013/09/using-colclasses-to-load-data-more.html">colClasses</a>" option of <code>read.csv</code> or <code>read.table</code> to help the file load faster and make sure your data are in the right format. For example:</p>
+<div class="highlight"><pre><span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;largeData&quot;</span><span class="p">))</span> <span class="p">{</span>
+    largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span>
+        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+        colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> 
+            <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<blockquote>
+<p>This post is one part of my series on dealing with large datasets.</p>
+</blockquote>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/exists.html" rel="tag">exists</a>,  <a href="/tag/if.html" rel="tag">if</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/readcsv.html" rel="tag">read.csv</a>,  <a href="/tag/readtable.html" rel="tag">read.table</a>,  <a href="/tag/series-large-data.html" rel="tag">Series: Large Data</a>,  <a href="/tag/setup.html" rel="tag">setup</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/09/using-colclasses-to-load-data-more.html.html">Thu 05 September 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/09/using-colclasses-to-load-data-more.html.html" title="Permalink to Using colClasses to Load Data More Quickly in R" rel="bookmark">Using colClasses to Load Data More Quickly in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Specifying a <code>colClasses</code> argument to <code>read.table</code> or <code>read.csv</code> can save time on importing data, while also saving steps to specify classes for each variable later.</p>
+<p>For example, loading a 893 MB took 441 seconds to load when not using <code>colClasses</code>, but only 268 seconds to load when using <code>colClasses</code>. The <code>system.time</code> function in <strong>base</strong> can help you check your own times.</p>
+<p>Without specifying <code>colClasses</code>:</p>
+<div class="highlight"><pre>   user  system elapsed 
+<span class="m">441.224</span>   <span class="m">8.200</span> <span class="m">454.155</span>
+</pre></div>
+
+
+<p>When specifying <code>colClasses</code>:</p>
+<div class="highlight"><pre>   user  system elapsed 
+<span class="m">268.036</span>   <span class="m">6.096</span> <span class="m">284.099</span>
+</pre></div>
+
+
+<p>Dates that are in the <a href="http://www.mollietaylor.com/2013/08/date-formats-in-r.html">form %Y-%m-%d or Y/%m/%d</a> will import correctly. <a href="http://stackoverflow.com/a/13022441">This tip allows you to import dates properly</a> for dates in other formats.</p>
+<div class="highlight"><pre><span class="kp">system.time</span><span class="p">(</span>largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span>
+    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+    colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;complex&quot;</span><span class="p">,</span> 
+        <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> 
+        <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;numeric&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span>
+        <span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;logical&quot;</span><span class="p">)))</span>
+</pre></div>
+
+
+<p>If there aren't any classes that you want to change from their defaults, you can read in the first few rows, <a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">determine the classes from that</a>, and then import the rest of the file:</p>
+<div class="highlight"><pre>sampleData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> nrows <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+classes <span class="o">&lt;-</span> <span class="kp">sapply</span><span class="p">(</span>sampleData<span class="p">,</span> <span class="kp">class</span><span class="p">)</span>
+largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> colClasses <span class="o">=</span> classes<span class="p">)</span>
+str<span class="p">(</span>largeData<span class="p">)</span>
+</pre></div>
+
+
+<p>If you aren't concerned about the time it takes to read the data file, but instead just want the classes to be correct on import, you have the option of only specifying certain classes:</p>
+<div class="highlight"><pre>smallData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;small-file.csv&quot;</span><span class="p">,</span> 
+    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+    colClasses<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;variableName&quot;</span><span class="o">=</span><span class="s">&quot;character&quot;</span><span class="p">))</span>
+
+<span class="o">&gt;</span> <span class="kp">class</span><span class="p">(</span>smallData<span class="o">$</span>variableName<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;character&quot;</span>
+</pre></div>
+
+
+<blockquote>
+<p>This post is one part of my series on dealing with large datasets.</p>
+</blockquote>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/2805357/specifying-colclasses-in-the-read-csv">http://stackoverflow.com/questions/2805357/specifying-colclasses-in-the-read-csv</a></li>
+<li><a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html</a></li>
+<li><a href="http://www.mollietaylor.com/2013/08/date-formats-in-r.html">http://www.mollietaylor.com/2013/08/date-formats-in-r.html</a></li>
+<li><a href="http://stackoverflow.com/a/13022441">http://stackoverflow.com/a/13022441</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/colclasses.html" rel="tag">colClasses</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/readcsv.html" rel="tag">read.csv</a>,  <a href="/tag/readtable.html" rel="tag">read.table</a>,  <a href="/tag/series-large-data.html" rel="tag">Series: Large Data</a>,  <a href="/tag/setup.html" rel="tag">setup</a>,  <a href="/tag/systemtime.html" rel="tag">system.time</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/08/plot-weekly-or-monthly-totals-in-r.html.html">Thu 29 August 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/08/plot-weekly-or-monthly-totals-in-r.html.html" title="Permalink to Plot Weekly or Monthly Totals in R" rel="bookmark">Plot Weekly or Monthly Totals in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>When plotting time series data, you might want to bin the values so that each data point corresponds to the sum for a given month or week. This post will show an easy way to use <code>cut</code> and <strong>ggplot2</strong>'s <code>stat_summary</code> to plot month totals in R without needing to reorganize the data into a second data frame.</p>
+<p>Let's start with a simple sample data set with a series of dates and quantities:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>scales<span class="p">)</span>
+
+<span class="c1"># load data:</span>
+log <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>Date <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;2013/05/25&quot;</span><span class="p">,</span><span class="s">&quot;2013/05/28&quot;</span><span class="p">,</span><span class="s">&quot;2013/05/31&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/01&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/02&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/05&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/07&quot;</span><span class="p">),</span> 
+  Quantity <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">9</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">15</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">17</span><span class="p">,</span><span class="m">18</span><span class="p">))</span>
+<span class="kp">log</span>
+str<span class="p">(</span><span class="kp">log</span><span class="p">)</span>
+
+
+<span class="o">:::</span>r
+<span class="o">&gt;</span> <span class="kp">log</span>
+        Date Quantity
+<span class="m">1</span> <span class="m">2013</span><span class="o">/</span><span class="m">05</span><span class="o">/</span><span class="m">25</span>        <span class="m">9</span>
+<span class="m">2</span> <span class="m">2013</span><span class="o">/</span><span class="m">05</span><span class="o">/</span><span class="m">28</span>        <span class="m">1</span>
+<span class="m">3</span> <span class="m">2013</span><span class="o">/</span><span class="m">05</span><span class="o">/</span><span class="m">31</span>       <span class="m">15</span>
+<span class="m">4</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">01</span>        <span class="m">4</span>
+<span class="m">5</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">02</span>        <span class="m">5</span>
+<span class="m">6</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">05</span>       <span class="m">17</span>
+<span class="m">7</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">07</span>       <span class="m">18</span>
+
+<span class="o">&gt;</span> str<span class="p">(</span><span class="kp">log</span><span class="p">)</span>
+<span class="s">&#39;data.frame&#39;</span><span class="o">:</span> <span class="m">7</span> obs. of  <span class="m">2</span> variables<span class="o">:</span>
+ <span class="o">$</span> Date    <span class="o">:</span> Factor w<span class="o">/</span> <span class="m">7</span> levels <span class="s">&quot;2013/05/25&quot;</span><span class="p">,</span><span class="s">&quot;2013/05/28&quot;</span><span class="p">,</span><span class="m">..</span><span class="o">:</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span> <span class="m">6</span> <span class="m">7</span>
+ <span class="o">$</span> Quantity<span class="o">:</span> num  <span class="m">9</span> <span class="m">1</span> <span class="m">15</span> <span class="m">4</span> <span class="m">5</span> <span class="m">17</span> <span class="m">18</span>
+</pre></div>
+
+
+<p>Next, if the date data is not already in a date format, we'll need to convert it to date format:</p>
+<div class="highlight"><pre><span class="c1"># convert date variable from factor to date format:</span>
+<span class="kp">log</span><span class="o">$</span>Date <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">log</span><span class="o">$</span>Date<span class="p">,</span>
+    <span class="s">&quot;%Y/%m/%d&quot;</span><span class="p">)</span> <span class="c1"># tabulate all the options here</span>
+str<span class="p">(</span><span class="kp">log</span><span class="p">)</span>
+
+
+<span class="o">:::</span>r
+<span class="o">&gt;</span> str<span class="p">(</span><span class="kp">log</span><span class="p">)</span>
+<span class="s">&#39;data.frame&#39;</span><span class="o">:</span> <span class="m">7</span> obs. of  <span class="m">2</span> variables<span class="o">:</span>
+ <span class="o">$</span> Date    <span class="o">:</span> Date<span class="p">,</span> <span class="kp">format</span><span class="o">:</span> <span class="s">&quot;2013-05-25&quot;</span> <span class="s">&quot;2013-05-28&quot;</span> <span class="kc">...</span>
+ <span class="o">$</span> Quantity<span class="o">:</span> num  <span class="m">9</span> <span class="m">1</span> <span class="m">15</span> <span class="m">4</span> <span class="m">5</span> <span class="m">17</span> <span class="m">18</span>
+</pre></div>
+
+
+<p>Next we need to create variables stating the week and month of each observation. For week, <code>cut</code> has an option that allows you to break weeks as you'd like, beginning weeks on either Sunday or Monday.</p>
+<div class="highlight"><pre><span class="c1"># create variables of the week and month of each observation:</span>
+<span class="kp">log</span><span class="o">$</span>Month <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">cut</span><span class="p">(</span><span class="kp">log</span><span class="o">$</span>Date<span class="p">,</span>
+  breaks <span class="o">=</span> <span class="s">&quot;month&quot;</span><span class="p">))</span>
+<span class="kp">log</span><span class="o">$</span>Week <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">cut</span><span class="p">(</span><span class="kp">log</span><span class="o">$</span>Date<span class="p">,</span>
+  breaks <span class="o">=</span> <span class="s">&quot;week&quot;</span><span class="p">,</span>
+  start.on.monday <span class="o">=</span> <span class="kc">FALSE</span><span class="p">))</span> <span class="c1"># changes weekly break point to Sunday</span>
+<span class="kp">log</span>
+
+<span class="o">&gt;</span> <span class="kp">log</span>
+        Date Quantity      Month       Week
+<span class="m">1</span> <span class="m">2013-05-25</span>        <span class="m">9</span> <span class="m">2013-05-01</span> <span class="m">2013-05-19</span>
+<span class="m">2</span> <span class="m">2013-05-28</span>        <span class="m">1</span> <span class="m">2013-05-01</span> <span class="m">2013-05-26</span>
+<span class="m">3</span> <span class="m">2013-05-31</span>       <span class="m">15</span> <span class="m">2013-05-01</span> <span class="m">2013-05-26</span>
+<span class="m">4</span> <span class="m">2013-06-01</span>        <span class="m">4</span> <span class="m">2013-06-01</span> <span class="m">2013-05-26</span>
+<span class="m">5</span> <span class="m">2013-06-02</span>        <span class="m">5</span> <span class="m">2013-06-01</span> <span class="m">2013-06-02</span>
+<span class="m">6</span> <span class="m">2013-06-05</span>       <span class="m">17</span> <span class="m">2013-06-01</span> <span class="m">2013-06-02</span>
+<span class="m">7</span> <span class="m">2013-06-07</span>       <span class="m">18</span> <span class="m">2013-06-01</span> <span class="m">2013-06-02</span>
+</pre></div>
+
+
+<p>Finally, we can create either a line or bar plot of the data by month and by week, using <code>stat_summary</code> to sum up the values associated with each week or month:</p>
+<div class="highlight"><pre><span class="c1"># graph by month:</span>
+ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log</span><span class="p">,</span>
+    aes<span class="p">(</span>Month<span class="p">,</span> Quantity<span class="p">))</span> <span class="o">+</span>
+    stat_summary<span class="p">(</span>fun.y <span class="o">=</span> <span class="kp">sum</span><span class="p">,</span> <span class="c1"># adds up all observations for the month</span>
+        geom <span class="o">=</span> <span class="s">&quot;bar&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># or &quot;line&quot;</span>
+    scale_x_date<span class="p">(</span>
+        labels <span class="o">=</span> date_format<span class="p">(</span><span class="s">&quot;%Y-%m&quot;</span><span class="p">),</span>
+        breaks <span class="o">=</span> <span class="s">&quot;1 month&quot;</span><span class="p">)</span> <span class="c1"># custom x-axis labels</span>
+</pre></div>
+
+
+<p><img alt="Time series plot, binned by month" src="/images/plot-monthly-total.png" /></p>
+<div class="highlight"><pre><span class="c1"># graph by week:</span>
+ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log</span><span class="p">,</span>
+    aes<span class="p">(</span>Week<span class="p">,</span> Quantity<span class="p">))</span> <span class="o">+</span>
+    stat_summary<span class="p">(</span>fun.y <span class="o">=</span> <span class="kp">sum</span><span class="p">,</span> <span class="c1"># adds up all observations for the week</span>
+        geom <span class="o">=</span> <span class="s">&quot;bar&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># or &quot;line&quot;</span>
+    scale_x_date<span class="p">(</span>
+        labels <span class="o">=</span> date_format<span class="p">(</span><span class="s">&quot;%Y-%m-%d&quot;</span><span class="p">),</span>
+        breaks <span class="o">=</span> <span class="s">&quot;1 week&quot;</span><span class="p">)</span> <span class="c1"># custom x-axis labels</span>
+</pre></div>
+
+
+<p><img alt="Time series plot, totaled by week" src="/images/plot-weekly-total.png" /></p>
+<p>The full code is available in a <a href="https://gist.github.com/mollietaylor/5846843">gist</a>. </p>
+<h2>References</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/3496536/barplot-totals-by-month-with-ggplot">http://stackoverflow.com/questions/3496536/barplot-totals-by-month-with-ggplot</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/asdate.html" rel="tag">as.Date</a>,  <a href="/tag/cut.html" rel="tag">cut</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/scale_x_date.html" rel="tag">scale_x_date</a>,  <a href="/tag/scales.html" rel="tag">scales</a>,  <a href="/tag/stat_summary.html" rel="tag">stat_summary</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/08/date-formats-in-r.html.html">Thu 22 August 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/08/date-formats-in-r.html.html" title="Permalink to Date Formats in R" rel="bookmark">Date Formats in R</a>
+		</h2>
+		<div class="entry-content">
+			<h2>Importing Dates</h2>
+<p>Dates can be imported from character, numeric, POSIXlt, and POSIXct formats using the <code>as.Date</code> function from the <strong>base</strong> package.</p>
+<p>If your data were exported from Excel, they will possibly be in numeric format. Otherwise, they will most likely be stored in character format.</p>
+<h3>Importing Dates from Character Format</h3>
+<p>If your dates are stored as characters, you simply need to provide <code>as.Date</code> with your vector of dates and the format they are currently stored in. The possible date segment formats are listed in a table below. </p>
+<p>For example,</p>
+<p>"05/27/84" is in the format %m/%d/%y, while "May 27 1984" is in the format %B %d %Y.</p>
+<p>To import those dates, you would simply provide your dates and their format (if not specified, it tries %Y-%m-%d and then %Y/%m/%d):</p>
+<div class="highlight"><pre>dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;05/27/84&quot;</span><span class="p">,</span> <span class="s">&quot;07/07/05&quot;</span><span class="p">)</span>
+betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span>
+    format <span class="o">=</span> <span class="s">&quot;%m/%d/%y&quot;</span><span class="p">)</span>
+<span class="o">&gt;</span> betterDates
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span>
+</pre></div>
+
+
+<p>This outputs the dates in the ISO 8601 international standard format %Y-%m-%d. If you would like to use dates in a different format, read "Changing Date Formats" below.</p>
+<h3>Importing Dates from Numeric Format</h3>
+<p>If you are importing data from Excel, you may have dates that are in a numeric format. We can still use as.Date to import these, we simply need to know the origin date that Excel starts counting from, and provide that to as.Date.</p>
+<p>For Excel on Windows, the origin date is December 30, 1899 for dates after 1900. (Excel's designer thought 1900 was a leap year, but it was not.) For Excel on Mac, the origin date is January 1, 1904.</p>
+<div class="highlight"><pre><span class="c1"># from Windows Excel:</span>
+    dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">30829</span><span class="p">,</span> <span class="m">38540</span><span class="p">)</span>
+    betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span>
+        origin <span class="o">=</span> <span class="s">&quot;1899-12-30&quot;</span><span class="p">)</span>
+
+<span class="o">&gt;</span>   betterDates
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span>
+
+<span class="c1"># from Mac Excel:</span>
+    dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">29367</span><span class="p">,</span> <span class="m">37078</span><span class="p">)</span>
+    betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span>
+        origin <span class="o">=</span> <span class="s">&quot;1904-01-01&quot;</span><span class="p">)</span>
+
+<span class="o">&gt;</span>   betterDates
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span>
+</pre></div>
+
+
+<p>This outputs the dates in the ISO 8601 international standard format %Y-%m-%d. If you would like to use dates in a different format, read the next step:</p>
+<h2>Changing Date Formats</h2>
+<p>If you would like to use dates in a format other than the standard %Y-%m-%d, you can do that using the <code>format</code> function from the <strong>base</strong> package.</p>
+<p>For example,</p>
+<div class="highlight"><pre><span class="kp">format</span><span class="p">(</span>betterDates<span class="p">,</span>
+    <span class="s">&quot;%a %b %d&quot;</span><span class="p">)</span>
+
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;Sun May 27&quot;</span> <span class="s">&quot;Thu Jul 07&quot;</span>
+</pre></div>
+
+
+<h2>Correct Centuries</h2>
+<p>If you are importing data with only two digits for the years, you will find that it assumes that years 69 to 99 are 1969-1999, while years 00 to 68 are 2000--2068 (subject to change in future versions of R).</p>
+<p>Often, this is not what you intend to have happen. <a href="http://stackoverflow.com/questions/9508747/r-adding-century-to-year">This page</a> gives a good explanation of several ways to fix this depending on your preference of centuries. One solution it provides is to assume all dates R is placing in the future are really from the previous century. That solution is as follows:</p>
+<div class="highlight"><pre>dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;05/27/84&quot;</span><span class="p">,</span> <span class="s">&quot;07/07/05&quot;</span><span class="p">,</span> <span class="s">&quot;08/17/20&quot;</span><span class="p">)</span>
+betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span> <span class="s">&quot;%m/%d/%y&quot;</span><span class="p">)</span>
+
+<span class="o">&gt;</span> betterDates
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span> <span class="s">&quot;2020-08-17&quot;</span>
+
+correctCentury <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">ifelse</span><span class="p">(</span>betterDates <span class="o">&gt;</span> <span class="kp">Sys.Date</span><span class="p">(),</span> 
+    <span class="kp">format</span><span class="p">(</span>betterDates<span class="p">,</span> <span class="s">&quot;19%y-%m-%d&quot;</span><span class="p">),</span> 
+    <span class="kp">format</span><span class="p">(</span>betterDates<span class="p">)))</span>
+
+<span class="o">&gt;</span> correctCentury
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span> <span class="s">&quot;1920-08-17&quot;</span>
+</pre></div>
+
+
+<h2>Purpose of Proper Formatting</h2>
+<p>Having your dates in the proper format allows R to know that they are dates, and as such knows what calculations it should and should not perform on them. For one example, see my <a href="/2013/08/plot-weekly-or-monthly-totals-in-r.html.html">post on plotting weekly or monthly totals</a>. Here are a few more examples:</p>
+<div class="highlight"><pre><span class="o">&gt;</span>   <span class="kp">mean</span><span class="p">(</span>betterDates<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1994-12-16&quot;</span>
+
+<span class="o">&gt;</span>   <span class="kp">max</span><span class="p">(</span>betterDates<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;2005-07-07&quot;</span>
+
+<span class="o">&gt;</span>   <span class="kp">min</span><span class="p">(</span>betterDates<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span>
+</pre></div>
+
+
+<p>The code is available in a <a href="https://gist.github.com/mollietaylor/6258459">gist</a>.</p>
+<h2>Date Formats</h2>
+<table>
+<thead>
+<tr>
+<th>Conversion specification</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%a</td>
+<td>Abbreviated weekday</td>
+<td>Sun, Thu</td>
+</tr>
+<tr>
+<td>%A</td>
+<td>Full weekday</td>
+<td>Sunday, Thursday</td>
+</tr>
+<tr>
+<td>%b or %h</td>
+<td>Abbreviated month</td>
+<td>May, Jul</td>
+</tr>
+<tr>
+<td>%B</td>
+<td>Full month</td>
+<td>May, July</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>Day of the month</td>
+<td>27, 07</td>
+</tr>
+<tr>
+<td></td>
+<td>01-31</td>
+<td></td>
+</tr>
+<tr>
+<td>%j</td>
+<td>Day of the year</td>
+<td>148, 188</td>
+</tr>
+<tr>
+<td></td>
+<td>001-366</td>
+<td></td>
+</tr>
+<tr>
+<td>%m</td>
+<td>Month</td>
+<td>05, 07</td>
+</tr>
+<tr>
+<td></td>
+<td>01-12</td>
+<td></td>
+</tr>
+<tr>
+<td>%U</td>
+<td>Week</td>
+<td>22, 27</td>
+</tr>
+<tr>
+<td></td>
+<td>01-53</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>with Sunday as first day of the week</td>
+<td></td>
+</tr>
+<tr>
+<td>%w</td>
+<td>Weekday</td>
+<td>0, 4</td>
+</tr>
+<tr>
+<td></td>
+<td>0-6</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Sunday is 0</td>
+<td></td>
+</tr>
+<tr>
+<td>%W</td>
+<td>Week</td>
+<td>21, 27</td>
+</tr>
+<tr>
+<td></td>
+<td>00-53</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>with Monday as first day of the week</td>
+<td></td>
+</tr>
+<tr>
+<td>%x</td>
+<td>Date, locale-specific</td>
+<td></td>
+</tr>
+<tr>
+<td>%y</td>
+<td>Year without century</td>
+<td>84, 05</td>
+</tr>
+<tr>
+<td></td>
+<td>00-99</td>
+<td></td>
+</tr>
+<tr>
+<td>%Y</td>
+<td>Year with century</td>
+<td>1984, 2005</td>
+</tr>
+<tr>
+<td></td>
+<td>on input:</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>00 to 68 prefixed by 20</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>69 to 99 prefixed by 19</td>
+<td></td>
+</tr>
+<tr>
+<td>%C</td>
+<td>Century</td>
+<td>19, 20</td>
+</tr>
+<tr>
+<td>%D</td>
+<td>Date formatted %m/%d/%y</td>
+<td>05/27/84, 07/07/05</td>
+</tr>
+<tr>
+<td>%u</td>
+<td>Weekday</td>
+<td>7, 4</td>
+</tr>
+<tr>
+<td></td>
+<td>1-7</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Monday is 1</td>
+<td></td>
+</tr>
+<tr>
+<td>%n</td>
+<td>Newline on output or</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Arbitrary whitespace on input</td>
+<td></td>
+</tr>
+<tr>
+<td>%t</td>
+<td>Tab on output or</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Arbitrary whitespace on input</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>References</h2>
+<ul>
+<li>help(as.Date)</li>
+<li>help(strptime)</li>
+<li><a href="http://stackoverflow.com/questions/9508747/r-adding-century-to-year">http://stackoverflow.com/questions/9508747/r-adding-century-to-year</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/asdate.html" rel="tag">as.Date</a>,  <a href="/tag/format.html" rel="tag">format</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/setup.html" rel="tag">setup</a>,  <a href="/tag/sysdate.html" rel="tag">Sys.Date</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/03/geompoint-legend-with-custom-colors-in.html.html">Thu 07 March 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/03/geompoint-legend-with-custom-colors-in.html.html" title="Permalink to geom_point Legend with Custom Colors in ggplot" rel="bookmark">geom_point Legend with Custom Colors in ggplot</a>
+		</h2>
+		<div class="entry-content">
+			<p>Formerly, I showed how to make line segments using ggplot.</p>
+<p>Working from that previous example, there are only a few things we need to change to add custom colors to our plot and legend in <strong>ggplot</strong>.</p>
+<p>First, we'll add the colors of our choice. I'll do this using RColorBrewer, but you can choose whatever method you'd like.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+colors <span class="o">=</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The next section will be exactly the same as the previous example, except for removing the <code>scale_color_discrete</code> line to make way for the <code>scale_color_manual</code> we'll be adding later.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+
+data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span>
+data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span>
+
+ggplot<span class="p">(</span>data<span class="p">,</span>
+    aes<span class="p">(</span>x <span class="o">=</span> Expenditure<span class="p">,</span>
+        y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span>
+labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span>
+    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span>
+geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+        y <span class="o">=</span> Category<span class="p">,</span>
+        xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+        yend <span class="o">=</span> Category<span class="p">),</span>
+    size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
+        color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span> <span class="c1"># these can be any string, they just need to be unique identifiers</span>
+    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span>
+    shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
+        color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
+    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span>
+    shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span> <span class="o">+</span>
+</pre></div>
+
+
+<p>And finally, we'll add a <code>scale_color_manual</code> line to our plot. We need to define the name, labels, and colors of the plot.</p>
+<div class="highlight"><pre>scale_color_manual(name = &quot;Year&quot;, # or name = element_blank()
+    labels = c(1940, 1960),
+    values = colors)
+</pre></div>
+
+
+<p>And here's our final plot, complete with whatever custom colors we've chosen in both the plot and legend:</p>
+<p><img alt="geom_point in ggplot with custom colors in the graph and legend" src="/images/ggplot-custom-legend.png" /></p>
+<p>I've updated the <a href="https://gist.github.com/mollietaylor/4543148#file-customlegend-r">gist</a> from the previous post to also include a file that has custom colors.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/scale_color_manual.html" rel="tag">scale_color_manual</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/02/shapefiles-in-r.html.html">Thu 28 February 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/02/shapefiles-in-r.html.html" title="Permalink to Shapefiles in R" rel="bookmark">Shapefiles in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Let's learn how to use <a href="http://en.wikipedia.org/wiki/Shapefile">Shapefiles</a> in R. This will allow us to map data for complicated areas or jurisdictions like zipcodes or school districts. For the United States, many shapefiles are available from the [Census Bureau](http://www.census.gov/geo/www/tiger/tgrshp2010/tgrshp2010.html. Our example will map U.S. national parks.</p>
+<p>First, download the <a href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/parks-and-protected-lands/">U.S. Parks and Protected Lands shape files from Natural Earth</a>. We'll be using the ne_10m_parks_and_protected_lands_area.shp file.</p>
+<p>Next, start working in R. First, we'll load the shapefile and <strong>maptools</strong>:</p>
+<div class="highlight"><pre><span class="c1"># load up area shape file:</span>
+<span class="kn">library</span><span class="p">(</span>maptools<span class="p">)</span>
+area <span class="o">&lt;-</span> readShapePoly<span class="p">(</span><span class="s">&quot;ne_10m_parks_and_protected_lands_area.shp&quot;</span><span class="p">)</span>
+
+<span class="c1"># # or file.choose:</span>
+<span class="c1"># area &lt;- readShapePoly(file.choose())</span>
+</pre></div>
+
+
+<p>Next we can set the colors we want to use. And then we can set up our basemap.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+colors <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span>
+
+<span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span>
+mapImage <span class="o">&lt;-</span> get_map<span class="p">(</span>location <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> <span class="m">-118</span><span class="p">,</span> lat <span class="o">=</span> <span class="m">37.5</span><span class="p">),</span>
+    color <span class="o">=</span> <span class="s">&quot;color&quot;</span><span class="p">,</span>
+    <span class="kn">source</span> <span class="o">=</span> <span class="s">&quot;osm&quot;</span><span class="p">,</span>
+    <span class="c1"># maptype = &quot;terrain&quot;,</span>
+    zoom <span class="o">=</span> <span class="m">6</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Next, we can use the <code>fortify</code> function from the <em>ggplot2</em> package. This converts the crazy shape file with all its nested attributes into a data frame that ggmap will know what to do with.</p>
+<div class="highlight"><pre>area.points <span class="o">&lt;-</span> fortify<span class="p">(</span>area<span class="p">)</span>
+</pre></div>
+
+
+<p>Finally, we can map our shape files!</p>
+<div class="highlight"><pre>ggmap<span class="p">(</span>mapImage<span class="p">)</span> <span class="o">+</span>
+    geom_polygon<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> long<span class="p">,</span>
+            y <span class="o">=</span> lat<span class="p">,</span>
+            group <span class="o">=</span> group<span class="p">),</span>
+        data <span class="o">=</span> area.points<span class="p">,</span>
+        color <span class="o">=</span> colors<span class="p">[</span><span class="m">9</span><span class="p">],</span>
+        fill <span class="o">=</span> colors<span class="p">[</span><span class="m">6</span><span class="p">],</span>
+        alpha <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span> <span class="o">+</span>
+labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span>
+    y <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="National Parks and Protected Lands in California and Nevada" src="/images/shapefiles-osm.png" /></p>
+<p><img alt="Same figure, with a Stamen terrain basemap with ColorBrewer palette &quot;RdPu&quot;" src="/images/shapefiles-stamen.png" /></p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/parks-and-protected-lands/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/parks-and-protected-lands/</a></li>
+<li><a href="http://stackoverflow.com/questions/11428176/plotting-a-shape-file-with-ggplot2-error">http://stackoverflow.com/questions/11428176/plotting-a-shape-file-with-ggplot2-error</a></li>
+<li><a href="http://geography.uoregon.edu/GeogR/topics/maps.htm">http://geography.uoregon.edu/GeogR/topics/maps.htm</a></li>
+<li>Basemaps from <a href="http://www.openstreetmap.org/">OpenStreetMap</a> and <a href="http://stamen.com/maps">Stamen</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/fortify.html" rel="tag">fortify</a>,  <a href="/tag/geom_polygon.html" rel="tag">geom_polygon</a>,  <a href="/tag/get_map.html" rel="tag">get_map</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gps.html" rel="tag">gps</a>,  <a href="/tag/maptools.html" rel="tag">maptools</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/readshapepoly.html" rel="tag">readShapePoly</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/02/elevation-profiles-in-r.html.html">Thu 21 February 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/02/elevation-profiles-in-r.html.html" title="Permalink to Elevation Profiles in R" rel="bookmark">Elevation Profiles in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>First, let's load up our data. <a href="https://gist.github.com/mollietaylor/4969793">The data are available in a gist</a>. You can convert your own GPS data to .csv by following the instructions <a href="http://www.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">here, using gpsbabel</a>.</p>
+<div class="highlight"><pre>gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;callan.csv&quot;</span><span class="p">,</span>
+    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Next, we can use the function <code>SMA</code> from the package <strong>TTR</strong> to calculate a <a href="http://en.wikipedia.org/wiki/Moving_average">moving average</a> of the altitude or elevation data, if we want to smooth out the curve. We can define a constant for the number of data points we want to average to create each moving average value.</p>
+<p>If you don't want to convert meters to feet, a metric version of the code is available in the gist (<a href="https://gist.github.com/mollietaylor/4969793">callanMetric.R</a>).</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>TTR<span class="p">)</span>
+movingN <span class="o">&lt;-</span> <span class="m">5</span> <span class="c1"># define the n for the moving average calculations</span>
+gps<span class="o">$</span>Altitude <span class="o">&lt;-</span> gps<span class="o">$</span>Altitude <span class="o">*</span> <span class="m">3.281</span> <span class="c1"># convert m to ft</span>
+gps<span class="o">$</span>SMA <span class="o">&lt;-</span> SMA<span class="p">(</span>gps<span class="o">$</span>Altitude<span class="p">,</span>
+    n <span class="o">=</span> movingN<span class="p">)</span>
+gps <span class="o">&lt;-</span> gps<span class="p">[</span>movingN<span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>SMA<span class="p">),</span> <span class="p">]</span> <span class="c1"># remove first n-1 points</span>
+</pre></div>
+
+
+<p>Next, we want to calculate the distance of each point. You can skip this step if your dataset already includes distances.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>sp<span class="p">)</span>
+Dist <span class="o">&lt;-</span> <span class="m">0</span>
+<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">2</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">))</span> <span class="p">{</span>
+    Dist<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> spDistsN1<span class="p">(</span><span class="kp">as.matrix</span><span class="p">(</span>gps<span class="p">[</span>i<span class="p">,</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Longitude&quot;</span><span class="p">,</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)]),</span>
+    <span class="kt">c</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">[</span>i<span class="m">-1</span><span class="p">],</span> gps<span class="o">$</span>Latitude<span class="p">[</span>i<span class="m">-1</span><span class="p">]),</span>
+    longlat <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="o">/</span> <span class="m">1.609</span> <span class="c1"># longlat so distances will be in km, then divide to convert to miles</span>
+<span class="p">}</span>
+gps<span class="o">$</span>Dist <span class="o">&lt;-</span> Dist
+
+DistTotal <span class="o">&lt;-</span> <span class="m">0</span>
+<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">2</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">))</span> <span class="p">{</span>
+    DistTotal<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> Dist<span class="p">[</span>i<span class="p">]</span> <span class="o">+</span> DistTotal<span class="p">[</span>i<span class="m">-1</span><span class="p">]</span>
+<span class="p">}</span>
+gps<span class="o">$</span>DistTotal <span class="o">&lt;-</span> DistTotal
+</pre></div>
+
+
+<p>And finally, we can plot our elevation data using geom_ribbons and ggplot:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+ggplot<span class="p">(</span>gps<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> DistTotal<span class="p">))</span> <span class="o">+</span>
+geom_ribbon<span class="p">(</span>aes<span class="p">(</span>ymin <span class="o">=</span> <span class="m">600</span><span class="p">,</span> <span class="c1"># change this to match your min below</span>
+        ymax <span class="o">=</span> SMA<span class="p">),</span>
+    fill <span class="o">=</span> <span class="s">&quot;#1B9E77&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># put your altitude variable here if not using moving averages</span>
+labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Miles&quot;</span><span class="p">,</span>
+    y <span class="o">=</span> <span class="s">&quot;Elevation&quot;</span><span class="p">)</span> <span class="o">+</span>
+scale_y_continuous<span class="p">(</span>limits <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">600</span><span class="p">,</span><span class="m">1200</span><span class="p">))</span> <span class="c1"># change this to limits appropriate for your region</span>
+</pre></div>
+
+
+<p><img alt="Elevation profile in ggplot2" class="size-auto" src="/images/r-elevation.png" /></p>
+<p><a href="https://gist.github.com/mollietaylor/4969793">Code and data available in a gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/geom_ribbon.html" rel="tag">geom_ribbon</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gps.html" rel="tag">gps</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/sma.html" rel="tag">SMA</a>,  <a href="/tag/sp.html" rel="tag">sp</a>,  <a href="/tag/spdistsn1.html" rel="tag">spDistsN1</a>,  <a href="/tag/ttr.html" rel="tag">TTR</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/02/gps-basemaps-in-r-using-getmap.html.html">Thu 14 February 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/02/gps-basemaps-in-r-using-getmap.html.html" title="Permalink to GPS Basemaps in R Using get_map" rel="bookmark">GPS Basemaps in R Using get_map</a>
+		</h2>
+		<div class="entry-content">
+			<p>There are <em>many</em> different maps you can use for a background map for your gps or other latitude/longitude data (i.e. any time you're using <code>geom_path</code>, <code>geom_segment</code>, or <code>geom_point</code>.)</p>
+<h2>get_map</h2>
+<p>Helpfully, there's just one function that will allow you to query Google Maps, OpenStreetMap, Stamen maps, or CloudMade maps: <code>get_map</code> in the <strong>ggmap</strong> package. You could also use either <code>get_googlemap</code>, <code>get_openstreetmap</code>, <code>get_stamenmap</code>, or <code>get_cloudmademap</code>, but instead you can just use <code>get_map</code> for the same functionality as all of those combined. This makes it easy to try out different basemaps for your data.</p>
+<p>You need to supply <code>get_map</code> with your location data and the color, source, maptype, and zoom of the base map.</p>
+<p>Let's go ahead and map the trails in Elwyn John Wildlife Sanctuary here in Atlanta. <a href="https://gist.github.com/mollietaylor/4742865">The csv data and R file are available in a gist</a>.</p>
+<div class="highlight"><pre>gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;elwyn.csv&quot;</span><span class="p">,</span>
+    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+
+<span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span>
+mapImageData <span class="o">&lt;-</span> get_map<span class="p">(</span>location <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span>
+    lat <span class="o">=</span> <span class="m">33.824</span><span class="p">),</span>
+    color <span class="o">=</span> <span class="s">&quot;color&quot;</span><span class="p">,</span> <span class="c1"># or bw</span>
+    <span class="kn">source</span> <span class="o">=</span> <span class="s">&quot;google&quot;</span><span class="p">,</span>
+    maptype <span class="o">=</span> <span class="s">&quot;satellite&quot;</span><span class="p">,</span>
+    <span class="c1"># api_key = &quot;your_api_key&quot;, # only needed for source = &quot;cloudmade&quot;</span>
+    zoom <span class="o">=</span> <span class="m">17</span><span class="p">)</span>
+
+pathcolor <span class="o">&lt;-</span> <span class="s">&quot;#F8971F&quot;</span>
+
+ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
+    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">,</span> <span class="c1"># &quot;panel&quot; keeps in axes, etc.</span>
+    ylab <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">,</span>
+    xlab <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span>
+    legend <span class="o">=</span> <span class="s">&quot;right&quot;</span><span class="p">)</span> <span class="o">+</span>
+    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path outline</span>
+    y <span class="o">=</span> Latitude<span class="p">),</span>
+    data <span class="o">=</span> gps<span class="p">,</span>
+    colour <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span>
+    size <span class="o">=</span> <span class="m">2</span><span class="p">)</span> <span class="o">+</span>
+    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path</span>
+    y <span class="o">=</span> Latitude<span class="p">),</span>
+    colour <span class="o">=</span> pathcolor<span class="p">,</span>
+    data <span class="o">=</span> gps<span class="p">,</span>
+    size <span class="o">=</span> <span class="m">1.4</span><span class="p">)</span> <span class="c1"># +</span>
+<span class="c1"># labs(x = &quot;Longitude&quot;,</span>
+<span class="c1">#   y = &quot;Latitude&quot;) # if you do extent = &quot;panel&quot;</span>
+</pre></div>
+
+
+<p>We'll be changing the four lines marked above in orange to change what basemap is used.</p>
+<h2>source = "google"</h2>
+<p><code>get_map</code> option source = "google" (or using get_googlemap) downloads a map from the Google Maps API. The basemaps are © Google. Google Maps have four different maptype options: terrain, satellite, roadmap, and hybrid.</p>
+<h3>source = "google", maptype = "terrain"</h3>
+<p><img alt="source = &quot;google&quot;, maptype = &quot;terrain&quot;, zoom = 14" src="/images/r-google-terrain.png" /></p>
+<p>Max zoom: 14</p>
+<h3>source = "google", maptype = "satellite"</h3>
+<p><img alt="source = &quot;google&quot;, maptype = &quot;satellite&quot;, zoom = 17" src="/images/r-google-satellite.png" /></p>
+<p>Max zoom: 20</p>
+<h3>source = "google", maptype = "roadmap"</h3>
+<p><img alt="source = &quot;google&quot;, maptype = &quot;roadmap&quot;, zoom = 17" src="/images/r-google-roadmap.png" /></p>
+<h3>source = "google", maptype = "hybrid"</h3>
+<p>Hybrid combines roadmap and satellite.
+<img alt="source = &quot;google&quot;, maptype = &quot;hybrid&quot;, zoom = 17" src="/images/r-google-hybrid.png" /></p>
+<p>Max zoom: 14</p>
+<h2>source = "osm"</h2>
+<p><code>get_map</code> option source = "osm" (or using <code>get_openstreetmap</code>) downloads a map from <a href="http://www.openstreetmap.org/">OpenStreetMap</a>. These maps are Creative Commons licensed, specifically <a href="http://creativecommons.org/licenses/by-sa/2.0/">Attribution-ShareAlike 2.0 (CC-BY-SA)</a>. This means you are free to use the maps for commercial purposes, as long as you release your final product under the same Creative Commons license. OpenStreetMap has no maptype options.</p>
+<h3>source = "osm" (no maptype needed)</h3>
+<p><img alt="source = &quot;osm&quot;, zoom = 17" src="/images/r-osm.png" /></p>
+<p>Max zoom: 20</p>
+<h2>source = "stamen"</h2>
+<p><code>get_map</code> option source = "stamen" (or using <code>get_stamenmap</code>) downloads a map from Stamen Maps. The map tiles are by <a href="http://stamen.com/">Stamen Design</a>, licensed under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. The data for Stamen Maps is by <a href="http://openstreetmap.org/">OpenStreetMap</a>, licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>. Stamen has three different maptype options: terrain, watercolor, and toner.</p>
+<h3>source = "stamen", maptype = "terrain"</h3>
+<p><img alt="source = &quot;stamen&quot;, maptype = &quot;terrain&quot;, zoom = 17" src="/images/r-stamen-terrain.png" /></p>
+<p>Max zoom: 18</p>
+<h3>source = "stamen", maptype = "watercolor"</h3>
+<p><img alt="source = &quot;stamen&quot;, maptype = &quot;watercolor&quot;, zoom = 17" src="/images/r-stamen-watercolor.png" /></p>
+<p>Max zoom: 18</p>
+<h3>source = "stamen", maptype = "toner"</h3>
+<p><img alt="source = &quot;stamen&quot;, maptype = &quot;toner&quot;, zoom = 17" src="/images/r-stamen-toner.png" /></p>
+<p>Max zoom: 18</p>
+<h2>source = "cloudmade"</h2>
+<blockquote>
+<p>N.B. As of March 2014, CloudMade no longer provides this API service.</p>
+</blockquote>
+<p>CloudMade styles build on top of OpenStreetMap data. Thousands of CloudMade styles are available. You can <a href="http://maps.cloudmade.com/editor#">browse them on the CloudMade site</a>. You can also make your own styles.</p>
+<p>To use CloudMade map styles in R, you will first need to get an API key to insert into your R code so it can access the maps. You can <a href="http://cloudmade.com/user/show">get an API key from the CloudMade site</a>.</p>
+<p>Here are just a couple examples of CloudMade basemaps:</p>
+<p><img alt="source = &quot;cloudmade&quot;, maptype = &quot;1&quot;, api_key=&quot;your_api_key_here, zoom = 17" src="/images/r-cloudmade-1.png" /></p>
+<p><img alt="source = &quot;cloudmade&quot;, maptype = &quot;67367&quot;, api_key=&quot;your_api_key_here, zoom = 17" src="/images/r-cloudmade-67367.png" /></p>
+<p>Max zoom: 18</p>
+<p>The code and data are available in a <a href="https://gist.github.com/mollietaylor/4742865">gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/base-map.html" rel="tag">base map</a>,  <a href="/tag/basemap.html" rel="tag">basemap</a>,  <a href="/tag/geom_path.html" rel="tag">geom_path</a>,  <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="/tag/get_cloudmademap.html" rel="tag">get_cloudmademap</a>,  <a href="/tag/get_googlemap.html" rel="tag">get_googlemap</a>,  <a href="/tag/get_map.html" rel="tag">get_map</a>,  <a href="/tag/get_openstreetmap.html" rel="tag">get_openstreetmap</a>,  <a href="/tag/get_stamenmap.html" rel="tag">get_stamenmap</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gps.html" rel="tag">gps</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="navigation">
+		<div class="nav-previous">
+				<a href="/tag/r.html">
+			<span class="meta-nav">&larr;</span> Newer posts</a>
+		</div>		
+</div>
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

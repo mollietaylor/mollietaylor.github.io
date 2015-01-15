@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Articles tagged ssh</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="/" /> 
+		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+<div class="page-title">
+	<h2>Tagged with <span>ssh</span> &hellip;</h2>
+</div>
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="/2013/10/how-to-set-up-your-app-on-shiny-beta.html.html">Thu 03 October 2013</a></div>
+		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/2013/10/how-to-set-up-your-app-on-shiny-beta.html.html" title="Permalink to How to Set Up Your App on Shiny Beta Hosting" rel="bookmark">How to Set Up Your App on Shiny Beta Hosting</a>
+		</h2>
+		<div class="entry-content">
+			<p>This is a short tutorial on how to create a web version of a <a href="http://www.rstudio.com/shiny/">Shiny</a> app you've built once you've received <a href="https://rstudio.wufoo.com/forms/shiny-server-beta-program/">access to the shiny hosting beta</a>.</p>
+<h2>SSH: Setting Up Directories</h2>
+<p>To connect to your account, input this line into a terminal (obviously input your own username instead of "username"):</p>
+<div class="highlight"><pre><span class="go">ssh username@spark.rstudio.com</span>
+</pre></div>
+
+
+<p>It will prompt you for your password. Enter the password you received in the email.</p>
+<p>Next, create a folder to put your first app in. Like the email says, you want to put this at <code>~/ShinyApps/myapp/</code>. The "myapp" folder can be named whatever you want, but the "ShinyApps" folder needs to have that name.</p>
+<div class="highlight"><pre><span class="go">mkdir ShinyApps</span>
+<span class="go">mkdir ShinyApps/myapp</span>
+</pre></div>
+
+
+<h2>SSH: Installing R Packages</h2>
+<p>Next, you can go ahead and install R packages, if you know which ones your application will need.</p>
+<p>First, open R just like you would on your own computer:</p>
+<div class="highlight"><pre><span class="go">R</span>
+</pre></div>
+
+
+<p>Next, install a package (e.g. "maps"):</p>
+<div class="highlight"><pre><span class="go">install.packages(&quot;maps&quot;, dependencies = TRUE)</span>
+</pre></div>
+
+
+<p>It will ask you the following questions:</p>
+<div class="highlight"><pre><span class="go">Would you like to use a personal library instead?  (y/n)</span>
+<span class="go">Would you like to create a personal library </span>
+<span class="go">~/R/library </span>
+<span class="go">to install packages into?  (y/n)</span>
+</pre></div>
+
+
+<p>You can answer "y" to both of these. Your applications will be able to use packages installed here.</p>
+<p>Then you can follow the standard procedure for installing R packages.</p>
+<p>You can now quit R and exit ssh:</p>
+<div class="highlight"><pre><span class="go">q()</span>
+<span class="go">exit</span>
+</pre></div>
+
+
+<h2>Copying Files</h2>
+<p>On your own computer, navigate to the directory your Shiny application's folder is in, e.g.:</p>
+<div class="highlight"><pre><span class="go">cd Shiny</span>
+</pre></div>
+
+
+<p>Once you're there, you can copy the application folder to the server:</p>
+<div class="highlight"><pre><span class="go">scp -r myapp/ username@spark.rstudio.com:ShinyApps/</span>
+</pre></div>
+
+
+<p>Or if you don't want to copy all the files, you can move them one at a time:</p>
+<div class="highlight"><pre><span class="go">scp myapp/ui.R username@spark.rstudio.com:ShinyApps/myapp/ui.R</span>
+</pre></div>
+
+
+<h2>Try It Out</h2>
+<p>Now you should be able to access your application at http://spark.rstudio.com/username/myapp/</p>
+<p>You can now send it to all your friends or leave a link in the comments!</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/tag/linux.html" rel="tag">Linux</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/shiny.html" rel="tag">shiny</a>,  <a href="/tag/ssh.html" rel="tag">ssh</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="navigation">
+</div>
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>
