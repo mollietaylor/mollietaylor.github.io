@@ -4,31 +4,31 @@
 		<title>Maps & Apps &mdash; Word Clouds in R</title>
 		<meta charset="utf-8" />
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
 		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
 		<style type="text/css">
 			body.custom-background { background-color: #f5f5f5; }
 		</style>
 		<link rel="alternate" type="application/atom+xml"
 			title="Maps & Apps — Flux Atom"
-			href="/" /> 
-		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
 </head>
 
 <body class="home blog custom-background " >
 	<div id="container">
 		<div id="header">
-				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
 		</div><!-- /#banner -->
 		
 		<div id="menu">
 			<div class="menu-navigation-container">
 				<ul id="menu-navigation" class="menu">
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/pages/about/index.html">About Mollie</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
 			</div> <!--/#menu-navigation-container-->
@@ -41,13 +41,13 @@
 
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/09/word-clouds-in-r.html">Thu 13 September 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/09/word-clouds-in-r.html">Thu 13 September 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/09/word-clouds-in-r.html" title="Permalink to Word Clouds in R" rel="bookmark">Word Clouds in R</a>
+			<a href="http://blog.mollietaylor.com/2012/09/word-clouds-in-r.html" title="Permalink to Word Clouds in R" rel="bookmark">Word Clouds in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Thanks to the <strong>wordcloud</strong> package, it's super easy to make a word cloud or tag cloud in R.</p>
@@ -85,11 +85,11 @@ conventions <span class="o">&lt;-</span> read.table<span class="p">(</span><span
 </pre></div>
 
 
-<p><img alt="DNC word cloud" src="/images/r-word-cloud-dnc.png" /></p>
-<p><img alt="RNC word cloud" src="/images/r-word-cloud-rnc.png" /></p>
+<p><img alt="DNC word cloud" src="http://blog.mollietaylor.com/images/r-word-cloud-dnc.png" /></p>
+<p><img alt="RNC word cloud" src="http://blog.mollietaylor.com/images/r-word-cloud-rnc.png" /></p>
 <p>The default word cloud has some words rotated 90 degrees, but I prefer to use rot.per = 0 to make them all horizontal for readability.</p>
 <p>You can easily change to just one color if you prefer that since the size already denotes the frequency of the word, by changing color to "red3", for example:</p>
-<p><img alt="RNC single color" src="/images/r-word-cloud-rnc-alt.png" /></p>
+<p><img alt="RNC single color" src="http://blog.mollietaylor.com/images/r-word-cloud-rnc-alt.png" /></p>
 <div class="highlight"><pre>png<span class="p">(</span><span class="s">&quot;rncalt.png&quot;</span><span class="p">)</span>
 wordcloud<span class="p">(</span>conventions<span class="o">$</span>wordper25k<span class="p">,</span>
     conventions<span class="o">$</span>republicans<span class="p">,</span>
@@ -100,11 +100,11 @@ dev.off<span class="p">()</span>
 </pre></div>
 
 
-<p><img alt="DNC single color" src="/images/r-word-cloud-dnc-alt.png" /></p>
+<p><img alt="DNC single color" src="http://blog.mollietaylor.com/images/r-word-cloud-dnc-alt.png" /></p>
 <p>And there you have it, a simple way to generate a word count from frequency data using R.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>,  <a href="/tag/wordcloud.html" rel="tag">wordcloud</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>,  <a href="http://blog.mollietaylor.com/tag/wordcloud.html" rel="tag">wordcloud</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post-->
 

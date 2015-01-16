@@ -4,31 +4,31 @@
 		<title>Maps & Apps &mdash; Articles tagged RColorBrewer</title>
 		<meta charset="utf-8" />
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
 		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
 		<style type="text/css">
 			body.custom-background { background-color: #f5f5f5; }
 		</style>
 		<link rel="alternate" type="application/atom+xml"
 			title="Maps & Apps — Flux Atom"
-			href="/" /> 
-		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
 </head>
 
 <body class="home blog custom-background " >
 	<div id="container">
 		<div id="header">
-				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
 		</div><!-- /#banner -->
 		
 		<div id="menu">
 			<div class="menu-navigation-container">
 				<ul id="menu-navigation" class="menu">
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/pages/about/index.html">About Mollie</a></li>
-						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
 			</div> <!--/#menu-navigation-container-->
@@ -43,18 +43,18 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/03/geompoint-legend-with-custom-colors-in.html">Thu 07 March 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/03/geompoint-legend-with-custom-colors-in.html">Thu 07 March 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/03/geompoint-legend-with-custom-colors-in.html" title="Permalink to geom_point Legend with Custom Colors in ggplot" rel="bookmark">geom_point Legend with Custom Colors in ggplot</a>
+			<a href="http://blog.mollietaylor.com/2013/03/geompoint-legend-with-custom-colors-in.html" title="Permalink to geom_point Legend with Custom Colors in ggplot" rel="bookmark">geom_point Legend with Custom Colors in ggplot</a>
 		</h2>
 		<div class="entry-content">
-			<p>Formerly, I showed <a href="/2013/01/using-line-segments-to-compare-values.html">how to make line segments using ggplot</a>.</p>
+			<p>Formerly, I showed <a href="http://blog.mollietaylor.com/2013/01/using-line-segments-to-compare-values.html">how to make line segments using ggplot</a>.</p>
 <p>Working from that previous example, there are only a few things we need to change to add custom colors to our plot and legend in <strong>ggplot</strong>.</p>
-<p>First, we'll add the colors of our choice. I'll do this using RColorBrewer, but you can choose <a href="/2012/10/palettes-in-r.html">whatever method you'd like</a>.</p>
+<p>First, we'll add the colors of our choice. I'll do this using RColorBrewer, but you can choose <a href="http://blog.mollietaylor.com/2012/10/palettes-in-r.html">whatever method you'd like</a>.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
 colors <span class="o">=</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
 </pre></div>
@@ -96,21 +96,21 @@ theme<span class="p">(</span>legend.position <span class="o">=</span> <span clas
 
 
 <p>And here's our final plot, complete with whatever custom colors we've chosen in both the plot and legend:</p>
-<p><img alt="geom_point in ggplot with custom colors in the graph and legend" src="/images/ggplot-custom-legend.png" /></p>
+<p><img alt="geom_point in ggplot with custom colors in the graph and legend" src="http://blog.mollietaylor.com/images/ggplot-custom-legend.png" /></p>
 <p>I've updated the <a href="https://gist.github.com/mollietaylor/4543148#file-customlegend-r">gist</a> from the previous post to also include a file that has custom colors.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/scale_color_manual.html" rel="tag">scale_color_manual</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="http://blog.mollietaylor.com/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="http://blog.mollietaylor.com/tag/scale_color_manual.html" rel="tag">scale_color_manual</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/02/shapefiles-in-r.html">Thu 28 February 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/02/shapefiles-in-r.html">Thu 28 February 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/02/shapefiles-in-r.html" title="Permalink to Shapefiles in R" rel="bookmark">Shapefiles in R</a>
+			<a href="http://blog.mollietaylor.com/2013/02/shapefiles-in-r.html" title="Permalink to Shapefiles in R" rel="bookmark">Shapefiles in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Let's learn how to use <a href="http://en.wikipedia.org/wiki/Shapefile">Shapefiles</a> in R. This will allow us to map data for complicated areas or jurisdictions like zipcodes or school districts. For the United States, many shapefiles are available from the [Census Bureau](http://www.census.gov/geo/www/tiger/tgrshp2010/tgrshp2010.html. Our example will map U.S. national parks.</p>
@@ -125,7 +125,7 @@ area <span class="o">&lt;-</span> readShapePoly<span class="p">(</span><span cla
 </pre></div>
 
 
-<p>Next we can set the colors we want to use. And then we can set up our <a href="/2013/02/gps-basemaps-in-r-using-getmap.html">basemap</a>.</p>
+<p>Next we can set the colors we want to use. And then we can set up our <a href="http://blog.mollietaylor.com/2013/02/gps-basemaps-in-r-using-getmap.html">basemap</a>.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
 colors <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span>
 
@@ -157,8 +157,8 @@ labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Lon
 </pre></div>
 
 
-<p><img alt="National Parks and Protected Lands in California and Nevada" src="/images/shapefiles-osm.png" /></p>
-<p><img alt="Same figure, with a Stamen terrain basemap with ColorBrewer palette &quot;RdPu&quot;" src="/images/shapefiles-stamen.png" /></p>
+<p><img alt="National Parks and Protected Lands in California and Nevada" src="http://blog.mollietaylor.com/images/shapefiles-osm.png" /></p>
+<p><img alt="Same figure, with a Stamen terrain basemap with ColorBrewer palette &quot;RdPu&quot;" src="http://blog.mollietaylor.com/images/shapefiles-stamen.png" /></p>
 <h2>Citations and Further Reading</h2>
 <ul>
 <li><a href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/parks-and-protected-lands/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/parks-and-protected-lands/</a></li>
@@ -168,17 +168,17 @@ labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Lon
 </ul>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/fortify.html" rel="tag">fortify</a>,  <a href="/tag/geom_polygon.html" rel="tag">geom_polygon</a>,  <a href="/tag/get_map.html" rel="tag">get_map</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gps.html" rel="tag">gps</a>,  <a href="/tag/maptools.html" rel="tag">maptools</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/readshapepoly.html" rel="tag">readShapePoly</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/fortify.html" rel="tag">fortify</a>,  <a href="http://blog.mollietaylor.com/tag/geom_polygon.html" rel="tag">geom_polygon</a>,  <a href="http://blog.mollietaylor.com/tag/get_map.html" rel="tag">get_map</a>,  <a href="http://blog.mollietaylor.com/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="http://blog.mollietaylor.com/tag/gps.html" rel="tag">gps</a>,  <a href="http://blog.mollietaylor.com/tag/maptools.html" rel="tag">maptools</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="http://blog.mollietaylor.com/tag/readshapepoly.html" rel="tag">readShapePoly</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/01/stacked-bar-charts-in-r.html">Thu 10 January 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/01/stacked-bar-charts-in-r.html">Thu 10 January 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/01/stacked-bar-charts-in-r.html" title="Permalink to Stacked Bar Charts in R" rel="bookmark">Stacked Bar Charts in R</a>
+			<a href="http://blog.mollietaylor.com/2013/01/stacked-bar-charts-in-r.html" title="Permalink to Stacked Bar Charts in R" rel="bookmark">Stacked Bar Charts in R</a>
 		</h2>
 		<div class="entry-content">
 			<h2>Reshape Wide to Long</h2>
@@ -245,7 +245,7 @@ legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><spa
 </pre></div>
 
 
-<p><img alt="Stacked bar chart" src="/images/r-stacked-bars.png" /></p>
+<p><img alt="Stacked bar chart" src="http://blog.mollietaylor.com/images/r-stacked-bars.png" /></p>
 <p>If you decide you'd rather have clustered bars instead of stacked bars, you can just add the option <code>beside = TRUE</code> to the <code>barplot</code>.</p>
 <p>The full code is available in a <a href="https://gist.github.com/4263515">gist</a>.</p>
 <h2>Citations and Further Reading</h2>
@@ -262,17 +262,17 @@ legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><spa
 </ul>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/barplot.html" rel="tag">barplot</a>,  <a href="/tag/datasets.html" rel="tag">datasets</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/barplot.html" rel="tag">barplot</a>,  <a href="http://blog.mollietaylor.com/tag/datasets.html" rel="tag">datasets</a>,  <a href="http://blog.mollietaylor.com/tag/legend.html" rel="tag">legend</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/10/palettes-in-r.html">Thu 25 October 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/10/palettes-in-r.html">Thu 25 October 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/10/palettes-in-r.html" title="Permalink to Palettes in R" rel="bookmark">Palettes in R</a>
+			<a href="http://blog.mollietaylor.com/2012/10/palettes-in-r.html" title="Permalink to Palettes in R" rel="bookmark">Palettes in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>In its simplest form, a palette in R is simply a vector of colors. This vector can be include the hex triplet or R color names.</p>
@@ -300,7 +300,7 @@ legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><spa
 </pre></div>
 
 
-<p><img alt="One color per bar" src="/images/r-palette-color-by-bar.png" /></p>
+<p><img alt="One color per bar" src="http://blog.mollietaylor.com/images/r-palette-color-by-bar.png" /></p>
 <p>A more sensible use of color is to use a different color for each of a number of summary statistics:</p>
 <div class="highlight"><pre>colors <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#A7A7A7&quot;</span><span class="p">,</span>
     <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span>
@@ -329,7 +329,7 @@ legend<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;t
 </pre></div>
 
 
-<p><img alt="Summary statistics" src="/images/r-palette-stats.png" /></p>
+<p><img alt="Summary statistics" src="http://blog.mollietaylor.com/images/r-palette-stats.png" /></p>
 <h2>Predefined palettes: default R palettes</h2>
 <p>The package <strong>grDevices</strong> (you probably already have this loaded) contains a number of palettes.</p>
 <div class="highlight"><pre><span class="o">?</span>rainbow
@@ -339,7 +339,7 @@ hist<span class="p">(</span>discoveries<span class="p">,</span>
 </pre></div>
 
 
-<p><img alt="Rainbow palette" src="/images/r-palette-rainbow.png" /></p>
+<p><img alt="Rainbow palette" src="http://blog.mollietaylor.com/images/r-palette-rainbow.png" /></p>
 <p>For <code>rainbow</code>, you can adjust the saturation and value. For example:</p>
 <div class="highlight"><pre>rainbowcols <span class="o">&lt;-</span> rainbow<span class="p">(</span><span class="m">6</span><span class="p">,</span>
     s <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span>
@@ -348,14 +348,14 @@ hist<span class="p">(</span>discoveries<span class="p">,</span>
 </pre></div>
 
 
-<p><img alt="Rainbow palette desaturated" src="/images/r-palette-rainbow-pale.png" /></p>
+<p><img alt="Rainbow palette desaturated" src="http://blog.mollietaylor.com/images/r-palette-rainbow-pale.png" /></p>
 <div class="highlight"><pre>heatcols <span class="o">&lt;-</span> heat.colors<span class="p">(</span><span class="m">6</span><span class="p">)</span>
 hist<span class="p">(</span>discoveries<span class="p">,</span>
     col <span class="o">=</span> heatcols<span class="p">)</span>
 </pre></div>
 
 
-<p><img alt="heat.colors palette" src="/images/r-palette-heat.png" /></p>
+<p><img alt="heat.colors palette" src="http://blog.mollietaylor.com/images/r-palette-heat.png" /></p>
 <p>As well as <code>rainbow</code> and <code>heat.colors</code>, there are also <code>terrain.colors</code>, <code>topo.colors</code>, and <code>cm.colors</code>.</p>
 <h2>Predefined palettes: RColorBrewer</h2>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
@@ -364,7 +364,7 @@ display.brewer.all<span class="p">()</span>
 
 
 <p>The above lines will show us all the <strong>RColorBrewer</strong> palettes (output shown below). The top section of palettes are sequential, the middle section are qualitative, and the lower section are diverging. <a href="http://blog.ggplot2.org/post/24607351280/choosing-colour-palettes-part-ii-educated-choices">Here is some information about how to choose a good palette</a>.</p>
-<p><img alt="RColorBrewer palettes" src="/images/r-display-brewer-all.png" /></p>
+<p><img alt="RColorBrewer palettes" src="http://blog.mollietaylor.com/images/r-display-brewer-all.png" /></p>
 <p><strong>RColorBrewer</strong> works a little different than how we've defined palettes previously. We'll have to use <code>brewer.pal</code> to create a palette.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
 darkcols <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
@@ -373,7 +373,7 @@ hist<span class="p">(</span>discoveries<span class="p">,</span>
 </pre></div>
 
 
-<p><img alt="Dark2 color palette" src="/images/r-palette-dark2.png" /></p>
+<p><img alt="Dark2 color palette" src="http://blog.mollietaylor.com/images/r-palette-dark2.png" /></p>
 <p>Even though we have to provide <code>brewer.pal</code> with the number of colors we want, we won't necessarily need to use all those colors later. We can still choose a color from the vector like we have previously. When we're setting a <code>col</code> setting to the full palette, we'll be more concerned with how many colors are included in the palette , but even there, we can choose a subset of the whole palette:</p>
 <div class="highlight"><pre>darkcols <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
 hist<span class="p">(</span>discoveries<span class="p">,</span>
@@ -381,12 +381,12 @@ hist<span class="p">(</span>discoveries<span class="p">,</span>
 </pre></div>
 
 
-<p><img alt="Dark 2 color palette, two colors" src="/images/r-palette-dark2-2.png" /></p>
+<p><img alt="Dark 2 color palette, two colors" src="http://blog.mollietaylor.com/images/r-palette-dark2-2.png" /></p>
 <p><a href="https://gist.github.com/3943476">Here</a>'s the code from this post.</p>
 <p>Now that we're familiar with making our own palettes and using the built-in palettes in <strong>grDevices</strong> and <strong>RColorBrewer</strong>, I'm planning a future post about a more practical (but also more complicated) example of using palettes: making maps.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/brewerpal.html" rel="tag">brewer.pal</a>,  <a href="/tag/palette.html" rel="tag">palette</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/brewerpal.html" rel="tag">brewer.pal</a>,  <a href="http://blog.mollietaylor.com/tag/palette.html" rel="tag">palette</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 </div>

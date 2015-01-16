@@ -4,31 +4,31 @@
 		<title>Maps & Apps &mdash; Articles tagged visualization</title>
 		<meta charset="utf-8" />
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
 		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
 		<style type="text/css">
 			body.custom-background { background-color: #f5f5f5; }
 		</style>
 		<link rel="alternate" type="application/atom+xml"
 			title="Maps & Apps — Flux Atom"
-			href="/" /> 
-		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
 </head>
 
 <body class="home blog custom-background " >
 	<div id="container">
 		<div id="header">
-				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
 		</div><!-- /#banner -->
 		
 		<div id="menu">
 			<div class="menu-navigation-container">
 				<ul id="menu-navigation" class="menu">
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/pages/about/index.html">About Mollie</a></li>
-						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
 			</div> <!--/#menu-navigation-container-->
@@ -43,26 +43,26 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-google-earth.html">Thu 20 December 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-google-earth.html">Thu 20 December 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/.html" title="View all posts in " rel="category tag"></a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/12/mapping-gps-tracks-in-google-earth.html" title="Permalink to Mapping GPS Tracks in Google Earth" rel="bookmark">Mapping GPS Tracks in Google Earth</a>
+			<a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-google-earth.html" title="Permalink to Mapping GPS Tracks in Google Earth" rel="bookmark">Mapping GPS Tracks in Google Earth</a>
 		</h2>
 		<div class="entry-content">
-			<p>Even though I find the <a href="/2012/12/mapping-gps-tracks-in-r.html">R solution</a> easier, I'm sure not everyone agrees with me, so here's the Google Earth way to import a bunch of GPS tracks and map them:</p>
+			<p>Even though I find the <a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">R solution</a> easier, I'm sure not everyone agrees with me, so here's the Google Earth way to import a bunch of GPS tracks and map them:</p>
 <h2>Export to TCX</h2>
 <p>From inside Garmin Training Center or other GPS device software, export a huge TCX file with all your tracks.</p>
 <h2>Mapping in Google Earth</h2>
-<p><img alt="Opening your TCX file" class="size-auto" src="/images/earth-gpx-open.png" /></p>
+<p><img alt="Opening your TCX file" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-open.png" /></p>
 <p>Select File -&gt; Open. Change the dropbox for "Files of type" to "Gps", and then find your file and open it. Make sure the "Create KML LineStrings" box is checked and the "Create KML Tracks" box is unchecked. This will save us some work later.</p>
-<p><img alt="Import settings" class="size-auto" src="/images/earth-gpx-import.png" /></p>
+<p><img alt="Import settings" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-import.png" /></p>
 <p>Next, zoom in, zoom out, and recenter as desired. If you want North to be up, you can click the "N" in the compass in the upper right. </p>
 <p>In the layers (bottom left), I personally like to check Roads and uncheck everything else.</p>
 <p>In the places (just above layers), right click "GPS device" and select "Properties". Click over to the "Style, Color" tab, and then click "Share Style".</p>
-<p><img alt="Share style" class="size-auto" src="/images/earth-gpx-style.png" /></p>
+<p><img alt="Share style" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-style.png" /></p>
 <p>I like to use the following settings:</p>
 <p>Lines:</p>
 <ul>
@@ -78,27 +78,27 @@
 <ul>
 <li>Opacity: 0%</li>
 </ul>
-<p><img alt="Example style and color settings" class="size-auto" src="/images/earth-gpx-settings.png" /></p>
+<p><img alt="Example style and color settings" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-settings.png" /></p>
 <p>Make sure you've selected all the dates you want on the date slider. Then you can select "Print" to export to a PDF, or you can take a screenshot.</p>
-<p><img alt="Export image" class="size-auto" src="/images/earth-gpx-export.png" /></p>
-<p><img alt="Date slider and final map" class="size-auto" src="/images/earth-gpx-final.png" /></p>
+<p><img alt="Export image" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-export.png" /></p>
+<p><img alt="Date slider and final map" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-final.png" /></p>
 <p>And that's all there is to it. Large maps may take a long time to load and edit.</p>
 <blockquote>
 <p>This post is one part of <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html">my series on Mapping GPS Tracks</a>.</p>
 </blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/google-earth.html" rel="tag">Google Earth</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/google-earth.html" rel="tag">Google Earth</a>,  <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-r.html">Thu 13 December 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">Thu 13 December 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/12/mapping-gps-tracks-in-r.html" title="Permalink to Mapping GPS Tracks in R" rel="bookmark">Mapping GPS Tracks in R</a>
+			<a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html" title="Permalink to Mapping GPS Tracks in R" rel="bookmark">Mapping GPS Tracks in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>This is an explanation of how I used R to combine all my GPS cycling tracks from my Garmin Forerunner 305.</p>
@@ -142,8 +142,8 @@ Finally we want to map our GPS data. There are several <a href="http://www.endme
 </pre></div>
 
 
-<p><img alt="All my metro Atlanta bike rides" src="/images/r-gps-tracks.png" /></p>
-<p>Previously, I've used Google Earth to create these maps, but I actually found it to be easier and way less time and resource efficient to do it in R. The only tricky part was converting the data into .csv, and there are <a href="http://www.gpsvisualizer.com/convert_input?convert_output=gpx">other ways</a> to do that, if GPSBabel isn't working for you. You might also be interested in trying <a href="/2012/12/mapping-gps-tracks-in-google-earth.html">Google Earth</a> for mapping your tracks, instead of R.</p>
+<p><img alt="All my metro Atlanta bike rides" src="http://blog.mollietaylor.com/images/r-gps-tracks.png" /></p>
+<p>Previously, I've used Google Earth to create these maps, but I actually found it to be easier and way less time and resource efficient to do it in R. The only tricky part was converting the data into .csv, and there are <a href="http://www.gpsvisualizer.com/convert_input?convert_output=gpx">other ways</a> to do that, if GPSBabel isn't working for you. You might also be interested in trying <a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-google-earth.html">Google Earth</a> for mapping your tracks, instead of R.</p>
 <p><a href="https://gist.github.com/4210660">Here's the gist</a> with the code.</p>
 <blockquote>
 <p>This post is one part of <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html">my series on Mapping GPS Tracks</a>.</p>
@@ -158,17 +158,17 @@ Finally we want to map our GPS data. There are several <a href="http://www.endme
 <p>pch = 20)</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gpsbabel.html" rel="tag">GPSBabel</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="http://blog.mollietaylor.com/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="http://blog.mollietaylor.com/tag/gpsbabel.html" rel="tag">GPSBabel</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/11/sorting-within-lattice-graphics-in-r.html">Thu 29 November 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/11/sorting-within-lattice-graphics-in-r.html">Thu 29 November 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/11/sorting-within-lattice-graphics-in-r.html" title="Permalink to Sorting Within Lattice Graphics in R" rel="bookmark">Sorting Within Lattice Graphics in R</a>
+			<a href="http://blog.mollietaylor.com/2012/11/sorting-within-lattice-graphics-in-r.html" title="Permalink to Sorting Within Lattice Graphics in R" rel="bookmark">Sorting Within Lattice Graphics in R</a>
 		</h2>
 		<div class="entry-content">
 			<h2>Default</h2>
@@ -184,7 +184,7 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 
 
 <p>produces:</p>
-<p><img alt="Default lattice dotplot" src="/images/r-lattice-default.png" /></p>
+<p><img alt="Default lattice dotplot" src="http://blog.mollietaylor.com/images/r-lattice-default.png" /></p>
 <p>(Note: The <code>rownames(cars)</code> bit is just because of how this data set is stored. For your data, you might just type the variable name (<code>model</code>, for example) instead.)</p>
 <h2>Graphing one variable, sorting by another</h2>
 <p>If we want to show the same data, but we want to sort by another variable (or the same variable, for that matter), we can just add <code>reorder(yvar, sortvar)</code>. For example, to sort by the number of cylinders, we could:</p>
@@ -194,7 +194,7 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 </pre></div>
 
 
-<p><img alt="Sorted by number of cylinders" src="/images/r-lattice-by-cyl.png" /></p>
+<p><img alt="Sorted by number of cylinders" src="http://blog.mollietaylor.com/images/r-lattice-by-cyl.png" /></p>
 <h2>Graphing two variables</h2>
 <p>To better show how this works, let's graph <code>cyl</code> alongside <code>mpg</code>, so we can see how it is sorting:</p>
 <div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
@@ -205,7 +205,7 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 </pre></div>
 
 
-<p><img alt="Graph of mpg and cyl, sorted by cyl" src="/images/r-lattice-mpg-cyl.png" /></p>
+<p><img alt="Graph of mpg and cyl, sorted by cyl" src="http://blog.mollietaylor.com/images/r-lattice-mpg-cyl.png" /></p>
 <h2>Reverse order</h2>
 <p>We can also sort in reverse order, by adding a "-" before the variable name:</p>
 <div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
@@ -215,7 +215,7 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 </pre></div>
 
 
-<p><img alt="Graph of mpg and cyl, sorted by cyl, reversed" src="/images/r-lattice-mpg-cyl-reverse.png" /></p>
+<p><img alt="Graph of mpg and cyl, sorted by cyl, reversed" src="http://blog.mollietaylor.com/images/r-lattice-mpg-cyl-reverse.png" /></p>
 <h2>Adding a legend</h2>
 <p>We can also add a legend:</p>
 <div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
@@ -229,23 +229,23 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 </pre></div>
 
 
-<p><img alt="With legend" src="/images/r-lattice-legend.png" /></p>
+<p><img alt="With legend" src="http://blog.mollietaylor.com/images/r-lattice-legend.png" /></p>
 <h2>Other lattice types</h2>
 <p>The same technique will work with other lattice graphs, such as barchart, bwplot, and stripplot.</p>
 <p>Full code available as a <a href="https://gist.github.com/4063837">gist</a>.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/barchart.html" rel="tag">barchart</a>,  <a href="/tag/dotplot.html" rel="tag">dotplot</a>,  <a href="/tag/key.html" rel="tag">key</a>,  <a href="/tag/lattice.html" rel="tag">lattice</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/reorder.html" rel="tag">reorder</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/barchart.html" rel="tag">barchart</a>,  <a href="http://blog.mollietaylor.com/tag/dotplot.html" rel="tag">dotplot</a>,  <a href="http://blog.mollietaylor.com/tag/key.html" rel="tag">key</a>,  <a href="http://blog.mollietaylor.com/tag/lattice.html" rel="tag">lattice</a>,  <a href="http://blog.mollietaylor.com/tag/legend.html" rel="tag">legend</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/reorder.html" rel="tag">reorder</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/10/palettes-in-r.html">Thu 25 October 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/10/palettes-in-r.html">Thu 25 October 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/10/palettes-in-r.html" title="Permalink to Palettes in R" rel="bookmark">Palettes in R</a>
+			<a href="http://blog.mollietaylor.com/2012/10/palettes-in-r.html" title="Permalink to Palettes in R" rel="bookmark">Palettes in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>In its simplest form, a palette in R is simply a vector of colors. This vector can be include the hex triplet or R color names.</p>
@@ -273,7 +273,7 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 </pre></div>
 
 
-<p><img alt="One color per bar" src="/images/r-palette-color-by-bar.png" /></p>
+<p><img alt="One color per bar" src="http://blog.mollietaylor.com/images/r-palette-color-by-bar.png" /></p>
 <p>A more sensible use of color is to use a different color for each of a number of summary statistics:</p>
 <div class="highlight"><pre>colors <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#A7A7A7&quot;</span><span class="p">,</span>
     <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span>
@@ -302,7 +302,7 @@ legend<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;t
 </pre></div>
 
 
-<p><img alt="Summary statistics" src="/images/r-palette-stats.png" /></p>
+<p><img alt="Summary statistics" src="http://blog.mollietaylor.com/images/r-palette-stats.png" /></p>
 <h2>Predefined palettes: default R palettes</h2>
 <p>The package <strong>grDevices</strong> (you probably already have this loaded) contains a number of palettes.</p>
 <div class="highlight"><pre><span class="o">?</span>rainbow
@@ -312,7 +312,7 @@ hist<span class="p">(</span>discoveries<span class="p">,</span>
 </pre></div>
 
 
-<p><img alt="Rainbow palette" src="/images/r-palette-rainbow.png" /></p>
+<p><img alt="Rainbow palette" src="http://blog.mollietaylor.com/images/r-palette-rainbow.png" /></p>
 <p>For <code>rainbow</code>, you can adjust the saturation and value. For example:</p>
 <div class="highlight"><pre>rainbowcols <span class="o">&lt;-</span> rainbow<span class="p">(</span><span class="m">6</span><span class="p">,</span>
     s <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span>
@@ -321,14 +321,14 @@ hist<span class="p">(</span>discoveries<span class="p">,</span>
 </pre></div>
 
 
-<p><img alt="Rainbow palette desaturated" src="/images/r-palette-rainbow-pale.png" /></p>
+<p><img alt="Rainbow palette desaturated" src="http://blog.mollietaylor.com/images/r-palette-rainbow-pale.png" /></p>
 <div class="highlight"><pre>heatcols <span class="o">&lt;-</span> heat.colors<span class="p">(</span><span class="m">6</span><span class="p">)</span>
 hist<span class="p">(</span>discoveries<span class="p">,</span>
     col <span class="o">=</span> heatcols<span class="p">)</span>
 </pre></div>
 
 
-<p><img alt="heat.colors palette" src="/images/r-palette-heat.png" /></p>
+<p><img alt="heat.colors palette" src="http://blog.mollietaylor.com/images/r-palette-heat.png" /></p>
 <p>As well as <code>rainbow</code> and <code>heat.colors</code>, there are also <code>terrain.colors</code>, <code>topo.colors</code>, and <code>cm.colors</code>.</p>
 <h2>Predefined palettes: RColorBrewer</h2>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
@@ -337,7 +337,7 @@ display.brewer.all<span class="p">()</span>
 
 
 <p>The above lines will show us all the <strong>RColorBrewer</strong> palettes (output shown below). The top section of palettes are sequential, the middle section are qualitative, and the lower section are diverging. <a href="http://blog.ggplot2.org/post/24607351280/choosing-colour-palettes-part-ii-educated-choices">Here is some information about how to choose a good palette</a>.</p>
-<p><img alt="RColorBrewer palettes" src="/images/r-display-brewer-all.png" /></p>
+<p><img alt="RColorBrewer palettes" src="http://blog.mollietaylor.com/images/r-display-brewer-all.png" /></p>
 <p><strong>RColorBrewer</strong> works a little different than how we've defined palettes previously. We'll have to use <code>brewer.pal</code> to create a palette.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
 darkcols <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
@@ -346,7 +346,7 @@ hist<span class="p">(</span>discoveries<span class="p">,</span>
 </pre></div>
 
 
-<p><img alt="Dark2 color palette" src="/images/r-palette-dark2.png" /></p>
+<p><img alt="Dark2 color palette" src="http://blog.mollietaylor.com/images/r-palette-dark2.png" /></p>
 <p>Even though we have to provide <code>brewer.pal</code> with the number of colors we want, we won't necessarily need to use all those colors later. We can still choose a color from the vector like we have previously. When we're setting a <code>col</code> setting to the full palette, we'll be more concerned with how many colors are included in the palette , but even there, we can choose a subset of the whole palette:</p>
 <div class="highlight"><pre>darkcols <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
 hist<span class="p">(</span>discoveries<span class="p">,</span>
@@ -354,25 +354,25 @@ hist<span class="p">(</span>discoveries<span class="p">,</span>
 </pre></div>
 
 
-<p><img alt="Dark 2 color palette, two colors" src="/images/r-palette-dark2-2.png" /></p>
+<p><img alt="Dark 2 color palette, two colors" src="http://blog.mollietaylor.com/images/r-palette-dark2-2.png" /></p>
 <p><a href="https://gist.github.com/3943476">Here</a>'s the code from this post.</p>
 <p>Now that we're familiar with making our own palettes and using the built-in palettes in <strong>grDevices</strong> and <strong>RColorBrewer</strong>, I'm planning a future post about a more practical (but also more complicated) example of using palettes: making maps.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/brewerpal.html" rel="tag">brewer.pal</a>,  <a href="/tag/palette.html" rel="tag">palette</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/brewerpal.html" rel="tag">brewer.pal</a>,  <a href="http://blog.mollietaylor.com/tag/palette.html" rel="tag">palette</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/10/adding-measures-of-central-tendency-to.html">Thu 04 October 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/10/adding-measures-of-central-tendency-to.html">Thu 04 October 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/10/adding-measures-of-central-tendency-to.html" title="Permalink to Adding Measures of Central Tendency to Histograms in R" rel="bookmark">Adding Measures of Central Tendency to Histograms in R</a>
+			<a href="http://blog.mollietaylor.com/2012/10/adding-measures-of-central-tendency-to.html" title="Permalink to Adding Measures of Central Tendency to Histograms in R" rel="bookmark">Adding Measures of Central Tendency to Histograms in R</a>
 		</h2>
 		<div class="entry-content">
-			<p>Building on the <a href="/2012/09/histogram-density-plot-combo-in-r.html">basic histogram with a density plot</a>, we can add measures of central tendency (in this case, mean and median) and a legend.</p>
+			<p>Building on the <a href="http://blog.mollietaylor.com/2012/09/histogram-density-plot-combo-in-r.html">basic histogram with a density plot</a>, we can add measures of central tendency (in this case, mean and median) and a legend.</p>
 <p>Like last time, we'll use the beaver data from the <strong>datasets</strong> package.</p>
 <div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
     col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
@@ -409,7 +409,7 @@ lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="
         col = c("chocolate3", "royalblue", "red"),
         lwd = c(2, 2, 2))</p>
 <p>All of this together gives us the following graphic:</p>
-<p><img alt="Beaver #1 central tendency" src="/images/r-histogram-tendency-1.png" /></p>
+<p><img alt="Beaver #1 central tendency" src="http://blog.mollietaylor.com/images/r-histogram-tendency-1.png" /></p>
 <p>In this example, the mean and median are very close, as we can see by using <code>median()</code> and <code>mode()</code>.</p>
 <div class="highlight"><pre><span class="o">&gt;</span> <span class="kp">mean</span><span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">)</span>
 <span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">36.86219</span>
@@ -420,20 +420,20 @@ lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="
 
 <p>We can do like we did in the previous post and graph beaver1 and beaver2 together by adding a layout line and changing the limits of x and y. The full code for this is available in a <a href="https://gist.github.com/3768715#file_histdens2.r">gist</a>.</p>
 <p>Here's the output from that code: </p>
-<p><img alt="Beaver #1 and #2 central tendency" src="/images/r-histogram-tendency-2.png" /></p>
+<p><img alt="Beaver #1 and #2 central tendency" src="http://blog.mollietaylor.com/images/r-histogram-tendency-2.png" /></p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/abline.html" rel="tag">abline</a>,  <a href="/tag/hist.html" rel="tag">hist</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/abline.html" rel="tag">abline</a>,  <a href="http://blog.mollietaylor.com/tag/hist.html" rel="tag">hist</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/09/histogram-density-plot-combo-in-r.html">Thu 27 September 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/09/histogram-density-plot-combo-in-r.html">Thu 27 September 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/09/histogram-density-plot-combo-in-r.html" title="Permalink to Histogram + Density Plot Combo in R" rel="bookmark">Histogram + Density Plot Combo in R</a>
+			<a href="http://blog.mollietaylor.com/2012/09/histogram-density-plot-combo-in-r.html" title="Permalink to Histogram + Density Plot Combo in R" rel="bookmark">Histogram + Density Plot Combo in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Plotting a histogram using <code>hist</code> from the <strong>graphics</strong> package is pretty straightforward, but what if you want to view the density plot on top of the histogram? This combination of graphics can help us compare the distributions of groups.</p>
@@ -448,7 +448,7 @@ lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="
 </pre></div>
 
 
-<p><img alt="Histogram" src="/images/r-histogram.png" /></p>
+<p><img alt="Histogram" src="http://blog.mollietaylor.com/images/r-histogram.png" /></p>
 <p>Next, we want to add in the density line, using <code>lines</code>:</p>
 <div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
     col<span class="o">=</span><span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
@@ -462,9 +462,9 @@ lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="
 </pre></div>
 
 
-<p><img alt="Histogram and density" src="/images/r-histogram-density.png" /></p>
+<p><img alt="Histogram and density" src="http://blog.mollietaylor.com/images/r-histogram-density.png" /></p>
 <p>Now let's show the plots for both beavers on the same image. We'll make a histogram and density plot for Beaver #2, wrap the graphs in a <code>layout</code> and <code>png</code>, and change the x-axis to be the same, using <code>xlim</code>.</p>
-<p><img alt="Histogram and density" src="/images/r-histogram-density-2.png" /></p>
+<p><img alt="Histogram and density" src="http://blog.mollietaylor.com/images/r-histogram-density-2.png" /></p>
 <p>Here's the final code, <a href="https://gist.github.com/3685924">also available on gist</a>:</p>
 <div class="highlight"><pre>png<span class="p">(</span><span class="s">&quot;beaverhist.png&quot;</span><span class="p">)</span>
 layout<span class="p">(</span><span class="kt">matrix</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">),</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span>
@@ -493,17 +493,17 @@ dev.off<span class="p">()</span>
 </pre></div>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/hist.html" rel="tag">hist</a>,  <a href="/tag/lines.html" rel="tag">lines</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/hist.html" rel="tag">hist</a>,  <a href="http://blog.mollietaylor.com/tag/lines.html" rel="tag">lines</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/09/word-clouds-in-r.html">Thu 13 September 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/09/word-clouds-in-r.html">Thu 13 September 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/09/word-clouds-in-r.html" title="Permalink to Word Clouds in R" rel="bookmark">Word Clouds in R</a>
+			<a href="http://blog.mollietaylor.com/2012/09/word-clouds-in-r.html" title="Permalink to Word Clouds in R" rel="bookmark">Word Clouds in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Thanks to the <strong>wordcloud</strong> package, it's super easy to make a word cloud or tag cloud in R.</p>
@@ -541,11 +541,11 @@ conventions <span class="o">&lt;-</span> read.table<span class="p">(</span><span
 </pre></div>
 
 
-<p><img alt="DNC word cloud" src="/images/r-word-cloud-dnc.png" /></p>
-<p><img alt="RNC word cloud" src="/images/r-word-cloud-rnc.png" /></p>
+<p><img alt="DNC word cloud" src="http://blog.mollietaylor.com/images/r-word-cloud-dnc.png" /></p>
+<p><img alt="RNC word cloud" src="http://blog.mollietaylor.com/images/r-word-cloud-rnc.png" /></p>
 <p>The default word cloud has some words rotated 90 degrees, but I prefer to use rot.per = 0 to make them all horizontal for readability.</p>
 <p>You can easily change to just one color if you prefer that since the size already denotes the frequency of the word, by changing color to "red3", for example:</p>
-<p><img alt="RNC single color" src="/images/r-word-cloud-rnc-alt.png" /></p>
+<p><img alt="RNC single color" src="http://blog.mollietaylor.com/images/r-word-cloud-rnc-alt.png" /></p>
 <div class="highlight"><pre>png<span class="p">(</span><span class="s">&quot;rncalt.png&quot;</span><span class="p">)</span>
 wordcloud<span class="p">(</span>conventions<span class="o">$</span>wordper25k<span class="p">,</span>
     conventions<span class="o">$</span>republicans<span class="p">,</span>
@@ -556,15 +556,15 @@ dev.off<span class="p">()</span>
 </pre></div>
 
 
-<p><img alt="DNC single color" src="/images/r-word-cloud-dnc-alt.png" /></p>
+<p><img alt="DNC single color" src="http://blog.mollietaylor.com/images/r-word-cloud-dnc-alt.png" /></p>
 <p>And there you have it, a simple way to generate a word count from frequency data using R.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>,  <a href="/tag/wordcloud.html" rel="tag">wordcloud</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>,  <a href="http://blog.mollietaylor.com/tag/wordcloud.html" rel="tag">wordcloud</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">
-				<a href="/tag/visualization.html">
+				<a href="http://blog.mollietaylor.com/tag/visualization.html">
 			<span class="meta-nav">&larr;</span> Newer posts</a>
 		</div>		
 </div>

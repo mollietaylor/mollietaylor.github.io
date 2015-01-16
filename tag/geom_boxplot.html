@@ -4,31 +4,31 @@
 		<title>Maps & Apps &mdash; Articles tagged geom_boxplot</title>
 		<meta charset="utf-8" />
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
 		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
 		<style type="text/css">
 			body.custom-background { background-color: #f5f5f5; }
 		</style>
 		<link rel="alternate" type="application/atom+xml"
 			title="Maps & Apps — Flux Atom"
-			href="/" /> 
-		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
 </head>
 
 <body class="home blog custom-background " >
 	<div id="container">
 		<div id="header">
-				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
 		</div><!-- /#banner -->
 		
 		<div id="menu">
 			<div class="menu-navigation-container">
 				<ul id="menu-navigation" class="menu">
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/pages/about/index.html">About Mollie</a></li>
-						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
 			</div> <!--/#menu-navigation-container-->
@@ -43,19 +43,19 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/10/line-breaks-between-words-in-axis.html">Thu 17 October 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/10/line-breaks-between-words-in-axis.html">Thu 17 October 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/10/line-breaks-between-words-in-axis.html" title="Permalink to Line Breaks Between Words in Axis Labels in ggplot in R" rel="bookmark">Line Breaks Between Words in Axis Labels in ggplot in R</a>
+			<a href="http://blog.mollietaylor.com/2013/10/line-breaks-between-words-in-axis.html" title="Permalink to Line Breaks Between Words in Axis Labels in ggplot in R" rel="bookmark">Line Breaks Between Words in Axis Labels in ggplot in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Sometimes when plotting factor variables in R, the graphics can look pretty messy thanks to long factor levels. If the level attributes have multiple words, there is an easy fix to this that often makes the axis labels look much cleaner.</p>
 <h2>Without Line Breaks</h2>
 <p>Here's the messy looking example:</p>
-<p><img alt="No line breaks in axis labels" src="/images/line-breaks-none.png" /></p>
+<p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-none.png" /></p>
 <p>And here's the code for the messy looking example:</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
 data<span class="p">(</span>birds<span class="p">)</span>
@@ -82,12 +82,12 @@ geom_boxplot<span class="p">()</span>
 </pre></div>
 
 
-<p><img alt="Line breaks in axis labels" src="/images/line-breaks.png" /></p>
+<p><img alt="Line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks.png" /></p>
 <p>Just one line made the plot look much better, and it will carry over to other plots you make as well. For example, you could <a href="http://www.mollietaylor.com/2013/10/table-as-image-in-r.html">create a table with the same variable</a>.</p>
 <h2>Horizontal Boxes</h2>
 <p>Here we can see the difference in a box plot with horizontal boxes. It's up to you to decide which style looks better:</p>
-<p><img alt="No line breaks in axis labels" src="/images/line-breaks-flip-none.png" /></p>
-<p><img alt="Line breaks in axis labels" src="/images/line-breaks-flip.png" /></p>
+<p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip-none.png" /></p>
+<p><img alt="Line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip.png" /></p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
 data<span class="p">(</span>birds<span class="p">)</span>
 <span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
@@ -114,7 +114,7 @@ coord_flip<span class="p">()</span>
 </blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/abline.html" rel="tag">abline</a>,  <a href="/tag/coord_flip.html" rel="tag">coord_flip</a>,  <a href="/tag/geom_boxplot.html" rel="tag">geom_boxplot</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gsub.html" rel="tag">gsub</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/regular-expressions.html" rel="tag">regular expressions</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/abline.html" rel="tag">abline</a>,  <a href="http://blog.mollietaylor.com/tag/coord_flip.html" rel="tag">coord_flip</a>,  <a href="http://blog.mollietaylor.com/tag/geom_boxplot.html" rel="tag">geom_boxplot</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gsub.html" rel="tag">gsub</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/regular-expressions.html" rel="tag">regular expressions</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 </div>

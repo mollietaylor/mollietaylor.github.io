@@ -4,31 +4,31 @@
 		<title>Maps & Apps &mdash; Articles tagged Series: GPS Tracks</title>
 		<meta charset="utf-8" />
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
 		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
 		<style type="text/css">
 			body.custom-background { background-color: #f5f5f5; }
 		</style>
 		<link rel="alternate" type="application/atom+xml"
 			title="Maps & Apps — Flux Atom"
-			href="/" /> 
-		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
 </head>
 
 <body class="home blog custom-background " >
 	<div id="container">
 		<div id="header">
-				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
 		</div><!-- /#banner -->
 		
 		<div id="menu">
 			<div class="menu-navigation-container">
 				<ul id="menu-navigation" class="menu">
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/pages/about/index.html">About Mollie</a></li>
-						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
 			</div> <!--/#menu-navigation-container-->
@@ -43,26 +43,26 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-google-earth.html">Thu 20 December 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-google-earth.html">Thu 20 December 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/.html" title="View all posts in " rel="category tag"></a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/12/mapping-gps-tracks-in-google-earth.html" title="Permalink to Mapping GPS Tracks in Google Earth" rel="bookmark">Mapping GPS Tracks in Google Earth</a>
+			<a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-google-earth.html" title="Permalink to Mapping GPS Tracks in Google Earth" rel="bookmark">Mapping GPS Tracks in Google Earth</a>
 		</h2>
 		<div class="entry-content">
-			<p>Even though I find the <a href="/2012/12/mapping-gps-tracks-in-r.html">R solution</a> easier, I'm sure not everyone agrees with me, so here's the Google Earth way to import a bunch of GPS tracks and map them:</p>
+			<p>Even though I find the <a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">R solution</a> easier, I'm sure not everyone agrees with me, so here's the Google Earth way to import a bunch of GPS tracks and map them:</p>
 <h2>Export to TCX</h2>
 <p>From inside Garmin Training Center or other GPS device software, export a huge TCX file with all your tracks.</p>
 <h2>Mapping in Google Earth</h2>
-<p><img alt="Opening your TCX file" class="size-auto" src="/images/earth-gpx-open.png" /></p>
+<p><img alt="Opening your TCX file" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-open.png" /></p>
 <p>Select File -&gt; Open. Change the dropbox for "Files of type" to "Gps", and then find your file and open it. Make sure the "Create KML LineStrings" box is checked and the "Create KML Tracks" box is unchecked. This will save us some work later.</p>
-<p><img alt="Import settings" class="size-auto" src="/images/earth-gpx-import.png" /></p>
+<p><img alt="Import settings" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-import.png" /></p>
 <p>Next, zoom in, zoom out, and recenter as desired. If you want North to be up, you can click the "N" in the compass in the upper right. </p>
 <p>In the layers (bottom left), I personally like to check Roads and uncheck everything else.</p>
 <p>In the places (just above layers), right click "GPS device" and select "Properties". Click over to the "Style, Color" tab, and then click "Share Style".</p>
-<p><img alt="Share style" class="size-auto" src="/images/earth-gpx-style.png" /></p>
+<p><img alt="Share style" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-style.png" /></p>
 <p>I like to use the following settings:</p>
 <p>Lines:</p>
 <ul>
@@ -78,27 +78,27 @@
 <ul>
 <li>Opacity: 0%</li>
 </ul>
-<p><img alt="Example style and color settings" class="size-auto" src="/images/earth-gpx-settings.png" /></p>
+<p><img alt="Example style and color settings" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-settings.png" /></p>
 <p>Make sure you've selected all the dates you want on the date slider. Then you can select "Print" to export to a PDF, or you can take a screenshot.</p>
-<p><img alt="Export image" class="size-auto" src="/images/earth-gpx-export.png" /></p>
-<p><img alt="Date slider and final map" class="size-auto" src="/images/earth-gpx-final.png" /></p>
+<p><img alt="Export image" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-export.png" /></p>
+<p><img alt="Date slider and final map" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-final.png" /></p>
 <p>And that's all there is to it. Large maps may take a long time to load and edit.</p>
 <blockquote>
 <p>This post is one part of <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html">my series on Mapping GPS Tracks</a>.</p>
 </blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/google-earth.html" rel="tag">Google Earth</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/google-earth.html" rel="tag">Google Earth</a>,  <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-r.html">Thu 13 December 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">Thu 13 December 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/12/mapping-gps-tracks-in-r.html" title="Permalink to Mapping GPS Tracks in R" rel="bookmark">Mapping GPS Tracks in R</a>
+			<a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html" title="Permalink to Mapping GPS Tracks in R" rel="bookmark">Mapping GPS Tracks in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>This is an explanation of how I used R to combine all my GPS cycling tracks from my Garmin Forerunner 305.</p>
@@ -142,8 +142,8 @@ Finally we want to map our GPS data. There are several <a href="http://www.endme
 </pre></div>
 
 
-<p><img alt="All my metro Atlanta bike rides" src="/images/r-gps-tracks.png" /></p>
-<p>Previously, I've used Google Earth to create these maps, but I actually found it to be easier and way less time and resource efficient to do it in R. The only tricky part was converting the data into .csv, and there are <a href="http://www.gpsvisualizer.com/convert_input?convert_output=gpx">other ways</a> to do that, if GPSBabel isn't working for you. You might also be interested in trying <a href="/2012/12/mapping-gps-tracks-in-google-earth.html">Google Earth</a> for mapping your tracks, instead of R.</p>
+<p><img alt="All my metro Atlanta bike rides" src="http://blog.mollietaylor.com/images/r-gps-tracks.png" /></p>
+<p>Previously, I've used Google Earth to create these maps, but I actually found it to be easier and way less time and resource efficient to do it in R. The only tricky part was converting the data into .csv, and there are <a href="http://www.gpsvisualizer.com/convert_input?convert_output=gpx">other ways</a> to do that, if GPSBabel isn't working for you. You might also be interested in trying <a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-google-earth.html">Google Earth</a> for mapping your tracks, instead of R.</p>
 <p><a href="https://gist.github.com/4210660">Here's the gist</a> with the code.</p>
 <blockquote>
 <p>This post is one part of <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html">my series on Mapping GPS Tracks</a>.</p>
@@ -158,7 +158,7 @@ Finally we want to map our GPS data. There are several <a href="http://www.endme
 <p>pch = 20)</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gpsbabel.html" rel="tag">GPSBabel</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="http://blog.mollietaylor.com/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="http://blog.mollietaylor.com/tag/gpsbabel.html" rel="tag">GPSBabel</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 </div>

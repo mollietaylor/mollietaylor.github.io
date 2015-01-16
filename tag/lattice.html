@@ -4,31 +4,31 @@
 		<title>Maps & Apps &mdash; Articles tagged lattice</title>
 		<meta charset="utf-8" />
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
 		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
 		<style type="text/css">
 			body.custom-background { background-color: #f5f5f5; }
 		</style>
 		<link rel="alternate" type="application/atom+xml"
 			title="Maps & Apps — Flux Atom"
-			href="/" /> 
-		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
 </head>
 
 <body class="home blog custom-background " >
 	<div id="container">
 		<div id="header">
-				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
 		</div><!-- /#banner -->
 		
 		<div id="menu">
 			<div class="menu-navigation-container">
 				<ul id="menu-navigation" class="menu">
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/pages/about/index.html">About Mollie</a></li>
-						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
 			</div> <!--/#menu-navigation-container-->
@@ -43,13 +43,13 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html">Thu 13 February 2014</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html">Thu 13 February 2014</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html" title="Permalink to ggplot Fit Line and Lattice Fit Line in R" rel="bookmark">ggplot Fit Line and Lattice Fit Line in R</a>
+			<a href="http://blog.mollietaylor.com/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html" title="Permalink to ggplot Fit Line and Lattice Fit Line in R" rel="bookmark">ggplot Fit Line and Lattice Fit Line in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Let's add a fit line to a scatterplot!</p>
@@ -66,7 +66,7 @@ abline<span class="p">(</span>ols
 </pre></div>
 
 
-<p><img alt="Fit line in base graphics in R" src="/images/ggplot-fit-line-base.png" /></p>
+<p><img alt="Fit line in base graphics in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-base.png" /></p>
 <h2>Fit Line in ggplot</h2>
 <p>And here's how to do it in <strong>ggplot</strong>:</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
@@ -88,7 +88,7 @@ ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span clas
 </pre></div>
 
 
-<p><img alt="Fit line in ggplot in R" src="/images/ggplot-fit-line-ggplot.png" /></p>
+<p><img alt="Fit line in ggplot in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-ggplot.png" /></p>
 <h2>Fit Line in Lattice</h2>
 <p>In <strong>lattice</strong>, it's even easier. You don't even need to run a regression; you can just add to the <code>type</code> option.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span>
@@ -99,7 +99,7 @@ xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="
 </pre></div>
 
 
-<p><img alt="Fit Line in Lattice in R" src="/images/ggplot-fit-line-lattice.png" /></p>
+<p><img alt="Fit Line in Lattice in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-lattice.png" /></p>
 <p>The code is available in <a href="https://gist.github.com/mollietaylor/8203926">a gist</a>.</p>
 <h2>References</h2>
 <ul>
@@ -107,17 +107,17 @@ xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="
 </ul>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/geom_abline.html" rel="tag">geom_abline</a>,  <a href="/tag/geom_smooth.html" rel="tag">geom_smooth</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/lattice.html" rel="tag">lattice</a>,  <a href="/tag/lm.html" rel="tag">lm</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/type.html" rel="tag">type</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/geom_abline.html" rel="tag">geom_abline</a>,  <a href="http://blog.mollietaylor.com/tag/geom_smooth.html" rel="tag">geom_smooth</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/lattice.html" rel="tag">lattice</a>,  <a href="http://blog.mollietaylor.com/tag/lm.html" rel="tag">lm</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/type.html" rel="tag">type</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/11/sorting-within-lattice-graphics-in-r.html">Thu 29 November 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/11/sorting-within-lattice-graphics-in-r.html">Thu 29 November 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/11/sorting-within-lattice-graphics-in-r.html" title="Permalink to Sorting Within Lattice Graphics in R" rel="bookmark">Sorting Within Lattice Graphics in R</a>
+			<a href="http://blog.mollietaylor.com/2012/11/sorting-within-lattice-graphics-in-r.html" title="Permalink to Sorting Within Lattice Graphics in R" rel="bookmark">Sorting Within Lattice Graphics in R</a>
 		</h2>
 		<div class="entry-content">
 			<h2>Default</h2>
@@ -133,7 +133,7 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 
 
 <p>produces:</p>
-<p><img alt="Default lattice dotplot" src="/images/r-lattice-default.png" /></p>
+<p><img alt="Default lattice dotplot" src="http://blog.mollietaylor.com/images/r-lattice-default.png" /></p>
 <p>(Note: The <code>rownames(cars)</code> bit is just because of how this data set is stored. For your data, you might just type the variable name (<code>model</code>, for example) instead.)</p>
 <h2>Graphing one variable, sorting by another</h2>
 <p>If we want to show the same data, but we want to sort by another variable (or the same variable, for that matter), we can just add <code>reorder(yvar, sortvar)</code>. For example, to sort by the number of cylinders, we could:</p>
@@ -143,7 +143,7 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 </pre></div>
 
 
-<p><img alt="Sorted by number of cylinders" src="/images/r-lattice-by-cyl.png" /></p>
+<p><img alt="Sorted by number of cylinders" src="http://blog.mollietaylor.com/images/r-lattice-by-cyl.png" /></p>
 <h2>Graphing two variables</h2>
 <p>To better show how this works, let's graph <code>cyl</code> alongside <code>mpg</code>, so we can see how it is sorting:</p>
 <div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
@@ -154,7 +154,7 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 </pre></div>
 
 
-<p><img alt="Graph of mpg and cyl, sorted by cyl" src="/images/r-lattice-mpg-cyl.png" /></p>
+<p><img alt="Graph of mpg and cyl, sorted by cyl" src="http://blog.mollietaylor.com/images/r-lattice-mpg-cyl.png" /></p>
 <h2>Reverse order</h2>
 <p>We can also sort in reverse order, by adding a "-" before the variable name:</p>
 <div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
@@ -164,7 +164,7 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 </pre></div>
 
 
-<p><img alt="Graph of mpg and cyl, sorted by cyl, reversed" src="/images/r-lattice-mpg-cyl-reverse.png" /></p>
+<p><img alt="Graph of mpg and cyl, sorted by cyl, reversed" src="http://blog.mollietaylor.com/images/r-lattice-mpg-cyl-reverse.png" /></p>
 <h2>Adding a legend</h2>
 <p>We can also add a legend:</p>
 <div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
@@ -178,13 +178,13 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 </pre></div>
 
 
-<p><img alt="With legend" src="/images/r-lattice-legend.png" /></p>
+<p><img alt="With legend" src="http://blog.mollietaylor.com/images/r-lattice-legend.png" /></p>
 <h2>Other lattice types</h2>
 <p>The same technique will work with other lattice graphs, such as barchart, bwplot, and stripplot.</p>
 <p>Full code available as a <a href="https://gist.github.com/4063837">gist</a>.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/barchart.html" rel="tag">barchart</a>,  <a href="/tag/dotplot.html" rel="tag">dotplot</a>,  <a href="/tag/key.html" rel="tag">key</a>,  <a href="/tag/lattice.html" rel="tag">lattice</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/reorder.html" rel="tag">reorder</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/barchart.html" rel="tag">barchart</a>,  <a href="http://blog.mollietaylor.com/tag/dotplot.html" rel="tag">dotplot</a>,  <a href="http://blog.mollietaylor.com/tag/key.html" rel="tag">key</a>,  <a href="http://blog.mollietaylor.com/tag/lattice.html" rel="tag">lattice</a>,  <a href="http://blog.mollietaylor.com/tag/legend.html" rel="tag">legend</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/reorder.html" rel="tag">reorder</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 </div>

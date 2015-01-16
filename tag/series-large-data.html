@@ -4,31 +4,31 @@
 		<title>Maps & Apps &mdash; Articles tagged Series: Large Data</title>
 		<meta charset="utf-8" />
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
 		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
 		<style type="text/css">
 			body.custom-background { background-color: #f5f5f5; }
 		</style>
 		<link rel="alternate" type="application/atom+xml"
 			title="Maps & Apps — Flux Atom"
-			href="/" /> 
-		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
 </head>
 
 <body class="home blog custom-background " >
 	<div id="container">
 		<div id="header">
-				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
 		</div><!-- /#banner -->
 		
 		<div id="menu">
 			<div class="menu-navigation-container">
 				<ul id="menu-navigation" class="menu">
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/pages/about/index.html">About Mollie</a></li>
-						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
 			</div> <!--/#menu-navigation-container-->
@@ -43,13 +43,13 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/09/only-load-data-if-not-already-open-in-r.html">Thu 12 September 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/09/only-load-data-if-not-already-open-in-r.html">Thu 12 September 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/09/only-load-data-if-not-already-open-in-r.html" title="Permalink to Only Load Data If Not Already Open in R" rel="bookmark">Only Load Data If Not Already Open in R</a>
+			<a href="http://blog.mollietaylor.com/2013/09/only-load-data-if-not-already-open-in-r.html" title="Permalink to Only Load Data If Not Already Open in R" rel="bookmark">Only Load Data If Not Already Open in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>I often find it beneficial to check to see whether or not a dataset is already loaded into R at the beginning of a file. This is particularly helpful when I'm dealing with a large file that I don't want to load repeatedly, and when I might be using the same dataset with multiple R scripts or re-running the same script while making changes to the code.</p>
@@ -61,7 +61,7 @@
 </pre></div>
 
 
-<p>You will probably also find it useful to use the "<a href="/2013/09/using-colclasses-to-load-data-more.html">colClasses</a>" option of <code>read.csv</code> or <code>read.table</code> to help the file load faster and make sure your data are in the right format. For example:</p>
+<p>You will probably also find it useful to use the "<a href="http://blog.mollietaylor.com/2013/09/using-colclasses-to-load-data-more.html">colClasses</a>" option of <code>read.csv</code> or <code>read.table</code> to help the file load faster and make sure your data are in the right format. For example:</p>
 <div class="highlight"><pre><span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;largeData&quot;</span><span class="p">))</span> <span class="p">{</span>
     largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span>
         header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
@@ -76,17 +76,17 @@
 </blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/exists.html" rel="tag">exists</a>,  <a href="/tag/if.html" rel="tag">if</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/readcsv.html" rel="tag">read.csv</a>,  <a href="/tag/readtable.html" rel="tag">read.table</a>,  <a href="/tag/series-large-data.html" rel="tag">Series: Large Data</a>,  <a href="/tag/setup.html" rel="tag">setup</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/exists.html" rel="tag">exists</a>,  <a href="http://blog.mollietaylor.com/tag/if.html" rel="tag">if</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/readcsv.html" rel="tag">read.csv</a>,  <a href="http://blog.mollietaylor.com/tag/readtable.html" rel="tag">read.table</a>,  <a href="http://blog.mollietaylor.com/tag/series-large-data.html" rel="tag">Series: Large Data</a>,  <a href="http://blog.mollietaylor.com/tag/setup.html" rel="tag">setup</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/09/using-colclasses-to-load-data-more.html">Thu 05 September 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/09/using-colclasses-to-load-data-more.html">Thu 05 September 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/09/using-colclasses-to-load-data-more.html" title="Permalink to Using colClasses to Load Data More Quickly in R" rel="bookmark">Using colClasses to Load Data More Quickly in R</a>
+			<a href="http://blog.mollietaylor.com/2013/09/using-colclasses-to-load-data-more.html" title="Permalink to Using colClasses to Load Data More Quickly in R" rel="bookmark">Using colClasses to Load Data More Quickly in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Specifying a <code>colClasses</code> argument to <code>read.table</code> or <code>read.csv</code> can save time on importing data, while also saving steps to specify classes for each variable later.</p>
@@ -103,7 +103,7 @@
 </pre></div>
 
 
-<p>Dates that are in the <a href="/2013/08/date-formats-in-r.html">form %Y-%m-%d or Y/%m/%d</a> will import correctly. <a href="http://stackoverflow.com/a/13022441">This tip allows you to import dates properly</a> for dates in other formats.</p>
+<p>Dates that are in the <a href="http://blog.mollietaylor.com/2013/08/date-formats-in-r.html">form %Y-%m-%d or Y/%m/%d</a> will import correctly. <a href="http://stackoverflow.com/a/13022441">This tip allows you to import dates properly</a> for dates in other formats.</p>
 <div class="highlight"><pre><span class="kp">system.time</span><span class="p">(</span>largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span>
     header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
     colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;complex&quot;</span><span class="p">,</span> 
@@ -138,7 +138,7 @@ str<span class="p">(</span>largeData<span class="p">)</span>
 <ul>
 <li><a href="http://stackoverflow.com/questions/2805357/specifying-colclasses-in-the-read-csv">http://stackoverflow.com/questions/2805357/specifying-colclasses-in-the-read-csv</a></li>
 <li><a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html</a></li>
-<li><a href="/2013/08/date-formats-in-r.html">Date Formats in R</a></li>
+<li><a href="http://blog.mollietaylor.com/2013/08/date-formats-in-r.html">Date Formats in R</a></li>
 <li><a href="http://stackoverflow.com/a/13022441">http://stackoverflow.com/a/13022441</a></li>
 </ul>
 <blockquote>
@@ -146,7 +146,7 @@ str<span class="p">(</span>largeData<span class="p">)</span>
 </blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/colclasses.html" rel="tag">colClasses</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/readcsv.html" rel="tag">read.csv</a>,  <a href="/tag/readtable.html" rel="tag">read.table</a>,  <a href="/tag/series-large-data.html" rel="tag">Series: Large Data</a>,  <a href="/tag/setup.html" rel="tag">setup</a>,  <a href="/tag/systemtime.html" rel="tag">system.time</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/colclasses.html" rel="tag">colClasses</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/readcsv.html" rel="tag">read.csv</a>,  <a href="http://blog.mollietaylor.com/tag/readtable.html" rel="tag">read.table</a>,  <a href="http://blog.mollietaylor.com/tag/series-large-data.html" rel="tag">Series: Large Data</a>,  <a href="http://blog.mollietaylor.com/tag/setup.html" rel="tag">setup</a>,  <a href="http://blog.mollietaylor.com/tag/systemtime.html" rel="tag">system.time</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 </div>

@@ -4,31 +4,31 @@
 		<title>Maps & Apps &mdash; Articles tagged ggmap</title>
 		<meta charset="utf-8" />
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
 		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
 		<style type="text/css">
 			body.custom-background { background-color: #f5f5f5; }
 		</style>
 		<link rel="alternate" type="application/atom+xml"
 			title="Maps & Apps — Flux Atom"
-			href="/" /> 
-		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
 </head>
 
 <body class="home blog custom-background " >
 	<div id="container">
 		<div id="header">
-				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
 		</div><!-- /#banner -->
 		
 		<div id="menu">
 			<div class="menu-navigation-container">
 				<ul id="menu-navigation" class="menu">
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/pages/about/index.html">About Mollie</a></li>
-						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
 			</div> <!--/#menu-navigation-container-->
@@ -43,13 +43,13 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/02/shapefiles-in-r.html">Thu 28 February 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/02/shapefiles-in-r.html">Thu 28 February 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/02/shapefiles-in-r.html" title="Permalink to Shapefiles in R" rel="bookmark">Shapefiles in R</a>
+			<a href="http://blog.mollietaylor.com/2013/02/shapefiles-in-r.html" title="Permalink to Shapefiles in R" rel="bookmark">Shapefiles in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Let's learn how to use <a href="http://en.wikipedia.org/wiki/Shapefile">Shapefiles</a> in R. This will allow us to map data for complicated areas or jurisdictions like zipcodes or school districts. For the United States, many shapefiles are available from the [Census Bureau](http://www.census.gov/geo/www/tiger/tgrshp2010/tgrshp2010.html. Our example will map U.S. national parks.</p>
@@ -64,7 +64,7 @@ area <span class="o">&lt;-</span> readShapePoly<span class="p">(</span><span cla
 </pre></div>
 
 
-<p>Next we can set the colors we want to use. And then we can set up our <a href="/2013/02/gps-basemaps-in-r-using-getmap.html">basemap</a>.</p>
+<p>Next we can set the colors we want to use. And then we can set up our <a href="http://blog.mollietaylor.com/2013/02/gps-basemaps-in-r-using-getmap.html">basemap</a>.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
 colors <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span>
 
@@ -96,8 +96,8 @@ labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Lon
 </pre></div>
 
 
-<p><img alt="National Parks and Protected Lands in California and Nevada" src="/images/shapefiles-osm.png" /></p>
-<p><img alt="Same figure, with a Stamen terrain basemap with ColorBrewer palette &quot;RdPu&quot;" src="/images/shapefiles-stamen.png" /></p>
+<p><img alt="National Parks and Protected Lands in California and Nevada" src="http://blog.mollietaylor.com/images/shapefiles-osm.png" /></p>
+<p><img alt="Same figure, with a Stamen terrain basemap with ColorBrewer palette &quot;RdPu&quot;" src="http://blog.mollietaylor.com/images/shapefiles-stamen.png" /></p>
 <h2>Citations and Further Reading</h2>
 <ul>
 <li><a href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/parks-and-protected-lands/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/parks-and-protected-lands/</a></li>
@@ -107,17 +107,17 @@ labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Lon
 </ul>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/fortify.html" rel="tag">fortify</a>,  <a href="/tag/geom_polygon.html" rel="tag">geom_polygon</a>,  <a href="/tag/get_map.html" rel="tag">get_map</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gps.html" rel="tag">gps</a>,  <a href="/tag/maptools.html" rel="tag">maptools</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/readshapepoly.html" rel="tag">readShapePoly</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/fortify.html" rel="tag">fortify</a>,  <a href="http://blog.mollietaylor.com/tag/geom_polygon.html" rel="tag">geom_polygon</a>,  <a href="http://blog.mollietaylor.com/tag/get_map.html" rel="tag">get_map</a>,  <a href="http://blog.mollietaylor.com/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="http://blog.mollietaylor.com/tag/gps.html" rel="tag">gps</a>,  <a href="http://blog.mollietaylor.com/tag/maptools.html" rel="tag">maptools</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="http://blog.mollietaylor.com/tag/readshapepoly.html" rel="tag">readShapePoly</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/02/gps-basemaps-in-r-using-getmap.html">Thu 14 February 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/02/gps-basemaps-in-r-using-getmap.html">Thu 14 February 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/02/gps-basemaps-in-r-using-getmap.html" title="Permalink to GPS Basemaps in R Using get_map" rel="bookmark">GPS Basemaps in R Using get_map</a>
+			<a href="http://blog.mollietaylor.com/2013/02/gps-basemaps-in-r-using-getmap.html" title="Permalink to GPS Basemaps in R Using get_map" rel="bookmark">GPS Basemaps in R Using get_map</a>
 		</h2>
 		<div class="entry-content">
 			<p>There are <em>many</em> different maps you can use for a background map for your gps or other latitude/longitude data (i.e. any time you're using <code>geom_path</code>, <code>geom_segment</code>, or <code>geom_point</code>.)</p>
@@ -163,32 +163,32 @@ ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
 <h2>source = "google"</h2>
 <p><code>get_map</code> option source = "google" (or using get_googlemap) downloads a map from the Google Maps API. The basemaps are © Google. Google Maps have four different maptype options: terrain, satellite, roadmap, and hybrid.</p>
 <h3>source = "google", maptype = "terrain"</h3>
-<p><img alt="source = &quot;google&quot;, maptype = &quot;terrain&quot;, zoom = 14" src="/images/r-google-terrain.png" /></p>
+<p><img alt="source = &quot;google&quot;, maptype = &quot;terrain&quot;, zoom = 14" src="http://blog.mollietaylor.com/images/r-google-terrain.png" /></p>
 <p>Max zoom: 14</p>
 <h3>source = "google", maptype = "satellite"</h3>
-<p><img alt="source = &quot;google&quot;, maptype = &quot;satellite&quot;, zoom = 17" src="/images/r-google-satellite.png" /></p>
+<p><img alt="source = &quot;google&quot;, maptype = &quot;satellite&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-google-satellite.png" /></p>
 <p>Max zoom: 20</p>
 <h3>source = "google", maptype = "roadmap"</h3>
-<p><img alt="source = &quot;google&quot;, maptype = &quot;roadmap&quot;, zoom = 17" src="/images/r-google-roadmap.png" /></p>
+<p><img alt="source = &quot;google&quot;, maptype = &quot;roadmap&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-google-roadmap.png" /></p>
 <h3>source = "google", maptype = "hybrid"</h3>
 <p>Hybrid combines roadmap and satellite.
-<img alt="source = &quot;google&quot;, maptype = &quot;hybrid&quot;, zoom = 17" src="/images/r-google-hybrid.png" /></p>
+<img alt="source = &quot;google&quot;, maptype = &quot;hybrid&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-google-hybrid.png" /></p>
 <p>Max zoom: 14</p>
 <h2>source = "osm"</h2>
 <p><code>get_map</code> option source = "osm" (or using <code>get_openstreetmap</code>) downloads a map from <a href="http://www.openstreetmap.org/">OpenStreetMap</a>. These maps are Creative Commons licensed, specifically <a href="http://creativecommons.org/licenses/by-sa/2.0/">Attribution-ShareAlike 2.0 (CC-BY-SA)</a>. This means you are free to use the maps for commercial purposes, as long as you release your final product under the same Creative Commons license. OpenStreetMap has no maptype options.</p>
 <h3>source = "osm" (no maptype needed)</h3>
-<p><img alt="source = &quot;osm&quot;, zoom = 17" src="/images/r-osm.png" /></p>
+<p><img alt="source = &quot;osm&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-osm.png" /></p>
 <p>Max zoom: 20</p>
 <h2>source = "stamen"</h2>
 <p><code>get_map</code> option source = "stamen" (or using <code>get_stamenmap</code>) downloads a map from Stamen Maps. The map tiles are by <a href="http://stamen.com/">Stamen Design</a>, licensed under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. The data for Stamen Maps is by <a href="http://openstreetmap.org/">OpenStreetMap</a>, licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>. Stamen has three different maptype options: terrain, watercolor, and toner.</p>
 <h3>source = "stamen", maptype = "terrain"</h3>
-<p><img alt="source = &quot;stamen&quot;, maptype = &quot;terrain&quot;, zoom = 17" src="/images/r-stamen-terrain.png" /></p>
+<p><img alt="source = &quot;stamen&quot;, maptype = &quot;terrain&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-stamen-terrain.png" /></p>
 <p>Max zoom: 18</p>
 <h3>source = "stamen", maptype = "watercolor"</h3>
-<p><img alt="source = &quot;stamen&quot;, maptype = &quot;watercolor&quot;, zoom = 17" src="/images/r-stamen-watercolor.png" /></p>
+<p><img alt="source = &quot;stamen&quot;, maptype = &quot;watercolor&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-stamen-watercolor.png" /></p>
 <p>Max zoom: 18</p>
 <h3>source = "stamen", maptype = "toner"</h3>
-<p><img alt="source = &quot;stamen&quot;, maptype = &quot;toner&quot;, zoom = 17" src="/images/r-stamen-toner.png" /></p>
+<p><img alt="source = &quot;stamen&quot;, maptype = &quot;toner&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-stamen-toner.png" /></p>
 <p>Max zoom: 18</p>
 <h2>source = "cloudmade"</h2>
 <blockquote>
@@ -197,23 +197,23 @@ ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
 <p>CloudMade styles build on top of OpenStreetMap data. Thousands of CloudMade styles are available. You can <a href="http://maps.cloudmade.com/editor#">browse them on the CloudMade site</a>. You can also make your own styles.</p>
 <p>To use CloudMade map styles in R, you will first need to get an API key to insert into your R code so it can access the maps. You can <a href="http://cloudmade.com/user/show">get an API key from the CloudMade site</a>.</p>
 <p>Here are just a couple examples of CloudMade basemaps:</p>
-<p><img alt="source = &quot;cloudmade&quot;, maptype = &quot;1&quot;, api_key=&quot;your_api_key_here, zoom = 17" src="/images/r-cloudmade-1.png" /></p>
-<p><img alt="source = &quot;cloudmade&quot;, maptype = &quot;67367&quot;, api_key=&quot;your_api_key_here, zoom = 17" src="/images/r-cloudmade-67367.png" /></p>
+<p><img alt="source = &quot;cloudmade&quot;, maptype = &quot;1&quot;, api_key=&quot;your_api_key_here, zoom = 17" src="http://blog.mollietaylor.com/images/r-cloudmade-1.png" /></p>
+<p><img alt="source = &quot;cloudmade&quot;, maptype = &quot;67367&quot;, api_key=&quot;your_api_key_here, zoom = 17" src="http://blog.mollietaylor.com/images/r-cloudmade-67367.png" /></p>
 <p>Max zoom: 18</p>
 <p>The code and data are available in a <a href="https://gist.github.com/mollietaylor/4742865">gist</a>.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/base-map.html" rel="tag">base map</a>,  <a href="/tag/basemap.html" rel="tag">basemap</a>,  <a href="/tag/geom_path.html" rel="tag">geom_path</a>,  <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="/tag/get_cloudmademap.html" rel="tag">get_cloudmademap</a>,  <a href="/tag/get_googlemap.html" rel="tag">get_googlemap</a>,  <a href="/tag/get_map.html" rel="tag">get_map</a>,  <a href="/tag/get_openstreetmap.html" rel="tag">get_openstreetmap</a>,  <a href="/tag/get_stamenmap.html" rel="tag">get_stamenmap</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gps.html" rel="tag">gps</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/base-map.html" rel="tag">base map</a>,  <a href="http://blog.mollietaylor.com/tag/basemap.html" rel="tag">basemap</a>,  <a href="http://blog.mollietaylor.com/tag/geom_path.html" rel="tag">geom_path</a>,  <a href="http://blog.mollietaylor.com/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="http://blog.mollietaylor.com/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="http://blog.mollietaylor.com/tag/get_cloudmademap.html" rel="tag">get_cloudmademap</a>,  <a href="http://blog.mollietaylor.com/tag/get_googlemap.html" rel="tag">get_googlemap</a>,  <a href="http://blog.mollietaylor.com/tag/get_map.html" rel="tag">get_map</a>,  <a href="http://blog.mollietaylor.com/tag/get_openstreetmap.html" rel="tag">get_openstreetmap</a>,  <a href="http://blog.mollietaylor.com/tag/get_stamenmap.html" rel="tag">get_stamenmap</a>,  <a href="http://blog.mollietaylor.com/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="http://blog.mollietaylor.com/tag/gps.html" rel="tag">gps</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-r.html">Thu 13 December 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">Thu 13 December 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/12/mapping-gps-tracks-in-r.html" title="Permalink to Mapping GPS Tracks in R" rel="bookmark">Mapping GPS Tracks in R</a>
+			<a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html" title="Permalink to Mapping GPS Tracks in R" rel="bookmark">Mapping GPS Tracks in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>This is an explanation of how I used R to combine all my GPS cycling tracks from my Garmin Forerunner 305.</p>
@@ -257,8 +257,8 @@ Finally we want to map our GPS data. There are several <a href="http://www.endme
 </pre></div>
 
 
-<p><img alt="All my metro Atlanta bike rides" src="/images/r-gps-tracks.png" /></p>
-<p>Previously, I've used Google Earth to create these maps, but I actually found it to be easier and way less time and resource efficient to do it in R. The only tricky part was converting the data into .csv, and there are <a href="http://www.gpsvisualizer.com/convert_input?convert_output=gpx">other ways</a> to do that, if GPSBabel isn't working for you. You might also be interested in trying <a href="/2012/12/mapping-gps-tracks-in-google-earth.html">Google Earth</a> for mapping your tracks, instead of R.</p>
+<p><img alt="All my metro Atlanta bike rides" src="http://blog.mollietaylor.com/images/r-gps-tracks.png" /></p>
+<p>Previously, I've used Google Earth to create these maps, but I actually found it to be easier and way less time and resource efficient to do it in R. The only tricky part was converting the data into .csv, and there are <a href="http://www.gpsvisualizer.com/convert_input?convert_output=gpx">other ways</a> to do that, if GPSBabel isn't working for you. You might also be interested in trying <a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-google-earth.html">Google Earth</a> for mapping your tracks, instead of R.</p>
 <p><a href="https://gist.github.com/4210660">Here's the gist</a> with the code.</p>
 <blockquote>
 <p>This post is one part of <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html">my series on Mapping GPS Tracks</a>.</p>
@@ -273,7 +273,7 @@ Finally we want to map our GPS data. There are several <a href="http://www.endme
 <p>pch = 20)</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gpsbabel.html" rel="tag">GPSBabel</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="http://blog.mollietaylor.com/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="http://blog.mollietaylor.com/tag/gpsbabel.html" rel="tag">GPSBabel</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 </div>

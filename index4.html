@@ -4,31 +4,31 @@
 		<title>Maps & Apps</title>
 		<meta charset="utf-8" />
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
 		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
 		<style type="text/css">
 			body.custom-background { background-color: #f5f5f5; }
 		</style>
 		<link rel="alternate" type="application/atom+xml"
 			title="Maps & Apps — Flux Atom"
-			href="/" /> 
-		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
 </head>
 
 <body class="home blog custom-background " >
 	<div id="container">
 		<div id="header">
-				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
 		</div><!-- /#banner -->
 		
 		<div id="menu">
 			<div class="menu-navigation-container">
 				<ul id="menu-navigation" class="menu">
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/pages/about/index.html">About Mollie</a></li>
-						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
 			</div> <!--/#menu-navigation-container-->
@@ -40,13 +40,13 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/02/gps-basemaps-in-r-using-getmap.html">Thu 14 February 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/02/gps-basemaps-in-r-using-getmap.html">Thu 14 February 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/02/gps-basemaps-in-r-using-getmap.html" title="Permalink to GPS Basemaps in R Using get_map" rel="bookmark">GPS Basemaps in R Using get_map</a>
+			<a href="http://blog.mollietaylor.com/2013/02/gps-basemaps-in-r-using-getmap.html" title="Permalink to GPS Basemaps in R Using get_map" rel="bookmark">GPS Basemaps in R Using get_map</a>
 		</h2>
 		<div class="entry-content">
 			<p>There are <em>many</em> different maps you can use for a background map for your gps or other latitude/longitude data (i.e. any time you're using <code>geom_path</code>, <code>geom_segment</code>, or <code>geom_point</code>.)</p>
@@ -92,32 +92,32 @@ ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
 <h2>source = "google"</h2>
 <p><code>get_map</code> option source = "google" (or using get_googlemap) downloads a map from the Google Maps API. The basemaps are © Google. Google Maps have four different maptype options: terrain, satellite, roadmap, and hybrid.</p>
 <h3>source = "google", maptype = "terrain"</h3>
-<p><img alt="source = &quot;google&quot;, maptype = &quot;terrain&quot;, zoom = 14" src="/images/r-google-terrain.png" /></p>
+<p><img alt="source = &quot;google&quot;, maptype = &quot;terrain&quot;, zoom = 14" src="http://blog.mollietaylor.com/images/r-google-terrain.png" /></p>
 <p>Max zoom: 14</p>
 <h3>source = "google", maptype = "satellite"</h3>
-<p><img alt="source = &quot;google&quot;, maptype = &quot;satellite&quot;, zoom = 17" src="/images/r-google-satellite.png" /></p>
+<p><img alt="source = &quot;google&quot;, maptype = &quot;satellite&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-google-satellite.png" /></p>
 <p>Max zoom: 20</p>
 <h3>source = "google", maptype = "roadmap"</h3>
-<p><img alt="source = &quot;google&quot;, maptype = &quot;roadmap&quot;, zoom = 17" src="/images/r-google-roadmap.png" /></p>
+<p><img alt="source = &quot;google&quot;, maptype = &quot;roadmap&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-google-roadmap.png" /></p>
 <h3>source = "google", maptype = "hybrid"</h3>
 <p>Hybrid combines roadmap and satellite.
-<img alt="source = &quot;google&quot;, maptype = &quot;hybrid&quot;, zoom = 17" src="/images/r-google-hybrid.png" /></p>
+<img alt="source = &quot;google&quot;, maptype = &quot;hybrid&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-google-hybrid.png" /></p>
 <p>Max zoom: 14</p>
 <h2>source = "osm"</h2>
 <p><code>get_map</code> option source = "osm" (or using <code>get_openstreetmap</code>) downloads a map from <a href="http://www.openstreetmap.org/">OpenStreetMap</a>. These maps are Creative Commons licensed, specifically <a href="http://creativecommons.org/licenses/by-sa/2.0/">Attribution-ShareAlike 2.0 (CC-BY-SA)</a>. This means you are free to use the maps for commercial purposes, as long as you release your final product under the same Creative Commons license. OpenStreetMap has no maptype options.</p>
 <h3>source = "osm" (no maptype needed)</h3>
-<p><img alt="source = &quot;osm&quot;, zoom = 17" src="/images/r-osm.png" /></p>
+<p><img alt="source = &quot;osm&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-osm.png" /></p>
 <p>Max zoom: 20</p>
 <h2>source = "stamen"</h2>
 <p><code>get_map</code> option source = "stamen" (or using <code>get_stamenmap</code>) downloads a map from Stamen Maps. The map tiles are by <a href="http://stamen.com/">Stamen Design</a>, licensed under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. The data for Stamen Maps is by <a href="http://openstreetmap.org/">OpenStreetMap</a>, licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>. Stamen has three different maptype options: terrain, watercolor, and toner.</p>
 <h3>source = "stamen", maptype = "terrain"</h3>
-<p><img alt="source = &quot;stamen&quot;, maptype = &quot;terrain&quot;, zoom = 17" src="/images/r-stamen-terrain.png" /></p>
+<p><img alt="source = &quot;stamen&quot;, maptype = &quot;terrain&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-stamen-terrain.png" /></p>
 <p>Max zoom: 18</p>
 <h3>source = "stamen", maptype = "watercolor"</h3>
-<p><img alt="source = &quot;stamen&quot;, maptype = &quot;watercolor&quot;, zoom = 17" src="/images/r-stamen-watercolor.png" /></p>
+<p><img alt="source = &quot;stamen&quot;, maptype = &quot;watercolor&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-stamen-watercolor.png" /></p>
 <p>Max zoom: 18</p>
 <h3>source = "stamen", maptype = "toner"</h3>
-<p><img alt="source = &quot;stamen&quot;, maptype = &quot;toner&quot;, zoom = 17" src="/images/r-stamen-toner.png" /></p>
+<p><img alt="source = &quot;stamen&quot;, maptype = &quot;toner&quot;, zoom = 17" src="http://blog.mollietaylor.com/images/r-stamen-toner.png" /></p>
 <p>Max zoom: 18</p>
 <h2>source = "cloudmade"</h2>
 <blockquote>
@@ -126,23 +126,23 @@ ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
 <p>CloudMade styles build on top of OpenStreetMap data. Thousands of CloudMade styles are available. You can <a href="http://maps.cloudmade.com/editor#">browse them on the CloudMade site</a>. You can also make your own styles.</p>
 <p>To use CloudMade map styles in R, you will first need to get an API key to insert into your R code so it can access the maps. You can <a href="http://cloudmade.com/user/show">get an API key from the CloudMade site</a>.</p>
 <p>Here are just a couple examples of CloudMade basemaps:</p>
-<p><img alt="source = &quot;cloudmade&quot;, maptype = &quot;1&quot;, api_key=&quot;your_api_key_here, zoom = 17" src="/images/r-cloudmade-1.png" /></p>
-<p><img alt="source = &quot;cloudmade&quot;, maptype = &quot;67367&quot;, api_key=&quot;your_api_key_here, zoom = 17" src="/images/r-cloudmade-67367.png" /></p>
+<p><img alt="source = &quot;cloudmade&quot;, maptype = &quot;1&quot;, api_key=&quot;your_api_key_here, zoom = 17" src="http://blog.mollietaylor.com/images/r-cloudmade-1.png" /></p>
+<p><img alt="source = &quot;cloudmade&quot;, maptype = &quot;67367&quot;, api_key=&quot;your_api_key_here, zoom = 17" src="http://blog.mollietaylor.com/images/r-cloudmade-67367.png" /></p>
 <p>Max zoom: 18</p>
 <p>The code and data are available in a <a href="https://gist.github.com/mollietaylor/4742865">gist</a>.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/base-map.html" rel="tag">base map</a>,  <a href="/tag/basemap.html" rel="tag">basemap</a>,  <a href="/tag/geom_path.html" rel="tag">geom_path</a>,  <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="/tag/get_cloudmademap.html" rel="tag">get_cloudmademap</a>,  <a href="/tag/get_googlemap.html" rel="tag">get_googlemap</a>,  <a href="/tag/get_map.html" rel="tag">get_map</a>,  <a href="/tag/get_openstreetmap.html" rel="tag">get_openstreetmap</a>,  <a href="/tag/get_stamenmap.html" rel="tag">get_stamenmap</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gps.html" rel="tag">gps</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/base-map.html" rel="tag">base map</a>,  <a href="http://blog.mollietaylor.com/tag/basemap.html" rel="tag">basemap</a>,  <a href="http://blog.mollietaylor.com/tag/geom_path.html" rel="tag">geom_path</a>,  <a href="http://blog.mollietaylor.com/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="http://blog.mollietaylor.com/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="http://blog.mollietaylor.com/tag/get_cloudmademap.html" rel="tag">get_cloudmademap</a>,  <a href="http://blog.mollietaylor.com/tag/get_googlemap.html" rel="tag">get_googlemap</a>,  <a href="http://blog.mollietaylor.com/tag/get_map.html" rel="tag">get_map</a>,  <a href="http://blog.mollietaylor.com/tag/get_openstreetmap.html" rel="tag">get_openstreetmap</a>,  <a href="http://blog.mollietaylor.com/tag/get_stamenmap.html" rel="tag">get_stamenmap</a>,  <a href="http://blog.mollietaylor.com/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="http://blog.mollietaylor.com/tag/gps.html" rel="tag">gps</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/02/get-citrix-xendesktop-to-work-on-linux.html">Thu 07 February 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/02/get-citrix-xendesktop-to-work-on-linux.html">Thu 07 February 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/.html" title="View all posts in " rel="category tag"></a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/02/get-citrix-xendesktop-to-work-on-linux.html" title="Permalink to Get Citrix XenDesktop to Work on Linux" rel="bookmark">Get Citrix XenDesktop to Work on Linux</a>
+			<a href="http://blog.mollietaylor.com/2013/02/get-citrix-xendesktop-to-work-on-linux.html" title="Permalink to Get Citrix XenDesktop to Work on Linux" rel="bookmark">Get Citrix XenDesktop to Work on Linux</a>
 		</h2>
 		<div class="entry-content">
 			<p>I had some difficulty figuring out how to get Citrix XenDesktop to work properly on Linux.</p>
@@ -150,7 +150,7 @@ ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
 <h2>Citrix Receiver</h2>
 <p>However, on other operating systems, I had always downloaded the Citrix Online Plug-in to fix the problem. For some reason, the Citrix Online Plug-in is not available for Linux. However, the <a href="http://receiver.citrix.com/?ntref=receiverdownload">Citrix Receiver</a> is available for Linux, and seems to do the same thing.</p>
 <p>After installing Citrix Receiver, your browser will ask for your permission to run it.</p>
-<p><img alt="Permission" class="size-auto" src="/images/citrix-permission.png" /></p>
+<p><img alt="Permission" class="size-auto" src="http://blog.mollietaylor.com/images/citrix-permission.png" /></p>
 <h2>Open Motif</h2>
 <p>You may need to install Open Motif before you can install Citrix Receiver.</p>
 <p>If so, download Open Motif, extract it, and follow the directions in INSTALL.configure, namely:</p>
@@ -163,7 +163,7 @@ ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
 
 
 <h2>Security Certificate</h2>
-<p><img alt="Error" class="size-auto" src="/images/citrix-error.png" /></p>
+<p><img alt="Error" class="size-auto" src="http://blog.mollietaylor.com/images/citrix-error.png" /></p>
 <p>If you try to log on to your virtual desktop and get an error about "AddTrust External CA Root", you can just do</p>
 <div class="highlight"><pre><span class="go">sudo cp /usr/share/ca-certificates/mozilla/*.* /opt/Citrix/ICAClient/keystore/cacerts/</span>
 </pre></div>
@@ -175,17 +175,17 @@ ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
 </ul>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/citrix.html" rel="tag">Citrix</a>,  <a href="/tag/linux.html" rel="tag">Linux</a>,  <a href="/tag/ubuntu.html" rel="tag">ubuntu</a>,  <a href="/tag/xendesktop.html" rel="tag">XenDesktop</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/citrix.html" rel="tag">Citrix</a>,  <a href="http://blog.mollietaylor.com/tag/linux.html" rel="tag">Linux</a>,  <a href="http://blog.mollietaylor.com/tag/ubuntu.html" rel="tag">ubuntu</a>,  <a href="http://blog.mollietaylor.com/tag/xendesktop.html" rel="tag">XenDesktop</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/01/using-line-segments-to-compare-values.html">Thu 31 January 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/01/using-line-segments-to-compare-values.html">Thu 31 January 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/01/using-line-segments-to-compare-values.html" title="Permalink to Using Line Segments to Compare Values in R" rel="bookmark">Using Line Segments to Compare Values in R</a>
+			<a href="http://blog.mollietaylor.com/2013/01/using-line-segments-to-compare-values.html" title="Permalink to Using Line Segments to Compare Values in R" rel="bookmark">Using Line Segments to Compare Values in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Sometimes you want to create a graph that will allow the viewer to see in one glance:</p>
@@ -245,7 +245,7 @@ theme<span class="p">(</span>legend.position <span class="o">=</span> <span clas
 </pre></div>
 
 
-<p><img alt="geom_segment, then geom_point" src="/images/r-line-segments.png" /></p>
+<p><img alt="geom_segment, then geom_point" src="http://blog.mollietaylor.com/images/r-line-segments.png" /></p>
 <p>The order of <code>geom_segment</code> and the <code>geom_points</code> matters. The first <code>geom</code> line in the code will get plotted first. Therefore, if you want the points displayed over the segments, put the segments first in the code. Likewise, if you want the segments displayed over the points, put the points first in the code.</p>
 <p>For example, we could change the middle section of the code to:</p>
 <div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
@@ -264,22 +264,22 @@ geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o"
 
 
 <p>And the output would look like:</p>
-<p><img alt="geom_point, then geom_segment" src="/images/r-line-segments.png" /></p>
+<p><img alt="geom_point, then geom_segment" src="http://blog.mollietaylor.com/images/r-line-segments.png" /></p>
 <p>Similarly, if you have points that will be overlapping, make sure you think about which of the point lines you want R to plot first.</p>
 <p>The code is available in a <a href="https://gist.github.com/4543148">gist</a>.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/datasets.html" rel="tag">datasets</a>,  <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/datasets.html" rel="tag">datasets</a>,  <a href="http://blog.mollietaylor.com/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="http://blog.mollietaylor.com/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/legend.html" rel="tag">legend</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/01/storing-function-in-separate-file-in-r.html">Thu 24 January 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/01/storing-function-in-separate-file-in-r.html">Thu 24 January 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/01/storing-function-in-separate-file-in-r.html" title="Permalink to Storing a Function in a Separate File in R" rel="bookmark">Storing a Function in a Separate File in R</a>
+			<a href="http://blog.mollietaylor.com/2013/01/storing-function-in-separate-file-in-r.html" title="Permalink to Storing a Function in a Separate File in R" rel="bookmark">Storing a Function in a Separate File in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>If you're going to be using a function across several different R files, you might want to store the function in its own file.</p>
@@ -313,17 +313,17 @@ mult<span class="p">(</span><span class="m">-4</span><span class="o">:</span><sp
 <p>All files are available as a <a href="https://gist.github.com/4472146">gist</a>.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/dget.html" rel="tag">dget</a>,  <a href="/tag/function.html" rel="tag">function</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/source.html" rel="tag">source</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/dget.html" rel="tag">dget</a>,  <a href="http://blog.mollietaylor.com/tag/function.html" rel="tag">function</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/source.html" rel="tag">source</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/01/calculating-gini-coefficients-for.html">Thu 17 January 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/01/calculating-gini-coefficients-for.html">Thu 17 January 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/01/calculating-gini-coefficients-for.html" title="Permalink to Calculating Gini Coefficients for a Number of Locales at Once in R" rel="bookmark">Calculating Gini Coefficients for a Number of Locales at Once in R</a>
+			<a href="http://blog.mollietaylor.com/2013/01/calculating-gini-coefficients-for.html" title="Permalink to Calculating Gini Coefficients for a Number of Locales at Once in R" rel="bookmark">Calculating Gini Coefficients for a Number of Locales at Once in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>The <a href="http://en.wikipedia.org/wiki/Gini_coefficient">Gini coefficient</a> is a measure of the inequality of a distribution, most commonly used to compare inequality in income or wealth among countries.</p>
@@ -346,7 +346,7 @@ ggplot<span class="p">(</span>cities<span class="p">,</span>
 </pre></div>
 
 
-<p><img alt="Histogram of each city's incomes // Your results will differ if using random data" src="/images/r-gini-hist.png" /></p>
+<p><img alt="Histogram of each city's incomes // Your results will differ if using random data" src="http://blog.mollietaylor.com/images/r-gini-hist.png" /></p>
 <p>The Gini coefficient is easy enough to calculate in R for a single locale using the <code>gini</code> function from the <strong>reldist</strong> package.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>reldist<span class="p">)</span>
 gini<span class="p">(</span>cities<span class="p">[</span><span class="kp">which</span><span class="p">(</span>cities<span class="o">$</span>city <span class="o">==</span> <span class="s">&quot;A&quot;</span><span class="p">),</span> <span class="p">]</span><span class="o">$</span>income<span class="p">)</span>
@@ -390,17 +390,17 @@ gini<span class="p">(</span>cities<span class="p">[</span><span class="kp">which
 </ul>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/aggregate.html" rel="tag">aggregate</a>,  <a href="/tag/analysis.html" rel="tag">analysis</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gini.html" rel="tag">gini</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/reldist.html" rel="tag">reldist</a>,  <a href="/tag/sample.html" rel="tag">sample</a>,  <a href="/tag/stat_density.html" rel="tag">stat_density</a>,  <a href="/tag/writecsv.html" rel="tag">write.csv</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/aggregate.html" rel="tag">aggregate</a>,  <a href="http://blog.mollietaylor.com/tag/analysis.html" rel="tag">analysis</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gini.html" rel="tag">gini</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/reldist.html" rel="tag">reldist</a>,  <a href="http://blog.mollietaylor.com/tag/sample.html" rel="tag">sample</a>,  <a href="http://blog.mollietaylor.com/tag/stat_density.html" rel="tag">stat_density</a>,  <a href="http://blog.mollietaylor.com/tag/writecsv.html" rel="tag">write.csv</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/01/stacked-bar-charts-in-r.html">Thu 10 January 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/01/stacked-bar-charts-in-r.html">Thu 10 January 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/01/stacked-bar-charts-in-r.html" title="Permalink to Stacked Bar Charts in R" rel="bookmark">Stacked Bar Charts in R</a>
+			<a href="http://blog.mollietaylor.com/2013/01/stacked-bar-charts-in-r.html" title="Permalink to Stacked Bar Charts in R" rel="bookmark">Stacked Bar Charts in R</a>
 		</h2>
 		<div class="entry-content">
 			<h2>Reshape Wide to Long</h2>
@@ -467,7 +467,7 @@ legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><spa
 </pre></div>
 
 
-<p><img alt="Stacked bar chart" src="/images/r-stacked-bars.png" /></p>
+<p><img alt="Stacked bar chart" src="http://blog.mollietaylor.com/images/r-stacked-bars.png" /></p>
 <p>If you decide you'd rather have clustered bars instead of stacked bars, you can just add the option <code>beside = TRUE</code> to the <code>barplot</code>.</p>
 <p>The full code is available in a <a href="https://gist.github.com/4263515">gist</a>.</p>
 <h2>Citations and Further Reading</h2>
@@ -484,30 +484,30 @@ legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><spa
 </ul>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/barplot.html" rel="tag">barplot</a>,  <a href="/tag/datasets.html" rel="tag">datasets</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/barplot.html" rel="tag">barplot</a>,  <a href="http://blog.mollietaylor.com/tag/datasets.html" rel="tag">datasets</a>,  <a href="http://blog.mollietaylor.com/tag/legend.html" rel="tag">legend</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-google-earth.html">Thu 20 December 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-google-earth.html">Thu 20 December 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/.html" title="View all posts in " rel="category tag"></a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/12/mapping-gps-tracks-in-google-earth.html" title="Permalink to Mapping GPS Tracks in Google Earth" rel="bookmark">Mapping GPS Tracks in Google Earth</a>
+			<a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-google-earth.html" title="Permalink to Mapping GPS Tracks in Google Earth" rel="bookmark">Mapping GPS Tracks in Google Earth</a>
 		</h2>
 		<div class="entry-content">
-			<p>Even though I find the <a href="/2012/12/mapping-gps-tracks-in-r.html">R solution</a> easier, I'm sure not everyone agrees with me, so here's the Google Earth way to import a bunch of GPS tracks and map them:</p>
+			<p>Even though I find the <a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">R solution</a> easier, I'm sure not everyone agrees with me, so here's the Google Earth way to import a bunch of GPS tracks and map them:</p>
 <h2>Export to TCX</h2>
 <p>From inside Garmin Training Center or other GPS device software, export a huge TCX file with all your tracks.</p>
 <h2>Mapping in Google Earth</h2>
-<p><img alt="Opening your TCX file" class="size-auto" src="/images/earth-gpx-open.png" /></p>
+<p><img alt="Opening your TCX file" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-open.png" /></p>
 <p>Select File -&gt; Open. Change the dropbox for "Files of type" to "Gps", and then find your file and open it. Make sure the "Create KML LineStrings" box is checked and the "Create KML Tracks" box is unchecked. This will save us some work later.</p>
-<p><img alt="Import settings" class="size-auto" src="/images/earth-gpx-import.png" /></p>
+<p><img alt="Import settings" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-import.png" /></p>
 <p>Next, zoom in, zoom out, and recenter as desired. If you want North to be up, you can click the "N" in the compass in the upper right. </p>
 <p>In the layers (bottom left), I personally like to check Roads and uncheck everything else.</p>
 <p>In the places (just above layers), right click "GPS device" and select "Properties". Click over to the "Style, Color" tab, and then click "Share Style".</p>
-<p><img alt="Share style" class="size-auto" src="/images/earth-gpx-style.png" /></p>
+<p><img alt="Share style" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-style.png" /></p>
 <p>I like to use the following settings:</p>
 <p>Lines:</p>
 <ul>
@@ -523,27 +523,27 @@ legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><spa
 <ul>
 <li>Opacity: 0%</li>
 </ul>
-<p><img alt="Example style and color settings" class="size-auto" src="/images/earth-gpx-settings.png" /></p>
+<p><img alt="Example style and color settings" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-settings.png" /></p>
 <p>Make sure you've selected all the dates you want on the date slider. Then you can select "Print" to export to a PDF, or you can take a screenshot.</p>
-<p><img alt="Export image" class="size-auto" src="/images/earth-gpx-export.png" /></p>
-<p><img alt="Date slider and final map" class="size-auto" src="/images/earth-gpx-final.png" /></p>
+<p><img alt="Export image" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-export.png" /></p>
+<p><img alt="Date slider and final map" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-final.png" /></p>
 <p>And that's all there is to it. Large maps may take a long time to load and edit.</p>
 <blockquote>
 <p>This post is one part of <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html">my series on Mapping GPS Tracks</a>.</p>
 </blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/google-earth.html" rel="tag">Google Earth</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/google-earth.html" rel="tag">Google Earth</a>,  <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/12/mapping-gps-tracks-in-r.html">Thu 13 December 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">Thu 13 December 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/12/mapping-gps-tracks-in-r.html" title="Permalink to Mapping GPS Tracks in R" rel="bookmark">Mapping GPS Tracks in R</a>
+			<a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html" title="Permalink to Mapping GPS Tracks in R" rel="bookmark">Mapping GPS Tracks in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>This is an explanation of how I used R to combine all my GPS cycling tracks from my Garmin Forerunner 305.</p>
@@ -587,8 +587,8 @@ Finally we want to map our GPS data. There are several <a href="http://www.endme
 </pre></div>
 
 
-<p><img alt="All my metro Atlanta bike rides" src="/images/r-gps-tracks.png" /></p>
-<p>Previously, I've used Google Earth to create these maps, but I actually found it to be easier and way less time and resource efficient to do it in R. The only tricky part was converting the data into .csv, and there are <a href="http://www.gpsvisualizer.com/convert_input?convert_output=gpx">other ways</a> to do that, if GPSBabel isn't working for you. You might also be interested in trying <a href="/2012/12/mapping-gps-tracks-in-google-earth.html">Google Earth</a> for mapping your tracks, instead of R.</p>
+<p><img alt="All my metro Atlanta bike rides" src="http://blog.mollietaylor.com/images/r-gps-tracks.png" /></p>
+<p>Previously, I've used Google Earth to create these maps, but I actually found it to be easier and way less time and resource efficient to do it in R. The only tricky part was converting the data into .csv, and there are <a href="http://www.gpsvisualizer.com/convert_input?convert_output=gpx">other ways</a> to do that, if GPSBabel isn't working for you. You might also be interested in trying <a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-google-earth.html">Google Earth</a> for mapping your tracks, instead of R.</p>
 <p><a href="https://gist.github.com/4210660">Here's the gist</a> with the code.</p>
 <blockquote>
 <p>This post is one part of <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html">my series on Mapping GPS Tracks</a>.</p>
@@ -603,17 +603,17 @@ Finally we want to map our GPS data. There are several <a href="http://www.endme
 <p>pch = 20)</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="/tag/gpsbabel.html" rel="tag">GPSBabel</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="http://blog.mollietaylor.com/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="http://blog.mollietaylor.com/tag/gpsbabel.html" rel="tag">GPSBabel</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/12/workflowy-or-how-i-organize-everything.html">Thu 06 December 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/.html" title="View all posts in " rel="category tag"></a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/12/workflowy-or-how-i-organize-everything.html">Thu 06 December 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/.html" title="View all posts in " rel="category tag"></a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/12/workflowy-or-how-i-organize-everything.html" title="Permalink to WorkFlowy (or How I Organize Everything)" rel="bookmark">WorkFlowy (or How I Organize Everything)</a>
+			<a href="http://blog.mollietaylor.com/2012/12/workflowy-or-how-i-organize-everything.html" title="Permalink to WorkFlowy (or How I Organize Everything)" rel="bookmark">WorkFlowy (or How I Organize Everything)</a>
 		</h2>
 		<div class="entry-content">
 			<p>Being organized is crucial to doing a PhD.</p>
@@ -624,16 +624,16 @@ Finally we want to map our GPS data. There are several <a href="http://www.endme
 <h2>How I use WorkFlowy</h2>
 <h3>To-do list</h3>
 <p>For my to-do list, I have one list for each week and then one list inside that for each day. It's easy to move stuff from day to day. When I finish items, I check them off.</p>
-<p><img alt="Daily" src="/images/workflowy-daily.png" /></p>
+<p><img alt="Daily" src="http://blog.mollietaylor.com/images/workflowy-daily.png" /></p>
 <p>When I'm finished with a week, I move it to a completed list at the bottom of my WorkFlowy. Since I mark off items as I finish them instead of deleting them, this gives me a quick way to look through and see what I've accomplished in the past week. This is helpful for self-assessment and for preparing for meetings with committee members.</p>
-<p><img alt="Completed" src="/images/workflowy-completed.png" /></p>
+<p><img alt="Completed" src="http://blog.mollietaylor.com/images/workflowy-completed.png" /></p>
 <p>You can also get WorkFlowy to send you a daily email with summaries of your changes.</p>
-<p><img alt="Settings" src="/images/workflowy-settings.png" /></p>
+<p><img alt="Settings" src="http://blog.mollietaylor.com/images/workflowy-settings.png" /></p>
 <h3>Organizing papers</h3>
 <p>I tend toward being an excessive outliner. I outline my papers or sections of papers down to the paragraph or even sentence level before I write them. Some people prefer the edit-and-edit-again route, but I've found that outlining works better for me, personally.</p>
 <p>In the preliminary stages of a paper, I use WorkFlowy for my outlines.</p>
 <p>I have one list for each paper I have planned. Inside each list, I include things like a summary of the paper, research questions, hypotheses, possible data sources, variables, literature citations, possible cases to analyze, and a to-do list of things I need to remember to do.</p>
-<p><img alt="Papers" src="/images/workflowy-paper-list.png" /></p>
+<p><img alt="Papers" src="http://blog.mollietaylor.com/images/workflowy-paper-list.png" /></p>
 <h2>Other features</h2>
 <h3>Sharing</h3>
 <p>WorkFlowy lists can also be shared and used for collaboration. Free accounts can share through links that are accessible to anyone using the link. This link feature can either allow other people to edit the list or only view it. Paid accounts can also share privately to email addresses, with login required to view or edit.</p>
@@ -641,17 +641,17 @@ Finally we want to map our GPS data. There are several <a href="http://www.endme
 <p>Paid accounts can have automatic backup to Dropbox. Any user can export manually as text at any time.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/organization.html" rel="tag">organization</a>,  <a href="/tag/workflowy.html" rel="tag">WorkFlowy</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/organization.html" rel="tag">organization</a>,  <a href="http://blog.mollietaylor.com/tag/workflowy.html" rel="tag">WorkFlowy</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/11/sorting-within-lattice-graphics-in-r.html">Thu 29 November 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/11/sorting-within-lattice-graphics-in-r.html">Thu 29 November 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/11/sorting-within-lattice-graphics-in-r.html" title="Permalink to Sorting Within Lattice Graphics in R" rel="bookmark">Sorting Within Lattice Graphics in R</a>
+			<a href="http://blog.mollietaylor.com/2012/11/sorting-within-lattice-graphics-in-r.html" title="Permalink to Sorting Within Lattice Graphics in R" rel="bookmark">Sorting Within Lattice Graphics in R</a>
 		</h2>
 		<div class="entry-content">
 			<h2>Default</h2>
@@ -667,7 +667,7 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 
 
 <p>produces:</p>
-<p><img alt="Default lattice dotplot" src="/images/r-lattice-default.png" /></p>
+<p><img alt="Default lattice dotplot" src="http://blog.mollietaylor.com/images/r-lattice-default.png" /></p>
 <p>(Note: The <code>rownames(cars)</code> bit is just because of how this data set is stored. For your data, you might just type the variable name (<code>model</code>, for example) instead.)</p>
 <h2>Graphing one variable, sorting by another</h2>
 <p>If we want to show the same data, but we want to sort by another variable (or the same variable, for that matter), we can just add <code>reorder(yvar, sortvar)</code>. For example, to sort by the number of cylinders, we could:</p>
@@ -677,7 +677,7 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 </pre></div>
 
 
-<p><img alt="Sorted by number of cylinders" src="/images/r-lattice-by-cyl.png" /></p>
+<p><img alt="Sorted by number of cylinders" src="http://blog.mollietaylor.com/images/r-lattice-by-cyl.png" /></p>
 <h2>Graphing two variables</h2>
 <p>To better show how this works, let's graph <code>cyl</code> alongside <code>mpg</code>, so we can see how it is sorting:</p>
 <div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
@@ -688,7 +688,7 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 </pre></div>
 
 
-<p><img alt="Graph of mpg and cyl, sorted by cyl" src="/images/r-lattice-mpg-cyl.png" /></p>
+<p><img alt="Graph of mpg and cyl, sorted by cyl" src="http://blog.mollietaylor.com/images/r-lattice-mpg-cyl.png" /></p>
 <h2>Reverse order</h2>
 <p>We can also sort in reverse order, by adding a "-" before the variable name:</p>
 <div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
@@ -698,7 +698,7 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 </pre></div>
 
 
-<p><img alt="Graph of mpg and cyl, sorted by cyl, reversed" src="/images/r-lattice-mpg-cyl-reverse.png" /></p>
+<p><img alt="Graph of mpg and cyl, sorted by cyl, reversed" src="http://blog.mollietaylor.com/images/r-lattice-mpg-cyl-reverse.png" /></p>
 <h2>Adding a legend</h2>
 <p>We can also add a legend:</p>
 <div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
@@ -712,20 +712,20 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 </pre></div>
 
 
-<p><img alt="With legend" src="/images/r-lattice-legend.png" /></p>
+<p><img alt="With legend" src="http://blog.mollietaylor.com/images/r-lattice-legend.png" /></p>
 <h2>Other lattice types</h2>
 <p>The same technique will work with other lattice graphs, such as barchart, bwplot, and stripplot.</p>
 <p>Full code available as a <a href="https://gist.github.com/4063837">gist</a>.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/barchart.html" rel="tag">barchart</a>,  <a href="/tag/dotplot.html" rel="tag">dotplot</a>,  <a href="/tag/key.html" rel="tag">key</a>,  <a href="/tag/lattice.html" rel="tag">lattice</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/reorder.html" rel="tag">reorder</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/barchart.html" rel="tag">barchart</a>,  <a href="http://blog.mollietaylor.com/tag/dotplot.html" rel="tag">dotplot</a>,  <a href="http://blog.mollietaylor.com/tag/key.html" rel="tag">key</a>,  <a href="http://blog.mollietaylor.com/tag/lattice.html" rel="tag">lattice</a>,  <a href="http://blog.mollietaylor.com/tag/legend.html" rel="tag">legend</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/reorder.html" rel="tag">reorder</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">
-				<a href="/index3.html">
+				<a href="http://blog.mollietaylor.com/index3.html">
 			<span class="meta-nav">&larr;</span> Newer posts</a>
 		</div>		
-		<div class="nav-next"><a href="/index5.html" >Older posts <span class="meta-nav">&rarr;</span></a></div>
+		<div class="nav-next"><a href="http://blog.mollietaylor.com/index5.html" >Older posts <span class="meta-nav">&rarr;</span></a></div>
 </div>
 		</div>
 		

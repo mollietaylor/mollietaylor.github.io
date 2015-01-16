@@ -4,31 +4,31 @@
 		<title>Maps & Apps &mdash; Articles tagged ggplot2</title>
 		<meta charset="utf-8" />
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
 		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
 		<style type="text/css">
 			body.custom-background { background-color: #f5f5f5; }
 		</style>
 		<link rel="alternate" type="application/atom+xml"
 			title="Maps & Apps — Flux Atom"
-			href="/" /> 
-		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
 </head>
 
 <body class="home blog custom-background " >
 	<div id="container">
 		<div id="header">
-				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
 		</div><!-- /#banner -->
 		
 		<div id="menu">
 			<div class="menu-navigation-container">
 				<ul id="menu-navigation" class="menu">
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/pages/about/index.html">About Mollie</a></li>
-						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
 			</div> <!--/#menu-navigation-container-->
@@ -43,13 +43,13 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html">Thu 13 February 2014</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html">Thu 13 February 2014</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html" title="Permalink to ggplot Fit Line and Lattice Fit Line in R" rel="bookmark">ggplot Fit Line and Lattice Fit Line in R</a>
+			<a href="http://blog.mollietaylor.com/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html" title="Permalink to ggplot Fit Line and Lattice Fit Line in R" rel="bookmark">ggplot Fit Line and Lattice Fit Line in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Let's add a fit line to a scatterplot!</p>
@@ -66,7 +66,7 @@ abline<span class="p">(</span>ols
 </pre></div>
 
 
-<p><img alt="Fit line in base graphics in R" src="/images/ggplot-fit-line-base.png" /></p>
+<p><img alt="Fit line in base graphics in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-base.png" /></p>
 <h2>Fit Line in ggplot</h2>
 <p>And here's how to do it in <strong>ggplot</strong>:</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
@@ -88,7 +88,7 @@ ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span clas
 </pre></div>
 
 
-<p><img alt="Fit line in ggplot in R" src="/images/ggplot-fit-line-ggplot.png" /></p>
+<p><img alt="Fit line in ggplot in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-ggplot.png" /></p>
 <h2>Fit Line in Lattice</h2>
 <p>In <strong>lattice</strong>, it's even easier. You don't even need to run a regression; you can just add to the <code>type</code> option.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span>
@@ -99,7 +99,7 @@ xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="
 </pre></div>
 
 
-<p><img alt="Fit Line in Lattice in R" src="/images/ggplot-fit-line-lattice.png" /></p>
+<p><img alt="Fit Line in Lattice in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-lattice.png" /></p>
 <p>The code is available in <a href="https://gist.github.com/mollietaylor/8203926">a gist</a>.</p>
 <h2>References</h2>
 <ul>
@@ -107,21 +107,21 @@ xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="
 </ul>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/geom_abline.html" rel="tag">geom_abline</a>,  <a href="/tag/geom_smooth.html" rel="tag">geom_smooth</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/lattice.html" rel="tag">lattice</a>,  <a href="/tag/lm.html" rel="tag">lm</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/type.html" rel="tag">type</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/geom_abline.html" rel="tag">geom_abline</a>,  <a href="http://blog.mollietaylor.com/tag/geom_smooth.html" rel="tag">geom_smooth</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/lattice.html" rel="tag">lattice</a>,  <a href="http://blog.mollietaylor.com/tag/lm.html" rel="tag">lm</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/type.html" rel="tag">type</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/10/table-as-image-in-r.html">Thu 24 October 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/10/table-as-image-in-r.html">Thu 24 October 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/10/table-as-image-in-r.html" title="Permalink to Table as an Image in R" rel="bookmark">Table as an Image in R</a>
+			<a href="http://blog.mollietaylor.com/2013/10/table-as-image-in-r.html" title="Permalink to Table as an Image in R" rel="bookmark">Table as an Image in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Usually, it's best to keep tables as text, but if you're making a lot of graphics, it can be helpful to be able to create images of tables.</p>
-<p><img alt="PNG table" src="/images/r-table-image.png" /></p>
+<p><img alt="PNG table" src="http://blog.mollietaylor.com/images/r-table-image.png" /></p>
 <h2>Creating the Table</h2>
 <p>After loading the data, let's first use <a href="http://www.mollietaylor.com/2013/10/line-breaks-between-words-in-axis.html">this trick</a> to put line breaks between the levels of the effect variable. Depending on your data, you may or may not need or want to do this.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
@@ -156,23 +156,23 @@ grid.table<span class="p">(</span>xyTable<span class="p">,</span>
 </ul>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gridextra.html" rel="tag">gridExtra</a>,  <a href="/tag/qplot.html" rel="tag">qplot</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/table.html" rel="tag">table</a>,  <a href="/tag/tablegrob.html" rel="tag">tableGrob</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gridextra.html" rel="tag">gridExtra</a>,  <a href="http://blog.mollietaylor.com/tag/qplot.html" rel="tag">qplot</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/table.html" rel="tag">table</a>,  <a href="http://blog.mollietaylor.com/tag/tablegrob.html" rel="tag">tableGrob</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/10/line-breaks-between-words-in-axis.html">Thu 17 October 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/10/line-breaks-between-words-in-axis.html">Thu 17 October 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/10/line-breaks-between-words-in-axis.html" title="Permalink to Line Breaks Between Words in Axis Labels in ggplot in R" rel="bookmark">Line Breaks Between Words in Axis Labels in ggplot in R</a>
+			<a href="http://blog.mollietaylor.com/2013/10/line-breaks-between-words-in-axis.html" title="Permalink to Line Breaks Between Words in Axis Labels in ggplot in R" rel="bookmark">Line Breaks Between Words in Axis Labels in ggplot in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Sometimes when plotting factor variables in R, the graphics can look pretty messy thanks to long factor levels. If the level attributes have multiple words, there is an easy fix to this that often makes the axis labels look much cleaner.</p>
 <h2>Without Line Breaks</h2>
 <p>Here's the messy looking example:</p>
-<p><img alt="No line breaks in axis labels" src="/images/line-breaks-none.png" /></p>
+<p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-none.png" /></p>
 <p>And here's the code for the messy looking example:</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
 data<span class="p">(</span>birds<span class="p">)</span>
@@ -199,12 +199,12 @@ geom_boxplot<span class="p">()</span>
 </pre></div>
 
 
-<p><img alt="Line breaks in axis labels" src="/images/line-breaks.png" /></p>
+<p><img alt="Line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks.png" /></p>
 <p>Just one line made the plot look much better, and it will carry over to other plots you make as well. For example, you could <a href="http://www.mollietaylor.com/2013/10/table-as-image-in-r.html">create a table with the same variable</a>.</p>
 <h2>Horizontal Boxes</h2>
 <p>Here we can see the difference in a box plot with horizontal boxes. It's up to you to decide which style looks better:</p>
-<p><img alt="No line breaks in axis labels" src="/images/line-breaks-flip-none.png" /></p>
-<p><img alt="Line breaks in axis labels" src="/images/line-breaks-flip.png" /></p>
+<p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip-none.png" /></p>
+<p><img alt="Line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip.png" /></p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
 data<span class="p">(</span>birds<span class="p">)</span>
 <span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
@@ -231,17 +231,17 @@ coord_flip<span class="p">()</span>
 </blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/abline.html" rel="tag">abline</a>,  <a href="/tag/coord_flip.html" rel="tag">coord_flip</a>,  <a href="/tag/geom_boxplot.html" rel="tag">geom_boxplot</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gsub.html" rel="tag">gsub</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/regular-expressions.html" rel="tag">regular expressions</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/abline.html" rel="tag">abline</a>,  <a href="http://blog.mollietaylor.com/tag/coord_flip.html" rel="tag">coord_flip</a>,  <a href="http://blog.mollietaylor.com/tag/geom_boxplot.html" rel="tag">geom_boxplot</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gsub.html" rel="tag">gsub</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/regular-expressions.html" rel="tag">regular expressions</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/08/plot-weekly-or-monthly-totals-in-r.html">Thu 29 August 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/08/plot-weekly-or-monthly-totals-in-r.html">Thu 29 August 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/08/plot-weekly-or-monthly-totals-in-r.html" title="Permalink to Plot Weekly or Monthly Totals in R" rel="bookmark">Plot Weekly or Monthly Totals in R</a>
+			<a href="http://blog.mollietaylor.com/2013/08/plot-weekly-or-monthly-totals-in-r.html" title="Permalink to Plot Weekly or Monthly Totals in R" rel="bookmark">Plot Weekly or Monthly Totals in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>When plotting time series data, you might want to bin the values so that each data point corresponds to the sum for a given month or week. This post will show an easy way to use <code>cut</code> and <strong>ggplot2</strong>'s <code>stat_summary</code> to plot month totals in R without needing to reorganize the data into a second data frame.</p>
@@ -274,7 +274,7 @@ str<span class="p">(</span><span class="kp">log</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Next, if the date data is not already in a date format, we'll need to <a href="/2013/08/date-formats-in-r.html">convert it to date format</a>:</p>
+<p>Next, if the date data is not already in a date format, we'll need to <a href="http://blog.mollietaylor.com/2013/08/date-formats-in-r.html">convert it to date format</a>:</p>
 <div class="highlight"><pre><span class="c1"># convert date variable from factor to date format:</span>
 <span class="kp">log</span><span class="o">$</span>Date <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">log</span><span class="o">$</span>Date<span class="p">,</span>
     <span class="s">&quot;%Y/%m/%d&quot;</span><span class="p">)</span> <span class="c1"># tabulate all the options here</span>
@@ -322,7 +322,7 @@ ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log
 </pre></div>
 
 
-<p><img alt="Time series plot, binned by month" src="/images/plot-monthly-total.png" /></p>
+<p><img alt="Time series plot, binned by month" src="http://blog.mollietaylor.com/images/plot-monthly-total.png" /></p>
 <div class="highlight"><pre><span class="c1"># graph by week:</span>
 ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log</span><span class="p">,</span>
     aes<span class="p">(</span>Week<span class="p">,</span> Quantity<span class="p">))</span> <span class="o">+</span>
@@ -334,7 +334,7 @@ ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log
 </pre></div>
 
 
-<p><img alt="Time series plot, totaled by week" src="/images/plot-weekly-total.png" /></p>
+<p><img alt="Time series plot, totaled by week" src="http://blog.mollietaylor.com/images/plot-weekly-total.png" /></p>
 <p>The full code is available in a <a href="https://gist.github.com/mollietaylor/5846843">gist</a>.</p>
 <blockquote>
 <p>In a <a href="mollietaylor.blogspot.com/2013/08/plot-weekly-or-monthly-totals-in-r.html">comment</a>, Achim Zeileis pointed out that the aggregation part can be more easily handled using time series packages like <strong>zoo</strong> or <strong>xts</strong>.</p>
@@ -345,22 +345,22 @@ ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log
 </ul>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/asdate.html" rel="tag">as.Date</a>,  <a href="/tag/cut.html" rel="tag">cut</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/scale_x_date.html" rel="tag">scale_x_date</a>,  <a href="/tag/scales.html" rel="tag">scales</a>,  <a href="/tag/stat_summary.html" rel="tag">stat_summary</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/asdate.html" rel="tag">as.Date</a>,  <a href="http://blog.mollietaylor.com/tag/cut.html" rel="tag">cut</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/scale_x_date.html" rel="tag">scale_x_date</a>,  <a href="http://blog.mollietaylor.com/tag/scales.html" rel="tag">scales</a>,  <a href="http://blog.mollietaylor.com/tag/stat_summary.html" rel="tag">stat_summary</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/03/geompoint-legend-with-custom-colors-in.html">Thu 07 March 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/03/geompoint-legend-with-custom-colors-in.html">Thu 07 March 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/03/geompoint-legend-with-custom-colors-in.html" title="Permalink to geom_point Legend with Custom Colors in ggplot" rel="bookmark">geom_point Legend with Custom Colors in ggplot</a>
+			<a href="http://blog.mollietaylor.com/2013/03/geompoint-legend-with-custom-colors-in.html" title="Permalink to geom_point Legend with Custom Colors in ggplot" rel="bookmark">geom_point Legend with Custom Colors in ggplot</a>
 		</h2>
 		<div class="entry-content">
-			<p>Formerly, I showed <a href="/2013/01/using-line-segments-to-compare-values.html">how to make line segments using ggplot</a>.</p>
+			<p>Formerly, I showed <a href="http://blog.mollietaylor.com/2013/01/using-line-segments-to-compare-values.html">how to make line segments using ggplot</a>.</p>
 <p>Working from that previous example, there are only a few things we need to change to add custom colors to our plot and legend in <strong>ggplot</strong>.</p>
-<p>First, we'll add the colors of our choice. I'll do this using RColorBrewer, but you can choose <a href="/2012/10/palettes-in-r.html">whatever method you'd like</a>.</p>
+<p>First, we'll add the colors of our choice. I'll do this using RColorBrewer, but you can choose <a href="http://blog.mollietaylor.com/2012/10/palettes-in-r.html">whatever method you'd like</a>.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
 colors <span class="o">=</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
 </pre></div>
@@ -402,21 +402,21 @@ theme<span class="p">(</span>legend.position <span class="o">=</span> <span clas
 
 
 <p>And here's our final plot, complete with whatever custom colors we've chosen in both the plot and legend:</p>
-<p><img alt="geom_point in ggplot with custom colors in the graph and legend" src="/images/ggplot-custom-legend.png" /></p>
+<p><img alt="geom_point in ggplot with custom colors in the graph and legend" src="http://blog.mollietaylor.com/images/ggplot-custom-legend.png" /></p>
 <p>I've updated the <a href="https://gist.github.com/mollietaylor/4543148#file-customlegend-r">gist</a> from the previous post to also include a file that has custom colors.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="/tag/scale_color_manual.html" rel="tag">scale_color_manual</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="http://blog.mollietaylor.com/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="http://blog.mollietaylor.com/tag/scale_color_manual.html" rel="tag">scale_color_manual</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/02/elevation-profiles-in-r.html">Thu 21 February 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/02/elevation-profiles-in-r.html">Thu 21 February 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/02/elevation-profiles-in-r.html" title="Permalink to Elevation Profiles in R" rel="bookmark">Elevation Profiles in R</a>
+			<a href="http://blog.mollietaylor.com/2013/02/elevation-profiles-in-r.html" title="Permalink to Elevation Profiles in R" rel="bookmark">Elevation Profiles in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>First, let's load up our data. <a href="https://gist.github.com/mollietaylor/4969793">The data are available in a gist</a>. You can convert your own GPS data to .csv by following the instructions <a href="http://www.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">here, using gpsbabel</a>.</p>
@@ -466,21 +466,21 @@ scale_y_continuous<span class="p">(</span>limits <span class="o">=</span> <span 
 </pre></div>
 
 
-<p><img alt="Elevation profile in ggplot2" class="size-auto" src="/images/r-elevation.png" /></p>
+<p><img alt="Elevation profile in ggplot2" class="size-auto" src="http://blog.mollietaylor.com/images/r-elevation.png" /></p>
 <p><a href="https://gist.github.com/mollietaylor/4969793">Code and data available in a gist</a>.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/geom_ribbon.html" rel="tag">geom_ribbon</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gps.html" rel="tag">gps</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/sma.html" rel="tag">SMA</a>,  <a href="/tag/sp.html" rel="tag">sp</a>,  <a href="/tag/spdistsn1.html" rel="tag">spDistsN1</a>,  <a href="/tag/ttr.html" rel="tag">TTR</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/geom_ribbon.html" rel="tag">geom_ribbon</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gps.html" rel="tag">gps</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/sma.html" rel="tag">SMA</a>,  <a href="http://blog.mollietaylor.com/tag/sp.html" rel="tag">sp</a>,  <a href="http://blog.mollietaylor.com/tag/spdistsn1.html" rel="tag">spDistsN1</a>,  <a href="http://blog.mollietaylor.com/tag/ttr.html" rel="tag">TTR</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/01/using-line-segments-to-compare-values.html">Thu 31 January 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/01/using-line-segments-to-compare-values.html">Thu 31 January 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/01/using-line-segments-to-compare-values.html" title="Permalink to Using Line Segments to Compare Values in R" rel="bookmark">Using Line Segments to Compare Values in R</a>
+			<a href="http://blog.mollietaylor.com/2013/01/using-line-segments-to-compare-values.html" title="Permalink to Using Line Segments to Compare Values in R" rel="bookmark">Using Line Segments to Compare Values in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Sometimes you want to create a graph that will allow the viewer to see in one glance:</p>
@@ -540,7 +540,7 @@ theme<span class="p">(</span>legend.position <span class="o">=</span> <span clas
 </pre></div>
 
 
-<p><img alt="geom_segment, then geom_point" src="/images/r-line-segments.png" /></p>
+<p><img alt="geom_segment, then geom_point" src="http://blog.mollietaylor.com/images/r-line-segments.png" /></p>
 <p>The order of <code>geom_segment</code> and the <code>geom_points</code> matters. The first <code>geom</code> line in the code will get plotted first. Therefore, if you want the points displayed over the segments, put the segments first in the code. Likewise, if you want the segments displayed over the points, put the points first in the code.</p>
 <p>For example, we could change the middle section of the code to:</p>
 <div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
@@ -559,22 +559,22 @@ geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o"
 
 
 <p>And the output would look like:</p>
-<p><img alt="geom_point, then geom_segment" src="/images/r-line-segments.png" /></p>
+<p><img alt="geom_point, then geom_segment" src="http://blog.mollietaylor.com/images/r-line-segments.png" /></p>
 <p>Similarly, if you have points that will be overlapping, make sure you think about which of the point lines you want R to plot first.</p>
 <p>The code is available in a <a href="https://gist.github.com/4543148">gist</a>.</p>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/datasets.html" rel="tag">datasets</a>,  <a href="/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/legend.html" rel="tag">legend</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/datasets.html" rel="tag">datasets</a>,  <a href="http://blog.mollietaylor.com/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="http://blog.mollietaylor.com/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/legend.html" rel="tag">legend</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2013/01/calculating-gini-coefficients-for.html">Thu 17 January 2013</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/01/calculating-gini-coefficients-for.html">Thu 17 January 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2013/01/calculating-gini-coefficients-for.html" title="Permalink to Calculating Gini Coefficients for a Number of Locales at Once in R" rel="bookmark">Calculating Gini Coefficients for a Number of Locales at Once in R</a>
+			<a href="http://blog.mollietaylor.com/2013/01/calculating-gini-coefficients-for.html" title="Permalink to Calculating Gini Coefficients for a Number of Locales at Once in R" rel="bookmark">Calculating Gini Coefficients for a Number of Locales at Once in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>The <a href="http://en.wikipedia.org/wiki/Gini_coefficient">Gini coefficient</a> is a measure of the inequality of a distribution, most commonly used to compare inequality in income or wealth among countries.</p>
@@ -597,7 +597,7 @@ ggplot<span class="p">(</span>cities<span class="p">,</span>
 </pre></div>
 
 
-<p><img alt="Histogram of each city's incomes // Your results will differ if using random data" src="/images/r-gini-hist.png" /></p>
+<p><img alt="Histogram of each city's incomes // Your results will differ if using random data" src="http://blog.mollietaylor.com/images/r-gini-hist.png" /></p>
 <p>The Gini coefficient is easy enough to calculate in R for a single locale using the <code>gini</code> function from the <strong>reldist</strong> package.</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>reldist<span class="p">)</span>
 gini<span class="p">(</span>cities<span class="p">[</span><span class="kp">which</span><span class="p">(</span>cities<span class="o">$</span>city <span class="o">==</span> <span class="s">&quot;A&quot;</span><span class="p">),</span> <span class="p">]</span><span class="o">$</span>income<span class="p">)</span>
@@ -641,7 +641,7 @@ gini<span class="p">(</span>cities<span class="p">[</span><span class="kp">which
 </ul>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/aggregate.html" rel="tag">aggregate</a>,  <a href="/tag/analysis.html" rel="tag">analysis</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gini.html" rel="tag">gini</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/reldist.html" rel="tag">reldist</a>,  <a href="/tag/sample.html" rel="tag">sample</a>,  <a href="/tag/stat_density.html" rel="tag">stat_density</a>,  <a href="/tag/writecsv.html" rel="tag">write.csv</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/aggregate.html" rel="tag">aggregate</a>,  <a href="http://blog.mollietaylor.com/tag/analysis.html" rel="tag">analysis</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gini.html" rel="tag">gini</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/reldist.html" rel="tag">reldist</a>,  <a href="http://blog.mollietaylor.com/tag/sample.html" rel="tag">sample</a>,  <a href="http://blog.mollietaylor.com/tag/stat_density.html" rel="tag">stat_density</a>,  <a href="http://blog.mollietaylor.com/tag/writecsv.html" rel="tag">write.csv</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 </div>

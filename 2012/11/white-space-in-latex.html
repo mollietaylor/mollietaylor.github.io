@@ -4,31 +4,31 @@
 		<title>Maps & Apps &mdash; White Space in LaTeX</title>
 		<meta charset="utf-8" />
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
 		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
 		<style type="text/css">
 			body.custom-background { background-color: #f5f5f5; }
 		</style>
 		<link rel="alternate" type="application/atom+xml"
 			title="Maps & Apps — Flux Atom"
-			href="/" /> 
-		<!--[if lte IE 8]><script src="/theme/js/html5shiv.js"></script><![endif]-->
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
 </head>
 
 <body class="home blog custom-background " >
 	<div id="container">
 		<div id="header">
-				<h1 id="site-title"><a href="">Maps & Apps</a></h1>
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
 		</div><!-- /#banner -->
 		
 		<div id="menu">
 			<div class="menu-navigation-container">
 				<ul id="menu-navigation" class="menu">
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/pages/about/index.html">About Mollie</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
-						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
 			</div> <!--/#menu-navigation-container-->
@@ -41,26 +41,26 @@
 
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/2012/11/white-space-in-latex.html">Thu 08 November 2012</a></div>
-		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="/category/latex.html" title="View all posts in LaTeX" rel="category tag">LaTeX</a></span>
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/11/white-space-in-latex.html">Thu 08 November 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/latex.html" title="View all posts in LaTeX" rel="category tag">LaTeX</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/2012/11/white-space-in-latex.html" title="Permalink to White Space in LaTeX" rel="bookmark">White Space in LaTeX</a>
+			<a href="http://blog.mollietaylor.com/2012/11/white-space-in-latex.html" title="Permalink to White Space in LaTeX" rel="bookmark">White Space in LaTeX</a>
 		</h2>
 		<div class="entry-content">
 			<p>Extra spaces and line breaks in your source file are ignored. But there are several ways to force LaTeX to introduce white space to your documents.</p>
 <p>The most simple commands to insert a specific amount of white space into your document are \hspace and \vspace.</p>
-<p>To produce vertical space, use \vspace followed by the length of the space in brackets. This length can be represented in any <a href="/2012/11/units-in-latex.html">units</a> recognized by LaTeX, e.g. \vspace{2 in}. The space between the number and the unit is optional, so \vspace{2in} will also work.</p>
+<p>To produce vertical space, use \vspace followed by the length of the space in brackets. This length can be represented in any <a href="http://blog.mollietaylor.com/2012/11/units-in-latex.html">units</a> recognized by LaTeX, e.g. \vspace{2 in}. The space between the number and the unit is optional, so \vspace{2in} will also work.</p>
 <p>Similarly, you can use \hspace to insert horizontal space in your document, e.g., \hspace{2 in}.</p>
 <p>If \hspace and \vspace are not working as you would like (often at the beginning or end of a line or page), you can instead use \hspace<em> and \vspace</em>, which will force space to appear.</p>
 <p>If you want to put in as much blank space as possible (while still maintaining page margins, etc.), you can use \hfill and \vfill.</p>
 <p>Multiples of \vfill or \hfill on a particular page or in an environment will fill an even amount of the space. (E.g., if there are 6 inches to be filled and 3 \vfill's, each will take 2 inches.)</p>
 <h2>Horizontal</h2>
 <p>As well as \hspace{} and \hfill, there are some horizontal-specific commands for adding white space.</p>
-<p>\quad creates a space whose size is relative to the current font size and font face. \quad is equal to \hspace{<a href="/2012/11/units-in-latex.html">1em</a>}. There are other commands that make spaces of sizes relative to \quad:</p>
-<p><img alt="Horizontal space commands in LaTeX" src="/images/latex-quad.png" /></p>
+<p>\quad creates a space whose size is relative to the current font size and font face. \quad is equal to \hspace{<a href="http://blog.mollietaylor.com/2012/11/units-in-latex.html">1em</a>}. There are other commands that make spaces of sizes relative to \quad:</p>
+<p><img alt="Horizontal space commands in LaTeX" src="http://blog.mollietaylor.com/images/latex-quad.png" /></p>
 <h2>Vertical</h2>
 <p>Probably the most common white space command is <code>\\</code>. It is used to start a new paragraph.</p>
 <p>That's not the only way to tell LaTeX to break a line. Here are a number of ways to do that in different situations:</p>
@@ -94,7 +94,7 @@
 <li>\bigskip</li>
 </ul>
 <p>The sizes of \smallskip, \medskip, and \bigskip are determined by the documentclass.</p>
-<p><img alt="Example of skip sizes" src="/images/latex-small-skip.png" /></p>
+<p><img alt="Example of skip sizes" src="http://blog.mollietaylor.com/images/latex-small-skip.png" /></p>
 <p>There are also several kinds of ways to break a page, which sometimes creates white space:</p>
 <table>
 <thead>
@@ -132,7 +132,7 @@
 </ul>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
- <a href="/tag/latex.html" rel="tag">LaTeX</a>    		</span>
+ <a href="http://blog.mollietaylor.com/tag/latex.html" rel="tag">LaTeX</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post-->
 
