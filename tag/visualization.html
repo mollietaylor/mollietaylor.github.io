@@ -27,7 +27,6 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
 						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
 
@@ -157,6 +156,11 @@ coord_flip<span class="p">()</span>
 <ul>
 <li><a href="http://regex.learncodethehardway.org/">http://regex.learncodethehardway.org/</a></li>
 </ul>
+<blockquote>
+<p><a href="http://mollietaylor.blogspot.com/2013/10/line-breaks-between-words-in-axis.html?showComment=1382273496557#c3818712081785475594">In a comment, Jason Bryer mentioned</a> that you can also break the lines by using a set character width instead of breaking at every space. Here's the code he suggested:
+    :::r
+    sapply(strwrap(as.character(value), width=25, simplify=FALSE), paste, collapse="\n")</p>
+</blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/abline.html" rel="tag">abline</a>,  <a href="/tag/coord_flip.html" rel="tag">coord_flip</a>,  <a href="/tag/geom_boxplot.html" rel="tag">geom_boxplot</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gsub.html" rel="tag">gsub</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/regular-expressions.html" rel="tag">regular expressions</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
@@ -431,7 +435,10 @@ ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log
 
 
 <p><img alt="Time series plot, totaled by week" src="/images/plot-weekly-total.png" /></p>
-<p>The full code is available in a <a href="https://gist.github.com/mollietaylor/5846843">gist</a>. </p>
+<p>The full code is available in a <a href="https://gist.github.com/mollietaylor/5846843">gist</a>.</p>
+<blockquote>
+<p>In a <a href="mollietaylor.blogspot.com/2013/08/plot-weekly-or-monthly-totals-in-r.html">comment</a>, Achim Zeileis pointed out that the aggregation part can be more easily handled using time series packages like <strong>zoo</strong> or <strong>xts</strong>.</p>
+</blockquote>
 <h2>References</h2>
 <ul>
 <li><a href="http://stackoverflow.com/questions/3496536/barplot-totals-by-month-with-ggplot">http://stackoverflow.com/questions/3496536/barplot-totals-by-month-with-ggplot</a></li>

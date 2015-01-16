@@ -27,7 +27,6 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
 						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
 
@@ -246,6 +245,18 @@ fileNumbers <span class="o">&lt;-</span> <span class="kp">seq</span><span class=
 <p>In the above example, <code>data.frame</code> is used to create a new data row based on each data file. Then the append option of <code>write.table</code> is set to <code>TRUE</code> so that row can be added to the other rows created from other data files.</p>
 <p>Those are just a few examples of how you can use R to perform the same function(s) on a large number of files without having to manually run each one. I'm sure you can think of more uses.</p>
 <p>All the files are available <a href="https://github.com/mollietaylor/iterate-across-files">on GitHub</a>. You can see how eachFile.R, eachfile-newNames.R, and eachFile-append.R each do something different to the sample datasets.</p>
+<blockquote>
+<p><a href="http://mollietaylor.blogspot.com/2013/09/perform-function-on-each-file-in-r.html?showComment=1380279750603#c4308191719639677502">An anonymous commenter pointed out</a> that for big data files, he/she often uses:
+    :::r
+    setwd("my_working_directory_path")
+    dat &lt;- lapply(dir(pattern=".csv"), function(file) {
+    dat.i &lt;- read.csv(file)
+    # ... data formating, subsetting, ... 
+    return(dat.i)
+    } 
+    dat &lt;- do.call("rbind", dat)
+I haven't tested it, but it is likely this is more efficient than using <code>for</code> loops in R.</p>
+</blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/analysis.html" rel="tag">analysis</a>,  <a href="/tag/dataframe.html" rel="tag">data.frame</a>,  <a href="/tag/for.html" rel="tag">for</a>,  <a href="/tag/paste.html" rel="tag">paste</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/sub.html" rel="tag">sub</a>,  <a href="/tag/sysglob.html" rel="tag">Sys.glob</a>,  <a href="/tag/writetable.html" rel="tag">write.table</a>    		</span>
@@ -397,6 +408,9 @@ str<span class="p">(</span>largeData<span class="p">)</span>
 <li><a href="/2013/08/date-formats-in-r.html">Date Formats in R</a></li>
 <li><a href="http://stackoverflow.com/a/13022441">http://stackoverflow.com/a/13022441</a></li>
 </ul>
+<blockquote>
+<p>In a <a href="http://mollietaylor.blogspot.com/2013/09/using-colclasses-to-load-data-more.html?showComment=1378560018132#c2964058082964060072">comment</a>, Michael pointed out that if you don't need all the columns in your dataset, providing their <code>colClass</code> as <code>NULL</code> will exclude them from being loaded.</p>
+</blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/colclasses.html" rel="tag">colClasses</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/readcsv.html" rel="tag">read.csv</a>,  <a href="/tag/readtable.html" rel="tag">read.table</a>,  <a href="/tag/series-large-data.html" rel="tag">Series: Large Data</a>,  <a href="/tag/setup.html" rel="tag">setup</a>,  <a href="/tag/systemtime.html" rel="tag">system.time</a>    		</span>
@@ -503,7 +517,10 @@ ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log
 
 
 <p><img alt="Time series plot, totaled by week" src="/images/plot-weekly-total.png" /></p>
-<p>The full code is available in a <a href="https://gist.github.com/mollietaylor/5846843">gist</a>. </p>
+<p>The full code is available in a <a href="https://gist.github.com/mollietaylor/5846843">gist</a>.</p>
+<blockquote>
+<p>In a <a href="mollietaylor.blogspot.com/2013/08/plot-weekly-or-monthly-totals-in-r.html">comment</a>, Achim Zeileis pointed out that the aggregation part can be more easily handled using time series packages like <strong>zoo</strong> or <strong>xts</strong>.</p>
+</blockquote>
 <h2>References</h2>
 <ul>
 <li><a href="http://stackoverflow.com/questions/3496536/barplot-totals-by-month-with-ggplot">http://stackoverflow.com/questions/3496536/barplot-totals-by-month-with-ggplot</a></li>

@@ -27,7 +27,6 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/leaflet.html">Leaflet</a></li>
-						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/python.html">Python</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/category/r.html">R</a></li>
 						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://mollietaylor.com/">About Mollie Link Will Go Here</a></li>
 
@@ -130,13 +129,13 @@ dataCoords <span class="o">&lt;-</span> <span class="kp">merge</span><span class
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<div class="date"><a href="/014/02/ggplot-fit-line-and-lattice-fit-line-in.html">Thu 13 February 2014</a></div>
+		<div class="date"><a href="/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html">Thu 13 February 2014</a></div>
 		<span class="byline">By <a href="/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/014/02/ggplot-fit-line-and-lattice-fit-line-in.html" title="Permalink to ggplot Fit Line and Lattice Fit Line in R" rel="bookmark">ggplot Fit Line and Lattice Fit Line in R</a>
+			<a href="/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html" title="Permalink to ggplot Fit Line and Lattice Fit Line in R" rel="bookmark">ggplot Fit Line and Lattice Fit Line in R</a>
 		</h2>
 		<div class="entry-content">
 			<p>Let's add a fit line to a scatterplot!</p>
@@ -455,6 +454,11 @@ coord_flip<span class="p">()</span>
 <ul>
 <li><a href="http://regex.learncodethehardway.org/">http://regex.learncodethehardway.org/</a></li>
 </ul>
+<blockquote>
+<p><a href="http://mollietaylor.blogspot.com/2013/10/line-breaks-between-words-in-axis.html?showComment=1382273496557#c3818712081785475594">In a comment, Jason Bryer mentioned</a> that you can also break the lines by using a set character width instead of breaking at every space. Here's the code he suggested:
+    :::r
+    sapply(strwrap(as.character(value), width=25, simplify=FALSE), paste, collapse="\n")</p>
+</blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/abline.html" rel="tag">abline</a>,  <a href="/tag/coord_flip.html" rel="tag">coord_flip</a>,  <a href="/tag/geom_boxplot.html" rel="tag">geom_boxplot</a>,  <a href="/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="/tag/gsub.html" rel="tag">gsub</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/regular-expressions.html" rel="tag">regular expressions</a>,  <a href="/tag/visualization.html" rel="tag">visualization</a>    		</span>
@@ -834,6 +838,18 @@ fileNumbers <span class="o">&lt;-</span> <span class="kp">seq</span><span class=
 <p>In the above example, <code>data.frame</code> is used to create a new data row based on each data file. Then the append option of <code>write.table</code> is set to <code>TRUE</code> so that row can be added to the other rows created from other data files.</p>
 <p>Those are just a few examples of how you can use R to perform the same function(s) on a large number of files without having to manually run each one. I'm sure you can think of more uses.</p>
 <p>All the files are available <a href="https://github.com/mollietaylor/iterate-across-files">on GitHub</a>. You can see how eachFile.R, eachfile-newNames.R, and eachFile-append.R each do something different to the sample datasets.</p>
+<blockquote>
+<p><a href="http://mollietaylor.blogspot.com/2013/09/perform-function-on-each-file-in-r.html?showComment=1380279750603#c4308191719639677502">An anonymous commenter pointed out</a> that for big data files, he/she often uses:
+    :::r
+    setwd("my_working_directory_path")
+    dat &lt;- lapply(dir(pattern=".csv"), function(file) {
+    dat.i &lt;- read.csv(file)
+    # ... data formating, subsetting, ... 
+    return(dat.i)
+    } 
+    dat &lt;- do.call("rbind", dat)
+I haven't tested it, but it is likely this is more efficient than using <code>for</code> loops in R.</p>
+</blockquote>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="/tag/analysis.html" rel="tag">analysis</a>,  <a href="/tag/dataframe.html" rel="tag">data.frame</a>,  <a href="/tag/for.html" rel="tag">for</a>,  <a href="/tag/paste.html" rel="tag">paste</a>,  <a href="/tag/r.html" rel="tag">R</a>,  <a href="/tag/sub.html" rel="tag">sub</a>,  <a href="/tag/sysglob.html" rel="tag">Sys.glob</a>,  <a href="/tag/writetable.html" rel="tag">write.table</a>    		</span>
