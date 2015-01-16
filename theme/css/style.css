@@ -455,6 +455,9 @@ img.size-medium,
 	max-width: 100%; /* When images are too wide for containing element, force them to fit. */
 	height: auto; /* Override height to match resized width for correct aspect ratio. */
 }
+img.profile {
+	max-width: 300px;
+}
 img.alignleft {
 	margin-right: 1em;
 }
