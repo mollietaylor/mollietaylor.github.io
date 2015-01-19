@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Articles tagged sp</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+<div class="page-title">
+	<h2>Tagged with <span>sp</span> &hellip;</h2>
+</div>
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/02/elevation-profiles-in-r.html">Thu 21 February 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2013/02/elevation-profiles-in-r.html" title="Permalink to Elevation Profiles in R" rel="bookmark">Elevation Profiles in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>First, let's load up our data. <a href="https://gist.github.com/mollietaylor/4969793">The data are available in a gist</a>. You can convert your own GPS data to .csv by following the instructions <a href="http://www.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">here, using gpsbabel</a>.</p>
+<div class="highlight"><pre><span class="code-line">gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;callan.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+</pre></div>
+
+
+<p>Next, we can use the function <code>SMA</code> from the package <strong>TTR</strong> to calculate a <a href="http://en.wikipedia.org/wiki/Moving_average">moving average</a> of the altitude or elevation data, if we want to smooth out the curve. We can define a constant for the number of data points we want to average to create each moving average value.</p>
+<p>If you don't want to convert meters to feet, a metric version of the code is available in the gist (<a href="https://gist.github.com/mollietaylor/4969793">callanMetric.R</a>).</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>TTR<span class="p">)</span></span>
+<span class="code-line">movingN <span class="o">&lt;-</span> <span class="m">5</span> <span class="c1"># define the n for the moving average calculations</span></span>
+<span class="code-line">gps<span class="o">$</span>Altitude <span class="o">&lt;-</span> gps<span class="o">$</span>Altitude <span class="o">*</span> <span class="m">3.281</span> <span class="c1"># convert m to ft</span></span>
+<span class="code-line">gps<span class="o">$</span>SMA <span class="o">&lt;-</span> SMA<span class="p">(</span>gps<span class="o">$</span>Altitude<span class="p">,</span></span>
+<span class="code-line">    n <span class="o">=</span> movingN<span class="p">)</span></span>
+<span class="code-line">gps <span class="o">&lt;-</span> gps<span class="p">[</span>movingN<span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>SMA<span class="p">),</span> <span class="p">]</span> <span class="c1"># remove first n-1 points</span></span>
+</pre></div>
+
+
+<p>Next, we want to calculate the distance of each point. You can skip this step if your dataset already includes distances.</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>sp<span class="p">)</span></span>
+<span class="code-line">Dist <span class="o">&lt;-</span> <span class="m">0</span></span>
+<span class="code-line"><span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">2</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    Dist<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> spDistsN1<span class="p">(</span><span class="kp">as.matrix</span><span class="p">(</span>gps<span class="p">[</span>i<span class="p">,</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Longitude&quot;</span><span class="p">,</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)]),</span></span>
+<span class="code-line">    <span class="kt">c</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">[</span>i<span class="m">-1</span><span class="p">],</span> gps<span class="o">$</span>Latitude<span class="p">[</span>i<span class="m">-1</span><span class="p">]),</span></span>
+<span class="code-line">    longlat <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="o">/</span> <span class="m">1.609</span> <span class="c1"># longlat so distances will be in km, then divide to convert to miles</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line">gps<span class="o">$</span>Dist <span class="o">&lt;-</span> Dist</span>
+<span class="code-line"></span>
+<span class="code-line">DistTotal <span class="o">&lt;-</span> <span class="m">0</span></span>
+<span class="code-line"><span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">2</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    DistTotal<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> Dist<span class="p">[</span>i<span class="p">]</span> <span class="o">+</span> DistTotal<span class="p">[</span>i<span class="m">-1</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line">gps<span class="o">$</span>DistTotal <span class="o">&lt;-</span> DistTotal</span>
+</pre></div>
+
+
+<p>And finally, we can plot our elevation data using geom_ribbons and ggplot:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line">ggplot<span class="p">(</span>gps<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> DistTotal<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_ribbon<span class="p">(</span>aes<span class="p">(</span>ymin <span class="o">=</span> <span class="m">600</span><span class="p">,</span> <span class="c1"># change this to match your min below</span></span>
+<span class="code-line">        ymax <span class="o">=</span> SMA<span class="p">),</span></span>
+<span class="code-line">    fill <span class="o">=</span> <span class="s">&quot;#1B9E77&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># put your altitude variable here if not using moving averages</span></span>
+<span class="code-line">labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Miles&quot;</span><span class="p">,</span></span>
+<span class="code-line">    y <span class="o">=</span> <span class="s">&quot;Elevation&quot;</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">scale_y_continuous<span class="p">(</span>limits <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">600</span><span class="p">,</span><span class="m">1200</span><span class="p">))</span> <span class="c1"># change this to limits appropriate for your region</span></span>
+</pre></div>
+
+
+<p><img alt="Elevation profile in ggplot2" class="size-auto" src="http://blog.mollietaylor.com/images/r-elevation.png" /></p>
+<p><a href="https://gist.github.com/mollietaylor/4969793">Code and data available in a gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/geom_ribbon.html" rel="tag">geom_ribbon</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gps.html" rel="tag">gps</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/sma.html" rel="tag">SMA</a>,  <a href="http://blog.mollietaylor.com/tag/sp.html" rel="tag">sp</a>,  <a href="http://blog.mollietaylor.com/tag/spdistsn1.html" rel="tag">spDistsN1</a>,  <a href="http://blog.mollietaylor.com/tag/ttr.html" rel="tag">TTR</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="navigation">
+</div>
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

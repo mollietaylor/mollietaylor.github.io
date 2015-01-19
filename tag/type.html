@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Articles tagged type</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+<div class="page-title">
+	<h2>Tagged with <span>type</span> &hellip;</h2>
+</div>
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html">Thu 13 February 2014</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html" title="Permalink to ggplot Fit Line and Lattice Fit Line in R" rel="bookmark">ggplot Fit Line and Lattice Fit Line in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Let's add a fit line to a scatterplot!</p>
+<h2>Fit Line in Base Graphics</h2>
+<p>Here's how to do it in <strong>base</strong> graphics:</p>
+<div class="highlight"><pre><span class="code-line">ols <span class="o">&lt;-</span> lm<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">plot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">)</span></span>
+<span class="code-line">abline<span class="p">(</span>ols</span>
+</pre></div>
+
+
+<p><img alt="Fit line in base graphics in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-base.png" /></p>
+<h2>Fit Line in ggplot</h2>
+<p>And here's how to do it in <strong>ggplot</strong>:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_abline<span class="p">(</span>intercept <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">1</span><span class="p">],</span></span>
+<span class="code-line">        slope <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">2</span><span class="p">])</span></span>
+</pre></div>
+
+
+<p>You can access the info from your regression results through <code>ols$coefficients</code>.</p>
+<p>Edit: Thanks to an anonymous commenter, I have learned that you can simplify this by using <code>geom_smooth</code>.  This way you don't have to specify the intercept and slope of the fit line.</p>
+<div class="highlight"><pre><span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_smooth<span class="p">(</span>method <span class="o">=</span> lm<span class="p">,</span></span>
+<span class="code-line">        se <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span></span>
+</pre></div>
+
+
+<p><img alt="Fit line in ggplot in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-ggplot.png" /></p>
+<h2>Fit Line in Lattice</h2>
+<p>In <strong>lattice</strong>, it's even easier. You don't even need to run a regression; you can just add to the <code>type</code> option.</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">    type <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">))</span></span>
+</pre></div>
+
+
+<p><img alt="Fit Line in Lattice in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-lattice.png" /></p>
+<p>The code is available in <a href="https://gist.github.com/mollietaylor/8203926">a gist</a>.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/12972039/plotting-xyplot-with-regression-line-on-lattice-graphics">http://stackoverflow.com/questions/12972039/plotting-xyplot-with-regression-line-on-lattice-graphics</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/geom_abline.html" rel="tag">geom_abline</a>,  <a href="http://blog.mollietaylor.com/tag/geom_smooth.html" rel="tag">geom_smooth</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/lattice.html" rel="tag">lattice</a>,  <a href="http://blog.mollietaylor.com/tag/lm.html" rel="tag">lm</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/type.html" rel="tag">type</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="navigation">
+</div>
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>
