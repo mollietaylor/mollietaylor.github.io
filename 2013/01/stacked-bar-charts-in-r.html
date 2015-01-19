@@ -28,6 +28,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -52,65 +53,65 @@
 		<div class="entry-content">
 			<h2>Reshape Wide to Long</h2>
 <p>Let's use the <code>Loblolly</code> dataset from the <strong>datasets</strong> package. These data track the growth of some loblolly pine trees.</p>
-<div class="highlight"><pre><span class="o">&gt;</span> Loblolly<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,]</span>
-   height age Seed
-<span class="m">1</span>    <span class="m">4.51</span>   <span class="m">3</span>  <span class="m">301</span>
-<span class="m">15</span>  <span class="m">10.89</span>   <span class="m">5</span>  <span class="m">301</span>
-<span class="m">29</span>  <span class="m">28.72</span>  <span class="m">10</span>  <span class="m">301</span>
-<span class="m">43</span>  <span class="m">41.74</span>  <span class="m">15</span>  <span class="m">301</span>
-<span class="m">57</span>  <span class="m">52.70</span>  <span class="m">20</span>  <span class="m">301</span>
-<span class="m">71</span>  <span class="m">60.92</span>  <span class="m">25</span>  <span class="m">301</span>
-<span class="m">2</span>    <span class="m">4.55</span>   <span class="m">3</span>  <span class="m">303</span>
-<span class="m">16</span>  <span class="m">10.92</span>   <span class="m">5</span>  <span class="m">303</span>
-<span class="m">30</span>  <span class="m">29.07</span>  <span class="m">10</span>  <span class="m">303</span>
-<span class="m">44</span>  <span class="m">42.83</span>  <span class="m">15</span>  <span class="m">303</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> Loblolly<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,]</span></span>
+<span class="code-line">   height age Seed</span>
+<span class="code-line"><span class="m">1</span>    <span class="m">4.51</span>   <span class="m">3</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">15</span>  <span class="m">10.89</span>   <span class="m">5</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">29</span>  <span class="m">28.72</span>  <span class="m">10</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">43</span>  <span class="m">41.74</span>  <span class="m">15</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">57</span>  <span class="m">52.70</span>  <span class="m">20</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">71</span>  <span class="m">60.92</span>  <span class="m">25</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">2</span>    <span class="m">4.55</span>   <span class="m">3</span>  <span class="m">303</span></span>
+<span class="code-line"><span class="m">16</span>  <span class="m">10.92</span>   <span class="m">5</span>  <span class="m">303</span></span>
+<span class="code-line"><span class="m">30</span>  <span class="m">29.07</span>  <span class="m">10</span>  <span class="m">303</span></span>
+<span class="code-line"><span class="m">44</span>  <span class="m">42.83</span>  <span class="m">15</span>  <span class="m">303</span></span>
 </pre></div>
 
 
 <p>First, we need to convert the data to wide form, so each age (i.e. 3, 5, 10, 15, 20, 25) will have its own variable.</p>
-<div class="highlight"><pre>wide <span class="o">&lt;-</span> reshape<span class="p">(</span>Loblolly<span class="p">,</span>
-    v.names <span class="o">=</span> <span class="s">&quot;height&quot;</span><span class="p">,</span>
-    timevar <span class="o">=</span> <span class="s">&quot;age&quot;</span><span class="p">,</span>
-    idvar <span class="o">=</span> <span class="s">&quot;Seed&quot;</span><span class="p">,</span>
-    direction <span class="o">=</span> <span class="s">&quot;wide&quot;</span><span class="p">)</span>
-
-<span class="o">&gt;</span> wide<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,]</span>
-  Seed height.3 height.5 height.10 height.15 height.20 height.25
-<span class="m">1</span>  <span class="m">301</span>     <span class="m">4.51</span>    <span class="m">10.89</span>     <span class="m">28.72</span>     <span class="m">41.74</span>     <span class="m">52.70</span>     <span class="m">60.92</span>
-<span class="m">2</span>  <span class="m">303</span>     <span class="m">4.55</span>    <span class="m">10.92</span>     <span class="m">29.07</span>     <span class="m">42.83</span>     <span class="m">53.88</span>     <span class="m">63.39</span>
-<span class="m">3</span>  <span class="m">305</span>     <span class="m">4.79</span>    <span class="m">11.37</span>     <span class="m">30.21</span>     <span class="m">44.40</span>     <span class="m">55.82</span>     <span class="m">64.10</span>
-<span class="m">4</span>  <span class="m">307</span>     <span class="m">3.91</span>     <span class="m">9.48</span>     <span class="m">25.66</span>     <span class="m">39.07</span>     <span class="m">50.78</span>     <span class="m">59.07</span>
-<span class="m">5</span>  <span class="m">309</span>     <span class="m">4.81</span>    <span class="m">11.20</span>     <span class="m">28.66</span>     <span class="m">41.66</span>     <span class="m">53.31</span>     <span class="m">63.05</span>
+<div class="highlight"><pre><span class="code-line">wide <span class="o">&lt;-</span> reshape<span class="p">(</span>Loblolly<span class="p">,</span></span>
+<span class="code-line">    v.names <span class="o">=</span> <span class="s">&quot;height&quot;</span><span class="p">,</span></span>
+<span class="code-line">    timevar <span class="o">=</span> <span class="s">&quot;age&quot;</span><span class="p">,</span></span>
+<span class="code-line">    idvar <span class="o">=</span> <span class="s">&quot;Seed&quot;</span><span class="p">,</span></span>
+<span class="code-line">    direction <span class="o">=</span> <span class="s">&quot;wide&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> wide<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,]</span></span>
+<span class="code-line">  Seed height.3 height.5 height.10 height.15 height.20 height.25</span>
+<span class="code-line"><span class="m">1</span>  <span class="m">301</span>     <span class="m">4.51</span>    <span class="m">10.89</span>     <span class="m">28.72</span>     <span class="m">41.74</span>     <span class="m">52.70</span>     <span class="m">60.92</span></span>
+<span class="code-line"><span class="m">2</span>  <span class="m">303</span>     <span class="m">4.55</span>    <span class="m">10.92</span>     <span class="m">29.07</span>     <span class="m">42.83</span>     <span class="m">53.88</span>     <span class="m">63.39</span></span>
+<span class="code-line"><span class="m">3</span>  <span class="m">305</span>     <span class="m">4.79</span>    <span class="m">11.37</span>     <span class="m">30.21</span>     <span class="m">44.40</span>     <span class="m">55.82</span>     <span class="m">64.10</span></span>
+<span class="code-line"><span class="m">4</span>  <span class="m">307</span>     <span class="m">3.91</span>     <span class="m">9.48</span>     <span class="m">25.66</span>     <span class="m">39.07</span>     <span class="m">50.78</span>     <span class="m">59.07</span></span>
+<span class="code-line"><span class="m">5</span>  <span class="m">309</span>     <span class="m">4.81</span>    <span class="m">11.20</span>     <span class="m">28.66</span>     <span class="m">41.66</span>     <span class="m">53.31</span>     <span class="m">63.05</span></span>
 </pre></div>
 
 
 <h2>Create Variables</h2>
 <p>Then we want to create new columns showing how much each tree has grown between data points. For example, instead of knowing a tree's height at age 10, we want to know how much it's grown between age 5 and age 10, so that can be a bar in our graph.</p>
-<div class="highlight"><pre>wide<span class="o">$</span>h0.3 <span class="o">&lt;-</span> wide<span class="o">$</span>height.3
-wide<span class="o">$</span>h3.5 <span class="o">&lt;-</span> wide<span class="o">$</span>height.5 <span class="o">-</span> wide<span class="o">$</span>height.3
-wide<span class="o">$</span>h5.10 <span class="o">&lt;-</span> wide<span class="o">$</span>height.10 <span class="o">-</span> wide<span class="o">$</span>height.5
-wide<span class="o">$</span>h10.15 <span class="o">&lt;-</span> wide<span class="o">$</span>height.15 <span class="o">-</span> wide<span class="o">$</span>height.10
-wide<span class="o">$</span>h15.20 <span class="o">&lt;-</span> wide<span class="o">$</span>height.20 <span class="o">-</span> wide<span class="o">$</span>height.15
-wide<span class="o">$</span>h20.25 <span class="o">&lt;-</span> wide<span class="o">$</span>height.25 <span class="o">-</span> wide<span class="o">$</span>height.20
+<div class="highlight"><pre><span class="code-line">wide<span class="o">$</span>h0.3 <span class="o">&lt;-</span> wide<span class="o">$</span>height.3</span>
+<span class="code-line">wide<span class="o">$</span>h3.5 <span class="o">&lt;-</span> wide<span class="o">$</span>height.5 <span class="o">-</span> wide<span class="o">$</span>height.3</span>
+<span class="code-line">wide<span class="o">$</span>h5.10 <span class="o">&lt;-</span> wide<span class="o">$</span>height.10 <span class="o">-</span> wide<span class="o">$</span>height.5</span>
+<span class="code-line">wide<span class="o">$</span>h10.15 <span class="o">&lt;-</span> wide<span class="o">$</span>height.15 <span class="o">-</span> wide<span class="o">$</span>height.10</span>
+<span class="code-line">wide<span class="o">$</span>h15.20 <span class="o">&lt;-</span> wide<span class="o">$</span>height.20 <span class="o">-</span> wide<span class="o">$</span>height.15</span>
+<span class="code-line">wide<span class="o">$</span>h20.25 <span class="o">&lt;-</span> wide<span class="o">$</span>height.25 <span class="o">-</span> wide<span class="o">$</span>height.20</span>
 </pre></div>
 
 
 <h2>Plot Stacked Bar Chart</h2>
 <p>Finally, we want to plot all the new data points:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
-sequential <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span>
-barplot<span class="p">(</span><span class="kp">t</span><span class="p">(</span>wide<span class="p">[,</span><span class="m">8</span><span class="o">:</span><span class="m">13</span><span class="p">]),</span>
-    names.arg <span class="o">=</span> wide<span class="o">$</span>Seed<span class="p">,</span> <span class="c1"># x-axis labels</span>
-    cex.names <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> <span class="c1"># makes x-axis labels small enough to show all</span>
-    col <span class="o">=</span> sequential<span class="p">,</span> <span class="c1"># colors</span>
-    xlab <span class="o">=</span> <span class="s">&quot;Seed Source&quot;</span><span class="p">,</span>
-    ylab <span class="o">=</span> <span class="s">&quot;Height, Feet&quot;</span><span class="p">,</span>
-    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20</span><span class="p">),</span> <span class="c1"># these two lines allow space for the legend</span>
-    width <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># these two lines allow space for the legend</span>
-legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span> 
-    legend <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;20-25&quot;</span><span class="p">,</span> <span class="s">&quot;15-20&quot;</span><span class="p">,</span> <span class="s">&quot;10-15&quot;</span><span class="p">,</span> <span class="s">&quot;5-10&quot;</span><span class="p">,</span> <span class="s">&quot;3-5&quot;</span><span class="p">,</span> <span class="s">&quot;0-3&quot;</span><span class="p">),</span> <span class="c1">#in order from top to bottom</span>
-    fill <span class="o">=</span> sequential<span class="p">[</span><span class="m">6</span><span class="o">:</span><span class="m">1</span><span class="p">],</span> <span class="c1"># 6:1 reorders so legend order matches graph</span>
-    title <span class="o">=</span> <span class="s">&quot;Years&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span></span>
+<span class="code-line">sequential <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span></span>
+<span class="code-line">barplot<span class="p">(</span><span class="kp">t</span><span class="p">(</span>wide<span class="p">[,</span><span class="m">8</span><span class="o">:</span><span class="m">13</span><span class="p">]),</span></span>
+<span class="code-line">    names.arg <span class="o">=</span> wide<span class="o">$</span>Seed<span class="p">,</span> <span class="c1"># x-axis labels</span></span>
+<span class="code-line">    cex.names <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> <span class="c1"># makes x-axis labels small enough to show all</span></span>
+<span class="code-line">    col <span class="o">=</span> sequential<span class="p">,</span> <span class="c1"># colors</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;Seed Source&quot;</span><span class="p">,</span></span>
+<span class="code-line">    ylab <span class="o">=</span> <span class="s">&quot;Height, Feet&quot;</span><span class="p">,</span></span>
+<span class="code-line">    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20</span><span class="p">),</span> <span class="c1"># these two lines allow space for the legend</span></span>
+<span class="code-line">    width <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># these two lines allow space for the legend</span></span>
+<span class="code-line">legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    legend <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;20-25&quot;</span><span class="p">,</span> <span class="s">&quot;15-20&quot;</span><span class="p">,</span> <span class="s">&quot;10-15&quot;</span><span class="p">,</span> <span class="s">&quot;5-10&quot;</span><span class="p">,</span> <span class="s">&quot;3-5&quot;</span><span class="p">,</span> <span class="s">&quot;0-3&quot;</span><span class="p">),</span> <span class="c1">#in order from top to bottom</span></span>
+<span class="code-line">    fill <span class="o">=</span> sequential<span class="p">[</span><span class="m">6</span><span class="o">:</span><span class="m">1</span><span class="p">],</span> <span class="c1"># 6:1 reorders so legend order matches graph</span></span>
+<span class="code-line">    title <span class="o">=</span> <span class="s">&quot;Years&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 

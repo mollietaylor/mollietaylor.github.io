@@ -28,6 +28,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -53,42 +54,42 @@
 			<p>Specifying a <code>colClasses</code> argument to <code>read.table</code> or <code>read.csv</code> can save time on importing data, while also saving steps to specify classes for each variable later.</p>
 <p>For example, loading a 893 MB took 441 seconds to load when not using <code>colClasses</code>, but only 268 seconds to load when using <code>colClasses</code>. The <code>system.time</code> function in <strong>base</strong> can help you check your own times.</p>
 <p>Without specifying <code>colClasses</code>:</p>
-<div class="highlight"><pre>   user  system elapsed 
-<span class="m">441.224</span>   <span class="m">8.200</span> <span class="m">454.155</span>
+<div class="highlight"><pre><span class="code-line">   user  system elapsed </span>
+<span class="code-line"><span class="m">441.224</span>   <span class="m">8.200</span> <span class="m">454.155</span></span>
 </pre></div>
 
 
 <p>When specifying <code>colClasses</code>:</p>
-<div class="highlight"><pre>   user  system elapsed 
-<span class="m">268.036</span>   <span class="m">6.096</span> <span class="m">284.099</span>
+<div class="highlight"><pre><span class="code-line">   user  system elapsed </span>
+<span class="code-line"><span class="m">268.036</span>   <span class="m">6.096</span> <span class="m">284.099</span></span>
 </pre></div>
 
 
 <p>Dates that are in the <a href="http://blog.mollietaylor.com/2013/08/date-formats-in-r.html">form %Y-%m-%d or Y/%m/%d</a> will import correctly. <a href="http://stackoverflow.com/a/13022441">This tip allows you to import dates properly</a> for dates in other formats.</p>
-<div class="highlight"><pre><span class="kp">system.time</span><span class="p">(</span>largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span>
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;complex&quot;</span><span class="p">,</span> 
-        <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> 
-        <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;numeric&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span>
-        <span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;logical&quot;</span><span class="p">)))</span>
+<div class="highlight"><pre><span class="code-line"><span class="kp">system.time</span><span class="p">(</span>largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;complex&quot;</span><span class="p">,</span> </span>
+<span class="code-line">        <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> </span>
+<span class="code-line">        <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;numeric&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span></span>
+<span class="code-line">        <span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;logical&quot;</span><span class="p">)))</span></span>
 </pre></div>
 
 
 <p>If there aren't any classes that you want to change from their defaults, you can read in the first few rows, <a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">determine the classes from that</a>, and then import the rest of the file:</p>
-<div class="highlight"><pre>sampleData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> nrows <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
-classes <span class="o">&lt;-</span> <span class="kp">sapply</span><span class="p">(</span>sampleData<span class="p">,</span> <span class="kp">class</span><span class="p">)</span>
-largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> colClasses <span class="o">=</span> classes<span class="p">)</span>
-str<span class="p">(</span>largeData<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">sampleData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> nrows <span class="o">=</span> <span class="m">5</span><span class="p">)</span></span>
+<span class="code-line">classes <span class="o">&lt;-</span> <span class="kp">sapply</span><span class="p">(</span>sampleData<span class="p">,</span> <span class="kp">class</span><span class="p">)</span></span>
+<span class="code-line">largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> colClasses <span class="o">=</span> classes<span class="p">)</span></span>
+<span class="code-line">str<span class="p">(</span>largeData<span class="p">)</span></span>
 </pre></div>
 
 
 <p>If you aren't concerned about the time it takes to read the data file, but instead just want the classes to be correct on import, you have the option of only specifying certain classes:</p>
-<div class="highlight"><pre>smallData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;small-file.csv&quot;</span><span class="p">,</span> 
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    colClasses<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;variableName&quot;</span><span class="o">=</span><span class="s">&quot;character&quot;</span><span class="p">))</span>
-
-<span class="o">&gt;</span> <span class="kp">class</span><span class="p">(</span>smallData<span class="o">$</span>variableName<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;character&quot;</span>
+<div class="highlight"><pre><span class="code-line">smallData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;small-file.csv&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    colClasses<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;variableName&quot;</span><span class="o">=</span><span class="s">&quot;character&quot;</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">class</span><span class="p">(</span>smallData<span class="o">$</span>variableName<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;character&quot;</span></span>
 </pre></div>
 
 

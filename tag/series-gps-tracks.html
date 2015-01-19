@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -104,41 +105,41 @@
 			<p>This is an explanation of how I used R to combine all my GPS cycling tracks from my Garmin Forerunner 305.</p>
 <h2>Converting to CSV</h2>
 <p>You can convert pretty much any GPS data to .csv by using <a href="http://www.gpsbabel.org/htmldoc-1.4.4/readme.html">GPSBabel</a>. For importing directly from my Garmin, I used the command:</p>
-<div class="highlight"><pre><span class="go">gpsbabel -t -i garmin -f usb: -o unicsv -F out.csv</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">gpsbabel -t -i garmin -f usb: -o unicsv -F out.csv</span></span>
 </pre></div>
 
 
 <p>[Note: you'll probably need to work as root to access your device directly]</p>
 <p>For importing from a .tcx file, you can use:</p>
-<div class="highlight"><pre><span class="go">gpsbabel -t -i gtrnctr -f test2.tcx -o unicsv -F old.csv</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">gpsbabel -t -i gtrnctr -f test2.tcx -o unicsv -F old.csv</span></span>
 </pre></div>
 
 
 <h2>Mapping in R</h2>
 <p>After converting to .csv, we'll have a file with several columns, such as latitude, longitude, date, and time. We can now easily import this into R.</p>
-<div class="highlight"><pre>gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;out.csv&quot;</span><span class="p">,</span> 
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;out.csv&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>Next we want to load up ggmap and get our base map. To determine how zoomed in we are, we can set <code>zoom</code> and <code>size</code>. We can also choose the <code>maptype</code>, with options of terrain, satellite, roadmap, or hybrid (satellite + roadmap).</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span>
-mapImageData <span class="o">&lt;-</span> get_googlemap<span class="p">(</span>center <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span> lat <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Latitude<span class="p">)),</span>
-    zoom <span class="o">=</span> <span class="m">11</span><span class="p">,</span>
-<span class="c1"># size = c(500, 500),</span>
-    maptype <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;terrain&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span></span>
+<span class="code-line">mapImageData <span class="o">&lt;-</span> get_googlemap<span class="p">(</span>center <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span> lat <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Latitude<span class="p">)),</span></span>
+<span class="code-line">    zoom <span class="o">=</span> <span class="m">11</span><span class="p">,</span></span>
+<span class="code-line"><span class="c1"># size = c(500, 500),</span></span>
+<span class="code-line">    maptype <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;terrain&quot;</span><span class="p">))</span></span>
 </pre></div>
 
 
 <p>I chose to set the <code>center</code> of the map to the median of my latitudes and the median of my longitudes. I've done some biking when traveling, so median made more sense for me than mean.
 Finally we want to map our GPS data. There are several <a href="http://www.endmemo.com/program/R/pchsymbols.php"><code>pch</code> options</a> to try.</p>
-<div class="highlight"><pre>ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
-    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># takes out axes, etc.</span>
-    geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span>
-        y <span class="o">=</span> Latitude<span class="p">),</span>
-    data <span class="o">=</span> gps<span class="p">,</span>
-    colour <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span>
-    size <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
+<div class="highlight"><pre><span class="code-line">ggmap<span class="p">(</span>mapImageData<span class="p">,</span></span>
+<span class="code-line">    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># takes out axes, etc.</span></span>
+<span class="code-line">    geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> Latitude<span class="p">),</span></span>
+<span class="code-line">    data <span class="o">=</span> gps<span class="p">,</span></span>
+<span class="code-line">    colour <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">1</span><span class="p">,</span></span>
 </pre></div>
 
 

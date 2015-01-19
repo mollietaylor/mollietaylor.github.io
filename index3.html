@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -39,6 +40,174 @@
 	
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/10/custom-legend-in-r.html">Thu 10 October 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2013/10/custom-legend-in-r.html" title="Permalink to Custom Legend in R" rel="bookmark">Custom Legend in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>This particular custom legend was designed with three purposes:</p>
+<ul>
+<li>To effectively bin values based on a theoretical minimum and maximum value for that variable (e.g. -1 and 1 or 0 and 100)</li>
+<li>To use a <a href="http://en.wikipedia.org/wiki/Interval_(mathematics)">different interval</a> notation than the default</li>
+<li>To handle NA values</li>
+</ul>
+<p>Even though this particular legend was designed with those needs, it should be simple to extrapolate from that to build legends based on other criteria.</p>
+<h2>Standard Legend</h2>
+<p>For this post, I'll be assuming you've looked through the <a href="http://geography.uoregon.edu/geogr/topics/maps.htm">Oregon map tutorial</a> or have other experience making legends in R. If not, you'll probably want to check that link out. It's an awesome tutorial.</p>
+<p>Let's start by creating a map with a standard legend, and then we move on to customization later.</p>
+<p>First, we'll load the packages we need and the data from <strong>OIdata</strong>:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>classInt<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># load state data from OIdata package:</span></span>
+<span class="code-line">data<span class="p">(</span>state<span class="p">)</span></span>
+</pre></div>
+
+
+<p>Next we want to set some constants. This will save us a bunch of typing and will make the code easier to read, especially once we start creating a custom legend. Also, it will allow us to easily change the values if we want a different number of bins or a different min and max.</p>
+<p>In this example, we're assuming we have a theoretical minimum and maximum and want to determine our choropleth bins based on that.</p>
+<div class="highlight"><pre><span class="code-line">nclr <span class="o">&lt;-</span> <span class="m">8</span> <span class="c1"># number of bins</span></span>
+<span class="code-line">min <span class="o">&lt;-</span> <span class="m">0</span> <span class="c1"># theoretical minimum</span></span>
+<span class="code-line">max <span class="o">&lt;-</span> <span class="m">100</span> <span class="c1"># theoretical maximum</span></span>
+<span class="code-line">breaks <span class="o">&lt;-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr</span>
+</pre></div>
+
+
+<p>Next, we'll set up our choropleth colors (this should look familiar from the <a href="http://geography.uoregon.edu/geogr/topics/maps.htm">Oregon tutorial</a>):</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># set up colors:</span></span>
+<span class="code-line">plotclr <span class="o">&lt;-</span> brewer.pal<span class="p">(</span>nclr<span class="p">,</span> <span class="s">&quot;Oranges&quot;</span><span class="p">)</span></span>
+<span class="code-line">plotvar <span class="o">&lt;-</span> state<span class="o">$</span>coal</span>
+<span class="code-line">class <span class="o">&lt;-</span> classIntervals<span class="p">(</span>plotvar<span class="p">,</span></span>
+<span class="code-line">    nclr<span class="p">,</span></span>
+<span class="code-line">    style <span class="o">=</span> <span class="s">&quot;fixed&quot;</span><span class="p">,</span></span>
+<span class="code-line">    fixedBreaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> <span class="kp">max</span><span class="p">,</span> breaks<span class="p">))</span></span>
+<span class="code-line">colcode <span class="o">&lt;-</span> findColours<span class="p">(</span><span class="kp">class</span><span class="p">,</span> </span>
+<span class="code-line">    plotclr<span class="p">)</span></span>
+</pre></div>
+
+
+<p>And now let's map the data:</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># map data:</span></span>
+<span class="code-line">map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># base</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;gray80&quot;</span><span class="p">,</span></span>
+<span class="code-line">    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    lty <span class="o">=</span> <span class="m">0</span><span class="p">)</span></span>
+<span class="code-line">map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># data</span></span>
+<span class="code-line">    col <span class="o">=</span> colcode<span class="p">,</span></span>
+<span class="code-line">    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    lty <span class="o">=</span> <span class="m">0</span><span class="p">,</span></span>
+<span class="code-line">    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line">map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># border</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;gray&quot;</span><span class="p">,</span></span>
+<span class="code-line">    lwd <span class="o">=</span> <span class="m">1.4</span><span class="p">,</span></span>
+<span class="code-line">    lty <span class="o">=</span> <span class="m">1</span><span class="p">,</span></span>
+<span class="code-line">    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+</pre></div>
+
+
+<p>And finally let's add our default legend:</p>
+<div class="highlight"><pre><span class="code-line">legend<span class="p">(</span><span class="s">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="c1"># position</span></span>
+<span class="code-line">    legend <span class="o">=</span> <span class="kp">names</span><span class="p">(</span><span class="kp">attr</span><span class="p">(</span>colcode<span class="p">,</span> <span class="s">&quot;table&quot;</span><span class="p">)),</span> </span>
+<span class="code-line">    title <span class="o">=</span> <span class="s">&quot;Percent&quot;</span><span class="p">,</span></span>
+<span class="code-line">    fill <span class="o">=</span> <span class="kp">attr</span><span class="p">(</span>colcode<span class="p">,</span> <span class="s">&quot;palette&quot;</span><span class="p">),</span></span>
+<span class="code-line">    cex <span class="o">=</span> <span class="m">0.56</span><span class="p">,</span></span>
+<span class="code-line">    bty <span class="o">=</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="c1"># border</span></span>
+</pre></div>
+
+
+<p>Here's the output of this code (see <a href="https://gist.github.com/mollietaylor/6757351#file-map-standard-legend-r">map-standard-legend.R</a> in the gist):</p>
+<p><img alt="Percent of power coming from coal sources (standard legend)" src="http://blog.mollietaylor.com/images/r-legend-standard.png" /></p>
+<h2>Custom Legend</h2>
+<p>Next we want to add a few lines here and there to enhance the legend.</p>
+<p>For starters, let's deal with NA values. We don't have any in this particular dataset, but if we did, we would have seen they were left as the base color of the map and not included in the legend.</p>
+<p>After our former code setting up the colors, we should add the color for NAs. It's important that these lines go after all the other set up code, or the wrong colors will be mapped.</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># set up colors:</span></span>
+<span class="code-line">plotclr <span class="o">&lt;-</span> brewer.pal<span class="p">(</span>nclr<span class="p">,</span> <span class="s">&quot;Oranges&quot;</span><span class="p">)</span></span>
+<span class="code-line">plotvar <span class="o">&lt;-</span> state<span class="o">$</span>coal</span>
+<span class="code-line">class <span class="o">&lt;-</span> classIntervals<span class="p">(</span>plotvar<span class="p">,</span></span>
+<span class="code-line">    nclr<span class="p">,</span></span>
+<span class="code-line">    style <span class="o">=</span> <span class="s">&quot;fixed&quot;</span><span class="p">,</span></span>
+<span class="code-line">    fixedBreaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> <span class="kp">max</span><span class="p">,</span> breaks<span class="p">))</span></span>
+<span class="code-line">colcode <span class="o">&lt;-</span> findColours<span class="p">(</span><span class="kp">class</span><span class="p">,</span> </span>
+<span class="code-line">    plotclr<span class="p">)</span></span>
+<span class="code-line">NAColor <span class="o">&lt;-</span> <span class="s">&quot;gray80&quot;</span></span>
+<span class="code-line">plotclr <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>plotclr<span class="p">,</span> NAColor<span class="p">)</span></span>
+</pre></div>
+
+
+<p>We also want to let the map know to have our NA color as the default color, so the map will use that instead of having those areas be transparent:</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># map data:</span></span>
+<span class="code-line">map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># base</span></span>
+<span class="code-line">    col <span class="o">=</span> NAColor<span class="p">,</span></span>
+<span class="code-line">    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    lty <span class="o">=</span> <span class="m">0</span><span class="p">)</span></span>
+<span class="code-line">map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># data</span></span>
+<span class="code-line">    col <span class="o">=</span> colcode<span class="p">,</span></span>
+<span class="code-line">    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    lty <span class="o">=</span> <span class="m">0</span><span class="p">,</span></span>
+<span class="code-line">    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line">map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># border</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;gray&quot;</span><span class="p">,</span></span>
+<span class="code-line">    lwd <span class="o">=</span> <span class="m">1.4</span><span class="p">,</span></span>
+<span class="code-line">    lty <span class="o">=</span> <span class="m">1</span><span class="p">,</span></span>
+<span class="code-line">    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+</pre></div>
+
+
+<p>Next, we want to set up the legend text. For all but the last interval, we want it to say <code>i ≤ n &lt; (i + breaks)</code>. The last interval should be <code>i ≤ n ≤ (i + breaks)</code>. This can be accomplished by</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># set legend text:</span></span>
+<span class="code-line">legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">()</span></span>
+<span class="code-line"><span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="kr">if</span> <span class="p">(</span>i <span class="o">==</span> <span class="kp">max</span><span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">)))</span> <span class="p">{</span></span>
+<span class="code-line">        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n \u2264&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span></span>
+<span class="code-line">    <span class="p">}</span> <span class="kp">else</span></span>
+<span class="code-line">        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n &lt;&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span> </span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>But we also want to include NAs in the legend, so we need to add a line:</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># set legend text:</span></span>
+<span class="code-line">legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">()</span></span>
+<span class="code-line"><span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="kr">if</span> <span class="p">(</span>i <span class="o">==</span> <span class="kp">max</span><span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">)))</span> <span class="p">{</span></span>
+<span class="code-line">        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n \u2264&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span></span>
+<span class="code-line">        <span class="kr">if</span> <span class="p">(</span><span class="o">!</span><span class="kp">is.na</span><span class="p">(</span>NAColor<span class="p">))</span> legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="s">&quot;NA&quot;</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">}</span> <span class="kp">else</span></span>
+<span class="code-line">        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n &lt;&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span> </span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>And finally we need to add the legend to the map:</p>
+<div class="highlight"><pre><span class="code-line">legend<span class="p">(</span><span class="s">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="c1"># position</span></span>
+<span class="code-line">    legend <span class="o">=</span> legendText<span class="p">,</span> </span>
+<span class="code-line">    title <span class="o">=</span> <span class="s">&quot;Percent&quot;</span><span class="p">,</span></span>
+<span class="code-line">    fill <span class="o">=</span> plotclr<span class="p">,</span></span>
+<span class="code-line">    cex <span class="o">=</span> <span class="m">0.56</span><span class="p">,</span></span>
+<span class="code-line">    bty <span class="o">=</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="c1"># border</span></span>
+</pre></div>
+
+
+<p>The new map (see <a href="https://gist.github.com/mollietaylor/6757351#file-map-new-legend-r">map-new-legend.R</a>) meets all the criteria we started with that the original legend didn't have.</p>
+<p><img alt="Percent of power coming from coal sources (custom legend)" src="http://blog.mollietaylor.com/images/r-legend-custom.png" /></p>
+<p>Code is available in a <a href="https://gist.github.com/mollietaylor/6757351">gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://geography.uoregon.edu/geogr/topics/maps.htm">http://geography.uoregon.edu/geogr/topics/maps.htm</a></li>
+<li><a href="http://stackoverflow.com/questions/13192984/displaying-a-greater-than-or-equal-sign">http://stackoverflow.com/questions/13192984/displaying-a-greater-than-or-equal-sign</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/choropleth.html" rel="tag">choropleth</a>,  <a href="http://blog.mollietaylor.com/tag/classint.html" rel="tag">classInt</a>,  <a href="http://blog.mollietaylor.com/tag/classintervals.html" rel="tag">classIntervals</a>,  <a href="http://blog.mollietaylor.com/tag/legend.html" rel="tag">legend</a>,  <a href="http://blog.mollietaylor.com/tag/map.html" rel="tag">map</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/2013/10/how-to-set-up-your-app-on-shiny-beta.html">Thu 03 October 2013</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
@@ -52,58 +221,58 @@
 			<p>This is a short tutorial on how to create a web version of a <a href="http://www.rstudio.com/shiny/">Shiny</a> app you've built once you've received <a href="https://rstudio.wufoo.com/forms/shiny-server-beta-program/">access to the shiny hosting beta</a>.</p>
 <h2>SSH: Setting Up Directories</h2>
 <p>To connect to your account, input this line into a terminal (obviously input your own username instead of "username"):</p>
-<div class="highlight"><pre><span class="go">ssh username@spark.rstudio.com</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">ssh username@spark.rstudio.com</span></span>
 </pre></div>
 
 
 <p>It will prompt you for your password. Enter the password you received in the email.</p>
 <p>Next, create a folder to put your first app in. Like the email says, you want to put this at <code>~/ShinyApps/myapp/</code>. The "myapp" folder can be named whatever you want, but the "ShinyApps" folder needs to have that name.</p>
-<div class="highlight"><pre><span class="go">mkdir ShinyApps</span>
-<span class="go">mkdir ShinyApps/myapp</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">mkdir ShinyApps</span></span>
+<span class="code-line"><span class="go">mkdir ShinyApps/myapp</span></span>
 </pre></div>
 
 
 <h2>SSH: Installing R Packages</h2>
 <p>Next, you can go ahead and install R packages, if you know which ones your application will need.</p>
 <p>First, open R just like you would on your own computer:</p>
-<div class="highlight"><pre><span class="go">R</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">R</span></span>
 </pre></div>
 
 
 <p>Next, install a package (e.g. "maps"):</p>
-<div class="highlight"><pre><span class="go">install.packages(&quot;maps&quot;, dependencies = TRUE)</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">install.packages(&quot;maps&quot;, dependencies = TRUE)</span></span>
 </pre></div>
 
 
 <p>It will ask you the following questions:</p>
-<div class="highlight"><pre><span class="go">Would you like to use a personal library instead?  (y/n)</span>
-<span class="go">Would you like to create a personal library </span>
-<span class="go">~/R/library </span>
-<span class="go">to install packages into?  (y/n)</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">Would you like to use a personal library instead?  (y/n)</span></span>
+<span class="code-line"><span class="go">Would you like to create a personal library </span></span>
+<span class="code-line"><span class="go">~/R/library </span></span>
+<span class="code-line"><span class="go">to install packages into?  (y/n)</span></span>
 </pre></div>
 
 
 <p>You can answer "y" to both of these. Your applications will be able to use packages installed here.</p>
 <p>Then you can follow the standard procedure for installing R packages.</p>
 <p>You can now quit R and exit ssh:</p>
-<div class="highlight"><pre><span class="go">q()</span>
-<span class="go">exit</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">q()</span></span>
+<span class="code-line"><span class="go">exit</span></span>
 </pre></div>
 
 
 <h2>Copying Files</h2>
 <p>On your own computer, navigate to the directory your Shiny application's folder is in, e.g.:</p>
-<div class="highlight"><pre><span class="go">cd Shiny</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">cd Shiny</span></span>
 </pre></div>
 
 
 <p>Once you're there, you can copy the application folder to the server:</p>
-<div class="highlight"><pre><span class="go">scp -r myapp/ username@spark.rstudio.com:ShinyApps/</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">scp -r myapp/ username@spark.rstudio.com:ShinyApps/</span></span>
 </pre></div>
 
 
 <p>Or if you don't want to copy all the files, you can move them one at a time:</p>
-<div class="highlight"><pre><span class="go">scp myapp/ui.R username@spark.rstudio.com:ShinyApps/myapp/ui.R</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">scp myapp/ui.R username@spark.rstudio.com:ShinyApps/myapp/ui.R</span></span>
 </pre></div>
 
 
@@ -131,114 +300,114 @@
 <p>There are multiple ways to find or choose the names of the files you want to analyze.</p>
 <p>You can explicitly state the file names or you can get R to find any files with a particular extension.</p>
 <h3>Explicitly Stating File Names</h3>
-<div class="highlight"><pre>fileNames <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;sample1.csv&quot;</span><span class="p">,</span> <span class="s">&quot;sample2.csv&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">fileNames <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;sample1.csv&quot;</span><span class="p">,</span> <span class="s">&quot;sample2.csv&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <h3>Finding Files with a Specific Extension</h3>
 <p>In this case, we use <code>Sys.glob</code> from the <strong>base</strong> package to find all files including the wildcard "*.csv".</p>
-<div class="highlight"><pre>fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="s">&quot;*.csv&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="s">&quot;*.csv&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <h2>Iterating Across All Files</h2>
 <p>We'll start with a loop and then we can add whatever functions we want to the inside of the loop:</p>
-<div class="highlight"><pre><span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span>
-
-    <span class="c1"># read data:</span>
-    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span>
-        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
-
-    <span class="c1"># add more stuff here</span>
-
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># read data:</span></span>
+<span class="code-line">    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span></span>
+<span class="code-line">        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># add more stuff here</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>For example, we could add one to every "Widget" value in each file and overwrite the old data with the new data:</p>
-<div class="highlight"><pre><span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span>
-
-    <span class="c1"># read old data:</span>
-    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span>
-        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
-
-    <span class="c1"># add one to every widget value in every file:</span>
-    <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">&lt;-</span> <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">+</span> <span class="m">1</span>
-
-    <span class="c1"># overwrite old data with new data:</span>
-    write.table<span class="p">(</span><span class="kp">sample</span><span class="p">,</span> 
-        fileName<span class="p">,</span>
-        append <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        quote <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span>
-        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        col.names <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># read old data:</span></span>
+<span class="code-line">    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span></span>
+<span class="code-line">        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># add one to every widget value in every file:</span></span>
+<span class="code-line">    <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">&lt;-</span> <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">+</span> <span class="m">1</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># overwrite old data with new data:</span></span>
+<span class="code-line">    write.table<span class="p">(</span><span class="kp">sample</span><span class="p">,</span> </span>
+<span class="code-line">        fileName<span class="p">,</span></span>
+<span class="code-line">        append <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        quote <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span></span>
+<span class="code-line">        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        col.names <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>Or we could do the same thing, but create a new copy of each file:</p>
-<div class="highlight"><pre>extension <span class="o">&lt;-</span> <span class="s">&quot;csv&quot;</span>
-
-fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;*.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
-
-fileNumbers <span class="o">&lt;-</span> <span class="kp">seq</span><span class="p">(</span>fileNames<span class="p">)</span>
-
-<span class="kr">for</span> <span class="p">(</span>fileNumber <span class="kr">in</span> fileNumbers<span class="p">)</span> <span class="p">{</span>
-
-    newFileName <span class="o">&lt;-</span>  <span class="kp">paste</span><span class="p">(</span><span class="s">&quot;new-&quot;</span><span class="p">,</span> 
-        <span class="kp">sub</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;\\.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">),</span> <span class="s">&quot;&quot;</span><span class="p">,</span> fileNames<span class="p">[</span>fileNumber<span class="p">]),</span> 
-        <span class="s">&quot;.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-
-    <span class="c1"># read old data:</span>
-    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileNames<span class="p">[</span>fileNumber<span class="p">],</span>
-        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
-
-    <span class="c1"># add one to every widget value in every file:</span>
-    <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">&lt;-</span> <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">+</span> <span class="m">1</span>
-
-    <span class="c1"># write old data to new files:</span>
-    write.table<span class="p">(</span><span class="kp">sample</span><span class="p">,</span> 
-        newFileName<span class="p">,</span>
-        append <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        quote <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span>
-        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        col.names <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line">extension <span class="o">&lt;-</span> <span class="s">&quot;csv&quot;</span></span>
+<span class="code-line"></span>
+<span class="code-line">fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;*.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line">fileNumbers <span class="o">&lt;-</span> <span class="kp">seq</span><span class="p">(</span>fileNames<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kr">for</span> <span class="p">(</span>fileNumber <span class="kr">in</span> fileNumbers<span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    newFileName <span class="o">&lt;-</span>  <span class="kp">paste</span><span class="p">(</span><span class="s">&quot;new-&quot;</span><span class="p">,</span> </span>
+<span class="code-line">        <span class="kp">sub</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;\\.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">),</span> <span class="s">&quot;&quot;</span><span class="p">,</span> fileNames<span class="p">[</span>fileNumber<span class="p">]),</span> </span>
+<span class="code-line">        <span class="s">&quot;.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># read old data:</span></span>
+<span class="code-line">    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileNames<span class="p">[</span>fileNumber<span class="p">],</span></span>
+<span class="code-line">        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># add one to every widget value in every file:</span></span>
+<span class="code-line">    <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">&lt;-</span> <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">+</span> <span class="m">1</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># write old data to new files:</span></span>
+<span class="code-line">    write.table<span class="p">(</span><span class="kp">sample</span><span class="p">,</span> </span>
+<span class="code-line">        newFileName<span class="p">,</span></span>
+<span class="code-line">        append <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        quote <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span></span>
+<span class="code-line">        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        col.names <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>In the above example, we used the <code>paste</code> and <code>sub</code> functions from the <strong>base</strong> package to automatically create new file names based on the old file names.</p>
 <p>Or we could instead use each dataset to create an entirely new dataset, where each row is based on data from one file:</p>
-<div class="highlight"><pre>fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="s">&quot;*.csv&quot;</span><span class="p">)</span>
-
-<span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span>
-
-    <span class="c1"># read original data:</span>
-    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span>
-        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
-
-    <span class="c1"># create new data based on contents of original file:</span>
-    allWidgets <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>
-        File <span class="o">=</span> fileName<span class="p">,</span>
-        Widgets <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span><span class="kp">sample</span><span class="o">$</span>Widgets<span class="p">))</span>
-
-    <span class="c1"># write new data to separate file:</span>
-    write.table<span class="p">(</span>allWidgets<span class="p">,</span> 
-        <span class="s">&quot;Output/sample-allSamples.csv&quot;</span><span class="p">,</span>
-        append <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span>
-        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        col.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
-
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line">fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="s">&quot;*.csv&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># read original data:</span></span>
+<span class="code-line">    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span></span>
+<span class="code-line">        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># create new data based on contents of original file:</span></span>
+<span class="code-line">    allWidgets <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span></span>
+<span class="code-line">        File <span class="o">=</span> fileName<span class="p">,</span></span>
+<span class="code-line">        Widgets <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span><span class="kp">sample</span><span class="o">$</span>Widgets<span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># write new data to separate file:</span></span>
+<span class="code-line">    write.table<span class="p">(</span>allWidgets<span class="p">,</span> </span>
+<span class="code-line">        <span class="s">&quot;Output/sample-allSamples.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">        append <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span></span>
+<span class="code-line">        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        col.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
@@ -273,27 +442,27 @@ I haven't tested it, but it is likely this is more efficient than using <code>fo
 		</h2>
 		<div class="entry-content">
 			<p>Sometimes, you only need to analyze part of the data stored as a vector. In this example, there is a list of patents. Each patent has been assigned to one or more patent classes. Let's say that we want to analyze the dataset based on only the first patent class listed for each patent.</p>
-<div class="highlight"><pre>patents <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>
-    patent <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,</span>
-    class <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;405&quot;</span><span class="p">,</span> <span class="s">&quot;33/209&quot;</span><span class="p">,</span> <span class="s">&quot;549/514&quot;</span><span class="p">,</span> <span class="s">&quot;110&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;43&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;315/327&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;536/514&quot;</span><span class="p">,</span> <span class="s">&quot;523/522&quot;</span><span class="p">,</span> <span class="s">&quot;315&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;138/248/285&quot;</span><span class="p">,</span> <span class="s">&quot;24&quot;</span><span class="p">,</span> <span class="s">&quot;365&quot;</span><span class="p">,</span> <span class="s">&quot;73/116/137&quot;</span><span class="p">,</span> <span class="s">&quot;73/200&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;252/508&quot;</span><span class="p">,</span> <span class="s">&quot;96/261&quot;</span><span class="p">,</span> <span class="s">&quot;327/318&quot;</span><span class="p">,</span> <span class="s">&quot;426/424/512&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;75/423&quot;</span><span class="p">,</span> <span class="s">&quot;430&quot;</span><span class="p">,</span> <span class="s">&quot;416&quot;</span><span class="p">,</span> <span class="s">&quot;536/423/530&quot;</span><span class="p">,</span> <span class="s">&quot;381/181&quot;</span><span class="p">,</span> <span class="s">&quot;4&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;340/187&quot;</span><span class="p">,</span> <span class="s">&quot;423/75&quot;</span><span class="p">,</span> <span class="s">&quot;360/392/G9B&quot;</span><span class="p">,</span> <span class="s">&quot;524/106/423&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line">patents <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span></span>
+<span class="code-line">    patent <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,</span></span>
+<span class="code-line">    class <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;405&quot;</span><span class="p">,</span> <span class="s">&quot;33/209&quot;</span><span class="p">,</span> <span class="s">&quot;549/514&quot;</span><span class="p">,</span> <span class="s">&quot;110&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;43&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;315/327&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;536/514&quot;</span><span class="p">,</span> <span class="s">&quot;523/522&quot;</span><span class="p">,</span> <span class="s">&quot;315&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;138/248/285&quot;</span><span class="p">,</span> <span class="s">&quot;24&quot;</span><span class="p">,</span> <span class="s">&quot;365&quot;</span><span class="p">,</span> <span class="s">&quot;73/116/137&quot;</span><span class="p">,</span> <span class="s">&quot;73/200&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;252/508&quot;</span><span class="p">,</span> <span class="s">&quot;96/261&quot;</span><span class="p">,</span> <span class="s">&quot;327/318&quot;</span><span class="p">,</span> <span class="s">&quot;426/424/512&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;75/423&quot;</span><span class="p">,</span> <span class="s">&quot;430&quot;</span><span class="p">,</span> <span class="s">&quot;416&quot;</span><span class="p">,</span> <span class="s">&quot;536/423/530&quot;</span><span class="p">,</span> <span class="s">&quot;381/181&quot;</span><span class="p">,</span> <span class="s">&quot;4&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;340/187&quot;</span><span class="p">,</span> <span class="s">&quot;423/75&quot;</span><span class="p">,</span> <span class="s">&quot;360/392/G9B&quot;</span><span class="p">,</span> <span class="s">&quot;524/106/423&quot;</span><span class="p">))</span></span>
 </pre></div>
 
 
 <p>We can use <a href="http://en.wikipedia.org/wiki/Regular_expression">regular expressions</a> to truncate each element of the vector just before the first "/".</p>
 <p><code>grep</code>,<code>grepl</code>,<code>sub</code>,<code>gsub</code>,<code>regexpr</code>,<code>gregexpr</code>, and <code>regexec</code> are all functions in the <strong>base</strong> package that allow you to use regular expressions within each element of a character vector. <code>sub</code> and <code>gsub</code> allow you to replace within each element of the vector. <code>sub</code> replaces the first match within each element, while <code>gsub</code> replaces all matches within each element. In this case, we want to remove everything from the first "/" on, and we want to replace it with nothing. Here's how we can use <code>sub</code> to do that:</p>
-<div class="highlight"><pre>patents<span class="o">$</span>primaryClass <span class="o">&lt;-</span> <span class="kp">sub</span><span class="p">(</span><span class="s">&quot;/.*&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> patents<span class="o">$</span><span class="kp">class</span><span class="p">)</span>
-
-<span class="o">&gt;</span> <span class="kp">table</span><span class="p">(</span>patents<span class="o">$</span>primaryClass<span class="p">)</span>
-
-<span class="m">110</span> <span class="m">138</span>  <span class="m">24</span> <span class="m">252</span> <span class="m">315</span> <span class="m">327</span>  <span class="m">33</span> <span class="m">340</span> <span class="m">360</span> <span class="m">365</span> <span class="m">381</span>   <span class="m">4</span> <span class="m">405</span> <span class="m">416</span> <span class="m">423</span> <span class="m">426</span>  <span class="m">43</span> <span class="m">430</span> <span class="m">523</span> <span class="m">524</span> 
-  <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span> 
-<span class="m">536</span> <span class="m">540</span> <span class="m">549</span>  <span class="m">73</span>  <span class="m">75</span>  <span class="m">96</span> 
-  <span class="m">2</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span>
+<div class="highlight"><pre><span class="code-line">patents<span class="o">$</span>primaryClass <span class="o">&lt;-</span> <span class="kp">sub</span><span class="p">(</span><span class="s">&quot;/.*&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> patents<span class="o">$</span><span class="kp">class</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">table</span><span class="p">(</span>patents<span class="o">$</span>primaryClass<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="m">110</span> <span class="m">138</span>  <span class="m">24</span> <span class="m">252</span> <span class="m">315</span> <span class="m">327</span>  <span class="m">33</span> <span class="m">340</span> <span class="m">360</span> <span class="m">365</span> <span class="m">381</span>   <span class="m">4</span> <span class="m">405</span> <span class="m">416</span> <span class="m">423</span> <span class="m">426</span>  <span class="m">43</span> <span class="m">430</span> <span class="m">523</span> <span class="m">524</span> </span>
+<span class="code-line">  <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span> </span>
+<span class="code-line"><span class="m">536</span> <span class="m">540</span> <span class="m">549</span>  <span class="m">73</span>  <span class="m">75</span>  <span class="m">96</span> </span>
+<span class="code-line">  <span class="m">2</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span></span>
 </pre></div>
 
 
@@ -321,20 +490,20 @@ I haven't tested it, but it is likely this is more efficient than using <code>fo
 		<div class="entry-content">
 			<p>I often find it beneficial to check to see whether or not a dataset is already loaded into R at the beginning of a file. This is particularly helpful when I'm dealing with a large file that I don't want to load repeatedly, and when I might be using the same dataset with multiple R scripts or re-running the same script while making changes to the code.</p>
 <p>To check to see if an object with that name is already loaded, we can use the <code>exists</code> function from the <strong>base</strong> package. We can then wrap our <code>read.csv</code> command with an <code>if</code> statement to cause the file to only load if an object with that name is not already loaded.</p>
-<div class="highlight"><pre><span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;largeData&quot;</span><span class="p">))</span> <span class="p">{</span>
-    largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span>
-        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;largeData&quot;</span><span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>You will probably also find it useful to use the "<a href="http://blog.mollietaylor.com/2013/09/using-colclasses-to-load-data-more.html">colClasses</a>" option of <code>read.csv</code> or <code>read.table</code> to help the file load faster and make sure your data are in the right format. For example:</p>
-<div class="highlight"><pre><span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;largeData&quot;</span><span class="p">))</span> <span class="p">{</span>
-    largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span>
-        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-        colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> 
-            <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">))</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;largeData&quot;</span><span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">        colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> </span>
+<span class="code-line">            <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
@@ -359,42 +528,42 @@ I haven't tested it, but it is likely this is more efficient than using <code>fo
 			<p>Specifying a <code>colClasses</code> argument to <code>read.table</code> or <code>read.csv</code> can save time on importing data, while also saving steps to specify classes for each variable later.</p>
 <p>For example, loading a 893 MB took 441 seconds to load when not using <code>colClasses</code>, but only 268 seconds to load when using <code>colClasses</code>. The <code>system.time</code> function in <strong>base</strong> can help you check your own times.</p>
 <p>Without specifying <code>colClasses</code>:</p>
-<div class="highlight"><pre>   user  system elapsed 
-<span class="m">441.224</span>   <span class="m">8.200</span> <span class="m">454.155</span>
+<div class="highlight"><pre><span class="code-line">   user  system elapsed </span>
+<span class="code-line"><span class="m">441.224</span>   <span class="m">8.200</span> <span class="m">454.155</span></span>
 </pre></div>
 
 
 <p>When specifying <code>colClasses</code>:</p>
-<div class="highlight"><pre>   user  system elapsed 
-<span class="m">268.036</span>   <span class="m">6.096</span> <span class="m">284.099</span>
+<div class="highlight"><pre><span class="code-line">   user  system elapsed </span>
+<span class="code-line"><span class="m">268.036</span>   <span class="m">6.096</span> <span class="m">284.099</span></span>
 </pre></div>
 
 
 <p>Dates that are in the <a href="http://blog.mollietaylor.com/2013/08/date-formats-in-r.html">form %Y-%m-%d or Y/%m/%d</a> will import correctly. <a href="http://stackoverflow.com/a/13022441">This tip allows you to import dates properly</a> for dates in other formats.</p>
-<div class="highlight"><pre><span class="kp">system.time</span><span class="p">(</span>largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span>
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;complex&quot;</span><span class="p">,</span> 
-        <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> 
-        <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;numeric&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span>
-        <span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;logical&quot;</span><span class="p">)))</span>
+<div class="highlight"><pre><span class="code-line"><span class="kp">system.time</span><span class="p">(</span>largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;complex&quot;</span><span class="p">,</span> </span>
+<span class="code-line">        <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> </span>
+<span class="code-line">        <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;numeric&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span></span>
+<span class="code-line">        <span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;logical&quot;</span><span class="p">)))</span></span>
 </pre></div>
 
 
 <p>If there aren't any classes that you want to change from their defaults, you can read in the first few rows, <a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">determine the classes from that</a>, and then import the rest of the file:</p>
-<div class="highlight"><pre>sampleData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> nrows <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
-classes <span class="o">&lt;-</span> <span class="kp">sapply</span><span class="p">(</span>sampleData<span class="p">,</span> <span class="kp">class</span><span class="p">)</span>
-largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> colClasses <span class="o">=</span> classes<span class="p">)</span>
-str<span class="p">(</span>largeData<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">sampleData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> nrows <span class="o">=</span> <span class="m">5</span><span class="p">)</span></span>
+<span class="code-line">classes <span class="o">&lt;-</span> <span class="kp">sapply</span><span class="p">(</span>sampleData<span class="p">,</span> <span class="kp">class</span><span class="p">)</span></span>
+<span class="code-line">largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> colClasses <span class="o">=</span> classes<span class="p">)</span></span>
+<span class="code-line">str<span class="p">(</span>largeData<span class="p">)</span></span>
 </pre></div>
 
 
 <p>If you aren't concerned about the time it takes to read the data file, but instead just want the classes to be correct on import, you have the option of only specifying certain classes:</p>
-<div class="highlight"><pre>smallData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;small-file.csv&quot;</span><span class="p">,</span> 
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    colClasses<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;variableName&quot;</span><span class="o">=</span><span class="s">&quot;character&quot;</span><span class="p">))</span>
-
-<span class="o">&gt;</span> <span class="kp">class</span><span class="p">(</span>smallData<span class="o">$</span>variableName<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;character&quot;</span>
+<div class="highlight"><pre><span class="code-line">smallData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;small-file.csv&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    colClasses<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;variableName&quot;</span><span class="o">=</span><span class="s">&quot;character&quot;</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">class</span><span class="p">(</span>smallData<span class="o">$</span>variableName<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;character&quot;</span></span>
 </pre></div>
 
 
@@ -428,91 +597,91 @@ str<span class="p">(</span>largeData<span class="p">)</span>
 		<div class="entry-content">
 			<p>When plotting time series data, you might want to bin the values so that each data point corresponds to the sum for a given month or week. This post will show an easy way to use <code>cut</code> and <strong>ggplot2</strong>'s <code>stat_summary</code> to plot month totals in R without needing to reorganize the data into a second data frame.</p>
 <p>Let's start with a simple sample data set with a series of dates and quantities:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>scales<span class="p">)</span>
-
-<span class="c1"># load data:</span>
-log <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>Date <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;2013/05/25&quot;</span><span class="p">,</span><span class="s">&quot;2013/05/28&quot;</span><span class="p">,</span><span class="s">&quot;2013/05/31&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/01&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/02&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/05&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/07&quot;</span><span class="p">),</span> 
-  Quantity <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">9</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">15</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">17</span><span class="p">,</span><span class="m">18</span><span class="p">))</span>
-<span class="kp">log</span>
-str<span class="p">(</span><span class="kp">log</span><span class="p">)</span>
-
-
-<span class="o">:::</span>r
-<span class="o">&gt;</span> <span class="kp">log</span>
-        Date Quantity
-<span class="m">1</span> <span class="m">2013</span><span class="o">/</span><span class="m">05</span><span class="o">/</span><span class="m">25</span>        <span class="m">9</span>
-<span class="m">2</span> <span class="m">2013</span><span class="o">/</span><span class="m">05</span><span class="o">/</span><span class="m">28</span>        <span class="m">1</span>
-<span class="m">3</span> <span class="m">2013</span><span class="o">/</span><span class="m">05</span><span class="o">/</span><span class="m">31</span>       <span class="m">15</span>
-<span class="m">4</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">01</span>        <span class="m">4</span>
-<span class="m">5</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">02</span>        <span class="m">5</span>
-<span class="m">6</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">05</span>       <span class="m">17</span>
-<span class="m">7</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">07</span>       <span class="m">18</span>
-
-<span class="o">&gt;</span> str<span class="p">(</span><span class="kp">log</span><span class="p">)</span>
-<span class="s">&#39;data.frame&#39;</span><span class="o">:</span> <span class="m">7</span> obs. of  <span class="m">2</span> variables<span class="o">:</span>
- <span class="o">$</span> Date    <span class="o">:</span> Factor w<span class="o">/</span> <span class="m">7</span> levels <span class="s">&quot;2013/05/25&quot;</span><span class="p">,</span><span class="s">&quot;2013/05/28&quot;</span><span class="p">,</span><span class="m">..</span><span class="o">:</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span> <span class="m">6</span> <span class="m">7</span>
- <span class="o">$</span> Quantity<span class="o">:</span> num  <span class="m">9</span> <span class="m">1</span> <span class="m">15</span> <span class="m">4</span> <span class="m">5</span> <span class="m">17</span> <span class="m">18</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>scales<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># load data:</span></span>
+<span class="code-line">log <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>Date <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;2013/05/25&quot;</span><span class="p">,</span><span class="s">&quot;2013/05/28&quot;</span><span class="p">,</span><span class="s">&quot;2013/05/31&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/01&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/02&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/05&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/07&quot;</span><span class="p">),</span> </span>
+<span class="code-line">  Quantity <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">9</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">15</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">17</span><span class="p">,</span><span class="m">18</span><span class="p">))</span></span>
+<span class="code-line"><span class="kp">log</span></span>
+<span class="code-line">str<span class="p">(</span><span class="kp">log</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">:::</span>r</span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">log</span></span>
+<span class="code-line">        Date Quantity</span>
+<span class="code-line"><span class="m">1</span> <span class="m">2013</span><span class="o">/</span><span class="m">05</span><span class="o">/</span><span class="m">25</span>        <span class="m">9</span></span>
+<span class="code-line"><span class="m">2</span> <span class="m">2013</span><span class="o">/</span><span class="m">05</span><span class="o">/</span><span class="m">28</span>        <span class="m">1</span></span>
+<span class="code-line"><span class="m">3</span> <span class="m">2013</span><span class="o">/</span><span class="m">05</span><span class="o">/</span><span class="m">31</span>       <span class="m">15</span></span>
+<span class="code-line"><span class="m">4</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">01</span>        <span class="m">4</span></span>
+<span class="code-line"><span class="m">5</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">02</span>        <span class="m">5</span></span>
+<span class="code-line"><span class="m">6</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">05</span>       <span class="m">17</span></span>
+<span class="code-line"><span class="m">7</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">07</span>       <span class="m">18</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> str<span class="p">(</span><span class="kp">log</span><span class="p">)</span></span>
+<span class="code-line"><span class="s">&#39;data.frame&#39;</span><span class="o">:</span> <span class="m">7</span> obs. of  <span class="m">2</span> variables<span class="o">:</span></span>
+<span class="code-line"> <span class="o">$</span> Date    <span class="o">:</span> Factor w<span class="o">/</span> <span class="m">7</span> levels <span class="s">&quot;2013/05/25&quot;</span><span class="p">,</span><span class="s">&quot;2013/05/28&quot;</span><span class="p">,</span><span class="m">..</span><span class="o">:</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span> <span class="m">6</span> <span class="m">7</span></span>
+<span class="code-line"> <span class="o">$</span> Quantity<span class="o">:</span> num  <span class="m">9</span> <span class="m">1</span> <span class="m">15</span> <span class="m">4</span> <span class="m">5</span> <span class="m">17</span> <span class="m">18</span></span>
 </pre></div>
 
 
 <p>Next, if the date data is not already in a date format, we'll need to <a href="http://blog.mollietaylor.com/2013/08/date-formats-in-r.html">convert it to date format</a>:</p>
-<div class="highlight"><pre><span class="c1"># convert date variable from factor to date format:</span>
-<span class="kp">log</span><span class="o">$</span>Date <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">log</span><span class="o">$</span>Date<span class="p">,</span>
-    <span class="s">&quot;%Y/%m/%d&quot;</span><span class="p">)</span> <span class="c1"># tabulate all the options here</span>
-str<span class="p">(</span><span class="kp">log</span><span class="p">)</span>
-
-
-<span class="o">:::</span>r
-<span class="o">&gt;</span> str<span class="p">(</span><span class="kp">log</span><span class="p">)</span>
-<span class="s">&#39;data.frame&#39;</span><span class="o">:</span> <span class="m">7</span> obs. of  <span class="m">2</span> variables<span class="o">:</span>
- <span class="o">$</span> Date    <span class="o">:</span> Date<span class="p">,</span> <span class="kp">format</span><span class="o">:</span> <span class="s">&quot;2013-05-25&quot;</span> <span class="s">&quot;2013-05-28&quot;</span> <span class="kc">...</span>
- <span class="o">$</span> Quantity<span class="o">:</span> num  <span class="m">9</span> <span class="m">1</span> <span class="m">15</span> <span class="m">4</span> <span class="m">5</span> <span class="m">17</span> <span class="m">18</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># convert date variable from factor to date format:</span></span>
+<span class="code-line"><span class="kp">log</span><span class="o">$</span>Date <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">log</span><span class="o">$</span>Date<span class="p">,</span></span>
+<span class="code-line">    <span class="s">&quot;%Y/%m/%d&quot;</span><span class="p">)</span> <span class="c1"># tabulate all the options here</span></span>
+<span class="code-line">str<span class="p">(</span><span class="kp">log</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">:::</span>r</span>
+<span class="code-line"><span class="o">&gt;</span> str<span class="p">(</span><span class="kp">log</span><span class="p">)</span></span>
+<span class="code-line"><span class="s">&#39;data.frame&#39;</span><span class="o">:</span> <span class="m">7</span> obs. of  <span class="m">2</span> variables<span class="o">:</span></span>
+<span class="code-line"> <span class="o">$</span> Date    <span class="o">:</span> Date<span class="p">,</span> <span class="kp">format</span><span class="o">:</span> <span class="s">&quot;2013-05-25&quot;</span> <span class="s">&quot;2013-05-28&quot;</span> <span class="kc">...</span></span>
+<span class="code-line"> <span class="o">$</span> Quantity<span class="o">:</span> num  <span class="m">9</span> <span class="m">1</span> <span class="m">15</span> <span class="m">4</span> <span class="m">5</span> <span class="m">17</span> <span class="m">18</span></span>
 </pre></div>
 
 
 <p>Next we need to create variables stating the week and month of each observation. For week, <code>cut</code> has an option that allows you to break weeks as you'd like, beginning weeks on either Sunday or Monday.</p>
-<div class="highlight"><pre><span class="c1"># create variables of the week and month of each observation:</span>
-<span class="kp">log</span><span class="o">$</span>Month <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">cut</span><span class="p">(</span><span class="kp">log</span><span class="o">$</span>Date<span class="p">,</span>
-  breaks <span class="o">=</span> <span class="s">&quot;month&quot;</span><span class="p">))</span>
-<span class="kp">log</span><span class="o">$</span>Week <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">cut</span><span class="p">(</span><span class="kp">log</span><span class="o">$</span>Date<span class="p">,</span>
-  breaks <span class="o">=</span> <span class="s">&quot;week&quot;</span><span class="p">,</span>
-  start.on.monday <span class="o">=</span> <span class="kc">FALSE</span><span class="p">))</span> <span class="c1"># changes weekly break point to Sunday</span>
-<span class="kp">log</span>
-
-<span class="o">&gt;</span> <span class="kp">log</span>
-        Date Quantity      Month       Week
-<span class="m">1</span> <span class="m">2013-05-25</span>        <span class="m">9</span> <span class="m">2013-05-01</span> <span class="m">2013-05-19</span>
-<span class="m">2</span> <span class="m">2013-05-28</span>        <span class="m">1</span> <span class="m">2013-05-01</span> <span class="m">2013-05-26</span>
-<span class="m">3</span> <span class="m">2013-05-31</span>       <span class="m">15</span> <span class="m">2013-05-01</span> <span class="m">2013-05-26</span>
-<span class="m">4</span> <span class="m">2013-06-01</span>        <span class="m">4</span> <span class="m">2013-06-01</span> <span class="m">2013-05-26</span>
-<span class="m">5</span> <span class="m">2013-06-02</span>        <span class="m">5</span> <span class="m">2013-06-01</span> <span class="m">2013-06-02</span>
-<span class="m">6</span> <span class="m">2013-06-05</span>       <span class="m">17</span> <span class="m">2013-06-01</span> <span class="m">2013-06-02</span>
-<span class="m">7</span> <span class="m">2013-06-07</span>       <span class="m">18</span> <span class="m">2013-06-01</span> <span class="m">2013-06-02</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># create variables of the week and month of each observation:</span></span>
+<span class="code-line"><span class="kp">log</span><span class="o">$</span>Month <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">cut</span><span class="p">(</span><span class="kp">log</span><span class="o">$</span>Date<span class="p">,</span></span>
+<span class="code-line">  breaks <span class="o">=</span> <span class="s">&quot;month&quot;</span><span class="p">))</span></span>
+<span class="code-line"><span class="kp">log</span><span class="o">$</span>Week <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">cut</span><span class="p">(</span><span class="kp">log</span><span class="o">$</span>Date<span class="p">,</span></span>
+<span class="code-line">  breaks <span class="o">=</span> <span class="s">&quot;week&quot;</span><span class="p">,</span></span>
+<span class="code-line">  start.on.monday <span class="o">=</span> <span class="kc">FALSE</span><span class="p">))</span> <span class="c1"># changes weekly break point to Sunday</span></span>
+<span class="code-line"><span class="kp">log</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">log</span></span>
+<span class="code-line">        Date Quantity      Month       Week</span>
+<span class="code-line"><span class="m">1</span> <span class="m">2013-05-25</span>        <span class="m">9</span> <span class="m">2013-05-01</span> <span class="m">2013-05-19</span></span>
+<span class="code-line"><span class="m">2</span> <span class="m">2013-05-28</span>        <span class="m">1</span> <span class="m">2013-05-01</span> <span class="m">2013-05-26</span></span>
+<span class="code-line"><span class="m">3</span> <span class="m">2013-05-31</span>       <span class="m">15</span> <span class="m">2013-05-01</span> <span class="m">2013-05-26</span></span>
+<span class="code-line"><span class="m">4</span> <span class="m">2013-06-01</span>        <span class="m">4</span> <span class="m">2013-06-01</span> <span class="m">2013-05-26</span></span>
+<span class="code-line"><span class="m">5</span> <span class="m">2013-06-02</span>        <span class="m">5</span> <span class="m">2013-06-01</span> <span class="m">2013-06-02</span></span>
+<span class="code-line"><span class="m">6</span> <span class="m">2013-06-05</span>       <span class="m">17</span> <span class="m">2013-06-01</span> <span class="m">2013-06-02</span></span>
+<span class="code-line"><span class="m">7</span> <span class="m">2013-06-07</span>       <span class="m">18</span> <span class="m">2013-06-01</span> <span class="m">2013-06-02</span></span>
 </pre></div>
 
 
 <p>Finally, we can create either a line or bar plot of the data by month and by week, using <code>stat_summary</code> to sum up the values associated with each week or month:</p>
-<div class="highlight"><pre><span class="c1"># graph by month:</span>
-ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log</span><span class="p">,</span>
-    aes<span class="p">(</span>Month<span class="p">,</span> Quantity<span class="p">))</span> <span class="o">+</span>
-    stat_summary<span class="p">(</span>fun.y <span class="o">=</span> <span class="kp">sum</span><span class="p">,</span> <span class="c1"># adds up all observations for the month</span>
-        geom <span class="o">=</span> <span class="s">&quot;bar&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># or &quot;line&quot;</span>
-    scale_x_date<span class="p">(</span>
-        labels <span class="o">=</span> date_format<span class="p">(</span><span class="s">&quot;%Y-%m&quot;</span><span class="p">),</span>
-        breaks <span class="o">=</span> <span class="s">&quot;1 month&quot;</span><span class="p">)</span> <span class="c1"># custom x-axis labels</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># graph by month:</span></span>
+<span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log</span><span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>Month<span class="p">,</span> Quantity<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">    stat_summary<span class="p">(</span>fun.y <span class="o">=</span> <span class="kp">sum</span><span class="p">,</span> <span class="c1"># adds up all observations for the month</span></span>
+<span class="code-line">        geom <span class="o">=</span> <span class="s">&quot;bar&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># or &quot;line&quot;</span></span>
+<span class="code-line">    scale_x_date<span class="p">(</span></span>
+<span class="code-line">        labels <span class="o">=</span> date_format<span class="p">(</span><span class="s">&quot;%Y-%m&quot;</span><span class="p">),</span></span>
+<span class="code-line">        breaks <span class="o">=</span> <span class="s">&quot;1 month&quot;</span><span class="p">)</span> <span class="c1"># custom x-axis labels</span></span>
 </pre></div>
 
 
 <p><img alt="Time series plot, binned by month" src="http://blog.mollietaylor.com/images/plot-monthly-total.png" /></p>
-<div class="highlight"><pre><span class="c1"># graph by week:</span>
-ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log</span><span class="p">,</span>
-    aes<span class="p">(</span>Week<span class="p">,</span> Quantity<span class="p">))</span> <span class="o">+</span>
-    stat_summary<span class="p">(</span>fun.y <span class="o">=</span> <span class="kp">sum</span><span class="p">,</span> <span class="c1"># adds up all observations for the week</span>
-        geom <span class="o">=</span> <span class="s">&quot;bar&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># or &quot;line&quot;</span>
-    scale_x_date<span class="p">(</span>
-        labels <span class="o">=</span> date_format<span class="p">(</span><span class="s">&quot;%Y-%m-%d&quot;</span><span class="p">),</span>
-        breaks <span class="o">=</span> <span class="s">&quot;1 week&quot;</span><span class="p">)</span> <span class="c1"># custom x-axis labels</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># graph by week:</span></span>
+<span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log</span><span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>Week<span class="p">,</span> Quantity<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">    stat_summary<span class="p">(</span>fun.y <span class="o">=</span> <span class="kp">sum</span><span class="p">,</span> <span class="c1"># adds up all observations for the week</span></span>
+<span class="code-line">        geom <span class="o">=</span> <span class="s">&quot;bar&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># or &quot;line&quot;</span></span>
+<span class="code-line">    scale_x_date<span class="p">(</span></span>
+<span class="code-line">        labels <span class="o">=</span> date_format<span class="p">(</span><span class="s">&quot;%Y-%m-%d&quot;</span><span class="p">),</span></span>
+<span class="code-line">        breaks <span class="o">=</span> <span class="s">&quot;1 week&quot;</span><span class="p">)</span> <span class="c1"># custom x-axis labels</span></span>
 </pre></div>
 
 
@@ -548,11 +717,11 @@ ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log
 <p>For example,</p>
 <p>"05/27/84" is in the format %m/%d/%y, while "May 27 1984" is in the format %B %d %Y.</p>
 <p>To import those dates, you would simply provide your dates and their format (if not specified, it tries %Y-%m-%d and then %Y/%m/%d):</p>
-<div class="highlight"><pre>dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;05/27/84&quot;</span><span class="p">,</span> <span class="s">&quot;07/07/05&quot;</span><span class="p">)</span>
-betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span>
-    format <span class="o">=</span> <span class="s">&quot;%m/%d/%y&quot;</span><span class="p">)</span>
-<span class="o">&gt;</span> betterDates
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span>
+<div class="highlight"><pre><span class="code-line">dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;05/27/84&quot;</span><span class="p">,</span> <span class="s">&quot;07/07/05&quot;</span><span class="p">)</span></span>
+<span class="code-line">betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span></span>
+<span class="code-line">    format <span class="o">=</span> <span class="s">&quot;%m/%d/%y&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">&gt;</span> betterDates</span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span></span>
 </pre></div>
 
 
@@ -560,21 +729,21 @@ betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span cl
 <h3>Importing Dates from Numeric Format</h3>
 <p>If you are importing data from Excel, you may have dates that are in a numeric format. We can still use as.Date to import these, we simply need to know the origin date that Excel starts counting from, and provide that to as.Date.</p>
 <p>For Excel on Windows, the origin date is December 30, 1899 for dates after 1900. (Excel's designer thought 1900 was a leap year, but it was not.) For Excel on Mac, the origin date is January 1, 1904.</p>
-<div class="highlight"><pre><span class="c1"># from Windows Excel:</span>
-    dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">30829</span><span class="p">,</span> <span class="m">38540</span><span class="p">)</span>
-    betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span>
-        origin <span class="o">=</span> <span class="s">&quot;1899-12-30&quot;</span><span class="p">)</span>
-
-<span class="o">&gt;</span>   betterDates
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span>
-
-<span class="c1"># from Mac Excel:</span>
-    dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">29367</span><span class="p">,</span> <span class="m">37078</span><span class="p">)</span>
-    betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span>
-        origin <span class="o">=</span> <span class="s">&quot;1904-01-01&quot;</span><span class="p">)</span>
-
-<span class="o">&gt;</span>   betterDates
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># from Windows Excel:</span></span>
+<span class="code-line">    dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">30829</span><span class="p">,</span> <span class="m">38540</span><span class="p">)</span></span>
+<span class="code-line">    betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span></span>
+<span class="code-line">        origin <span class="o">=</span> <span class="s">&quot;1899-12-30&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span>   betterDates</span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># from Mac Excel:</span></span>
+<span class="code-line">    dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">29367</span><span class="p">,</span> <span class="m">37078</span><span class="p">)</span></span>
+<span class="code-line">    betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span></span>
+<span class="code-line">        origin <span class="o">=</span> <span class="s">&quot;1904-01-01&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span>   betterDates</span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span></span>
 </pre></div>
 
 
@@ -582,41 +751,41 @@ betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span cl
 <h2>Changing Date Formats</h2>
 <p>If you would like to use dates in a format other than the standard %Y-%m-%d, you can do that using the <code>format</code> function from the <strong>base</strong> package.</p>
 <p>For example,</p>
-<div class="highlight"><pre><span class="kp">format</span><span class="p">(</span>betterDates<span class="p">,</span>
-    <span class="s">&quot;%a %b %d&quot;</span><span class="p">)</span>
-
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;Sun May 27&quot;</span> <span class="s">&quot;Thu Jul 07&quot;</span>
+<div class="highlight"><pre><span class="code-line"><span class="kp">format</span><span class="p">(</span>betterDates<span class="p">,</span></span>
+<span class="code-line">    <span class="s">&quot;%a %b %d&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;Sun May 27&quot;</span> <span class="s">&quot;Thu Jul 07&quot;</span></span>
 </pre></div>
 
 
 <h2>Correct Centuries</h2>
 <p>If you are importing data with only two digits for the years, you will find that it assumes that years 69 to 99 are 1969-1999, while years 00 to 68 are 2000--2068 (subject to change in future versions of R).</p>
 <p>Often, this is not what you intend to have happen. <a href="http://stackoverflow.com/questions/9508747/r-adding-century-to-year">This page</a> gives a good explanation of several ways to fix this depending on your preference of centuries. One solution it provides is to assume all dates R is placing in the future are really from the previous century. That solution is as follows:</p>
-<div class="highlight"><pre>dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;05/27/84&quot;</span><span class="p">,</span> <span class="s">&quot;07/07/05&quot;</span><span class="p">,</span> <span class="s">&quot;08/17/20&quot;</span><span class="p">)</span>
-betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span> <span class="s">&quot;%m/%d/%y&quot;</span><span class="p">)</span>
-
-<span class="o">&gt;</span> betterDates
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span> <span class="s">&quot;2020-08-17&quot;</span>
-
-correctCentury <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">ifelse</span><span class="p">(</span>betterDates <span class="o">&gt;</span> <span class="kp">Sys.Date</span><span class="p">(),</span> 
-    <span class="kp">format</span><span class="p">(</span>betterDates<span class="p">,</span> <span class="s">&quot;19%y-%m-%d&quot;</span><span class="p">),</span> 
-    <span class="kp">format</span><span class="p">(</span>betterDates<span class="p">)))</span>
-
-<span class="o">&gt;</span> correctCentury
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span> <span class="s">&quot;1920-08-17&quot;</span>
+<div class="highlight"><pre><span class="code-line">dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;05/27/84&quot;</span><span class="p">,</span> <span class="s">&quot;07/07/05&quot;</span><span class="p">,</span> <span class="s">&quot;08/17/20&quot;</span><span class="p">)</span></span>
+<span class="code-line">betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span> <span class="s">&quot;%m/%d/%y&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> betterDates</span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span> <span class="s">&quot;2020-08-17&quot;</span></span>
+<span class="code-line"></span>
+<span class="code-line">correctCentury <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">ifelse</span><span class="p">(</span>betterDates <span class="o">&gt;</span> <span class="kp">Sys.Date</span><span class="p">(),</span> </span>
+<span class="code-line">    <span class="kp">format</span><span class="p">(</span>betterDates<span class="p">,</span> <span class="s">&quot;19%y-%m-%d&quot;</span><span class="p">),</span> </span>
+<span class="code-line">    <span class="kp">format</span><span class="p">(</span>betterDates<span class="p">)))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> correctCentury</span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span> <span class="s">&quot;1920-08-17&quot;</span></span>
 </pre></div>
 
 
 <h2>Purpose of Proper Formatting</h2>
 <p>Having your dates in the proper format allows R to know that they are dates, and as such knows what calculations it should and should not perform on them. For one example, see my <a href="http://blog.mollietaylor.com/2013/08/plot-weekly-or-monthly-totals-in-r.html">post on plotting weekly or monthly totals</a>. Here are a few more examples:</p>
-<div class="highlight"><pre><span class="o">&gt;</span>   <span class="kp">mean</span><span class="p">(</span>betterDates<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1994-12-16&quot;</span>
-
-<span class="o">&gt;</span>   <span class="kp">max</span><span class="p">(</span>betterDates<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;2005-07-07&quot;</span>
-
-<span class="o">&gt;</span>   <span class="kp">min</span><span class="p">(</span>betterDates<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span>   <span class="kp">mean</span><span class="p">(</span>betterDates<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1994-12-16&quot;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span>   <span class="kp">max</span><span class="p">(</span>betterDates<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;2005-07-07&quot;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span>   <span class="kp">min</span><span class="p">(</span>betterDates<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span></span>
 </pre></div>
 
 
@@ -832,43 +1001,43 @@ correctCentury <span class="o">&lt;-</span> <span class="kp">as.Date</span><span
 			<p>Formerly, I showed <a href="http://blog.mollietaylor.com/2013/01/using-line-segments-to-compare-values.html">how to make line segments using ggplot</a>.</p>
 <p>Working from that previous example, there are only a few things we need to change to add custom colors to our plot and legend in <strong>ggplot</strong>.</p>
 <p>First, we'll add the colors of our choice. I'll do this using RColorBrewer, but you can choose <a href="http://blog.mollietaylor.com/2012/10/palettes-in-r.html">whatever method you'd like</a>.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
-colors <span class="o">=</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span></span>
+<span class="code-line">colors <span class="o">=</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>The next section will be exactly the same as the previous example, except for removing the <code>scale_color_discrete</code> line to make way for the <code>scale_color_manual</code> we'll be adding later.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span>
-data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span>
-
-ggplot<span class="p">(</span>data<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> Expenditure<span class="p">,</span>
-        y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span>
-labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span>
-    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span>
-geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-        y <span class="o">=</span> Category<span class="p">,</span>
-        xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-        yend <span class="o">=</span> Category<span class="p">),</span>
-    size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
-geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-        color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span> <span class="c1"># these can be any string, they just need to be unique identifiers</span>
-    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span>
-    shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
-geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-        color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
-    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span>
-    shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
-theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span></span>
+<span class="code-line">data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span></span>
+<span class="code-line"></span>
+<span class="code-line">ggplot<span class="p">(</span>data<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> Expenditure<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span></span>
+<span class="code-line">    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> Category<span class="p">,</span></span>
+<span class="code-line">        xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">        yend <span class="o">=</span> Category<span class="p">),</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">        color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span> <span class="c1"># these can be any string, they just need to be unique identifiers</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span></span>
+<span class="code-line">    shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">        color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span></span>
+<span class="code-line">    shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 
 <p>And finally, we'll add a <code>scale_color_manual</code> line to our plot. We need to define the name, labels, and colors of the plot.</p>
-<div class="highlight"><pre>scale_color_manual(name = &quot;Year&quot;, # or name = element_blank()
-    labels = c(1940, 1960),
-    values = colors)
+<div class="highlight"><pre><span class="code-line">scale_color_manual(name = &quot;Year&quot;, # or name = element_blank()</span>
+<span class="code-line">    labels = c(1940, 1960),</span>
+<span class="code-line">    values = colors)</span>
 </pre></div>
 
 
@@ -893,44 +1062,44 @@ theme<span class="p">(</span>legend.position <span class="o">=</span> <span clas
 			<p>Let's learn how to use <a href="http://en.wikipedia.org/wiki/Shapefile">Shapefiles</a> in R. This will allow us to map data for complicated areas or jurisdictions like zipcodes or school districts. For the United States, many shapefiles are available from the [Census Bureau](http://www.census.gov/geo/www/tiger/tgrshp2010/tgrshp2010.html. Our example will map U.S. national parks.</p>
 <p>First, download the <a href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/parks-and-protected-lands/">U.S. Parks and Protected Lands shape files from Natural Earth</a>. We'll be using the ne_10m_parks_and_protected_lands_area.shp file.</p>
 <p>Next, start working in R. First, we'll load the shapefile and <strong>maptools</strong>:</p>
-<div class="highlight"><pre><span class="c1"># load up area shape file:</span>
-<span class="kn">library</span><span class="p">(</span>maptools<span class="p">)</span>
-area <span class="o">&lt;-</span> readShapePoly<span class="p">(</span><span class="s">&quot;ne_10m_parks_and_protected_lands_area.shp&quot;</span><span class="p">)</span>
-
-<span class="c1"># # or file.choose:</span>
-<span class="c1"># area &lt;- readShapePoly(file.choose())</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># load up area shape file:</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>maptools<span class="p">)</span></span>
+<span class="code-line">area <span class="o">&lt;-</span> readShapePoly<span class="p">(</span><span class="s">&quot;ne_10m_parks_and_protected_lands_area.shp&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># # or file.choose:</span></span>
+<span class="code-line"><span class="c1"># area &lt;- readShapePoly(file.choose())</span></span>
 </pre></div>
 
 
 <p>Next we can set the colors we want to use. And then we can set up our <a href="http://blog.mollietaylor.com/2013/02/gps-basemaps-in-r-using-getmap.html">basemap</a>.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
-colors <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span>
-
-<span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span>
-mapImage <span class="o">&lt;-</span> get_map<span class="p">(</span>location <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> <span class="m">-118</span><span class="p">,</span> lat <span class="o">=</span> <span class="m">37.5</span><span class="p">),</span>
-    color <span class="o">=</span> <span class="s">&quot;color&quot;</span><span class="p">,</span>
-    <span class="kn">source</span> <span class="o">=</span> <span class="s">&quot;osm&quot;</span><span class="p">,</span>
-    <span class="c1"># maptype = &quot;terrain&quot;,</span>
-    zoom <span class="o">=</span> <span class="m">6</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span></span>
+<span class="code-line">colors <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span></span>
+<span class="code-line">mapImage <span class="o">&lt;-</span> get_map<span class="p">(</span>location <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> <span class="m">-118</span><span class="p">,</span> lat <span class="o">=</span> <span class="m">37.5</span><span class="p">),</span></span>
+<span class="code-line">    color <span class="o">=</span> <span class="s">&quot;color&quot;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="kn">source</span> <span class="o">=</span> <span class="s">&quot;osm&quot;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="c1"># maptype = &quot;terrain&quot;,</span></span>
+<span class="code-line">    zoom <span class="o">=</span> <span class="m">6</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>Next, we can use the <code>fortify</code> function from the <em>ggplot2</em> package. This converts the crazy shape file with all its nested attributes into a data frame that ggmap will know what to do with.</p>
-<div class="highlight"><pre>area.points <span class="o">&lt;-</span> fortify<span class="p">(</span>area<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">area.points <span class="o">&lt;-</span> fortify<span class="p">(</span>area<span class="p">)</span></span>
 </pre></div>
 
 
 <p>Finally, we can map our shape files!</p>
-<div class="highlight"><pre>ggmap<span class="p">(</span>mapImage<span class="p">)</span> <span class="o">+</span>
-    geom_polygon<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> long<span class="p">,</span>
-            y <span class="o">=</span> lat<span class="p">,</span>
-            group <span class="o">=</span> group<span class="p">),</span>
-        data <span class="o">=</span> area.points<span class="p">,</span>
-        color <span class="o">=</span> colors<span class="p">[</span><span class="m">9</span><span class="p">],</span>
-        fill <span class="o">=</span> colors<span class="p">[</span><span class="m">6</span><span class="p">],</span>
-        alpha <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span> <span class="o">+</span>
-labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span>
-    y <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">ggmap<span class="p">(</span>mapImage<span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">    geom_polygon<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> long<span class="p">,</span></span>
+<span class="code-line">            y <span class="o">=</span> lat<span class="p">,</span></span>
+<span class="code-line">            group <span class="o">=</span> group<span class="p">),</span></span>
+<span class="code-line">        data <span class="o">=</span> area.points<span class="p">,</span></span>
+<span class="code-line">        color <span class="o">=</span> colors<span class="p">[</span><span class="m">9</span><span class="p">],</span></span>
+<span class="code-line">        fill <span class="o">=</span> colors<span class="p">[</span><span class="m">6</span><span class="p">],</span></span>
+<span class="code-line">        alpha <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span></span>
+<span class="code-line">    y <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -946,70 +1115,6 @@ labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Lon
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/fortify.html" rel="tag">fortify</a>,  <a href="http://blog.mollietaylor.com/tag/geom_polygon.html" rel="tag">geom_polygon</a>,  <a href="http://blog.mollietaylor.com/tag/get_map.html" rel="tag">get_map</a>,  <a href="http://blog.mollietaylor.com/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="http://blog.mollietaylor.com/tag/gps.html" rel="tag">gps</a>,  <a href="http://blog.mollietaylor.com/tag/maptools.html" rel="tag">maptools</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="http://blog.mollietaylor.com/tag/readshapepoly.html" rel="tag">readShapePoly</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2013/02/elevation-profiles-in-r.html">Thu 21 February 2013</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2013/02/elevation-profiles-in-r.html" title="Permalink to Elevation Profiles in R" rel="bookmark">Elevation Profiles in R</a>
-		</h2>
-		<div class="entry-content">
-			<p>First, let's load up our data. <a href="https://gist.github.com/mollietaylor/4969793">The data are available in a gist</a>. You can convert your own GPS data to .csv by following the instructions <a href="http://www.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">here, using gpsbabel</a>.</p>
-<div class="highlight"><pre>gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;callan.csv&quot;</span><span class="p">,</span>
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Next, we can use the function <code>SMA</code> from the package <strong>TTR</strong> to calculate a <a href="http://en.wikipedia.org/wiki/Moving_average">moving average</a> of the altitude or elevation data, if we want to smooth out the curve. We can define a constant for the number of data points we want to average to create each moving average value.</p>
-<p>If you don't want to convert meters to feet, a metric version of the code is available in the gist (<a href="https://gist.github.com/mollietaylor/4969793">callanMetric.R</a>).</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>TTR<span class="p">)</span>
-movingN <span class="o">&lt;-</span> <span class="m">5</span> <span class="c1"># define the n for the moving average calculations</span>
-gps<span class="o">$</span>Altitude <span class="o">&lt;-</span> gps<span class="o">$</span>Altitude <span class="o">*</span> <span class="m">3.281</span> <span class="c1"># convert m to ft</span>
-gps<span class="o">$</span>SMA <span class="o">&lt;-</span> SMA<span class="p">(</span>gps<span class="o">$</span>Altitude<span class="p">,</span>
-    n <span class="o">=</span> movingN<span class="p">)</span>
-gps <span class="o">&lt;-</span> gps<span class="p">[</span>movingN<span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>SMA<span class="p">),</span> <span class="p">]</span> <span class="c1"># remove first n-1 points</span>
-</pre></div>
-
-
-<p>Next, we want to calculate the distance of each point. You can skip this step if your dataset already includes distances.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>sp<span class="p">)</span>
-Dist <span class="o">&lt;-</span> <span class="m">0</span>
-<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">2</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">))</span> <span class="p">{</span>
-    Dist<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> spDistsN1<span class="p">(</span><span class="kp">as.matrix</span><span class="p">(</span>gps<span class="p">[</span>i<span class="p">,</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Longitude&quot;</span><span class="p">,</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)]),</span>
-    <span class="kt">c</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">[</span>i<span class="m">-1</span><span class="p">],</span> gps<span class="o">$</span>Latitude<span class="p">[</span>i<span class="m">-1</span><span class="p">]),</span>
-    longlat <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="o">/</span> <span class="m">1.609</span> <span class="c1"># longlat so distances will be in km, then divide to convert to miles</span>
-<span class="p">}</span>
-gps<span class="o">$</span>Dist <span class="o">&lt;-</span> Dist
-
-DistTotal <span class="o">&lt;-</span> <span class="m">0</span>
-<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">2</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">))</span> <span class="p">{</span>
-    DistTotal<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> Dist<span class="p">[</span>i<span class="p">]</span> <span class="o">+</span> DistTotal<span class="p">[</span>i<span class="m">-1</span><span class="p">]</span>
-<span class="p">}</span>
-gps<span class="o">$</span>DistTotal <span class="o">&lt;-</span> DistTotal
-</pre></div>
-
-
-<p>And finally, we can plot our elevation data using geom_ribbons and ggplot:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-ggplot<span class="p">(</span>gps<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> DistTotal<span class="p">))</span> <span class="o">+</span>
-geom_ribbon<span class="p">(</span>aes<span class="p">(</span>ymin <span class="o">=</span> <span class="m">600</span><span class="p">,</span> <span class="c1"># change this to match your min below</span>
-        ymax <span class="o">=</span> SMA<span class="p">),</span>
-    fill <span class="o">=</span> <span class="s">&quot;#1B9E77&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># put your altitude variable here if not using moving averages</span>
-labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Miles&quot;</span><span class="p">,</span>
-    y <span class="o">=</span> <span class="s">&quot;Elevation&quot;</span><span class="p">)</span> <span class="o">+</span>
-scale_y_continuous<span class="p">(</span>limits <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">600</span><span class="p">,</span><span class="m">1200</span><span class="p">))</span> <span class="c1"># change this to limits appropriate for your region</span>
-</pre></div>
-
-
-<p><img alt="Elevation profile in ggplot2" class="size-auto" src="http://blog.mollietaylor.com/images/r-elevation.png" /></p>
-<p><a href="https://gist.github.com/mollietaylor/4969793">Code and data available in a gist</a>.</p>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/geom_ribbon.html" rel="tag">geom_ribbon</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gps.html" rel="tag">gps</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/sma.html" rel="tag">SMA</a>,  <a href="http://blog.mollietaylor.com/tag/sp.html" rel="tag">sp</a>,  <a href="http://blog.mollietaylor.com/tag/spdistsn1.html" rel="tag">spDistsN1</a>,  <a href="http://blog.mollietaylor.com/tag/ttr.html" rel="tag">TTR</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">

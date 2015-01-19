@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -57,28 +58,28 @@
 <p>Here's the messy looking example:</p>
 <p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-none.png" /></p>
 <p>And here's the code for the messy looking example:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-data<span class="p">(</span>birds<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-ggplot<span class="p">(</span>birds<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
-        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
-geom_boxplot<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span></span>
 </pre></div>
 
 
 <h2>With Line Breaks</h2>
 <p>We can use <a href="http://regex.learncodethehardway.org/">regular expressions</a> to add line breaks to the factor levels by substituting any spaces with line breaks:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-data<span class="p">(</span>birds<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
-ggplot<span class="p">(</span>birds<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
-        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
-geom_boxplot<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span></span>
 </pre></div>
 
 
@@ -88,16 +89,16 @@ geom_boxplot<span class="p">()</span>
 <p>Here we can see the difference in a box plot with horizontal boxes. It's up to you to decide which style looks better:</p>
 <p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip-none.png" /></p>
 <p><img alt="Line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip.png" /></p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-data<span class="p">(</span>birds<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
-ggplot<span class="p">(</span>birds<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
-        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
-geom_boxplot<span class="p">()</span> <span class="o">+</span> 
-coord_flip<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span> <span class="o">+</span> </span>
+<span class="code-line">coord_flip<span class="p">()</span></span>
 </pre></div>
 
 

@@ -28,6 +28,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -53,43 +54,43 @@
 			<p>Formerly, I showed <a href="http://blog.mollietaylor.com/2013/01/using-line-segments-to-compare-values.html">how to make line segments using ggplot</a>.</p>
 <p>Working from that previous example, there are only a few things we need to change to add custom colors to our plot and legend in <strong>ggplot</strong>.</p>
 <p>First, we'll add the colors of our choice. I'll do this using RColorBrewer, but you can choose <a href="http://blog.mollietaylor.com/2012/10/palettes-in-r.html">whatever method you'd like</a>.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
-colors <span class="o">=</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span></span>
+<span class="code-line">colors <span class="o">=</span> brewer.pal<span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="s">&quot;Dark2&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>The next section will be exactly the same as the previous example, except for removing the <code>scale_color_discrete</code> line to make way for the <code>scale_color_manual</code> we'll be adding later.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span>
-data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span>
-
-ggplot<span class="p">(</span>data<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> Expenditure<span class="p">,</span>
-        y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span>
-labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span>
-    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span>
-geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-        y <span class="o">=</span> Category<span class="p">,</span>
-        xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-        yend <span class="o">=</span> Category<span class="p">),</span>
-    size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
-geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-        color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span> <span class="c1"># these can be any string, they just need to be unique identifiers</span>
-    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span>
-    shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
-geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-        color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
-    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span>
-    shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
-theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span></span>
+<span class="code-line">data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span></span>
+<span class="code-line"></span>
+<span class="code-line">ggplot<span class="p">(</span>data<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> Expenditure<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span></span>
+<span class="code-line">    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> Category<span class="p">,</span></span>
+<span class="code-line">        xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">        yend <span class="o">=</span> Category<span class="p">),</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">        color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span> <span class="c1"># these can be any string, they just need to be unique identifiers</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span></span>
+<span class="code-line">    shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">        color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span></span>
+<span class="code-line">    shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 
 <p>And finally, we'll add a <code>scale_color_manual</code> line to our plot. We need to define the name, labels, and colors of the plot.</p>
-<div class="highlight"><pre>scale_color_manual(name = &quot;Year&quot;, # or name = element_blank()
-    labels = c(1940, 1960),
-    values = colors)
+<div class="highlight"><pre><span class="code-line">scale_color_manual(name = &quot;Year&quot;, # or name = element_blank()</span>
+<span class="code-line">    labels = c(1940, 1960),</span>
+<span class="code-line">    values = colors)</span>
 </pre></div>
 
 

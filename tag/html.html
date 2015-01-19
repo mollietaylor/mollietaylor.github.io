@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -54,46 +55,46 @@
 		<div class="entry-content">
 			<p>Here's how to embed audio in a leaflet map. This example will also show you how to embed most other HTML in a leaflet map, or how to embed audio in an HTML file.</p>
 <p>In your map code:</p>
-<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onEachAudio</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">layer</span><span class="p">.</span><span class="nx">bindPopup</span><span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;&lt;br&gt;&quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">html</span><span class="p">);</span>
-<span class="p">};</span>
-
-<span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">GeoJSON</span><span class="p">.</span><span class="nx">AJAX</span><span class="p">(</span><span class="s2">&quot;audio.geojson&quot;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">onEachFeature</span><span class="o">:</span> <span class="nx">onEachAudio</span><span class="p">,</span>
-    <span class="nx">pointToLayer</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">latlng</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">audioIcon</span><span class="p">});</span>
-    <span class="p">}</span>
-<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">function</span> <span class="nx">onEachAudio</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">layer</span><span class="p">.</span><span class="nx">bindPopup</span><span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;&lt;br&gt;&quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">html</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">GeoJSON</span><span class="p">.</span><span class="nx">AJAX</span><span class="p">(</span><span class="s2">&quot;audio.geojson&quot;</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">onEachFeature</span><span class="o">:</span> <span class="nx">onEachAudio</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">pointToLayer</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">latlng</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">      <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">audioIcon</span><span class="p">});</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
 </pre></div>
 
 
 <p>And here's the geojson format where you'll include your audio HTML and the coordinates where you want to view each file:</p>
-<div class="highlight"><pre><span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;a href=&#39;http://www.freesound.org/people/genghis%20attenborough/sounds/212798/&#39;&gt;Deep basement&lt;/a&gt;&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;p&gt;&lt;audio width=&#39;300&#39; height=&#39;32&#39; src=&#39;http://www.freesound.org/data/previews/212/212798_205108-lq.mp3&#39; controls=&#39;controls&#39;&gt;&lt;br /&gt;Your browser does not support the audio element.&lt;br /&gt;&lt;/audio&gt;&lt;/p&gt;&quot;</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-100</span><span class="p">,</span><span class="mi">34</span><span class="p">]</span>
-        <span class="p">}</span>
-    <span class="p">},{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;a href=&#39;http://www.freesound.org/people/John%20Sipos/sounds/125696/&#39;&gt;Atlantis docks then lands.&lt;/a&gt;&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;p&gt;&lt;audio width=&#39;300&#39; height=&#39;32&#39; src=&#39;http://www.freesound.org/data/previews/125/125696_593024-lq.mp3&#39; controls=&#39;controls&#39;&gt;&lt;br /&gt;Your browser does not support the audio element.&lt;br /&gt;&lt;/audio&gt;&lt;/p&gt;&quot;</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-84</span><span class="p">,</span><span class="mi">40</span><span class="p">]</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nt">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span></span>
+<span class="code-line">        <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;a href=&#39;http://www.freesound.org/people/genghis%20attenborough/sounds/212798/&#39;&gt;Deep basement&lt;/a&gt;&quot;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="nt">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;p&gt;&lt;audio width=&#39;300&#39; height=&#39;32&#39; src=&#39;http://www.freesound.org/data/previews/212/212798_205108-lq.mp3&#39; controls=&#39;controls&#39;&gt;&lt;br /&gt;Your browser does not support the audio element.&lt;br /&gt;&lt;/audio&gt;&lt;/p&gt;&quot;</span></span>
+<span class="code-line">        <span class="p">},</span></span>
+<span class="code-line">        <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-100</span><span class="p">,</span><span class="mi">34</span><span class="p">]</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">    <span class="p">},{</span></span>
+<span class="code-line">        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span></span>
+<span class="code-line">        <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;a href=&#39;http://www.freesound.org/people/John%20Sipos/sounds/125696/&#39;&gt;Atlantis docks then lands.&lt;/a&gt;&quot;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="nt">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;p&gt;&lt;audio width=&#39;300&#39; height=&#39;32&#39; src=&#39;http://www.freesound.org/data/previews/125/125696_593024-lq.mp3&#39; controls=&#39;controls&#39;&gt;&lt;br /&gt;Your browser does not support the audio element.&lt;br /&gt;&lt;/audio&gt;&lt;/p&gt;&quot;</span></span>
+<span class="code-line">        <span class="p">},</span></span>
+<span class="code-line">        <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-84</span><span class="p">,</span><span class="mi">40</span><span class="p">]</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="p">]</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 

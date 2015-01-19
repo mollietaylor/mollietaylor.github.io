@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -53,33 +54,33 @@
 		</h2>
 		<div class="entry-content">
 			<p>If you use <code>attach</code>, it is easy to tell if a variable exists. You can simply use <code>exists</code> to check:</p>
-<div class="highlight"><pre><span class="o">&gt;</span><span class="kn">attach</span><span class="p">(</span>df<span class="p">)</span>
-
-<span class="o">&gt;</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;varName&quot;</span><span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span><span class="kn">attach</span><span class="p">(</span>df<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;varName&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
 </pre></div>
 
 
 <p>However, if you don't use <code>attach</code> (and I find you generally don't want to), this simple solution doesn't work.</p>
-<div class="highlight"><pre><span class="o">&gt;</span> <span class="kn">detach</span><span class="p">(</span>df<span class="p">)</span>
-<span class="o">&gt;</span> <span class="kp">exists</span><span class="p">(</span><span class="s">&quot;df$varName&quot;</span><span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">FALSE</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="kn">detach</span><span class="p">(</span>df<span class="p">)</span></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">exists</span><span class="p">(</span><span class="s">&quot;df$varName&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">FALSE</span></span>
 </pre></div>
 
 
 <p>Instead of using <code>exists</code>, you can use <code>in</code> or <code>any</code> from the <strong>base</strong> package to determine if a variable is defined in a data frame:</p>
-<div class="highlight"><pre><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">names</span><span class="p">(</span>df<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
-<span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">names</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">names</span><span class="p">(</span>df<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">names</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
 </pre></div>
 
 
 <p>Or to determine if a variable is defined in a matrix:</p>
-<div class="highlight"><pre><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
-<span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
 </pre></div>
 
 

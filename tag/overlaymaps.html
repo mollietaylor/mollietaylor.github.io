@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -55,29 +56,29 @@
 			<p>When you have multiple layers, it can help to add a legend to the map. This tutorial shows how to add icons to the layer control in Leaflet. This tutorial shows only marker layers, but you could create icons for polygon layers and use those as well.</p>
 <p><img alt="Legend with marker icons" src="http://blog.mollietaylor.com/images/add-icons-layer-control-legend.png" /></p>
 <p>The following code sets up our map, layers, and the layer control. This is the standard way maps look in Leaflet, with no visual indication of which layer goes with which markers, without checking the boxes on and off.</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">33.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">84.4</span><span class="p">],</span>
-    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span>
-        <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span><span class="nx">trainLayer</span><span class="p">,</span> <span class="nx">treeLayer</span><span class="p">]</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;Train&quot;</span><span class="o">:</span> <span class="nx">trainLayer</span><span class="p">,</span>
-    <span class="s2">&quot;Tree&quot;</span><span class="o">:</span> <span class="nx">treeLayer</span>
-<span class="p">};</span>
-
-<span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">collapsed</span><span class="o">:</span> <span class="kc">false</span>
-<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">33.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">84.4</span><span class="p">],</span></span>
+<span class="code-line">    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span></span>
+<span class="code-line">        <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span><span class="nx">trainLayer</span><span class="p">,</span> <span class="nx">treeLayer</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">});</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="s2">&quot;Train&quot;</span><span class="o">:</span> <span class="nx">trainLayer</span><span class="p">,</span></span>
+<span class="code-line">    <span class="s2">&quot;Tree&quot;</span><span class="o">:</span> <span class="nx">treeLayer</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">collapsed</span><span class="o">:</span> <span class="kc">false</span></span>
+<span class="code-line"><span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
 </pre></div>
 
 
 <p><img alt="Default legend" src="http://blog.mollietaylor.com/images/add-icons-layer-control-no-legend.png" /></p>
 <p>In order to add a legend to the layer control, you can simply change the overlayMaps code to add any HTML you'd like. In this case, we'll add the map icon pngs with a small height so they will look okay in the layer control:</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;&lt;img src=&#39;http://mollietaylor.com/skills/js/leaflet/train.png&#39; height=24&gt;Train&quot;</span><span class="o">:</span> <span class="nx">trainLayer</span><span class="p">,</span>
-    <span class="s2">&quot;&lt;img src=&#39;http://mollietaylor.com/skills/js/leaflet/arbol.png&#39; height=24&gt;Tree&quot;</span><span class="o">:</span> <span class="nx">treeLayer</span>
-<span class="p">};</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="s2">&quot;&lt;img src=&#39;http://mollietaylor.com/skills/js/leaflet/train.png&#39; height=24&gt;Train&quot;</span><span class="o">:</span> <span class="nx">trainLayer</span><span class="p">,</span></span>
+<span class="code-line">    <span class="s2">&quot;&lt;img src=&#39;http://mollietaylor.com/skills/js/leaflet/arbol.png&#39; height=24&gt;Tree&quot;</span><span class="o">:</span> <span class="nx">treeLayer</span></span>
+<span class="code-line"><span class="p">};</span></span>
 </pre></div>
 
 
@@ -100,61 +101,61 @@
 		<div class="entry-content">
 			<p>What if we want to create a layer based on geolocation, but have the layer only be added to the map once geolocation occurs? I didn't find this example in any Leaflet tutorials, but it's pretty simple with some basic JavaScript</p>
 <p>I'll start with some code that should look familiar from the <a href="http://leafletjs.com/examples/quick-start.html">Leaflet Quick Start Guide</a>, but with each item as its own layer.</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">marker</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">([</span><span class="mf">51.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">]);</span>
-
-<span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
-    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span>
-    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span>
-    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span>
-<span class="p">]);</span>
-
-<span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">51.505</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">],</span>
-    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">13</span><span class="p">,</span>
-    <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span><span class="nx">marker</span><span class="p">,</span> <span class="nx">circle</span><span class="p">,</span> <span class="nx">polygon</span><span class="p">]</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;Marker&quot;</span><span class="o">:</span> <span class="nx">marker</span><span class="p">,</span>
-    <span class="s2">&quot;Circle&quot;</span><span class="o">:</span> <span class="nx">circle</span><span class="p">,</span>
-    <span class="s2">&quot;Polygon&quot;</span><span class="o">:</span> <span class="nx">polygon</span>
-<span class="p">};</span>
-<span class="nx">L</span><span class="p">.</span><span class="nx">tileLayer</span><span class="p">(</span><span class="s1">&#39;http://tile.cloudmade.com/[API-KEY]/29889/256/{z}/{x}/{y}.png&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">attribution</span><span class="o">:</span> <span class="s1">&#39;Map data &amp;copy; &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;CC-BY-SA&lt;/a&gt;, Imagery © &lt;a href=&quot;http://cloudmade.com&quot;&gt;CloudMade&lt;/a&gt;&#39;</span><span class="p">,</span>
-  <span class="nx">maxZoom</span><span class="o">:</span> <span class="mi">18</span>
-<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">marker</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">([</span><span class="mf">51.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">]);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span></span>
+<span class="code-line"><span class="p">});</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">]);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">51.505</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">],</span></span>
+<span class="code-line">    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">13</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span><span class="nx">marker</span><span class="p">,</span> <span class="nx">circle</span><span class="p">,</span> <span class="nx">polygon</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">});</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="s2">&quot;Marker&quot;</span><span class="o">:</span> <span class="nx">marker</span><span class="p">,</span></span>
+<span class="code-line">    <span class="s2">&quot;Circle&quot;</span><span class="o">:</span> <span class="nx">circle</span><span class="p">,</span></span>
+<span class="code-line">    <span class="s2">&quot;Polygon&quot;</span><span class="o">:</span> <span class="nx">polygon</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"><span class="nx">L</span><span class="p">.</span><span class="nx">tileLayer</span><span class="p">(</span><span class="s1">&#39;http://tile.cloudmade.com/[API-KEY]/29889/256/{z}/{x}/{y}.png&#39;</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">attribution</span><span class="o">:</span> <span class="s1">&#39;Map data &amp;copy; &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;CC-BY-SA&lt;/a&gt;, Imagery © &lt;a href=&quot;http://cloudmade.com&quot;&gt;CloudMade&lt;/a&gt;&#39;</span><span class="p">,</span></span>
+<span class="code-line">  <span class="nx">maxZoom</span><span class="o">:</span> <span class="mi">18</span></span>
+<span class="code-line"><span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
 </pre></div>
 
 
 <p>Next let's add the code that will display the three original layers if geolocation does not occur. In this case, we do not want the geolocated layer to show.</p>
-<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onLocationError</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
-
-    <span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;locationerror&#39;</span><span class="p">,</span> <span class="nx">onLocationError</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">function</span> <span class="nx">onLocationError</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;locationerror&#39;</span><span class="p">,</span> <span class="nx">onLocationError</span><span class="p">);</span></span>
 </pre></div>
 
 
 <p>You can see in the below screenshot that only the three layers are displayed.</p>
 <p><img alt="With geolocation off" class="size-auto" src="http://blog.mollietaylor.com/images/append-layer-geolocation-off.png" /></p>
 <p>Finally, we need to add code that will display all the layers (including the geolocation layer) if geolocation does occur. We simply need to add the "yourLocation" layer to overlayMaps and then display the layers as normal.</p>
-<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onLocationFound</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">yourLocation</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">);</span>
-
-    <span class="nx">overlayMaps</span><span class="p">[</span><span class="s2">&quot;You&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">yourLocation</span><span class="p">;</span>
-
-    <span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;locationfound&#39;</span><span class="p">,</span> <span class="nx">onLocationFound</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">function</span> <span class="nx">onLocationFound</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">yourLocation</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nx">overlayMaps</span><span class="p">[</span><span class="s2">&quot;You&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">yourLocation</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;locationfound&#39;</span><span class="p">,</span> <span class="nx">onLocationFound</span><span class="p">);</span></span>
 </pre></div>
 
 

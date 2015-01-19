@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -63,63 +64,63 @@
 <p>For this post, I'll be assuming you've looked through the <a href="http://geography.uoregon.edu/geogr/topics/maps.htm">Oregon map tutorial</a> or have other experience making legends in R. If not, you'll probably want to check that link out. It's an awesome tutorial.</p>
 <p>Let's start by creating a map with a standard legend, and then we move on to customization later.</p>
 <p>First, we'll load the packages we need and the data from <strong>OIdata</strong>:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>classInt<span class="p">)</span>
-
-<span class="c1"># load state data from OIdata package:</span>
-data<span class="p">(</span>state<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>classInt<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># load state data from OIdata package:</span></span>
+<span class="code-line">data<span class="p">(</span>state<span class="p">)</span></span>
 </pre></div>
 
 
 <p>Next we want to set some constants. This will save us a bunch of typing and will make the code easier to read, especially once we start creating a custom legend. Also, it will allow us to easily change the values if we want a different number of bins or a different min and max.</p>
 <p>In this example, we're assuming we have a theoretical minimum and maximum and want to determine our choropleth bins based on that.</p>
-<div class="highlight"><pre>nclr <span class="o">&lt;-</span> <span class="m">8</span> <span class="c1"># number of bins</span>
-min <span class="o">&lt;-</span> <span class="m">0</span> <span class="c1"># theoretical minimum</span>
-max <span class="o">&lt;-</span> <span class="m">100</span> <span class="c1"># theoretical maximum</span>
-breaks <span class="o">&lt;-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr
+<div class="highlight"><pre><span class="code-line">nclr <span class="o">&lt;-</span> <span class="m">8</span> <span class="c1"># number of bins</span></span>
+<span class="code-line">min <span class="o">&lt;-</span> <span class="m">0</span> <span class="c1"># theoretical minimum</span></span>
+<span class="code-line">max <span class="o">&lt;-</span> <span class="m">100</span> <span class="c1"># theoretical maximum</span></span>
+<span class="code-line">breaks <span class="o">&lt;-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr</span>
 </pre></div>
 
 
 <p>Next, we'll set up our choropleth colors (this should look familiar from the <a href="http://geography.uoregon.edu/geogr/topics/maps.htm">Oregon tutorial</a>):</p>
-<div class="highlight"><pre><span class="c1"># set up colors:</span>
-plotclr <span class="o">&lt;-</span> brewer.pal<span class="p">(</span>nclr<span class="p">,</span> <span class="s">&quot;Oranges&quot;</span><span class="p">)</span>
-plotvar <span class="o">&lt;-</span> state<span class="o">$</span>coal
-class <span class="o">&lt;-</span> classIntervals<span class="p">(</span>plotvar<span class="p">,</span>
-    nclr<span class="p">,</span>
-    style <span class="o">=</span> <span class="s">&quot;fixed&quot;</span><span class="p">,</span>
-    fixedBreaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> <span class="kp">max</span><span class="p">,</span> breaks<span class="p">))</span>
-colcode <span class="o">&lt;-</span> findColours<span class="p">(</span><span class="kp">class</span><span class="p">,</span> 
-    plotclr<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># set up colors:</span></span>
+<span class="code-line">plotclr <span class="o">&lt;-</span> brewer.pal<span class="p">(</span>nclr<span class="p">,</span> <span class="s">&quot;Oranges&quot;</span><span class="p">)</span></span>
+<span class="code-line">plotvar <span class="o">&lt;-</span> state<span class="o">$</span>coal</span>
+<span class="code-line">class <span class="o">&lt;-</span> classIntervals<span class="p">(</span>plotvar<span class="p">,</span></span>
+<span class="code-line">    nclr<span class="p">,</span></span>
+<span class="code-line">    style <span class="o">=</span> <span class="s">&quot;fixed&quot;</span><span class="p">,</span></span>
+<span class="code-line">    fixedBreaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> <span class="kp">max</span><span class="p">,</span> breaks<span class="p">))</span></span>
+<span class="code-line">colcode <span class="o">&lt;-</span> findColours<span class="p">(</span><span class="kp">class</span><span class="p">,</span> </span>
+<span class="code-line">    plotclr<span class="p">)</span></span>
 </pre></div>
 
 
 <p>And now let's map the data:</p>
-<div class="highlight"><pre><span class="c1"># map data:</span>
-map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># base</span>
-    col <span class="o">=</span> <span class="s">&quot;gray80&quot;</span><span class="p">,</span>
-    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    lty <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
-map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># data</span>
-    col <span class="o">=</span> colcode<span class="p">,</span>
-    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    lty <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
-    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># border</span>
-    col <span class="o">=</span> <span class="s">&quot;gray&quot;</span><span class="p">,</span>
-    lwd <span class="o">=</span> <span class="m">1.4</span><span class="p">,</span>
-    lty <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
-    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># map data:</span></span>
+<span class="code-line">map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># base</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;gray80&quot;</span><span class="p">,</span></span>
+<span class="code-line">    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    lty <span class="o">=</span> <span class="m">0</span><span class="p">)</span></span>
+<span class="code-line">map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># data</span></span>
+<span class="code-line">    col <span class="o">=</span> colcode<span class="p">,</span></span>
+<span class="code-line">    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    lty <span class="o">=</span> <span class="m">0</span><span class="p">,</span></span>
+<span class="code-line">    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line">map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># border</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;gray&quot;</span><span class="p">,</span></span>
+<span class="code-line">    lwd <span class="o">=</span> <span class="m">1.4</span><span class="p">,</span></span>
+<span class="code-line">    lty <span class="o">=</span> <span class="m">1</span><span class="p">,</span></span>
+<span class="code-line">    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>And finally let's add our default legend:</p>
-<div class="highlight"><pre>legend<span class="p">(</span><span class="s">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="c1"># position</span>
-    legend <span class="o">=</span> <span class="kp">names</span><span class="p">(</span><span class="kp">attr</span><span class="p">(</span>colcode<span class="p">,</span> <span class="s">&quot;table&quot;</span><span class="p">)),</span> 
-    title <span class="o">=</span> <span class="s">&quot;Percent&quot;</span><span class="p">,</span>
-    fill <span class="o">=</span> <span class="kp">attr</span><span class="p">(</span>colcode<span class="p">,</span> <span class="s">&quot;palette&quot;</span><span class="p">),</span>
-    cex <span class="o">=</span> <span class="m">0.56</span><span class="p">,</span>
-    bty <span class="o">=</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="c1"># border</span>
+<div class="highlight"><pre><span class="code-line">legend<span class="p">(</span><span class="s">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="c1"># position</span></span>
+<span class="code-line">    legend <span class="o">=</span> <span class="kp">names</span><span class="p">(</span><span class="kp">attr</span><span class="p">(</span>colcode<span class="p">,</span> <span class="s">&quot;table&quot;</span><span class="p">)),</span> </span>
+<span class="code-line">    title <span class="o">=</span> <span class="s">&quot;Percent&quot;</span><span class="p">,</span></span>
+<span class="code-line">    fill <span class="o">=</span> <span class="kp">attr</span><span class="p">(</span>colcode<span class="p">,</span> <span class="s">&quot;palette&quot;</span><span class="p">),</span></span>
+<span class="code-line">    cex <span class="o">=</span> <span class="m">0.56</span><span class="p">,</span></span>
+<span class="code-line">    bty <span class="o">=</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="c1"># border</span></span>
 </pre></div>
 
 
@@ -129,71 +130,71 @@ map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="
 <p>Next we want to add a few lines here and there to enhance the legend.</p>
 <p>For starters, let's deal with NA values. We don't have any in this particular dataset, but if we did, we would have seen they were left as the base color of the map and not included in the legend.</p>
 <p>After our former code setting up the colors, we should add the color for NAs. It's important that these lines go after all the other set up code, or the wrong colors will be mapped.</p>
-<div class="highlight"><pre><span class="c1"># set up colors:</span>
-plotclr <span class="o">&lt;-</span> brewer.pal<span class="p">(</span>nclr<span class="p">,</span> <span class="s">&quot;Oranges&quot;</span><span class="p">)</span>
-plotvar <span class="o">&lt;-</span> state<span class="o">$</span>coal
-class <span class="o">&lt;-</span> classIntervals<span class="p">(</span>plotvar<span class="p">,</span>
-    nclr<span class="p">,</span>
-    style <span class="o">=</span> <span class="s">&quot;fixed&quot;</span><span class="p">,</span>
-    fixedBreaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> <span class="kp">max</span><span class="p">,</span> breaks<span class="p">))</span>
-colcode <span class="o">&lt;-</span> findColours<span class="p">(</span><span class="kp">class</span><span class="p">,</span> 
-    plotclr<span class="p">)</span>
-NAColor <span class="o">&lt;-</span> <span class="s">&quot;gray80&quot;</span>
-plotclr <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>plotclr<span class="p">,</span> NAColor<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># set up colors:</span></span>
+<span class="code-line">plotclr <span class="o">&lt;-</span> brewer.pal<span class="p">(</span>nclr<span class="p">,</span> <span class="s">&quot;Oranges&quot;</span><span class="p">)</span></span>
+<span class="code-line">plotvar <span class="o">&lt;-</span> state<span class="o">$</span>coal</span>
+<span class="code-line">class <span class="o">&lt;-</span> classIntervals<span class="p">(</span>plotvar<span class="p">,</span></span>
+<span class="code-line">    nclr<span class="p">,</span></span>
+<span class="code-line">    style <span class="o">=</span> <span class="s">&quot;fixed&quot;</span><span class="p">,</span></span>
+<span class="code-line">    fixedBreaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> <span class="kp">max</span><span class="p">,</span> breaks<span class="p">))</span></span>
+<span class="code-line">colcode <span class="o">&lt;-</span> findColours<span class="p">(</span><span class="kp">class</span><span class="p">,</span> </span>
+<span class="code-line">    plotclr<span class="p">)</span></span>
+<span class="code-line">NAColor <span class="o">&lt;-</span> <span class="s">&quot;gray80&quot;</span></span>
+<span class="code-line">plotclr <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>plotclr<span class="p">,</span> NAColor<span class="p">)</span></span>
 </pre></div>
 
 
 <p>We also want to let the map know to have our NA color as the default color, so the map will use that instead of having those areas be transparent:</p>
-<div class="highlight"><pre><span class="c1"># map data:</span>
-map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># base</span>
-    col <span class="o">=</span> NAColor<span class="p">,</span>
-    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    lty <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
-map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># data</span>
-    col <span class="o">=</span> colcode<span class="p">,</span>
-    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    lty <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
-    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># border</span>
-    col <span class="o">=</span> <span class="s">&quot;gray&quot;</span><span class="p">,</span>
-    lwd <span class="o">=</span> <span class="m">1.4</span><span class="p">,</span>
-    lty <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
-    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># map data:</span></span>
+<span class="code-line">map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># base</span></span>
+<span class="code-line">    col <span class="o">=</span> NAColor<span class="p">,</span></span>
+<span class="code-line">    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    lty <span class="o">=</span> <span class="m">0</span><span class="p">)</span></span>
+<span class="code-line">map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># data</span></span>
+<span class="code-line">    col <span class="o">=</span> colcode<span class="p">,</span></span>
+<span class="code-line">    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    lty <span class="o">=</span> <span class="m">0</span><span class="p">,</span></span>
+<span class="code-line">    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line">map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># border</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;gray&quot;</span><span class="p">,</span></span>
+<span class="code-line">    lwd <span class="o">=</span> <span class="m">1.4</span><span class="p">,</span></span>
+<span class="code-line">    lty <span class="o">=</span> <span class="m">1</span><span class="p">,</span></span>
+<span class="code-line">    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>Next, we want to set up the legend text. For all but the last interval, we want it to say <code>i ≤ n &lt; (i + breaks)</code>. The last interval should be <code>i ≤ n ≤ (i + breaks)</code>. This can be accomplished by</p>
-<div class="highlight"><pre><span class="c1"># set legend text:</span>
-legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">()</span>
-<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">))</span> <span class="p">{</span>
-    <span class="kr">if</span> <span class="p">(</span>i <span class="o">==</span> <span class="kp">max</span><span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">)))</span> <span class="p">{</span>
-        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n \u2264&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span>
-    <span class="p">}</span> <span class="kp">else</span>
-        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n &lt;&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span> 
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># set legend text:</span></span>
+<span class="code-line">legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">()</span></span>
+<span class="code-line"><span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="kr">if</span> <span class="p">(</span>i <span class="o">==</span> <span class="kp">max</span><span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">)))</span> <span class="p">{</span></span>
+<span class="code-line">        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n \u2264&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span></span>
+<span class="code-line">    <span class="p">}</span> <span class="kp">else</span></span>
+<span class="code-line">        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n &lt;&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span> </span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>But we also want to include NAs in the legend, so we need to add a line:</p>
-<div class="highlight"><pre><span class="c1"># set legend text:</span>
-legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">()</span>
-<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">))</span> <span class="p">{</span>
-    <span class="kr">if</span> <span class="p">(</span>i <span class="o">==</span> <span class="kp">max</span><span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">)))</span> <span class="p">{</span>
-        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n \u2264&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span>
-        <span class="kr">if</span> <span class="p">(</span><span class="o">!</span><span class="kp">is.na</span><span class="p">(</span>NAColor<span class="p">))</span> legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="s">&quot;NA&quot;</span><span class="p">)</span>
-    <span class="p">}</span> <span class="kp">else</span>
-        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n &lt;&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span> 
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># set legend text:</span></span>
+<span class="code-line">legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">()</span></span>
+<span class="code-line"><span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="kr">if</span> <span class="p">(</span>i <span class="o">==</span> <span class="kp">max</span><span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">)))</span> <span class="p">{</span></span>
+<span class="code-line">        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n \u2264&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span></span>
+<span class="code-line">        <span class="kr">if</span> <span class="p">(</span><span class="o">!</span><span class="kp">is.na</span><span class="p">(</span>NAColor<span class="p">))</span> legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="s">&quot;NA&quot;</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">}</span> <span class="kp">else</span></span>
+<span class="code-line">        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n &lt;&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span> </span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>And finally we need to add the legend to the map:</p>
-<div class="highlight"><pre>legend<span class="p">(</span><span class="s">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="c1"># position</span>
-    legend <span class="o">=</span> legendText<span class="p">,</span> 
-    title <span class="o">=</span> <span class="s">&quot;Percent&quot;</span><span class="p">,</span>
-    fill <span class="o">=</span> plotclr<span class="p">,</span>
-    cex <span class="o">=</span> <span class="m">0.56</span><span class="p">,</span>
-    bty <span class="o">=</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="c1"># border</span>
+<div class="highlight"><pre><span class="code-line">legend<span class="p">(</span><span class="s">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="c1"># position</span></span>
+<span class="code-line">    legend <span class="o">=</span> legendText<span class="p">,</span> </span>
+<span class="code-line">    title <span class="o">=</span> <span class="s">&quot;Percent&quot;</span><span class="p">,</span></span>
+<span class="code-line">    fill <span class="o">=</span> plotclr<span class="p">,</span></span>
+<span class="code-line">    cex <span class="o">=</span> <span class="m">0.56</span><span class="p">,</span></span>
+<span class="code-line">    bty <span class="o">=</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="c1"># border</span></span>
 </pre></div>
 
 

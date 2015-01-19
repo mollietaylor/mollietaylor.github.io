@@ -28,6 +28,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -52,20 +53,20 @@
 		<div class="entry-content">
 			<p>I often find it beneficial to check to see whether or not a dataset is already loaded into R at the beginning of a file. This is particularly helpful when I'm dealing with a large file that I don't want to load repeatedly, and when I might be using the same dataset with multiple R scripts or re-running the same script while making changes to the code.</p>
 <p>To check to see if an object with that name is already loaded, we can use the <code>exists</code> function from the <strong>base</strong> package. We can then wrap our <code>read.csv</code> command with an <code>if</code> statement to cause the file to only load if an object with that name is not already loaded.</p>
-<div class="highlight"><pre><span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;largeData&quot;</span><span class="p">))</span> <span class="p">{</span>
-    largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span>
-        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;largeData&quot;</span><span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>You will probably also find it useful to use the "<a href="http://blog.mollietaylor.com/2013/09/using-colclasses-to-load-data-more.html">colClasses</a>" option of <code>read.csv</code> or <code>read.table</code> to help the file load faster and make sure your data are in the right format. For example:</p>
-<div class="highlight"><pre><span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;largeData&quot;</span><span class="p">))</span> <span class="p">{</span>
-    largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span>
-        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-        colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> 
-            <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">))</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;largeData&quot;</span><span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">        colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> </span>
+<span class="code-line">            <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 

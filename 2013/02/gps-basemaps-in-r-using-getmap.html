@@ -28,6 +28,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -55,37 +56,37 @@
 <p>Helpfully, there's just one function that will allow you to query Google Maps, OpenStreetMap, Stamen maps, or CloudMade maps: <code>get_map</code> in the <strong>ggmap</strong> package. You could also use either <code>get_googlemap</code>, <code>get_openstreetmap</code>, <code>get_stamenmap</code>, or <code>get_cloudmademap</code>, but instead you can just use <code>get_map</code> for the same functionality as all of those combined. This makes it easy to try out different basemaps for your data.</p>
 <p>You need to supply <code>get_map</code> with your location data and the color, source, maptype, and zoom of the base map.</p>
 <p>Let's go ahead and map the trails in Elwyn John Wildlife Sanctuary here in Atlanta. <a href="https://gist.github.com/mollietaylor/4742865">The csv data and R file are available in a gist</a>.</p>
-<div class="highlight"><pre>gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;elwyn.csv&quot;</span><span class="p">,</span>
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-
-<span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span>
-mapImageData <span class="o">&lt;-</span> get_map<span class="p">(</span>location <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span>
-    lat <span class="o">=</span> <span class="m">33.824</span><span class="p">),</span>
-    color <span class="o">=</span> <span class="s">&quot;color&quot;</span><span class="p">,</span> <span class="c1"># or bw</span>
-    <span class="kn">source</span> <span class="o">=</span> <span class="s">&quot;google&quot;</span><span class="p">,</span>
-    maptype <span class="o">=</span> <span class="s">&quot;satellite&quot;</span><span class="p">,</span>
-    <span class="c1"># api_key = &quot;your_api_key&quot;, # only needed for source = &quot;cloudmade&quot;</span>
-    zoom <span class="o">=</span> <span class="m">17</span><span class="p">)</span>
-
-pathcolor <span class="o">&lt;-</span> <span class="s">&quot;#F8971F&quot;</span>
-
-ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
-    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">,</span> <span class="c1"># &quot;panel&quot; keeps in axes, etc.</span>
-    ylab <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">,</span>
-    xlab <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span>
-    legend <span class="o">=</span> <span class="s">&quot;right&quot;</span><span class="p">)</span> <span class="o">+</span>
-    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path outline</span>
-    y <span class="o">=</span> Latitude<span class="p">),</span>
-    data <span class="o">=</span> gps<span class="p">,</span>
-    colour <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span>
-    size <span class="o">=</span> <span class="m">2</span><span class="p">)</span> <span class="o">+</span>
-    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path</span>
-    y <span class="o">=</span> Latitude<span class="p">),</span>
-    colour <span class="o">=</span> pathcolor<span class="p">,</span>
-    data <span class="o">=</span> gps<span class="p">,</span>
-    size <span class="o">=</span> <span class="m">1.4</span><span class="p">)</span> <span class="c1"># +</span>
-<span class="c1"># labs(x = &quot;Longitude&quot;,</span>
-<span class="c1">#   y = &quot;Latitude&quot;) # if you do extent = &quot;panel&quot;</span>
+<div class="highlight"><pre><span class="code-line">gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;elwyn.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span></span>
+<span class="code-line">mapImageData <span class="o">&lt;-</span> get_map<span class="p">(</span>location <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span></span>
+<span class="code-line">    lat <span class="o">=</span> <span class="m">33.824</span><span class="p">),</span></span>
+<span class="code-line">    color <span class="o">=</span> <span class="s">&quot;color&quot;</span><span class="p">,</span> <span class="c1"># or bw</span></span>
+<span class="code-line">    <span class="kn">source</span> <span class="o">=</span> <span class="s">&quot;google&quot;</span><span class="p">,</span></span>
+<span class="code-line">    maptype <span class="o">=</span> <span class="s">&quot;satellite&quot;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="c1"># api_key = &quot;your_api_key&quot;, # only needed for source = &quot;cloudmade&quot;</span></span>
+<span class="code-line">    zoom <span class="o">=</span> <span class="m">17</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">pathcolor <span class="o">&lt;-</span> <span class="s">&quot;#F8971F&quot;</span></span>
+<span class="code-line"></span>
+<span class="code-line">ggmap<span class="p">(</span>mapImageData<span class="p">,</span></span>
+<span class="code-line">    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">,</span> <span class="c1"># &quot;panel&quot; keeps in axes, etc.</span></span>
+<span class="code-line">    ylab <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">,</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span></span>
+<span class="code-line">    legend <span class="o">=</span> <span class="s">&quot;right&quot;</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path outline</span></span>
+<span class="code-line">    y <span class="o">=</span> Latitude<span class="p">),</span></span>
+<span class="code-line">    data <span class="o">=</span> gps<span class="p">,</span></span>
+<span class="code-line">    colour <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">2</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path</span></span>
+<span class="code-line">    y <span class="o">=</span> Latitude<span class="p">),</span></span>
+<span class="code-line">    colour <span class="o">=</span> pathcolor<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> gps<span class="p">,</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">1.4</span><span class="p">)</span> <span class="c1"># +</span></span>
+<span class="code-line"><span class="c1"># labs(x = &quot;Longitude&quot;,</span></span>
+<span class="code-line"><span class="c1">#   y = &quot;Latitude&quot;) # if you do extent = &quot;panel&quot;</span></span>
 </pre></div>
 
 

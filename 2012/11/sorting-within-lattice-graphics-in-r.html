@@ -28,6 +28,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -53,12 +54,12 @@
 			<h2>Default</h2>
 <p>By default, <strong>lattice</strong> sorts the observations by the axis values, starting at the bottom left.</p>
 <p>For example,</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span>
-colors <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#1B9E77&quot;</span><span class="p">,</span> <span class="s">&quot;#D95F02&quot;</span><span class="p">,</span> <span class="s">&quot;#7570B3&quot;</span><span class="p">)</span>
-dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span>
-    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span></span>
+<span class="code-line">colors <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#1B9E77&quot;</span><span class="p">,</span> <span class="s">&quot;#D95F02&quot;</span><span class="p">,</span> <span class="s">&quot;#7570B3&quot;</span><span class="p">)</span></span>
+<span class="code-line">dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> mtcars<span class="p">,</span></span>
+<span class="code-line">    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span></span>
+<span class="code-line">    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -67,44 +68,44 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 <p>(Note: The <code>rownames(cars)</code> bit is just because of how this data set is stored. For your data, you might just type the variable name (<code>model</code>, for example) instead.)</p>
 <h2>Graphing one variable, sorting by another</h2>
 <p>If we want to show the same data, but we want to sort by another variable (or the same variable, for that matter), we can just add <code>reorder(yvar, sortvar)</code>. For example, to sort by the number of cylinders, we could:</p>
-<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span>
+<div class="highlight"><pre><span class="code-line">dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> mtcars<span class="p">,</span></span>
+<span class="code-line">    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span></span>
 </pre></div>
 
 
 <p><img alt="Sorted by number of cylinders" src="http://blog.mollietaylor.com/images/r-lattice-by-cyl.png" /></p>
 <h2>Graphing two variables</h2>
 <p>To better show how this works, let's graph <code>cyl</code> alongside <code>mpg</code>, so we can see how it is sorting:</p>
-<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">,</span>
-    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
-    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> mtcars<span class="p">,</span></span>
+<span class="code-line">    col <span class="o">=</span> colors<span class="p">,</span></span>
+<span class="code-line">    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span></span>
+<span class="code-line">    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p><img alt="Graph of mpg and cyl, sorted by cyl" src="http://blog.mollietaylor.com/images/r-lattice-mpg-cyl.png" /></p>
 <h2>Reverse order</h2>
 <p>We can also sort in reverse order, by adding a "-" before the variable name:</p>
-<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">,</span>
-    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line">dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> mtcars<span class="p">,</span></span>
+<span class="code-line">    col <span class="o">=</span> colors<span class="p">,</span></span>
+<span class="code-line">    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span></span>
 </pre></div>
 
 
 <p><img alt="Graph of mpg and cyl, sorted by cyl, reversed" src="http://blog.mollietaylor.com/images/r-lattice-mpg-cyl-reverse.png" /></p>
 <h2>Adding a legend</h2>
 <p>We can also add a legend:</p>
-<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    xlab <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">,</span>
-    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span>
-    key <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>points <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">],</span> pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">)),</span>
-        text <span class="o">=</span> <span class="kt">list</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Miles per gallon&quot;</span><span class="p">,</span> <span class="s">&quot;Number of cylinders&quot;</span><span class="p">)),</span>
-        space <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line">dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> mtcars<span class="p">,</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span></span>
+<span class="code-line">    col <span class="o">=</span> colors<span class="p">,</span></span>
+<span class="code-line">    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span></span>
+<span class="code-line">    key <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>points <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">],</span> pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">)),</span></span>
+<span class="code-line">        text <span class="o">=</span> <span class="kt">list</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Miles per gallon&quot;</span><span class="p">,</span> <span class="s">&quot;Number of cylinders&quot;</span><span class="p">)),</span></span>
+<span class="code-line">        space <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">))</span></span>
 </pre></div>
 
 

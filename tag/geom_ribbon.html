@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -53,49 +54,49 @@
 		</h2>
 		<div class="entry-content">
 			<p>First, let's load up our data. <a href="https://gist.github.com/mollietaylor/4969793">The data are available in a gist</a>. You can convert your own GPS data to .csv by following the instructions <a href="http://www.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">here, using gpsbabel</a>.</p>
-<div class="highlight"><pre>gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;callan.csv&quot;</span><span class="p">,</span>
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;callan.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>Next, we can use the function <code>SMA</code> from the package <strong>TTR</strong> to calculate a <a href="http://en.wikipedia.org/wiki/Moving_average">moving average</a> of the altitude or elevation data, if we want to smooth out the curve. We can define a constant for the number of data points we want to average to create each moving average value.</p>
 <p>If you don't want to convert meters to feet, a metric version of the code is available in the gist (<a href="https://gist.github.com/mollietaylor/4969793">callanMetric.R</a>).</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>TTR<span class="p">)</span>
-movingN <span class="o">&lt;-</span> <span class="m">5</span> <span class="c1"># define the n for the moving average calculations</span>
-gps<span class="o">$</span>Altitude <span class="o">&lt;-</span> gps<span class="o">$</span>Altitude <span class="o">*</span> <span class="m">3.281</span> <span class="c1"># convert m to ft</span>
-gps<span class="o">$</span>SMA <span class="o">&lt;-</span> SMA<span class="p">(</span>gps<span class="o">$</span>Altitude<span class="p">,</span>
-    n <span class="o">=</span> movingN<span class="p">)</span>
-gps <span class="o">&lt;-</span> gps<span class="p">[</span>movingN<span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>SMA<span class="p">),</span> <span class="p">]</span> <span class="c1"># remove first n-1 points</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>TTR<span class="p">)</span></span>
+<span class="code-line">movingN <span class="o">&lt;-</span> <span class="m">5</span> <span class="c1"># define the n for the moving average calculations</span></span>
+<span class="code-line">gps<span class="o">$</span>Altitude <span class="o">&lt;-</span> gps<span class="o">$</span>Altitude <span class="o">*</span> <span class="m">3.281</span> <span class="c1"># convert m to ft</span></span>
+<span class="code-line">gps<span class="o">$</span>SMA <span class="o">&lt;-</span> SMA<span class="p">(</span>gps<span class="o">$</span>Altitude<span class="p">,</span></span>
+<span class="code-line">    n <span class="o">=</span> movingN<span class="p">)</span></span>
+<span class="code-line">gps <span class="o">&lt;-</span> gps<span class="p">[</span>movingN<span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>SMA<span class="p">),</span> <span class="p">]</span> <span class="c1"># remove first n-1 points</span></span>
 </pre></div>
 
 
 <p>Next, we want to calculate the distance of each point. You can skip this step if your dataset already includes distances.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>sp<span class="p">)</span>
-Dist <span class="o">&lt;-</span> <span class="m">0</span>
-<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">2</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">))</span> <span class="p">{</span>
-    Dist<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> spDistsN1<span class="p">(</span><span class="kp">as.matrix</span><span class="p">(</span>gps<span class="p">[</span>i<span class="p">,</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Longitude&quot;</span><span class="p">,</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)]),</span>
-    <span class="kt">c</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">[</span>i<span class="m">-1</span><span class="p">],</span> gps<span class="o">$</span>Latitude<span class="p">[</span>i<span class="m">-1</span><span class="p">]),</span>
-    longlat <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="o">/</span> <span class="m">1.609</span> <span class="c1"># longlat so distances will be in km, then divide to convert to miles</span>
-<span class="p">}</span>
-gps<span class="o">$</span>Dist <span class="o">&lt;-</span> Dist
-
-DistTotal <span class="o">&lt;-</span> <span class="m">0</span>
-<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">2</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">))</span> <span class="p">{</span>
-    DistTotal<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> Dist<span class="p">[</span>i<span class="p">]</span> <span class="o">+</span> DistTotal<span class="p">[</span>i<span class="m">-1</span><span class="p">]</span>
-<span class="p">}</span>
-gps<span class="o">$</span>DistTotal <span class="o">&lt;-</span> DistTotal
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>sp<span class="p">)</span></span>
+<span class="code-line">Dist <span class="o">&lt;-</span> <span class="m">0</span></span>
+<span class="code-line"><span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">2</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    Dist<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> spDistsN1<span class="p">(</span><span class="kp">as.matrix</span><span class="p">(</span>gps<span class="p">[</span>i<span class="p">,</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Longitude&quot;</span><span class="p">,</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)]),</span></span>
+<span class="code-line">    <span class="kt">c</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">[</span>i<span class="m">-1</span><span class="p">],</span> gps<span class="o">$</span>Latitude<span class="p">[</span>i<span class="m">-1</span><span class="p">]),</span></span>
+<span class="code-line">    longlat <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="o">/</span> <span class="m">1.609</span> <span class="c1"># longlat so distances will be in km, then divide to convert to miles</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line">gps<span class="o">$</span>Dist <span class="o">&lt;-</span> Dist</span>
+<span class="code-line"></span>
+<span class="code-line">DistTotal <span class="o">&lt;-</span> <span class="m">0</span></span>
+<span class="code-line"><span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">2</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    DistTotal<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> Dist<span class="p">[</span>i<span class="p">]</span> <span class="o">+</span> DistTotal<span class="p">[</span>i<span class="m">-1</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line">gps<span class="o">$</span>DistTotal <span class="o">&lt;-</span> DistTotal</span>
 </pre></div>
 
 
 <p>And finally, we can plot our elevation data using geom_ribbons and ggplot:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-ggplot<span class="p">(</span>gps<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> DistTotal<span class="p">))</span> <span class="o">+</span>
-geom_ribbon<span class="p">(</span>aes<span class="p">(</span>ymin <span class="o">=</span> <span class="m">600</span><span class="p">,</span> <span class="c1"># change this to match your min below</span>
-        ymax <span class="o">=</span> SMA<span class="p">),</span>
-    fill <span class="o">=</span> <span class="s">&quot;#1B9E77&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># put your altitude variable here if not using moving averages</span>
-labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Miles&quot;</span><span class="p">,</span>
-    y <span class="o">=</span> <span class="s">&quot;Elevation&quot;</span><span class="p">)</span> <span class="o">+</span>
-scale_y_continuous<span class="p">(</span>limits <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">600</span><span class="p">,</span><span class="m">1200</span><span class="p">))</span> <span class="c1"># change this to limits appropriate for your region</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line">ggplot<span class="p">(</span>gps<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> DistTotal<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_ribbon<span class="p">(</span>aes<span class="p">(</span>ymin <span class="o">=</span> <span class="m">600</span><span class="p">,</span> <span class="c1"># change this to match your min below</span></span>
+<span class="code-line">        ymax <span class="o">=</span> SMA<span class="p">),</span></span>
+<span class="code-line">    fill <span class="o">=</span> <span class="s">&quot;#1B9E77&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># put your altitude variable here if not using moving averages</span></span>
+<span class="code-line">labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Miles&quot;</span><span class="p">,</span></span>
+<span class="code-line">    y <span class="o">=</span> <span class="s">&quot;Elevation&quot;</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">scale_y_continuous<span class="p">(</span>limits <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">600</span><span class="p">,</span><span class="m">1200</span><span class="p">))</span> <span class="c1"># change this to limits appropriate for your region</span></span>
 </pre></div>
 
 

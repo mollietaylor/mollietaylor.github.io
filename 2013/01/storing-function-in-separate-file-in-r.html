@@ -28,6 +28,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -61,19 +62,19 @@
 <p>If you get the warning message "In readLines(file) : incomplete final line found on 'fun.R'", just insert a line break at the end of the fun.R file.</p>
 <h3>If you want to name the function in the file running it</h3>
 <p>First let's make the same function (but this time unnamed) in the file times.R:</p>
-<div class="highlight"><pre><span class="kr">function</span><span class="p">(</span>x<span class="p">,</span> y<span class="p">)</span> <span class="p">{</span>
-    x<span class="o">*</span>y
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="kr">function</span><span class="p">(</span>x<span class="p">,</span> y<span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    x<span class="o">*</span>y</span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <h3>Calling the functions</h3>
 <p>And finally we'll make a file file.R to call our functions:</p>
-<div class="highlight"><pre>times <span class="o">&lt;-</span> <span class="kp">dget</span><span class="p">(</span><span class="s">&quot;times.R&quot;</span><span class="p">)</span>
-times<span class="p">(</span><span class="m">-4</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
-
-<span class="kn">source</span><span class="p">(</span><span class="s">&quot;fun.R&quot;</span><span class="p">)</span>
-mult<span class="p">(</span><span class="m">-4</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">times <span class="o">&lt;-</span> <span class="kp">dget</span><span class="p">(</span><span class="s">&quot;times.R&quot;</span><span class="p">)</span></span>
+<span class="code-line">times<span class="p">(</span><span class="m">-4</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">source</span><span class="p">(</span><span class="s">&quot;fun.R&quot;</span><span class="p">)</span></span>
+<span class="code-line">mult<span class="p">(</span><span class="m">-4</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span></span>
 </pre></div>
 
 

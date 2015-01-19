@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -55,44 +56,44 @@
 			<p>Let's learn how to use <a href="http://en.wikipedia.org/wiki/Shapefile">Shapefiles</a> in R. This will allow us to map data for complicated areas or jurisdictions like zipcodes or school districts. For the United States, many shapefiles are available from the [Census Bureau](http://www.census.gov/geo/www/tiger/tgrshp2010/tgrshp2010.html. Our example will map U.S. national parks.</p>
 <p>First, download the <a href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/parks-and-protected-lands/">U.S. Parks and Protected Lands shape files from Natural Earth</a>. We'll be using the ne_10m_parks_and_protected_lands_area.shp file.</p>
 <p>Next, start working in R. First, we'll load the shapefile and <strong>maptools</strong>:</p>
-<div class="highlight"><pre><span class="c1"># load up area shape file:</span>
-<span class="kn">library</span><span class="p">(</span>maptools<span class="p">)</span>
-area <span class="o">&lt;-</span> readShapePoly<span class="p">(</span><span class="s">&quot;ne_10m_parks_and_protected_lands_area.shp&quot;</span><span class="p">)</span>
-
-<span class="c1"># # or file.choose:</span>
-<span class="c1"># area &lt;- readShapePoly(file.choose())</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># load up area shape file:</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>maptools<span class="p">)</span></span>
+<span class="code-line">area <span class="o">&lt;-</span> readShapePoly<span class="p">(</span><span class="s">&quot;ne_10m_parks_and_protected_lands_area.shp&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># # or file.choose:</span></span>
+<span class="code-line"><span class="c1"># area &lt;- readShapePoly(file.choose())</span></span>
 </pre></div>
 
 
 <p>Next we can set the colors we want to use. And then we can set up our <a href="http://blog.mollietaylor.com/2013/02/gps-basemaps-in-r-using-getmap.html">basemap</a>.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
-colors <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span>
-
-<span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span>
-mapImage <span class="o">&lt;-</span> get_map<span class="p">(</span>location <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> <span class="m">-118</span><span class="p">,</span> lat <span class="o">=</span> <span class="m">37.5</span><span class="p">),</span>
-    color <span class="o">=</span> <span class="s">&quot;color&quot;</span><span class="p">,</span>
-    <span class="kn">source</span> <span class="o">=</span> <span class="s">&quot;osm&quot;</span><span class="p">,</span>
-    <span class="c1"># maptype = &quot;terrain&quot;,</span>
-    zoom <span class="o">=</span> <span class="m">6</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span></span>
+<span class="code-line">colors <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span></span>
+<span class="code-line">mapImage <span class="o">&lt;-</span> get_map<span class="p">(</span>location <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> <span class="m">-118</span><span class="p">,</span> lat <span class="o">=</span> <span class="m">37.5</span><span class="p">),</span></span>
+<span class="code-line">    color <span class="o">=</span> <span class="s">&quot;color&quot;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="kn">source</span> <span class="o">=</span> <span class="s">&quot;osm&quot;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="c1"># maptype = &quot;terrain&quot;,</span></span>
+<span class="code-line">    zoom <span class="o">=</span> <span class="m">6</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>Next, we can use the <code>fortify</code> function from the <em>ggplot2</em> package. This converts the crazy shape file with all its nested attributes into a data frame that ggmap will know what to do with.</p>
-<div class="highlight"><pre>area.points <span class="o">&lt;-</span> fortify<span class="p">(</span>area<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">area.points <span class="o">&lt;-</span> fortify<span class="p">(</span>area<span class="p">)</span></span>
 </pre></div>
 
 
 <p>Finally, we can map our shape files!</p>
-<div class="highlight"><pre>ggmap<span class="p">(</span>mapImage<span class="p">)</span> <span class="o">+</span>
-    geom_polygon<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> long<span class="p">,</span>
-            y <span class="o">=</span> lat<span class="p">,</span>
-            group <span class="o">=</span> group<span class="p">),</span>
-        data <span class="o">=</span> area.points<span class="p">,</span>
-        color <span class="o">=</span> colors<span class="p">[</span><span class="m">9</span><span class="p">],</span>
-        fill <span class="o">=</span> colors<span class="p">[</span><span class="m">6</span><span class="p">],</span>
-        alpha <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span> <span class="o">+</span>
-labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span>
-    y <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">ggmap<span class="p">(</span>mapImage<span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">    geom_polygon<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> long<span class="p">,</span></span>
+<span class="code-line">            y <span class="o">=</span> lat<span class="p">,</span></span>
+<span class="code-line">            group <span class="o">=</span> group<span class="p">),</span></span>
+<span class="code-line">        data <span class="o">=</span> area.points<span class="p">,</span></span>
+<span class="code-line">        color <span class="o">=</span> colors<span class="p">[</span><span class="m">9</span><span class="p">],</span></span>
+<span class="code-line">        fill <span class="o">=</span> colors<span class="p">[</span><span class="m">6</span><span class="p">],</span></span>
+<span class="code-line">        alpha <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span></span>
+<span class="code-line">    y <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -125,37 +126,37 @@ labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Lon
 <p>Helpfully, there's just one function that will allow you to query Google Maps, OpenStreetMap, Stamen maps, or CloudMade maps: <code>get_map</code> in the <strong>ggmap</strong> package. You could also use either <code>get_googlemap</code>, <code>get_openstreetmap</code>, <code>get_stamenmap</code>, or <code>get_cloudmademap</code>, but instead you can just use <code>get_map</code> for the same functionality as all of those combined. This makes it easy to try out different basemaps for your data.</p>
 <p>You need to supply <code>get_map</code> with your location data and the color, source, maptype, and zoom of the base map.</p>
 <p>Let's go ahead and map the trails in Elwyn John Wildlife Sanctuary here in Atlanta. <a href="https://gist.github.com/mollietaylor/4742865">The csv data and R file are available in a gist</a>.</p>
-<div class="highlight"><pre>gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;elwyn.csv&quot;</span><span class="p">,</span>
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-
-<span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span>
-mapImageData <span class="o">&lt;-</span> get_map<span class="p">(</span>location <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span>
-    lat <span class="o">=</span> <span class="m">33.824</span><span class="p">),</span>
-    color <span class="o">=</span> <span class="s">&quot;color&quot;</span><span class="p">,</span> <span class="c1"># or bw</span>
-    <span class="kn">source</span> <span class="o">=</span> <span class="s">&quot;google&quot;</span><span class="p">,</span>
-    maptype <span class="o">=</span> <span class="s">&quot;satellite&quot;</span><span class="p">,</span>
-    <span class="c1"># api_key = &quot;your_api_key&quot;, # only needed for source = &quot;cloudmade&quot;</span>
-    zoom <span class="o">=</span> <span class="m">17</span><span class="p">)</span>
-
-pathcolor <span class="o">&lt;-</span> <span class="s">&quot;#F8971F&quot;</span>
-
-ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
-    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">,</span> <span class="c1"># &quot;panel&quot; keeps in axes, etc.</span>
-    ylab <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">,</span>
-    xlab <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span>
-    legend <span class="o">=</span> <span class="s">&quot;right&quot;</span><span class="p">)</span> <span class="o">+</span>
-    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path outline</span>
-    y <span class="o">=</span> Latitude<span class="p">),</span>
-    data <span class="o">=</span> gps<span class="p">,</span>
-    colour <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span>
-    size <span class="o">=</span> <span class="m">2</span><span class="p">)</span> <span class="o">+</span>
-    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path</span>
-    y <span class="o">=</span> Latitude<span class="p">),</span>
-    colour <span class="o">=</span> pathcolor<span class="p">,</span>
-    data <span class="o">=</span> gps<span class="p">,</span>
-    size <span class="o">=</span> <span class="m">1.4</span><span class="p">)</span> <span class="c1"># +</span>
-<span class="c1"># labs(x = &quot;Longitude&quot;,</span>
-<span class="c1">#   y = &quot;Latitude&quot;) # if you do extent = &quot;panel&quot;</span>
+<div class="highlight"><pre><span class="code-line">gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;elwyn.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span></span>
+<span class="code-line">mapImageData <span class="o">&lt;-</span> get_map<span class="p">(</span>location <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span></span>
+<span class="code-line">    lat <span class="o">=</span> <span class="m">33.824</span><span class="p">),</span></span>
+<span class="code-line">    color <span class="o">=</span> <span class="s">&quot;color&quot;</span><span class="p">,</span> <span class="c1"># or bw</span></span>
+<span class="code-line">    <span class="kn">source</span> <span class="o">=</span> <span class="s">&quot;google&quot;</span><span class="p">,</span></span>
+<span class="code-line">    maptype <span class="o">=</span> <span class="s">&quot;satellite&quot;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="c1"># api_key = &quot;your_api_key&quot;, # only needed for source = &quot;cloudmade&quot;</span></span>
+<span class="code-line">    zoom <span class="o">=</span> <span class="m">17</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">pathcolor <span class="o">&lt;-</span> <span class="s">&quot;#F8971F&quot;</span></span>
+<span class="code-line"></span>
+<span class="code-line">ggmap<span class="p">(</span>mapImageData<span class="p">,</span></span>
+<span class="code-line">    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">,</span> <span class="c1"># &quot;panel&quot; keeps in axes, etc.</span></span>
+<span class="code-line">    ylab <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">,</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span></span>
+<span class="code-line">    legend <span class="o">=</span> <span class="s">&quot;right&quot;</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path outline</span></span>
+<span class="code-line">    y <span class="o">=</span> Latitude<span class="p">),</span></span>
+<span class="code-line">    data <span class="o">=</span> gps<span class="p">,</span></span>
+<span class="code-line">    colour <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">2</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path</span></span>
+<span class="code-line">    y <span class="o">=</span> Latitude<span class="p">),</span></span>
+<span class="code-line">    colour <span class="o">=</span> pathcolor<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> gps<span class="p">,</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">1.4</span><span class="p">)</span> <span class="c1"># +</span></span>
+<span class="code-line"><span class="c1"># labs(x = &quot;Longitude&quot;,</span></span>
+<span class="code-line"><span class="c1">#   y = &quot;Latitude&quot;) # if you do extent = &quot;panel&quot;</span></span>
 </pre></div>
 
 

@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -55,23 +56,23 @@
 			<p>The <a href="http://stat.ethz.ch/R-manual/R-patched/library/datasets/html/sleep.html">sleep data set</a>—provided by the <strong>datasets</strong> package—shows the effects of two different drugs on ten patients. <code>Extra</code> is the increase in hours of sleep; <code>group</code> is the drug given, 1 or 2; and <code>ID</code> is the patient ID, 1 to 10.</p>
 <p>I'll be using this data set to show how to perform descriptive statistics of groups within a data set, when the data set is <a href="http://www.r-bloggers.com/reshape-package-in-r-long-data-format-to-wide-back-to-long-again/">long (as opposed to wide)</a>.</p>
 <p>First, we'll need to load up the psych package. The datasets package containing our data is probably already loaded.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>psych<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>psych<span class="p">)</span></span>
 </pre></div>
 
 
 <p>The <code>describe.by</code> function in the <strong>psych</strong> package is what does the magic for us here. It will group our data by a variable we give it, and output descriptive statistics for each of the groups.</p>
-<div class="highlight"><pre><span class="o">&gt;</span> describe.by<span class="p">(</span>sleep<span class="p">,</span> sleep<span class="o">$</span>group<span class="p">)</span>
-group<span class="o">:</span> <span class="m">1</span>
-       var  n mean   sd median trimmed  mad  min  max range skew kurtosis   se
-extra    <span class="m">1</span> <span class="m">10</span> <span class="m">0.75</span> <span class="m">1.79</span>   <span class="m">0.35</span>    <span class="m">0.68</span> <span class="m">1.56</span> <span class="m">-1.6</span>  <span class="m">3.7</span>   <span class="m">5.3</span> <span class="m">0.42</span>    <span class="m">-1.30</span> <span class="m">0.57</span>
-group<span class="o">*</span>   <span class="m">2</span> <span class="m">10</span> <span class="m">1.00</span> <span class="m">0.00</span>   <span class="m">1.00</span>    <span class="m">1.00</span> <span class="m">0.00</span>  <span class="m">1.0</span>  <span class="m">1.0</span>   <span class="m">0.0</span>  <span class="kc">NaN</span>      <span class="kc">NaN</span> <span class="m">0.00</span>
-ID<span class="o">*</span>      <span class="m">3</span> <span class="m">10</span> <span class="m">5.50</span> <span class="m">3.03</span>   <span class="m">5.50</span>    <span class="m">5.50</span> <span class="m">3.71</span>  <span class="m">1.0</span> <span class="m">10.0</span>   <span class="m">9.0</span> <span class="m">0.00</span>    <span class="m">-1.56</span> <span class="m">0.96</span>
-<span class="o">------------------------------------------------------------</span> 
-group<span class="o">:</span> <span class="m">2</span>
-       var  n mean   sd median trimmed  mad  min  max range skew kurtosis   se
-extra    <span class="m">1</span> <span class="m">10</span> <span class="m">2.33</span> <span class="m">2.00</span>   <span class="m">1.75</span>    <span class="m">2.24</span> <span class="m">2.45</span> <span class="m">-0.1</span>  <span class="m">5.5</span>   <span class="m">5.6</span> <span class="m">0.28</span>    <span class="m">-1.66</span> <span class="m">0.63</span>
-group<span class="o">*</span>   <span class="m">2</span> <span class="m">10</span> <span class="m">2.00</span> <span class="m">0.00</span>   <span class="m">2.00</span>    <span class="m">2.00</span> <span class="m">0.00</span>  <span class="m">2.0</span>  <span class="m">2.0</span>   <span class="m">0.0</span>  <span class="kc">NaN</span>      <span class="kc">NaN</span> <span class="m">0.00</span>
-ID<span class="o">*</span>      <span class="m">3</span> <span class="m">10</span> <span class="m">5.50</span> <span class="m">3.03</span>   <span class="m">5.50</span>    <span class="m">5.50</span> <span class="m">3.71</span>  <span class="m">1.0</span> <span class="m">10.0</span>   <span class="m">9.0</span> <span class="m">0.00</span>    <span class="m">-1.56</span> <span class="m">0.96</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> describe.by<span class="p">(</span>sleep<span class="p">,</span> sleep<span class="o">$</span>group<span class="p">)</span></span>
+<span class="code-line">group<span class="o">:</span> <span class="m">1</span></span>
+<span class="code-line">       var  n mean   sd median trimmed  mad  min  max range skew kurtosis   se</span>
+<span class="code-line">extra    <span class="m">1</span> <span class="m">10</span> <span class="m">0.75</span> <span class="m">1.79</span>   <span class="m">0.35</span>    <span class="m">0.68</span> <span class="m">1.56</span> <span class="m">-1.6</span>  <span class="m">3.7</span>   <span class="m">5.3</span> <span class="m">0.42</span>    <span class="m">-1.30</span> <span class="m">0.57</span></span>
+<span class="code-line">group<span class="o">*</span>   <span class="m">2</span> <span class="m">10</span> <span class="m">1.00</span> <span class="m">0.00</span>   <span class="m">1.00</span>    <span class="m">1.00</span> <span class="m">0.00</span>  <span class="m">1.0</span>  <span class="m">1.0</span>   <span class="m">0.0</span>  <span class="kc">NaN</span>      <span class="kc">NaN</span> <span class="m">0.00</span></span>
+<span class="code-line">ID<span class="o">*</span>      <span class="m">3</span> <span class="m">10</span> <span class="m">5.50</span> <span class="m">3.03</span>   <span class="m">5.50</span>    <span class="m">5.50</span> <span class="m">3.71</span>  <span class="m">1.0</span> <span class="m">10.0</span>   <span class="m">9.0</span> <span class="m">0.00</span>    <span class="m">-1.56</span> <span class="m">0.96</span></span>
+<span class="code-line"><span class="o">------------------------------------------------------------</span> </span>
+<span class="code-line">group<span class="o">:</span> <span class="m">2</span></span>
+<span class="code-line">       var  n mean   sd median trimmed  mad  min  max range skew kurtosis   se</span>
+<span class="code-line">extra    <span class="m">1</span> <span class="m">10</span> <span class="m">2.33</span> <span class="m">2.00</span>   <span class="m">1.75</span>    <span class="m">2.24</span> <span class="m">2.45</span> <span class="m">-0.1</span>  <span class="m">5.5</span>   <span class="m">5.6</span> <span class="m">0.28</span>    <span class="m">-1.66</span> <span class="m">0.63</span></span>
+<span class="code-line">group<span class="o">*</span>   <span class="m">2</span> <span class="m">10</span> <span class="m">2.00</span> <span class="m">0.00</span>   <span class="m">2.00</span>    <span class="m">2.00</span> <span class="m">0.00</span>  <span class="m">2.0</span>  <span class="m">2.0</span>   <span class="m">0.0</span>  <span class="kc">NaN</span>      <span class="kc">NaN</span> <span class="m">0.00</span></span>
+<span class="code-line">ID<span class="o">*</span>      <span class="m">3</span> <span class="m">10</span> <span class="m">5.50</span> <span class="m">3.03</span>   <span class="m">5.50</span>    <span class="m">5.50</span> <span class="m">3.71</span>  <span class="m">1.0</span> <span class="m">10.0</span>   <span class="m">9.0</span> <span class="m">0.00</span>    <span class="m">-1.56</span> <span class="m">0.96</span></span>
 </pre></div>
 
 

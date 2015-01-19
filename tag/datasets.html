@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -60,18 +61,18 @@
 </ul>
 <p>One method I like to use to do this is using <code>geom_segment</code> and <code>geom_point</code> in the <strong>ggplot2</strong> package.</p>
 <p>First, let's load <strong>ggplot2</strong> and our data:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span>
-data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span></span>
+<span class="code-line">data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span></span>
 </pre></div>
 
 
 <p>Next, we'll set up our plot and axes:</p>
-<div class="highlight"><pre>ggplot<span class="p">(</span>data<span class="p">,</span>
-    aes<span class="p">(</span>y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span>
-labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span>
-    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line">ggplot<span class="p">(</span>data<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span></span>
+<span class="code-line">    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 
@@ -85,45 +86,45 @@ labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Exp
 </ul>
 <!--end the list-->
 
-<div class="highlight"><pre>geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-  y <span class="o">=</span> Category<span class="p">,</span>
-  xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-  yend <span class="o">=</span> Category<span class="p">),</span>
- size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line">geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">  y <span class="o">=</span> Category<span class="p">,</span></span>
+<span class="code-line">  xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">  yend <span class="o">=</span> Category<span class="p">),</span></span>
+<span class="code-line"> size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 
 <p>Next, we want to plot points for the 1940 and 1960 values. We could do the same for the 1945, 1950, and 1955 values, if we wanted to.</p>
-<div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-    color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span>
-    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
-geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-    color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
-    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">    color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">    color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 
 <p>Finally, we'll finish up by touching up the legend for the plot:</p>
-<div class="highlight"><pre>scale_color_discrete<span class="p">(</span>name <span class="o">=</span> <span class="s">&quot;Year&quot;</span><span class="p">)</span> <span class="o">+</span>
-theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">scale_color_discrete<span class="p">(</span>name <span class="o">=</span> <span class="s">&quot;Year&quot;</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p><img alt="geom_segment, then geom_point" src="http://blog.mollietaylor.com/images/r-line-segments.png" /></p>
 <p>The order of <code>geom_segment</code> and the <code>geom_points</code> matters. The first <code>geom</code> line in the code will get plotted first. Therefore, if you want the points displayed over the segments, put the segments first in the code. Likewise, if you want the segments displayed over the points, put the points first in the code.</p>
 <p>For example, we could change the middle section of the code to:</p>
-<div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-  color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span>
-  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
-geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-  color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
-  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
-
-geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-    y <span class="o">=</span> Category<span class="p">,</span>
-    xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-    yend <span class="o">=</span> Category<span class="p">),</span>
-  size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">  color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span></span>
+<span class="code-line">  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">  color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span></span>
+<span class="code-line">  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line"></span>
+<span class="code-line">geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">    y <span class="o">=</span> Category<span class="p">,</span></span>
+<span class="code-line">    xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">    yend <span class="o">=</span> Category<span class="p">),</span></span>
+<span class="code-line">  size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 
@@ -148,65 +149,65 @@ geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o"
 		<div class="entry-content">
 			<h2>Reshape Wide to Long</h2>
 <p>Let's use the <code>Loblolly</code> dataset from the <strong>datasets</strong> package. These data track the growth of some loblolly pine trees.</p>
-<div class="highlight"><pre><span class="o">&gt;</span> Loblolly<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,]</span>
-   height age Seed
-<span class="m">1</span>    <span class="m">4.51</span>   <span class="m">3</span>  <span class="m">301</span>
-<span class="m">15</span>  <span class="m">10.89</span>   <span class="m">5</span>  <span class="m">301</span>
-<span class="m">29</span>  <span class="m">28.72</span>  <span class="m">10</span>  <span class="m">301</span>
-<span class="m">43</span>  <span class="m">41.74</span>  <span class="m">15</span>  <span class="m">301</span>
-<span class="m">57</span>  <span class="m">52.70</span>  <span class="m">20</span>  <span class="m">301</span>
-<span class="m">71</span>  <span class="m">60.92</span>  <span class="m">25</span>  <span class="m">301</span>
-<span class="m">2</span>    <span class="m">4.55</span>   <span class="m">3</span>  <span class="m">303</span>
-<span class="m">16</span>  <span class="m">10.92</span>   <span class="m">5</span>  <span class="m">303</span>
-<span class="m">30</span>  <span class="m">29.07</span>  <span class="m">10</span>  <span class="m">303</span>
-<span class="m">44</span>  <span class="m">42.83</span>  <span class="m">15</span>  <span class="m">303</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> Loblolly<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,]</span></span>
+<span class="code-line">   height age Seed</span>
+<span class="code-line"><span class="m">1</span>    <span class="m">4.51</span>   <span class="m">3</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">15</span>  <span class="m">10.89</span>   <span class="m">5</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">29</span>  <span class="m">28.72</span>  <span class="m">10</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">43</span>  <span class="m">41.74</span>  <span class="m">15</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">57</span>  <span class="m">52.70</span>  <span class="m">20</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">71</span>  <span class="m">60.92</span>  <span class="m">25</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">2</span>    <span class="m">4.55</span>   <span class="m">3</span>  <span class="m">303</span></span>
+<span class="code-line"><span class="m">16</span>  <span class="m">10.92</span>   <span class="m">5</span>  <span class="m">303</span></span>
+<span class="code-line"><span class="m">30</span>  <span class="m">29.07</span>  <span class="m">10</span>  <span class="m">303</span></span>
+<span class="code-line"><span class="m">44</span>  <span class="m">42.83</span>  <span class="m">15</span>  <span class="m">303</span></span>
 </pre></div>
 
 
 <p>First, we need to convert the data to wide form, so each age (i.e. 3, 5, 10, 15, 20, 25) will have its own variable.</p>
-<div class="highlight"><pre>wide <span class="o">&lt;-</span> reshape<span class="p">(</span>Loblolly<span class="p">,</span>
-    v.names <span class="o">=</span> <span class="s">&quot;height&quot;</span><span class="p">,</span>
-    timevar <span class="o">=</span> <span class="s">&quot;age&quot;</span><span class="p">,</span>
-    idvar <span class="o">=</span> <span class="s">&quot;Seed&quot;</span><span class="p">,</span>
-    direction <span class="o">=</span> <span class="s">&quot;wide&quot;</span><span class="p">)</span>
-
-<span class="o">&gt;</span> wide<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,]</span>
-  Seed height.3 height.5 height.10 height.15 height.20 height.25
-<span class="m">1</span>  <span class="m">301</span>     <span class="m">4.51</span>    <span class="m">10.89</span>     <span class="m">28.72</span>     <span class="m">41.74</span>     <span class="m">52.70</span>     <span class="m">60.92</span>
-<span class="m">2</span>  <span class="m">303</span>     <span class="m">4.55</span>    <span class="m">10.92</span>     <span class="m">29.07</span>     <span class="m">42.83</span>     <span class="m">53.88</span>     <span class="m">63.39</span>
-<span class="m">3</span>  <span class="m">305</span>     <span class="m">4.79</span>    <span class="m">11.37</span>     <span class="m">30.21</span>     <span class="m">44.40</span>     <span class="m">55.82</span>     <span class="m">64.10</span>
-<span class="m">4</span>  <span class="m">307</span>     <span class="m">3.91</span>     <span class="m">9.48</span>     <span class="m">25.66</span>     <span class="m">39.07</span>     <span class="m">50.78</span>     <span class="m">59.07</span>
-<span class="m">5</span>  <span class="m">309</span>     <span class="m">4.81</span>    <span class="m">11.20</span>     <span class="m">28.66</span>     <span class="m">41.66</span>     <span class="m">53.31</span>     <span class="m">63.05</span>
+<div class="highlight"><pre><span class="code-line">wide <span class="o">&lt;-</span> reshape<span class="p">(</span>Loblolly<span class="p">,</span></span>
+<span class="code-line">    v.names <span class="o">=</span> <span class="s">&quot;height&quot;</span><span class="p">,</span></span>
+<span class="code-line">    timevar <span class="o">=</span> <span class="s">&quot;age&quot;</span><span class="p">,</span></span>
+<span class="code-line">    idvar <span class="o">=</span> <span class="s">&quot;Seed&quot;</span><span class="p">,</span></span>
+<span class="code-line">    direction <span class="o">=</span> <span class="s">&quot;wide&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> wide<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,]</span></span>
+<span class="code-line">  Seed height.3 height.5 height.10 height.15 height.20 height.25</span>
+<span class="code-line"><span class="m">1</span>  <span class="m">301</span>     <span class="m">4.51</span>    <span class="m">10.89</span>     <span class="m">28.72</span>     <span class="m">41.74</span>     <span class="m">52.70</span>     <span class="m">60.92</span></span>
+<span class="code-line"><span class="m">2</span>  <span class="m">303</span>     <span class="m">4.55</span>    <span class="m">10.92</span>     <span class="m">29.07</span>     <span class="m">42.83</span>     <span class="m">53.88</span>     <span class="m">63.39</span></span>
+<span class="code-line"><span class="m">3</span>  <span class="m">305</span>     <span class="m">4.79</span>    <span class="m">11.37</span>     <span class="m">30.21</span>     <span class="m">44.40</span>     <span class="m">55.82</span>     <span class="m">64.10</span></span>
+<span class="code-line"><span class="m">4</span>  <span class="m">307</span>     <span class="m">3.91</span>     <span class="m">9.48</span>     <span class="m">25.66</span>     <span class="m">39.07</span>     <span class="m">50.78</span>     <span class="m">59.07</span></span>
+<span class="code-line"><span class="m">5</span>  <span class="m">309</span>     <span class="m">4.81</span>    <span class="m">11.20</span>     <span class="m">28.66</span>     <span class="m">41.66</span>     <span class="m">53.31</span>     <span class="m">63.05</span></span>
 </pre></div>
 
 
 <h2>Create Variables</h2>
 <p>Then we want to create new columns showing how much each tree has grown between data points. For example, instead of knowing a tree's height at age 10, we want to know how much it's grown between age 5 and age 10, so that can be a bar in our graph.</p>
-<div class="highlight"><pre>wide<span class="o">$</span>h0.3 <span class="o">&lt;-</span> wide<span class="o">$</span>height.3
-wide<span class="o">$</span>h3.5 <span class="o">&lt;-</span> wide<span class="o">$</span>height.5 <span class="o">-</span> wide<span class="o">$</span>height.3
-wide<span class="o">$</span>h5.10 <span class="o">&lt;-</span> wide<span class="o">$</span>height.10 <span class="o">-</span> wide<span class="o">$</span>height.5
-wide<span class="o">$</span>h10.15 <span class="o">&lt;-</span> wide<span class="o">$</span>height.15 <span class="o">-</span> wide<span class="o">$</span>height.10
-wide<span class="o">$</span>h15.20 <span class="o">&lt;-</span> wide<span class="o">$</span>height.20 <span class="o">-</span> wide<span class="o">$</span>height.15
-wide<span class="o">$</span>h20.25 <span class="o">&lt;-</span> wide<span class="o">$</span>height.25 <span class="o">-</span> wide<span class="o">$</span>height.20
+<div class="highlight"><pre><span class="code-line">wide<span class="o">$</span>h0.3 <span class="o">&lt;-</span> wide<span class="o">$</span>height.3</span>
+<span class="code-line">wide<span class="o">$</span>h3.5 <span class="o">&lt;-</span> wide<span class="o">$</span>height.5 <span class="o">-</span> wide<span class="o">$</span>height.3</span>
+<span class="code-line">wide<span class="o">$</span>h5.10 <span class="o">&lt;-</span> wide<span class="o">$</span>height.10 <span class="o">-</span> wide<span class="o">$</span>height.5</span>
+<span class="code-line">wide<span class="o">$</span>h10.15 <span class="o">&lt;-</span> wide<span class="o">$</span>height.15 <span class="o">-</span> wide<span class="o">$</span>height.10</span>
+<span class="code-line">wide<span class="o">$</span>h15.20 <span class="o">&lt;-</span> wide<span class="o">$</span>height.20 <span class="o">-</span> wide<span class="o">$</span>height.15</span>
+<span class="code-line">wide<span class="o">$</span>h20.25 <span class="o">&lt;-</span> wide<span class="o">$</span>height.25 <span class="o">-</span> wide<span class="o">$</span>height.20</span>
 </pre></div>
 
 
 <h2>Plot Stacked Bar Chart</h2>
 <p>Finally, we want to plot all the new data points:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
-sequential <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span>
-barplot<span class="p">(</span><span class="kp">t</span><span class="p">(</span>wide<span class="p">[,</span><span class="m">8</span><span class="o">:</span><span class="m">13</span><span class="p">]),</span>
-    names.arg <span class="o">=</span> wide<span class="o">$</span>Seed<span class="p">,</span> <span class="c1"># x-axis labels</span>
-    cex.names <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> <span class="c1"># makes x-axis labels small enough to show all</span>
-    col <span class="o">=</span> sequential<span class="p">,</span> <span class="c1"># colors</span>
-    xlab <span class="o">=</span> <span class="s">&quot;Seed Source&quot;</span><span class="p">,</span>
-    ylab <span class="o">=</span> <span class="s">&quot;Height, Feet&quot;</span><span class="p">,</span>
-    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20</span><span class="p">),</span> <span class="c1"># these two lines allow space for the legend</span>
-    width <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># these two lines allow space for the legend</span>
-legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span> 
-    legend <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;20-25&quot;</span><span class="p">,</span> <span class="s">&quot;15-20&quot;</span><span class="p">,</span> <span class="s">&quot;10-15&quot;</span><span class="p">,</span> <span class="s">&quot;5-10&quot;</span><span class="p">,</span> <span class="s">&quot;3-5&quot;</span><span class="p">,</span> <span class="s">&quot;0-3&quot;</span><span class="p">),</span> <span class="c1">#in order from top to bottom</span>
-    fill <span class="o">=</span> sequential<span class="p">[</span><span class="m">6</span><span class="o">:</span><span class="m">1</span><span class="p">],</span> <span class="c1"># 6:1 reorders so legend order matches graph</span>
-    title <span class="o">=</span> <span class="s">&quot;Years&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span></span>
+<span class="code-line">sequential <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span></span>
+<span class="code-line">barplot<span class="p">(</span><span class="kp">t</span><span class="p">(</span>wide<span class="p">[,</span><span class="m">8</span><span class="o">:</span><span class="m">13</span><span class="p">]),</span></span>
+<span class="code-line">    names.arg <span class="o">=</span> wide<span class="o">$</span>Seed<span class="p">,</span> <span class="c1"># x-axis labels</span></span>
+<span class="code-line">    cex.names <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> <span class="c1"># makes x-axis labels small enough to show all</span></span>
+<span class="code-line">    col <span class="o">=</span> sequential<span class="p">,</span> <span class="c1"># colors</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;Seed Source&quot;</span><span class="p">,</span></span>
+<span class="code-line">    ylab <span class="o">=</span> <span class="s">&quot;Height, Feet&quot;</span><span class="p">,</span></span>
+<span class="code-line">    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20</span><span class="p">),</span> <span class="c1"># these two lines allow space for the legend</span></span>
+<span class="code-line">    width <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># these two lines allow space for the legend</span></span>
+<span class="code-line">legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    legend <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;20-25&quot;</span><span class="p">,</span> <span class="s">&quot;15-20&quot;</span><span class="p">,</span> <span class="s">&quot;10-15&quot;</span><span class="p">,</span> <span class="s">&quot;5-10&quot;</span><span class="p">,</span> <span class="s">&quot;3-5&quot;</span><span class="p">,</span> <span class="s">&quot;0-3&quot;</span><span class="p">),</span> <span class="c1">#in order from top to bottom</span></span>
+<span class="code-line">    fill <span class="o">=</span> sequential<span class="p">[</span><span class="m">6</span><span class="o">:</span><span class="m">1</span><span class="p">],</span> <span class="c1"># 6:1 reorders so legend order matches graph</span></span>
+<span class="code-line">    title <span class="o">=</span> <span class="s">&quot;Years&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -243,23 +244,23 @@ legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><spa
 			<p>The <a href="http://stat.ethz.ch/R-manual/R-patched/library/datasets/html/sleep.html">sleep data set</a>—provided by the <strong>datasets</strong> package—shows the effects of two different drugs on ten patients. <code>Extra</code> is the increase in hours of sleep; <code>group</code> is the drug given, 1 or 2; and <code>ID</code> is the patient ID, 1 to 10.</p>
 <p>I'll be using this data set to show how to perform descriptive statistics of groups within a data set, when the data set is <a href="http://www.r-bloggers.com/reshape-package-in-r-long-data-format-to-wide-back-to-long-again/">long (as opposed to wide)</a>.</p>
 <p>First, we'll need to load up the psych package. The datasets package containing our data is probably already loaded.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>psych<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>psych<span class="p">)</span></span>
 </pre></div>
 
 
 <p>The <code>describe.by</code> function in the <strong>psych</strong> package is what does the magic for us here. It will group our data by a variable we give it, and output descriptive statistics for each of the groups.</p>
-<div class="highlight"><pre><span class="o">&gt;</span> describe.by<span class="p">(</span>sleep<span class="p">,</span> sleep<span class="o">$</span>group<span class="p">)</span>
-group<span class="o">:</span> <span class="m">1</span>
-       var  n mean   sd median trimmed  mad  min  max range skew kurtosis   se
-extra    <span class="m">1</span> <span class="m">10</span> <span class="m">0.75</span> <span class="m">1.79</span>   <span class="m">0.35</span>    <span class="m">0.68</span> <span class="m">1.56</span> <span class="m">-1.6</span>  <span class="m">3.7</span>   <span class="m">5.3</span> <span class="m">0.42</span>    <span class="m">-1.30</span> <span class="m">0.57</span>
-group<span class="o">*</span>   <span class="m">2</span> <span class="m">10</span> <span class="m">1.00</span> <span class="m">0.00</span>   <span class="m">1.00</span>    <span class="m">1.00</span> <span class="m">0.00</span>  <span class="m">1.0</span>  <span class="m">1.0</span>   <span class="m">0.0</span>  <span class="kc">NaN</span>      <span class="kc">NaN</span> <span class="m">0.00</span>
-ID<span class="o">*</span>      <span class="m">3</span> <span class="m">10</span> <span class="m">5.50</span> <span class="m">3.03</span>   <span class="m">5.50</span>    <span class="m">5.50</span> <span class="m">3.71</span>  <span class="m">1.0</span> <span class="m">10.0</span>   <span class="m">9.0</span> <span class="m">0.00</span>    <span class="m">-1.56</span> <span class="m">0.96</span>
-<span class="o">------------------------------------------------------------</span> 
-group<span class="o">:</span> <span class="m">2</span>
-       var  n mean   sd median trimmed  mad  min  max range skew kurtosis   se
-extra    <span class="m">1</span> <span class="m">10</span> <span class="m">2.33</span> <span class="m">2.00</span>   <span class="m">1.75</span>    <span class="m">2.24</span> <span class="m">2.45</span> <span class="m">-0.1</span>  <span class="m">5.5</span>   <span class="m">5.6</span> <span class="m">0.28</span>    <span class="m">-1.66</span> <span class="m">0.63</span>
-group<span class="o">*</span>   <span class="m">2</span> <span class="m">10</span> <span class="m">2.00</span> <span class="m">0.00</span>   <span class="m">2.00</span>    <span class="m">2.00</span> <span class="m">0.00</span>  <span class="m">2.0</span>  <span class="m">2.0</span>   <span class="m">0.0</span>  <span class="kc">NaN</span>      <span class="kc">NaN</span> <span class="m">0.00</span>
-ID<span class="o">*</span>      <span class="m">3</span> <span class="m">10</span> <span class="m">5.50</span> <span class="m">3.03</span>   <span class="m">5.50</span>    <span class="m">5.50</span> <span class="m">3.71</span>  <span class="m">1.0</span> <span class="m">10.0</span>   <span class="m">9.0</span> <span class="m">0.00</span>    <span class="m">-1.56</span> <span class="m">0.96</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> describe.by<span class="p">(</span>sleep<span class="p">,</span> sleep<span class="o">$</span>group<span class="p">)</span></span>
+<span class="code-line">group<span class="o">:</span> <span class="m">1</span></span>
+<span class="code-line">       var  n mean   sd median trimmed  mad  min  max range skew kurtosis   se</span>
+<span class="code-line">extra    <span class="m">1</span> <span class="m">10</span> <span class="m">0.75</span> <span class="m">1.79</span>   <span class="m">0.35</span>    <span class="m">0.68</span> <span class="m">1.56</span> <span class="m">-1.6</span>  <span class="m">3.7</span>   <span class="m">5.3</span> <span class="m">0.42</span>    <span class="m">-1.30</span> <span class="m">0.57</span></span>
+<span class="code-line">group<span class="o">*</span>   <span class="m">2</span> <span class="m">10</span> <span class="m">1.00</span> <span class="m">0.00</span>   <span class="m">1.00</span>    <span class="m">1.00</span> <span class="m">0.00</span>  <span class="m">1.0</span>  <span class="m">1.0</span>   <span class="m">0.0</span>  <span class="kc">NaN</span>      <span class="kc">NaN</span> <span class="m">0.00</span></span>
+<span class="code-line">ID<span class="o">*</span>      <span class="m">3</span> <span class="m">10</span> <span class="m">5.50</span> <span class="m">3.03</span>   <span class="m">5.50</span>    <span class="m">5.50</span> <span class="m">3.71</span>  <span class="m">1.0</span> <span class="m">10.0</span>   <span class="m">9.0</span> <span class="m">0.00</span>    <span class="m">-1.56</span> <span class="m">0.96</span></span>
+<span class="code-line"><span class="o">------------------------------------------------------------</span> </span>
+<span class="code-line">group<span class="o">:</span> <span class="m">2</span></span>
+<span class="code-line">       var  n mean   sd median trimmed  mad  min  max range skew kurtosis   se</span>
+<span class="code-line">extra    <span class="m">1</span> <span class="m">10</span> <span class="m">2.33</span> <span class="m">2.00</span>   <span class="m">1.75</span>    <span class="m">2.24</span> <span class="m">2.45</span> <span class="m">-0.1</span>  <span class="m">5.5</span>   <span class="m">5.6</span> <span class="m">0.28</span>    <span class="m">-1.66</span> <span class="m">0.63</span></span>
+<span class="code-line">group<span class="o">*</span>   <span class="m">2</span> <span class="m">10</span> <span class="m">2.00</span> <span class="m">0.00</span>   <span class="m">2.00</span>    <span class="m">2.00</span> <span class="m">0.00</span>  <span class="m">2.0</span>  <span class="m">2.0</span>   <span class="m">0.0</span>  <span class="kc">NaN</span>      <span class="kc">NaN</span> <span class="m">0.00</span></span>
+<span class="code-line">ID<span class="o">*</span>      <span class="m">3</span> <span class="m">10</span> <span class="m">5.50</span> <span class="m">3.03</span>   <span class="m">5.50</span>    <span class="m">5.50</span> <span class="m">3.71</span>  <span class="m">1.0</span> <span class="m">10.0</span>   <span class="m">9.0</span> <span class="m">0.00</span>    <span class="m">-1.56</span> <span class="m">0.96</span></span>
 </pre></div>
 
 

@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -55,47 +56,47 @@
 			<p>Let's add a fit line to a scatterplot!</p>
 <h2>Fit Line in Base Graphics</h2>
 <p>Here's how to do it in <strong>base</strong> graphics:</p>
-<div class="highlight"><pre>ols <span class="o">&lt;-</span> lm<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span>
-    data <span class="o">=</span> airquality<span class="p">)</span>
-
-<span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span>
-
-plot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span>
-    data <span class="o">=</span> airquality<span class="p">)</span>
-abline<span class="p">(</span>ols
+<div class="highlight"><pre><span class="code-line">ols <span class="o">&lt;-</span> lm<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">plot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">)</span></span>
+<span class="code-line">abline<span class="p">(</span>ols</span>
 </pre></div>
 
 
 <p><img alt="Fit line in base graphics in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-base.png" /></p>
 <h2>Fit Line in ggplot</h2>
 <p>And here's how to do it in <strong>ggplot</strong>:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span>
-        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> 
-    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> 
-    geom_abline<span class="p">(</span>intercept <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">1</span><span class="p">],</span>
-        slope <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">2</span><span class="p">])</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_abline<span class="p">(</span>intercept <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">1</span><span class="p">],</span></span>
+<span class="code-line">        slope <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">2</span><span class="p">])</span></span>
 </pre></div>
 
 
 <p>You can access the info from your regression results through <code>ols$coefficients</code>.</p>
 <p>Edit: Thanks to an anonymous commenter, I have learned that you can simplify this by using <code>geom_smooth</code>.  This way you don't have to specify the intercept and slope of the fit line.</p>
-<div class="highlight"><pre>ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span>
-        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> 
-    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> 
-    geom_smooth<span class="p">(</span>method <span class="o">=</span> lm<span class="p">,</span>
-        se <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_smooth<span class="p">(</span>method <span class="o">=</span> lm<span class="p">,</span></span>
+<span class="code-line">        se <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p><img alt="Fit line in ggplot in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-ggplot.png" /></p>
 <h2>Fit Line in Lattice</h2>
 <p>In <strong>lattice</strong>, it's even easier. You don't even need to run a regression; you can just add to the <code>type</code> option.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span>
-
-xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span>
-    data <span class="o">=</span> airquality<span class="p">,</span>
-    type <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">    type <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">))</span></span>
 </pre></div>
 
 
@@ -123,12 +124,12 @@ xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="
 			<h2>Default</h2>
 <p>By default, <strong>lattice</strong> sorts the observations by the axis values, starting at the bottom left.</p>
 <p>For example,</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span>
-colors <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#1B9E77&quot;</span><span class="p">,</span> <span class="s">&quot;#D95F02&quot;</span><span class="p">,</span> <span class="s">&quot;#7570B3&quot;</span><span class="p">)</span>
-dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span>
-    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span></span>
+<span class="code-line">colors <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#1B9E77&quot;</span><span class="p">,</span> <span class="s">&quot;#D95F02&quot;</span><span class="p">,</span> <span class="s">&quot;#7570B3&quot;</span><span class="p">)</span></span>
+<span class="code-line">dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> mtcars<span class="p">,</span></span>
+<span class="code-line">    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span></span>
+<span class="code-line">    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -137,44 +138,44 @@ dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(
 <p>(Note: The <code>rownames(cars)</code> bit is just because of how this data set is stored. For your data, you might just type the variable name (<code>model</code>, for example) instead.)</p>
 <h2>Graphing one variable, sorting by another</h2>
 <p>If we want to show the same data, but we want to sort by another variable (or the same variable, for that matter), we can just add <code>reorder(yvar, sortvar)</code>. For example, to sort by the number of cylinders, we could:</p>
-<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span>
+<div class="highlight"><pre><span class="code-line">dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> mtcars<span class="p">,</span></span>
+<span class="code-line">    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span></span>
 </pre></div>
 
 
 <p><img alt="Sorted by number of cylinders" src="http://blog.mollietaylor.com/images/r-lattice-by-cyl.png" /></p>
 <h2>Graphing two variables</h2>
 <p>To better show how this works, let's graph <code>cyl</code> alongside <code>mpg</code>, so we can see how it is sorting:</p>
-<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">,</span>
-    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
-    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> mtcars<span class="p">,</span></span>
+<span class="code-line">    col <span class="o">=</span> colors<span class="p">,</span></span>
+<span class="code-line">    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span></span>
+<span class="code-line">    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p><img alt="Graph of mpg and cyl, sorted by cyl" src="http://blog.mollietaylor.com/images/r-lattice-mpg-cyl.png" /></p>
 <h2>Reverse order</h2>
 <p>We can also sort in reverse order, by adding a "-" before the variable name:</p>
-<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">,</span>
-    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line">dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> mtcars<span class="p">,</span></span>
+<span class="code-line">    col <span class="o">=</span> colors<span class="p">,</span></span>
+<span class="code-line">    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span></span>
 </pre></div>
 
 
 <p><img alt="Graph of mpg and cyl, sorted by cyl, reversed" src="http://blog.mollietaylor.com/images/r-lattice-mpg-cyl-reverse.png" /></p>
 <h2>Adding a legend</h2>
 <p>We can also add a legend:</p>
-<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    xlab <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">,</span>
-    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span>
-    key <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>points <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">],</span> pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">)),</span>
-        text <span class="o">=</span> <span class="kt">list</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Miles per gallon&quot;</span><span class="p">,</span> <span class="s">&quot;Number of cylinders&quot;</span><span class="p">)),</span>
-        space <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line">dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> mtcars<span class="p">,</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span></span>
+<span class="code-line">    col <span class="o">=</span> colors<span class="p">,</span></span>
+<span class="code-line">    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span></span>
+<span class="code-line">    key <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>points <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">],</span> pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">)),</span></span>
+<span class="code-line">        text <span class="o">=</span> <span class="kt">list</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Miles per gallon&quot;</span><span class="p">,</span> <span class="s">&quot;Number of cylinders&quot;</span><span class="p">)),</span></span>
+<span class="code-line">        space <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">))</span></span>
 </pre></div>
 
 

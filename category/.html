@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -77,18 +78,18 @@
 <h2>Open Motif</h2>
 <p>You may need to install Open Motif before you can install Citrix Receiver.</p>
 <p>If so, download Open Motif, extract it, and follow the directions in INSTALL.configure, namely:</p>
-<div class="highlight"><pre><span class="go">cd</span>
-<span class="go">./configure</span>
-<span class="go">make check</span>
-<span class="go">make install</span>
-<span class="go">make clean</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">cd</span></span>
+<span class="code-line"><span class="go">./configure</span></span>
+<span class="code-line"><span class="go">make check</span></span>
+<span class="code-line"><span class="go">make install</span></span>
+<span class="code-line"><span class="go">make clean</span></span>
 </pre></div>
 
 
 <h2>Security Certificate</h2>
 <p><img alt="Error" class="size-auto" src="http://blog.mollietaylor.com/images/citrix-error.png" /></p>
 <p>If you try to log on to your virtual desktop and get an error about "AddTrust External CA Root", you can just do</p>
-<div class="highlight"><pre><span class="go">sudo cp /usr/share/ca-certificates/mozilla/*.* /opt/Citrix/ICAClient/keystore/cacerts/</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">sudo cp /usr/share/ca-certificates/mozilla/*.* /opt/Citrix/ICAClient/keystore/cacerts/</span></span>
 </pre></div>
 
 

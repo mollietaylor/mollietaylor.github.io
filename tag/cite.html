@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -54,22 +55,22 @@
 		<div class="entry-content">
 			<p>I had an issue where LaTeX wasn't adding spaces between references when I had multiple references in the same place.</p>
 <p>So this:</p>
-<div class="highlight"><pre>of their own <span class="k">\cite</span><span class="nb">{</span>moretti:2012,saxenian:1996,casper:2007<span class="nb">}</span>.
+<div class="highlight"><pre><span class="code-line">of their own <span class="k">\cite</span><span class="nb">{</span>moretti:2012,saxenian:1996,casper:2007<span class="nb">}</span>.</span>
 </pre></div>
 
 
 <p>was compiling as this:</p>
-<div class="highlight"><pre>of their own [Moretti, 2012,Saxenian, 1996,Casper, 2007].
+<div class="highlight"><pre><span class="code-line">of their own [Moretti, 2012,Saxenian, 1996,Casper, 2007].</span>
 </pre></div>
 
 
 <p>To fix the problem, I simply added the space option for the <strong>cite</strong> package.</p>
-<div class="highlight"><pre><span class="k">\usepackage</span><span class="na">[space]</span><span class="nb">{</span>cite<span class="nb">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="k">\usepackage</span><span class="na">[space]</span><span class="nb">{</span>cite<span class="nb">}</span></span>
 </pre></div>
 
 
 <p>And now it looks as it should:</p>
-<div class="highlight"><pre>of their own [Moretti, 2012, Saxenian, 1996, Casper, 2007].
+<div class="highlight"><pre><span class="code-line">of their own [Moretti, 2012, Saxenian, 1996, Casper, 2007].</span>
 </pre></div>
 
 

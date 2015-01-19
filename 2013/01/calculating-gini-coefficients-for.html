@@ -28,6 +28,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -52,56 +53,56 @@
 		<div class="entry-content">
 			<p>The <a href="http://en.wikipedia.org/wiki/Gini_coefficient">Gini coefficient</a> is a measure of the inequality of a distribution, most commonly used to compare inequality in income or wealth among countries.</p>
 <p>Let's first generate some random data to analyze. You can <a href="https://gist.github.com/4432069">download my random data</a> or use the code below to generate your own. Of course, if you generate your own, your graphs and results will be different from those shown below.</p>
-<div class="highlight"><pre>city <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">,</span> <span class="s">&quot;D&quot;</span><span class="p">,</span> <span class="s">&quot;E&quot;</span><span class="p">,</span> <span class="s">&quot;F&quot;</span><span class="p">,</span> <span class="s">&quot;G&quot;</span><span class="p">,</span> <span class="s">&quot;H&quot;</span><span class="p">,</span> <span class="s">&quot;I&quot;</span><span class="p">,</span> <span class="s">&quot;J&quot;</span><span class="p">)</span>
-income <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">100000</span><span class="p">,</span>
-    <span class="m">100</span><span class="p">,</span>
-    replace <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-cities <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>city<span class="p">,</span> income<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">city <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">,</span> <span class="s">&quot;D&quot;</span><span class="p">,</span> <span class="s">&quot;E&quot;</span><span class="p">,</span> <span class="s">&quot;F&quot;</span><span class="p">,</span> <span class="s">&quot;G&quot;</span><span class="p">,</span> <span class="s">&quot;H&quot;</span><span class="p">,</span> <span class="s">&quot;I&quot;</span><span class="p">,</span> <span class="s">&quot;J&quot;</span><span class="p">)</span></span>
+<span class="code-line">income <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">100000</span><span class="p">,</span></span>
+<span class="code-line">    <span class="m">100</span><span class="p">,</span></span>
+<span class="code-line">    replace <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line">cities <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>city<span class="p">,</span> income<span class="p">)</span></span>
 </pre></div>
 
 
 <p>Next, let's graph our data:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-ggplot<span class="p">(</span>cities<span class="p">,</span>
-    aes<span class="p">(</span>income<span class="p">))</span> <span class="o">+</span>
-    stat_density<span class="p">(</span>geom <span class="o">=</span> <span class="s">&quot;path&quot;</span><span class="p">,</span>
-        position <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">)</span> <span class="o">+</span>
-    facet_wrap<span class="p">(</span><span class="o">~</span> city<span class="p">,</span> ncol <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line">ggplot<span class="p">(</span>cities<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>income<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">    stat_density<span class="p">(</span>geom <span class="o">=</span> <span class="s">&quot;path&quot;</span><span class="p">,</span></span>
+<span class="code-line">        position <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">    facet_wrap<span class="p">(</span><span class="o">~</span> city<span class="p">,</span> ncol <span class="o">=</span> <span class="m">2</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p><img alt="Histogram of each city's incomes // Your results will differ if using random data" src="http://blog.mollietaylor.com/images/r-gini-hist.png" /></p>
 <p>The Gini coefficient is easy enough to calculate in R for a single locale using the <code>gini</code> function from the <strong>reldist</strong> package.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>reldist<span class="p">)</span>
-gini<span class="p">(</span>cities<span class="p">[</span><span class="kp">which</span><span class="p">(</span>cities<span class="o">$</span>city <span class="o">==</span> <span class="s">&quot;A&quot;</span><span class="p">),</span> <span class="p">]</span><span class="o">$</span>income<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>reldist<span class="p">)</span></span>
+<span class="code-line">gini<span class="p">(</span>cities<span class="p">[</span><span class="kp">which</span><span class="p">(</span>cities<span class="o">$</span>city <span class="o">==</span> <span class="s">&quot;A&quot;</span><span class="p">),</span> <span class="p">]</span><span class="o">$</span>income<span class="p">)</span></span>
 </pre></div>
 
 
 <p>But we don't want to replicate this code over and over to calculate the Gini coefficient for a large number of locales. We also want the coefficients to be in a data frame for easy use in R or for export for use in another program.</p>
 <p>There are <a href="http://www.slideshare.net/jeffreybreen/grouping-summarizing-data-in-r">many ways to automate a function</a> to run over many subsets of a data frame. The most straightforward in our particular case is <code>aggregate</code>:</p>
-<div class="highlight"><pre>ginicities <span class="o">&lt;-</span> aggregate<span class="p">(</span>income <span class="o">~</span> city<span class="p">,</span>
-    data <span class="o">=</span> cities<span class="p">,</span>
-    FUN <span class="o">=</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span>
-<span class="kp">names</span><span class="p">(</span>ginisec<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span>
-
-<span class="o">&gt;</span> ginisec
-   city      gini
-<span class="m">1</span>     A <span class="m">0.2856827</span>
-<span class="m">2</span>     B <span class="m">0.3639070</span>
-<span class="m">3</span>     C <span class="m">0.3288934</span>
-<span class="m">4</span>     D <span class="m">0.1863783</span>
-<span class="m">5</span>     E <span class="m">0.3565739</span>
-<span class="m">6</span>     <span class="bp">F</span> <span class="m">0.2587475</span>
-<span class="m">7</span>     G <span class="m">0.3022642</span>
-<span class="m">8</span>     H <span class="m">0.3795288</span>
-<span class="m">9</span>     I <span class="m">0.3311034</span>
-<span class="m">10</span>    J <span class="m">0.2496933</span>
+<div class="highlight"><pre><span class="code-line">ginicities <span class="o">&lt;-</span> aggregate<span class="p">(</span>income <span class="o">~</span> city<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> cities<span class="p">,</span></span>
+<span class="code-line">    FUN <span class="o">=</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="kp">names</span><span class="p">(</span>ginisec<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> ginisec</span>
+<span class="code-line">   city      gini</span>
+<span class="code-line"><span class="m">1</span>     A <span class="m">0.2856827</span></span>
+<span class="code-line"><span class="m">2</span>     B <span class="m">0.3639070</span></span>
+<span class="code-line"><span class="m">3</span>     C <span class="m">0.3288934</span></span>
+<span class="code-line"><span class="m">4</span>     D <span class="m">0.1863783</span></span>
+<span class="code-line"><span class="m">5</span>     E <span class="m">0.3565739</span></span>
+<span class="code-line"><span class="m">6</span>     <span class="bp">F</span> <span class="m">0.2587475</span></span>
+<span class="code-line"><span class="m">7</span>     G <span class="m">0.3022642</span></span>
+<span class="code-line"><span class="m">8</span>     H <span class="m">0.3795288</span></span>
+<span class="code-line"><span class="m">9</span>     I <span class="m">0.3311034</span></span>
+<span class="code-line"><span class="m">10</span>    J <span class="m">0.2496933</span></span>
 </pre></div>
 
 
 <p>And finally, let's go ahead and export our data using <code>write.csv</code>:</p>
-<div class="highlight"><pre>write.csv<span class="p">(</span>ginicities<span class="p">,</span> <span class="s">&quot;gini.csv&quot;</span><span class="p">,</span>
-    row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">write.csv<span class="p">(</span>ginicities<span class="p">,</span> <span class="s">&quot;gini.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span></span>
 </pre></div>
 
 

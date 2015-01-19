@@ -28,6 +28,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -52,39 +53,39 @@
 		<div class="entry-content">
 			<p>If your JSON or GeoJSON data is long, you might want to store it in a separate file to make your code more readable or to reduce repetition and allow you to access the same data file from multiple pages. You can do that with jQuery.</p>
 <p>First, load jQuery 1.10.2 or the newest version of jQuery (2.0 onward does not support Internet Explorer 6, 7, or 8) in the header:</p>
-<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<div class="highlight"><pre><span class="code-line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span></span>
 </pre></div>
 
 
 <p>Next, in your leaflet script at the bottom of the body, you'll need to add all your other code and your basemap, like normal, for example:</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">).</span><span class="nx">setView</span><span class="p">([</span><span class="mf">38.0740</span><span class="p">,</span> <span class="o">-</span><span class="mi">55</span><span class="p">],</span> <span class="mi">3</span><span class="p">);</span>
-
-<span class="kd">function</span> <span class="nx">onEachFeature</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">layer</span><span class="p">.</span><span class="nx">bindPopup</span><span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">City</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">State</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">Country</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">).</span><span class="nx">setView</span><span class="p">([</span><span class="mf">38.0740</span><span class="p">,</span> <span class="o">-</span><span class="mi">55</span><span class="p">],</span> <span class="mi">3</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">function</span> <span class="nx">onEachFeature</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">layer</span><span class="p">.</span><span class="nx">bindPopup</span><span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">City</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">State</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">Country</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>Then, you can just use jQuery to get the JSON or GeoJSON file. A simple version of this would be:</p>
-<div class="highlight"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;cities.geoJSON&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cities</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">L</span><span class="p">.</span><span class="nx">geoJson</span><span class="p">(</span><span class="nx">cities</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
-<span class="p">})</span>
+<div class="highlight"><pre><span class="code-line"><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;cities.geoJSON&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cities</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">L</span><span class="p">.</span><span class="nx">geoJson</span><span class="p">(</span><span class="nx">cities</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">})</span></span>
 </pre></div>
 
 
 <p>But you can also add more options to your <code>L.geoJson</code> code, just like you would if using data stored in the HTML file. For example:</p>
-<div class="highlight"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;cities.geoJSON&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cities</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">L</span><span class="p">.</span><span class="nx">geoJson</span><span class="p">(</span><span class="nx">cities</span><span class="p">,</span> <span class="p">{</span>
-        <span class="nx">onEachFeature</span><span class="o">:</span> <span class="nx">onEachFeature</span><span class="p">,</span>
-        <span class="nx">pointToLayer</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">latlng</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">switch</span> <span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">Remember</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">case</span> <span class="s1">&#39;1&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">visitedIcon</span><span class="p">});</span>
-                <span class="k">case</span> <span class="s1">&#39;?&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">uncertainIcon</span><span class="p">});</span>
-                <span class="k">case</span> <span class="s1">&#39;0&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">uncertainIcon</span><span class="p">});</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
-<span class="p">})</span>
+<div class="highlight"><pre><span class="code-line"><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;cities.geoJSON&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cities</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">L</span><span class="p">.</span><span class="nx">geoJson</span><span class="p">(</span><span class="nx">cities</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="nx">onEachFeature</span><span class="o">:</span> <span class="nx">onEachFeature</span><span class="p">,</span></span>
+<span class="code-line">        <span class="nx">pointToLayer</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">latlng</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="k">switch</span> <span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">Remember</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">                <span class="k">case</span> <span class="s1">&#39;1&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">visitedIcon</span><span class="p">});</span></span>
+<span class="code-line">                <span class="k">case</span> <span class="s1">&#39;?&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">uncertainIcon</span><span class="p">});</span></span>
+<span class="code-line">                <span class="k">case</span> <span class="s1">&#39;0&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">uncertainIcon</span><span class="p">});</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">    <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">})</span></span>
 </pre></div>
 
 

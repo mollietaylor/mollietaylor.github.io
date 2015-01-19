@@ -28,6 +28,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -58,11 +59,11 @@
 <p>For example,</p>
 <p>"05/27/84" is in the format %m/%d/%y, while "May 27 1984" is in the format %B %d %Y.</p>
 <p>To import those dates, you would simply provide your dates and their format (if not specified, it tries %Y-%m-%d and then %Y/%m/%d):</p>
-<div class="highlight"><pre>dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;05/27/84&quot;</span><span class="p">,</span> <span class="s">&quot;07/07/05&quot;</span><span class="p">)</span>
-betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span>
-    format <span class="o">=</span> <span class="s">&quot;%m/%d/%y&quot;</span><span class="p">)</span>
-<span class="o">&gt;</span> betterDates
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span>
+<div class="highlight"><pre><span class="code-line">dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;05/27/84&quot;</span><span class="p">,</span> <span class="s">&quot;07/07/05&quot;</span><span class="p">)</span></span>
+<span class="code-line">betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span></span>
+<span class="code-line">    format <span class="o">=</span> <span class="s">&quot;%m/%d/%y&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">&gt;</span> betterDates</span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span></span>
 </pre></div>
 
 
@@ -70,21 +71,21 @@ betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span cl
 <h3>Importing Dates from Numeric Format</h3>
 <p>If you are importing data from Excel, you may have dates that are in a numeric format. We can still use as.Date to import these, we simply need to know the origin date that Excel starts counting from, and provide that to as.Date.</p>
 <p>For Excel on Windows, the origin date is December 30, 1899 for dates after 1900. (Excel's designer thought 1900 was a leap year, but it was not.) For Excel on Mac, the origin date is January 1, 1904.</p>
-<div class="highlight"><pre><span class="c1"># from Windows Excel:</span>
-    dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">30829</span><span class="p">,</span> <span class="m">38540</span><span class="p">)</span>
-    betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span>
-        origin <span class="o">=</span> <span class="s">&quot;1899-12-30&quot;</span><span class="p">)</span>
-
-<span class="o">&gt;</span>   betterDates
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span>
-
-<span class="c1"># from Mac Excel:</span>
-    dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">29367</span><span class="p">,</span> <span class="m">37078</span><span class="p">)</span>
-    betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span>
-        origin <span class="o">=</span> <span class="s">&quot;1904-01-01&quot;</span><span class="p">)</span>
-
-<span class="o">&gt;</span>   betterDates
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># from Windows Excel:</span></span>
+<span class="code-line">    dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">30829</span><span class="p">,</span> <span class="m">38540</span><span class="p">)</span></span>
+<span class="code-line">    betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span></span>
+<span class="code-line">        origin <span class="o">=</span> <span class="s">&quot;1899-12-30&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span>   betterDates</span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># from Mac Excel:</span></span>
+<span class="code-line">    dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">29367</span><span class="p">,</span> <span class="m">37078</span><span class="p">)</span></span>
+<span class="code-line">    betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span></span>
+<span class="code-line">        origin <span class="o">=</span> <span class="s">&quot;1904-01-01&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span>   betterDates</span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span></span>
 </pre></div>
 
 
@@ -92,41 +93,41 @@ betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span cl
 <h2>Changing Date Formats</h2>
 <p>If you would like to use dates in a format other than the standard %Y-%m-%d, you can do that using the <code>format</code> function from the <strong>base</strong> package.</p>
 <p>For example,</p>
-<div class="highlight"><pre><span class="kp">format</span><span class="p">(</span>betterDates<span class="p">,</span>
-    <span class="s">&quot;%a %b %d&quot;</span><span class="p">)</span>
-
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;Sun May 27&quot;</span> <span class="s">&quot;Thu Jul 07&quot;</span>
+<div class="highlight"><pre><span class="code-line"><span class="kp">format</span><span class="p">(</span>betterDates<span class="p">,</span></span>
+<span class="code-line">    <span class="s">&quot;%a %b %d&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;Sun May 27&quot;</span> <span class="s">&quot;Thu Jul 07&quot;</span></span>
 </pre></div>
 
 
 <h2>Correct Centuries</h2>
 <p>If you are importing data with only two digits for the years, you will find that it assumes that years 69 to 99 are 1969-1999, while years 00 to 68 are 2000--2068 (subject to change in future versions of R).</p>
 <p>Often, this is not what you intend to have happen. <a href="http://stackoverflow.com/questions/9508747/r-adding-century-to-year">This page</a> gives a good explanation of several ways to fix this depending on your preference of centuries. One solution it provides is to assume all dates R is placing in the future are really from the previous century. That solution is as follows:</p>
-<div class="highlight"><pre>dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;05/27/84&quot;</span><span class="p">,</span> <span class="s">&quot;07/07/05&quot;</span><span class="p">,</span> <span class="s">&quot;08/17/20&quot;</span><span class="p">)</span>
-betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span> <span class="s">&quot;%m/%d/%y&quot;</span><span class="p">)</span>
-
-<span class="o">&gt;</span> betterDates
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span> <span class="s">&quot;2020-08-17&quot;</span>
-
-correctCentury <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">ifelse</span><span class="p">(</span>betterDates <span class="o">&gt;</span> <span class="kp">Sys.Date</span><span class="p">(),</span> 
-    <span class="kp">format</span><span class="p">(</span>betterDates<span class="p">,</span> <span class="s">&quot;19%y-%m-%d&quot;</span><span class="p">),</span> 
-    <span class="kp">format</span><span class="p">(</span>betterDates<span class="p">)))</span>
-
-<span class="o">&gt;</span> correctCentury
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span> <span class="s">&quot;1920-08-17&quot;</span>
+<div class="highlight"><pre><span class="code-line">dates <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;05/27/84&quot;</span><span class="p">,</span> <span class="s">&quot;07/07/05&quot;</span><span class="p">,</span> <span class="s">&quot;08/17/20&quot;</span><span class="p">)</span></span>
+<span class="code-line">betterDates <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span>dates<span class="p">,</span> <span class="s">&quot;%m/%d/%y&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> betterDates</span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span> <span class="s">&quot;2020-08-17&quot;</span></span>
+<span class="code-line"></span>
+<span class="code-line">correctCentury <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">ifelse</span><span class="p">(</span>betterDates <span class="o">&gt;</span> <span class="kp">Sys.Date</span><span class="p">(),</span> </span>
+<span class="code-line">    <span class="kp">format</span><span class="p">(</span>betterDates<span class="p">,</span> <span class="s">&quot;19%y-%m-%d&quot;</span><span class="p">),</span> </span>
+<span class="code-line">    <span class="kp">format</span><span class="p">(</span>betterDates<span class="p">)))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> correctCentury</span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span> <span class="s">&quot;2005-07-07&quot;</span> <span class="s">&quot;1920-08-17&quot;</span></span>
 </pre></div>
 
 
 <h2>Purpose of Proper Formatting</h2>
 <p>Having your dates in the proper format allows R to know that they are dates, and as such knows what calculations it should and should not perform on them. For one example, see my <a href="http://blog.mollietaylor.com/2013/08/plot-weekly-or-monthly-totals-in-r.html">post on plotting weekly or monthly totals</a>. Here are a few more examples:</p>
-<div class="highlight"><pre><span class="o">&gt;</span>   <span class="kp">mean</span><span class="p">(</span>betterDates<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1994-12-16&quot;</span>
-
-<span class="o">&gt;</span>   <span class="kp">max</span><span class="p">(</span>betterDates<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;2005-07-07&quot;</span>
-
-<span class="o">&gt;</span>   <span class="kp">min</span><span class="p">(</span>betterDates<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span>   <span class="kp">mean</span><span class="p">(</span>betterDates<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1994-12-16&quot;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span>   <span class="kp">max</span><span class="p">(</span>betterDates<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;2005-07-07&quot;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span>   <span class="kp">min</span><span class="p">(</span>betterDates<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;1984-05-27&quot;</span></span>
 </pre></div>
 
 

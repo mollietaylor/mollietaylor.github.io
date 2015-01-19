@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -57,28 +58,28 @@
 <p>Here's the messy looking example:</p>
 <p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-none.png" /></p>
 <p>And here's the code for the messy looking example:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-data<span class="p">(</span>birds<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-ggplot<span class="p">(</span>birds<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
-        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
-geom_boxplot<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span></span>
 </pre></div>
 
 
 <h2>With Line Breaks</h2>
 <p>We can use <a href="http://regex.learncodethehardway.org/">regular expressions</a> to add line breaks to the factor levels by substituting any spaces with line breaks:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-data<span class="p">(</span>birds<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
-ggplot<span class="p">(</span>birds<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
-        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
-geom_boxplot<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span></span>
 </pre></div>
 
 
@@ -88,16 +89,16 @@ geom_boxplot<span class="p">()</span>
 <p>Here we can see the difference in a box plot with horizontal boxes. It's up to you to decide which style looks better:</p>
 <p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip-none.png" /></p>
 <p><img alt="Line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip.png" /></p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-data<span class="p">(</span>birds<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
-ggplot<span class="p">(</span>birds<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
-        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
-geom_boxplot<span class="p">()</span> <span class="o">+</span> 
-coord_flip<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span> <span class="o">+</span> </span>
+<span class="code-line">coord_flip<span class="p">()</span></span>
 </pre></div>
 
 
@@ -129,31 +130,31 @@ coord_flip<span class="p">()</span>
 		<div class="entry-content">
 			<p>Building on the <a href="http://blog.mollietaylor.com/2012/09/histogram-density-plot-combo-in-r.html">basic histogram with a density plot</a>, we can add measures of central tendency (in this case, mean and median) and a legend.</p>
 <p>Like last time, we'll use the beaver data from the <strong>datasets</strong> package.</p>
-<div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
-    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
-    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span> 
-    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
-    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span>
-    ylim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">3</span><span class="p">),</span>
-    xlab <span class="o">=</span> <span class="s">&quot;Temperature&quot;</span><span class="p">,</span>
-    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span>
-lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span>
-    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span>
-    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span></span>
+<span class="code-line">    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span></span>
+<span class="code-line">    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span></span>
+<span class="code-line">    ylim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">3</span><span class="p">),</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;Temperature&quot;</span><span class="p">,</span></span>
+<span class="code-line">    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span></span>
+<span class="code-line">lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span></span>
+<span class="code-line">    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>Next we'll add a line for the mean: </p>
-<div class="highlight"><pre>abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span>
-    col <span class="o">=</span> <span class="s">&quot;royalblue&quot;</span><span class="p">,</span>
-    lwd <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;royalblue&quot;</span><span class="p">,</span></span>
+<span class="code-line">    lwd <span class="o">=</span> <span class="m">2</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>And a line for the median: </p>
-<div class="highlight"><pre>abline<span class="p">(</span>v <span class="o">=</span> median<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span>
-    col <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span>
-    lwd <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">abline<span class="p">(</span>v <span class="o">=</span> median<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span></span>
+<span class="code-line">    lwd <span class="o">=</span> <span class="m">2</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -166,10 +167,10 @@ lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="
 <p>All of this together gives us the following graphic:</p>
 <p><img alt="Beaver #1 central tendency" src="http://blog.mollietaylor.com/images/r-histogram-tendency-1.png" /></p>
 <p>In this example, the mean and median are very close, as we can see by using <code>median()</code> and <code>mode()</code>.</p>
-<div class="highlight"><pre><span class="o">&gt;</span> <span class="kp">mean</span><span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">36.86219</span>
-<span class="o">&gt;</span> median<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">36.87</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="kp">mean</span><span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">36.86219</span></span>
+<span class="code-line"><span class="o">&gt;</span> median<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">36.87</span></span>
 </pre></div>
 
 

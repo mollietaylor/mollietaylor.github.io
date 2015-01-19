@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -40,6 +41,70 @@
 	
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/02/elevation-profiles-in-r.html">Thu 21 February 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2013/02/elevation-profiles-in-r.html" title="Permalink to Elevation Profiles in R" rel="bookmark">Elevation Profiles in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>First, let's load up our data. <a href="https://gist.github.com/mollietaylor/4969793">The data are available in a gist</a>. You can convert your own GPS data to .csv by following the instructions <a href="http://www.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">here, using gpsbabel</a>.</p>
+<div class="highlight"><pre><span class="code-line">gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;callan.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+</pre></div>
+
+
+<p>Next, we can use the function <code>SMA</code> from the package <strong>TTR</strong> to calculate a <a href="http://en.wikipedia.org/wiki/Moving_average">moving average</a> of the altitude or elevation data, if we want to smooth out the curve. We can define a constant for the number of data points we want to average to create each moving average value.</p>
+<p>If you don't want to convert meters to feet, a metric version of the code is available in the gist (<a href="https://gist.github.com/mollietaylor/4969793">callanMetric.R</a>).</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>TTR<span class="p">)</span></span>
+<span class="code-line">movingN <span class="o">&lt;-</span> <span class="m">5</span> <span class="c1"># define the n for the moving average calculations</span></span>
+<span class="code-line">gps<span class="o">$</span>Altitude <span class="o">&lt;-</span> gps<span class="o">$</span>Altitude <span class="o">*</span> <span class="m">3.281</span> <span class="c1"># convert m to ft</span></span>
+<span class="code-line">gps<span class="o">$</span>SMA <span class="o">&lt;-</span> SMA<span class="p">(</span>gps<span class="o">$</span>Altitude<span class="p">,</span></span>
+<span class="code-line">    n <span class="o">=</span> movingN<span class="p">)</span></span>
+<span class="code-line">gps <span class="o">&lt;-</span> gps<span class="p">[</span>movingN<span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>SMA<span class="p">),</span> <span class="p">]</span> <span class="c1"># remove first n-1 points</span></span>
+</pre></div>
+
+
+<p>Next, we want to calculate the distance of each point. You can skip this step if your dataset already includes distances.</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>sp<span class="p">)</span></span>
+<span class="code-line">Dist <span class="o">&lt;-</span> <span class="m">0</span></span>
+<span class="code-line"><span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">2</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    Dist<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> spDistsN1<span class="p">(</span><span class="kp">as.matrix</span><span class="p">(</span>gps<span class="p">[</span>i<span class="p">,</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Longitude&quot;</span><span class="p">,</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)]),</span></span>
+<span class="code-line">    <span class="kt">c</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">[</span>i<span class="m">-1</span><span class="p">],</span> gps<span class="o">$</span>Latitude<span class="p">[</span>i<span class="m">-1</span><span class="p">]),</span></span>
+<span class="code-line">    longlat <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="o">/</span> <span class="m">1.609</span> <span class="c1"># longlat so distances will be in km, then divide to convert to miles</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line">gps<span class="o">$</span>Dist <span class="o">&lt;-</span> Dist</span>
+<span class="code-line"></span>
+<span class="code-line">DistTotal <span class="o">&lt;-</span> <span class="m">0</span></span>
+<span class="code-line"><span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">2</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">    DistTotal<span class="p">[</span>i<span class="p">]</span> <span class="o">=</span> Dist<span class="p">[</span>i<span class="p">]</span> <span class="o">+</span> DistTotal<span class="p">[</span>i<span class="m">-1</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line">gps<span class="o">$</span>DistTotal <span class="o">&lt;-</span> DistTotal</span>
+</pre></div>
+
+
+<p>And finally, we can plot our elevation data using geom_ribbons and ggplot:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line">ggplot<span class="p">(</span>gps<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> DistTotal<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_ribbon<span class="p">(</span>aes<span class="p">(</span>ymin <span class="o">=</span> <span class="m">600</span><span class="p">,</span> <span class="c1"># change this to match your min below</span></span>
+<span class="code-line">        ymax <span class="o">=</span> SMA<span class="p">),</span></span>
+<span class="code-line">    fill <span class="o">=</span> <span class="s">&quot;#1B9E77&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># put your altitude variable here if not using moving averages</span></span>
+<span class="code-line">labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Miles&quot;</span><span class="p">,</span></span>
+<span class="code-line">    y <span class="o">=</span> <span class="s">&quot;Elevation&quot;</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">scale_y_continuous<span class="p">(</span>limits <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">600</span><span class="p">,</span><span class="m">1200</span><span class="p">))</span> <span class="c1"># change this to limits appropriate for your region</span></span>
+</pre></div>
+
+
+<p><img alt="Elevation profile in ggplot2" class="size-auto" src="http://blog.mollietaylor.com/images/r-elevation.png" /></p>
+<p><a href="https://gist.github.com/mollietaylor/4969793">Code and data available in a gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/geom_ribbon.html" rel="tag">geom_ribbon</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gps.html" rel="tag">gps</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/sma.html" rel="tag">SMA</a>,  <a href="http://blog.mollietaylor.com/tag/sp.html" rel="tag">sp</a>,  <a href="http://blog.mollietaylor.com/tag/spdistsn1.html" rel="tag">spDistsN1</a>,  <a href="http://blog.mollietaylor.com/tag/ttr.html" rel="tag">TTR</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/2013/02/gps-basemaps-in-r-using-getmap.html">Thu 14 February 2013</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
@@ -55,37 +120,37 @@
 <p>Helpfully, there's just one function that will allow you to query Google Maps, OpenStreetMap, Stamen maps, or CloudMade maps: <code>get_map</code> in the <strong>ggmap</strong> package. You could also use either <code>get_googlemap</code>, <code>get_openstreetmap</code>, <code>get_stamenmap</code>, or <code>get_cloudmademap</code>, but instead you can just use <code>get_map</code> for the same functionality as all of those combined. This makes it easy to try out different basemaps for your data.</p>
 <p>You need to supply <code>get_map</code> with your location data and the color, source, maptype, and zoom of the base map.</p>
 <p>Let's go ahead and map the trails in Elwyn John Wildlife Sanctuary here in Atlanta. <a href="https://gist.github.com/mollietaylor/4742865">The csv data and R file are available in a gist</a>.</p>
-<div class="highlight"><pre>gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;elwyn.csv&quot;</span><span class="p">,</span>
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-
-<span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span>
-mapImageData <span class="o">&lt;-</span> get_map<span class="p">(</span>location <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span>
-    lat <span class="o">=</span> <span class="m">33.824</span><span class="p">),</span>
-    color <span class="o">=</span> <span class="s">&quot;color&quot;</span><span class="p">,</span> <span class="c1"># or bw</span>
-    <span class="kn">source</span> <span class="o">=</span> <span class="s">&quot;google&quot;</span><span class="p">,</span>
-    maptype <span class="o">=</span> <span class="s">&quot;satellite&quot;</span><span class="p">,</span>
-    <span class="c1"># api_key = &quot;your_api_key&quot;, # only needed for source = &quot;cloudmade&quot;</span>
-    zoom <span class="o">=</span> <span class="m">17</span><span class="p">)</span>
-
-pathcolor <span class="o">&lt;-</span> <span class="s">&quot;#F8971F&quot;</span>
-
-ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
-    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">,</span> <span class="c1"># &quot;panel&quot; keeps in axes, etc.</span>
-    ylab <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">,</span>
-    xlab <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span>
-    legend <span class="o">=</span> <span class="s">&quot;right&quot;</span><span class="p">)</span> <span class="o">+</span>
-    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path outline</span>
-    y <span class="o">=</span> Latitude<span class="p">),</span>
-    data <span class="o">=</span> gps<span class="p">,</span>
-    colour <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span>
-    size <span class="o">=</span> <span class="m">2</span><span class="p">)</span> <span class="o">+</span>
-    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path</span>
-    y <span class="o">=</span> Latitude<span class="p">),</span>
-    colour <span class="o">=</span> pathcolor<span class="p">,</span>
-    data <span class="o">=</span> gps<span class="p">,</span>
-    size <span class="o">=</span> <span class="m">1.4</span><span class="p">)</span> <span class="c1"># +</span>
-<span class="c1"># labs(x = &quot;Longitude&quot;,</span>
-<span class="c1">#   y = &quot;Latitude&quot;) # if you do extent = &quot;panel&quot;</span>
+<div class="highlight"><pre><span class="code-line">gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;elwyn.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span></span>
+<span class="code-line">mapImageData <span class="o">&lt;-</span> get_map<span class="p">(</span>location <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span></span>
+<span class="code-line">    lat <span class="o">=</span> <span class="m">33.824</span><span class="p">),</span></span>
+<span class="code-line">    color <span class="o">=</span> <span class="s">&quot;color&quot;</span><span class="p">,</span> <span class="c1"># or bw</span></span>
+<span class="code-line">    <span class="kn">source</span> <span class="o">=</span> <span class="s">&quot;google&quot;</span><span class="p">,</span></span>
+<span class="code-line">    maptype <span class="o">=</span> <span class="s">&quot;satellite&quot;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="c1"># api_key = &quot;your_api_key&quot;, # only needed for source = &quot;cloudmade&quot;</span></span>
+<span class="code-line">    zoom <span class="o">=</span> <span class="m">17</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">pathcolor <span class="o">&lt;-</span> <span class="s">&quot;#F8971F&quot;</span></span>
+<span class="code-line"></span>
+<span class="code-line">ggmap<span class="p">(</span>mapImageData<span class="p">,</span></span>
+<span class="code-line">    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">,</span> <span class="c1"># &quot;panel&quot; keeps in axes, etc.</span></span>
+<span class="code-line">    ylab <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">,</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span></span>
+<span class="code-line">    legend <span class="o">=</span> <span class="s">&quot;right&quot;</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path outline</span></span>
+<span class="code-line">    y <span class="o">=</span> Latitude<span class="p">),</span></span>
+<span class="code-line">    data <span class="o">=</span> gps<span class="p">,</span></span>
+<span class="code-line">    colour <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">2</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">    geom_path<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span> <span class="c1"># path</span></span>
+<span class="code-line">    y <span class="o">=</span> Latitude<span class="p">),</span></span>
+<span class="code-line">    colour <span class="o">=</span> pathcolor<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> gps<span class="p">,</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">1.4</span><span class="p">)</span> <span class="c1"># +</span></span>
+<span class="code-line"><span class="c1"># labs(x = &quot;Longitude&quot;,</span></span>
+<span class="code-line"><span class="c1">#   y = &quot;Latitude&quot;) # if you do extent = &quot;panel&quot;</span></span>
 </pre></div>
 
 
@@ -155,18 +220,18 @@ ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
 <h2>Open Motif</h2>
 <p>You may need to install Open Motif before you can install Citrix Receiver.</p>
 <p>If so, download Open Motif, extract it, and follow the directions in INSTALL.configure, namely:</p>
-<div class="highlight"><pre><span class="go">cd</span>
-<span class="go">./configure</span>
-<span class="go">make check</span>
-<span class="go">make install</span>
-<span class="go">make clean</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">cd</span></span>
+<span class="code-line"><span class="go">./configure</span></span>
+<span class="code-line"><span class="go">make check</span></span>
+<span class="code-line"><span class="go">make install</span></span>
+<span class="code-line"><span class="go">make clean</span></span>
 </pre></div>
 
 
 <h2>Security Certificate</h2>
 <p><img alt="Error" class="size-auto" src="http://blog.mollietaylor.com/images/citrix-error.png" /></p>
 <p>If you try to log on to your virtual desktop and get an error about "AddTrust External CA Root", you can just do</p>
-<div class="highlight"><pre><span class="go">sudo cp /usr/share/ca-certificates/mozilla/*.* /opt/Citrix/ICAClient/keystore/cacerts/</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">sudo cp /usr/share/ca-certificates/mozilla/*.* /opt/Citrix/ICAClient/keystore/cacerts/</span></span>
 </pre></div>
 
 
@@ -197,18 +262,18 @@ ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
 </ul>
 <p>One method I like to use to do this is using <code>geom_segment</code> and <code>geom_point</code> in the <strong>ggplot2</strong> package.</p>
 <p>First, let's load <strong>ggplot2</strong> and our data:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span>
-data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span></span>
+<span class="code-line">data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span></span>
 </pre></div>
 
 
 <p>Next, we'll set up our plot and axes:</p>
-<div class="highlight"><pre>ggplot<span class="p">(</span>data<span class="p">,</span>
-    aes<span class="p">(</span>y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span>
-labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span>
-    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line">ggplot<span class="p">(</span>data<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span></span>
+<span class="code-line">    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 
@@ -222,45 +287,45 @@ labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Exp
 </ul>
 <!--end the list-->
 
-<div class="highlight"><pre>geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-  y <span class="o">=</span> Category<span class="p">,</span>
-  xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-  yend <span class="o">=</span> Category<span class="p">),</span>
- size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line">geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">  y <span class="o">=</span> Category<span class="p">,</span></span>
+<span class="code-line">  xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">  yend <span class="o">=</span> Category<span class="p">),</span></span>
+<span class="code-line"> size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 
 <p>Next, we want to plot points for the 1940 and 1960 values. We could do the same for the 1945, 1950, and 1955 values, if we wanted to.</p>
-<div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-    color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span>
-    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
-geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-    color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
-    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">    color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">    color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 
 <p>Finally, we'll finish up by touching up the legend for the plot:</p>
-<div class="highlight"><pre>scale_color_discrete<span class="p">(</span>name <span class="o">=</span> <span class="s">&quot;Year&quot;</span><span class="p">)</span> <span class="o">+</span>
-theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">scale_color_discrete<span class="p">(</span>name <span class="o">=</span> <span class="s">&quot;Year&quot;</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p><img alt="geom_segment, then geom_point" src="http://blog.mollietaylor.com/images/r-line-segments.png" /></p>
 <p>The order of <code>geom_segment</code> and the <code>geom_points</code> matters. The first <code>geom</code> line in the code will get plotted first. Therefore, if you want the points displayed over the segments, put the segments first in the code. Likewise, if you want the segments displayed over the points, put the points first in the code.</p>
 <p>For example, we could change the middle section of the code to:</p>
-<div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-  color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span>
-  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
-geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-  color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
-  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
-
-geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-    y <span class="o">=</span> Category<span class="p">,</span>
-    xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-    yend <span class="o">=</span> Category<span class="p">),</span>
-  size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">  color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span></span>
+<span class="code-line">  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">  color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span></span>
+<span class="code-line">  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line"></span>
+<span class="code-line">geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">    y <span class="o">=</span> Category<span class="p">,</span></span>
+<span class="code-line">    xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">    yend <span class="o">=</span> Category<span class="p">),</span></span>
+<span class="code-line">  size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 
@@ -294,19 +359,19 @@ geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o"
 <p>If you get the warning message "In readLines(file) : incomplete final line found on 'fun.R'", just insert a line break at the end of the fun.R file.</p>
 <h3>If you want to name the function in the file running it</h3>
 <p>First let's make the same function (but this time unnamed) in the file times.R:</p>
-<div class="highlight"><pre><span class="kr">function</span><span class="p">(</span>x<span class="p">,</span> y<span class="p">)</span> <span class="p">{</span>
-    x<span class="o">*</span>y
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="kr">function</span><span class="p">(</span>x<span class="p">,</span> y<span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    x<span class="o">*</span>y</span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <h3>Calling the functions</h3>
 <p>And finally we'll make a file file.R to call our functions:</p>
-<div class="highlight"><pre>times <span class="o">&lt;-</span> <span class="kp">dget</span><span class="p">(</span><span class="s">&quot;times.R&quot;</span><span class="p">)</span>
-times<span class="p">(</span><span class="m">-4</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
-
-<span class="kn">source</span><span class="p">(</span><span class="s">&quot;fun.R&quot;</span><span class="p">)</span>
-mult<span class="p">(</span><span class="m">-4</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">times <span class="o">&lt;-</span> <span class="kp">dget</span><span class="p">(</span><span class="s">&quot;times.R&quot;</span><span class="p">)</span></span>
+<span class="code-line">times<span class="p">(</span><span class="m">-4</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">source</span><span class="p">(</span><span class="s">&quot;fun.R&quot;</span><span class="p">)</span></span>
+<span class="code-line">mult<span class="p">(</span><span class="m">-4</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -329,56 +394,56 @@ mult<span class="p">(</span><span class="m">-4</span><span class="o">:</span><sp
 		<div class="entry-content">
 			<p>The <a href="http://en.wikipedia.org/wiki/Gini_coefficient">Gini coefficient</a> is a measure of the inequality of a distribution, most commonly used to compare inequality in income or wealth among countries.</p>
 <p>Let's first generate some random data to analyze. You can <a href="https://gist.github.com/4432069">download my random data</a> or use the code below to generate your own. Of course, if you generate your own, your graphs and results will be different from those shown below.</p>
-<div class="highlight"><pre>city <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">,</span> <span class="s">&quot;D&quot;</span><span class="p">,</span> <span class="s">&quot;E&quot;</span><span class="p">,</span> <span class="s">&quot;F&quot;</span><span class="p">,</span> <span class="s">&quot;G&quot;</span><span class="p">,</span> <span class="s">&quot;H&quot;</span><span class="p">,</span> <span class="s">&quot;I&quot;</span><span class="p">,</span> <span class="s">&quot;J&quot;</span><span class="p">)</span>
-income <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">100000</span><span class="p">,</span>
-    <span class="m">100</span><span class="p">,</span>
-    replace <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-cities <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>city<span class="p">,</span> income<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">city <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">,</span> <span class="s">&quot;D&quot;</span><span class="p">,</span> <span class="s">&quot;E&quot;</span><span class="p">,</span> <span class="s">&quot;F&quot;</span><span class="p">,</span> <span class="s">&quot;G&quot;</span><span class="p">,</span> <span class="s">&quot;H&quot;</span><span class="p">,</span> <span class="s">&quot;I&quot;</span><span class="p">,</span> <span class="s">&quot;J&quot;</span><span class="p">)</span></span>
+<span class="code-line">income <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">100000</span><span class="p">,</span></span>
+<span class="code-line">    <span class="m">100</span><span class="p">,</span></span>
+<span class="code-line">    replace <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line">cities <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>city<span class="p">,</span> income<span class="p">)</span></span>
 </pre></div>
 
 
 <p>Next, let's graph our data:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-ggplot<span class="p">(</span>cities<span class="p">,</span>
-    aes<span class="p">(</span>income<span class="p">))</span> <span class="o">+</span>
-    stat_density<span class="p">(</span>geom <span class="o">=</span> <span class="s">&quot;path&quot;</span><span class="p">,</span>
-        position <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">)</span> <span class="o">+</span>
-    facet_wrap<span class="p">(</span><span class="o">~</span> city<span class="p">,</span> ncol <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line">ggplot<span class="p">(</span>cities<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>income<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">    stat_density<span class="p">(</span>geom <span class="o">=</span> <span class="s">&quot;path&quot;</span><span class="p">,</span></span>
+<span class="code-line">        position <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">    facet_wrap<span class="p">(</span><span class="o">~</span> city<span class="p">,</span> ncol <span class="o">=</span> <span class="m">2</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p><img alt="Histogram of each city's incomes // Your results will differ if using random data" src="http://blog.mollietaylor.com/images/r-gini-hist.png" /></p>
 <p>The Gini coefficient is easy enough to calculate in R for a single locale using the <code>gini</code> function from the <strong>reldist</strong> package.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>reldist<span class="p">)</span>
-gini<span class="p">(</span>cities<span class="p">[</span><span class="kp">which</span><span class="p">(</span>cities<span class="o">$</span>city <span class="o">==</span> <span class="s">&quot;A&quot;</span><span class="p">),</span> <span class="p">]</span><span class="o">$</span>income<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>reldist<span class="p">)</span></span>
+<span class="code-line">gini<span class="p">(</span>cities<span class="p">[</span><span class="kp">which</span><span class="p">(</span>cities<span class="o">$</span>city <span class="o">==</span> <span class="s">&quot;A&quot;</span><span class="p">),</span> <span class="p">]</span><span class="o">$</span>income<span class="p">)</span></span>
 </pre></div>
 
 
 <p>But we don't want to replicate this code over and over to calculate the Gini coefficient for a large number of locales. We also want the coefficients to be in a data frame for easy use in R or for export for use in another program.</p>
 <p>There are <a href="http://www.slideshare.net/jeffreybreen/grouping-summarizing-data-in-r">many ways to automate a function</a> to run over many subsets of a data frame. The most straightforward in our particular case is <code>aggregate</code>:</p>
-<div class="highlight"><pre>ginicities <span class="o">&lt;-</span> aggregate<span class="p">(</span>income <span class="o">~</span> city<span class="p">,</span>
-    data <span class="o">=</span> cities<span class="p">,</span>
-    FUN <span class="o">=</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span>
-<span class="kp">names</span><span class="p">(</span>ginisec<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span>
-
-<span class="o">&gt;</span> ginisec
-   city      gini
-<span class="m">1</span>     A <span class="m">0.2856827</span>
-<span class="m">2</span>     B <span class="m">0.3639070</span>
-<span class="m">3</span>     C <span class="m">0.3288934</span>
-<span class="m">4</span>     D <span class="m">0.1863783</span>
-<span class="m">5</span>     E <span class="m">0.3565739</span>
-<span class="m">6</span>     <span class="bp">F</span> <span class="m">0.2587475</span>
-<span class="m">7</span>     G <span class="m">0.3022642</span>
-<span class="m">8</span>     H <span class="m">0.3795288</span>
-<span class="m">9</span>     I <span class="m">0.3311034</span>
-<span class="m">10</span>    J <span class="m">0.2496933</span>
+<div class="highlight"><pre><span class="code-line">ginicities <span class="o">&lt;-</span> aggregate<span class="p">(</span>income <span class="o">~</span> city<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> cities<span class="p">,</span></span>
+<span class="code-line">    FUN <span class="o">=</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="kp">names</span><span class="p">(</span>ginisec<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> ginisec</span>
+<span class="code-line">   city      gini</span>
+<span class="code-line"><span class="m">1</span>     A <span class="m">0.2856827</span></span>
+<span class="code-line"><span class="m">2</span>     B <span class="m">0.3639070</span></span>
+<span class="code-line"><span class="m">3</span>     C <span class="m">0.3288934</span></span>
+<span class="code-line"><span class="m">4</span>     D <span class="m">0.1863783</span></span>
+<span class="code-line"><span class="m">5</span>     E <span class="m">0.3565739</span></span>
+<span class="code-line"><span class="m">6</span>     <span class="bp">F</span> <span class="m">0.2587475</span></span>
+<span class="code-line"><span class="m">7</span>     G <span class="m">0.3022642</span></span>
+<span class="code-line"><span class="m">8</span>     H <span class="m">0.3795288</span></span>
+<span class="code-line"><span class="m">9</span>     I <span class="m">0.3311034</span></span>
+<span class="code-line"><span class="m">10</span>    J <span class="m">0.2496933</span></span>
 </pre></div>
 
 
 <p>And finally, let's go ahead and export our data using <code>write.csv</code>:</p>
-<div class="highlight"><pre>write.csv<span class="p">(</span>ginicities<span class="p">,</span> <span class="s">&quot;gini.csv&quot;</span><span class="p">,</span>
-    row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">write.csv<span class="p">(</span>ginicities<span class="p">,</span> <span class="s">&quot;gini.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -406,65 +471,65 @@ gini<span class="p">(</span>cities<span class="p">[</span><span class="kp">which
 		<div class="entry-content">
 			<h2>Reshape Wide to Long</h2>
 <p>Let's use the <code>Loblolly</code> dataset from the <strong>datasets</strong> package. These data track the growth of some loblolly pine trees.</p>
-<div class="highlight"><pre><span class="o">&gt;</span> Loblolly<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,]</span>
-   height age Seed
-<span class="m">1</span>    <span class="m">4.51</span>   <span class="m">3</span>  <span class="m">301</span>
-<span class="m">15</span>  <span class="m">10.89</span>   <span class="m">5</span>  <span class="m">301</span>
-<span class="m">29</span>  <span class="m">28.72</span>  <span class="m">10</span>  <span class="m">301</span>
-<span class="m">43</span>  <span class="m">41.74</span>  <span class="m">15</span>  <span class="m">301</span>
-<span class="m">57</span>  <span class="m">52.70</span>  <span class="m">20</span>  <span class="m">301</span>
-<span class="m">71</span>  <span class="m">60.92</span>  <span class="m">25</span>  <span class="m">301</span>
-<span class="m">2</span>    <span class="m">4.55</span>   <span class="m">3</span>  <span class="m">303</span>
-<span class="m">16</span>  <span class="m">10.92</span>   <span class="m">5</span>  <span class="m">303</span>
-<span class="m">30</span>  <span class="m">29.07</span>  <span class="m">10</span>  <span class="m">303</span>
-<span class="m">44</span>  <span class="m">42.83</span>  <span class="m">15</span>  <span class="m">303</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> Loblolly<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,]</span></span>
+<span class="code-line">   height age Seed</span>
+<span class="code-line"><span class="m">1</span>    <span class="m">4.51</span>   <span class="m">3</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">15</span>  <span class="m">10.89</span>   <span class="m">5</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">29</span>  <span class="m">28.72</span>  <span class="m">10</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">43</span>  <span class="m">41.74</span>  <span class="m">15</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">57</span>  <span class="m">52.70</span>  <span class="m">20</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">71</span>  <span class="m">60.92</span>  <span class="m">25</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">2</span>    <span class="m">4.55</span>   <span class="m">3</span>  <span class="m">303</span></span>
+<span class="code-line"><span class="m">16</span>  <span class="m">10.92</span>   <span class="m">5</span>  <span class="m">303</span></span>
+<span class="code-line"><span class="m">30</span>  <span class="m">29.07</span>  <span class="m">10</span>  <span class="m">303</span></span>
+<span class="code-line"><span class="m">44</span>  <span class="m">42.83</span>  <span class="m">15</span>  <span class="m">303</span></span>
 </pre></div>
 
 
 <p>First, we need to convert the data to wide form, so each age (i.e. 3, 5, 10, 15, 20, 25) will have its own variable.</p>
-<div class="highlight"><pre>wide <span class="o">&lt;-</span> reshape<span class="p">(</span>Loblolly<span class="p">,</span>
-    v.names <span class="o">=</span> <span class="s">&quot;height&quot;</span><span class="p">,</span>
-    timevar <span class="o">=</span> <span class="s">&quot;age&quot;</span><span class="p">,</span>
-    idvar <span class="o">=</span> <span class="s">&quot;Seed&quot;</span><span class="p">,</span>
-    direction <span class="o">=</span> <span class="s">&quot;wide&quot;</span><span class="p">)</span>
-
-<span class="o">&gt;</span> wide<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,]</span>
-  Seed height.3 height.5 height.10 height.15 height.20 height.25
-<span class="m">1</span>  <span class="m">301</span>     <span class="m">4.51</span>    <span class="m">10.89</span>     <span class="m">28.72</span>     <span class="m">41.74</span>     <span class="m">52.70</span>     <span class="m">60.92</span>
-<span class="m">2</span>  <span class="m">303</span>     <span class="m">4.55</span>    <span class="m">10.92</span>     <span class="m">29.07</span>     <span class="m">42.83</span>     <span class="m">53.88</span>     <span class="m">63.39</span>
-<span class="m">3</span>  <span class="m">305</span>     <span class="m">4.79</span>    <span class="m">11.37</span>     <span class="m">30.21</span>     <span class="m">44.40</span>     <span class="m">55.82</span>     <span class="m">64.10</span>
-<span class="m">4</span>  <span class="m">307</span>     <span class="m">3.91</span>     <span class="m">9.48</span>     <span class="m">25.66</span>     <span class="m">39.07</span>     <span class="m">50.78</span>     <span class="m">59.07</span>
-<span class="m">5</span>  <span class="m">309</span>     <span class="m">4.81</span>    <span class="m">11.20</span>     <span class="m">28.66</span>     <span class="m">41.66</span>     <span class="m">53.31</span>     <span class="m">63.05</span>
+<div class="highlight"><pre><span class="code-line">wide <span class="o">&lt;-</span> reshape<span class="p">(</span>Loblolly<span class="p">,</span></span>
+<span class="code-line">    v.names <span class="o">=</span> <span class="s">&quot;height&quot;</span><span class="p">,</span></span>
+<span class="code-line">    timevar <span class="o">=</span> <span class="s">&quot;age&quot;</span><span class="p">,</span></span>
+<span class="code-line">    idvar <span class="o">=</span> <span class="s">&quot;Seed&quot;</span><span class="p">,</span></span>
+<span class="code-line">    direction <span class="o">=</span> <span class="s">&quot;wide&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> wide<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,]</span></span>
+<span class="code-line">  Seed height.3 height.5 height.10 height.15 height.20 height.25</span>
+<span class="code-line"><span class="m">1</span>  <span class="m">301</span>     <span class="m">4.51</span>    <span class="m">10.89</span>     <span class="m">28.72</span>     <span class="m">41.74</span>     <span class="m">52.70</span>     <span class="m">60.92</span></span>
+<span class="code-line"><span class="m">2</span>  <span class="m">303</span>     <span class="m">4.55</span>    <span class="m">10.92</span>     <span class="m">29.07</span>     <span class="m">42.83</span>     <span class="m">53.88</span>     <span class="m">63.39</span></span>
+<span class="code-line"><span class="m">3</span>  <span class="m">305</span>     <span class="m">4.79</span>    <span class="m">11.37</span>     <span class="m">30.21</span>     <span class="m">44.40</span>     <span class="m">55.82</span>     <span class="m">64.10</span></span>
+<span class="code-line"><span class="m">4</span>  <span class="m">307</span>     <span class="m">3.91</span>     <span class="m">9.48</span>     <span class="m">25.66</span>     <span class="m">39.07</span>     <span class="m">50.78</span>     <span class="m">59.07</span></span>
+<span class="code-line"><span class="m">5</span>  <span class="m">309</span>     <span class="m">4.81</span>    <span class="m">11.20</span>     <span class="m">28.66</span>     <span class="m">41.66</span>     <span class="m">53.31</span>     <span class="m">63.05</span></span>
 </pre></div>
 
 
 <h2>Create Variables</h2>
 <p>Then we want to create new columns showing how much each tree has grown between data points. For example, instead of knowing a tree's height at age 10, we want to know how much it's grown between age 5 and age 10, so that can be a bar in our graph.</p>
-<div class="highlight"><pre>wide<span class="o">$</span>h0.3 <span class="o">&lt;-</span> wide<span class="o">$</span>height.3
-wide<span class="o">$</span>h3.5 <span class="o">&lt;-</span> wide<span class="o">$</span>height.5 <span class="o">-</span> wide<span class="o">$</span>height.3
-wide<span class="o">$</span>h5.10 <span class="o">&lt;-</span> wide<span class="o">$</span>height.10 <span class="o">-</span> wide<span class="o">$</span>height.5
-wide<span class="o">$</span>h10.15 <span class="o">&lt;-</span> wide<span class="o">$</span>height.15 <span class="o">-</span> wide<span class="o">$</span>height.10
-wide<span class="o">$</span>h15.20 <span class="o">&lt;-</span> wide<span class="o">$</span>height.20 <span class="o">-</span> wide<span class="o">$</span>height.15
-wide<span class="o">$</span>h20.25 <span class="o">&lt;-</span> wide<span class="o">$</span>height.25 <span class="o">-</span> wide<span class="o">$</span>height.20
+<div class="highlight"><pre><span class="code-line">wide<span class="o">$</span>h0.3 <span class="o">&lt;-</span> wide<span class="o">$</span>height.3</span>
+<span class="code-line">wide<span class="o">$</span>h3.5 <span class="o">&lt;-</span> wide<span class="o">$</span>height.5 <span class="o">-</span> wide<span class="o">$</span>height.3</span>
+<span class="code-line">wide<span class="o">$</span>h5.10 <span class="o">&lt;-</span> wide<span class="o">$</span>height.10 <span class="o">-</span> wide<span class="o">$</span>height.5</span>
+<span class="code-line">wide<span class="o">$</span>h10.15 <span class="o">&lt;-</span> wide<span class="o">$</span>height.15 <span class="o">-</span> wide<span class="o">$</span>height.10</span>
+<span class="code-line">wide<span class="o">$</span>h15.20 <span class="o">&lt;-</span> wide<span class="o">$</span>height.20 <span class="o">-</span> wide<span class="o">$</span>height.15</span>
+<span class="code-line">wide<span class="o">$</span>h20.25 <span class="o">&lt;-</span> wide<span class="o">$</span>height.25 <span class="o">-</span> wide<span class="o">$</span>height.20</span>
 </pre></div>
 
 
 <h2>Plot Stacked Bar Chart</h2>
 <p>Finally, we want to plot all the new data points:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
-sequential <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span>
-barplot<span class="p">(</span><span class="kp">t</span><span class="p">(</span>wide<span class="p">[,</span><span class="m">8</span><span class="o">:</span><span class="m">13</span><span class="p">]),</span>
-    names.arg <span class="o">=</span> wide<span class="o">$</span>Seed<span class="p">,</span> <span class="c1"># x-axis labels</span>
-    cex.names <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> <span class="c1"># makes x-axis labels small enough to show all</span>
-    col <span class="o">=</span> sequential<span class="p">,</span> <span class="c1"># colors</span>
-    xlab <span class="o">=</span> <span class="s">&quot;Seed Source&quot;</span><span class="p">,</span>
-    ylab <span class="o">=</span> <span class="s">&quot;Height, Feet&quot;</span><span class="p">,</span>
-    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20</span><span class="p">),</span> <span class="c1"># these two lines allow space for the legend</span>
-    width <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># these two lines allow space for the legend</span>
-legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span> 
-    legend <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;20-25&quot;</span><span class="p">,</span> <span class="s">&quot;15-20&quot;</span><span class="p">,</span> <span class="s">&quot;10-15&quot;</span><span class="p">,</span> <span class="s">&quot;5-10&quot;</span><span class="p">,</span> <span class="s">&quot;3-5&quot;</span><span class="p">,</span> <span class="s">&quot;0-3&quot;</span><span class="p">),</span> <span class="c1">#in order from top to bottom</span>
-    fill <span class="o">=</span> sequential<span class="p">[</span><span class="m">6</span><span class="o">:</span><span class="m">1</span><span class="p">],</span> <span class="c1"># 6:1 reorders so legend order matches graph</span>
-    title <span class="o">=</span> <span class="s">&quot;Years&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span></span>
+<span class="code-line">sequential <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span></span>
+<span class="code-line">barplot<span class="p">(</span><span class="kp">t</span><span class="p">(</span>wide<span class="p">[,</span><span class="m">8</span><span class="o">:</span><span class="m">13</span><span class="p">]),</span></span>
+<span class="code-line">    names.arg <span class="o">=</span> wide<span class="o">$</span>Seed<span class="p">,</span> <span class="c1"># x-axis labels</span></span>
+<span class="code-line">    cex.names <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> <span class="c1"># makes x-axis labels small enough to show all</span></span>
+<span class="code-line">    col <span class="o">=</span> sequential<span class="p">,</span> <span class="c1"># colors</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;Seed Source&quot;</span><span class="p">,</span></span>
+<span class="code-line">    ylab <span class="o">=</span> <span class="s">&quot;Height, Feet&quot;</span><span class="p">,</span></span>
+<span class="code-line">    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20</span><span class="p">),</span> <span class="c1"># these two lines allow space for the legend</span></span>
+<span class="code-line">    width <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># these two lines allow space for the legend</span></span>
+<span class="code-line">legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    legend <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;20-25&quot;</span><span class="p">,</span> <span class="s">&quot;15-20&quot;</span><span class="p">,</span> <span class="s">&quot;10-15&quot;</span><span class="p">,</span> <span class="s">&quot;5-10&quot;</span><span class="p">,</span> <span class="s">&quot;3-5&quot;</span><span class="p">,</span> <span class="s">&quot;0-3&quot;</span><span class="p">),</span> <span class="c1">#in order from top to bottom</span></span>
+<span class="code-line">    fill <span class="o">=</span> sequential<span class="p">[</span><span class="m">6</span><span class="o">:</span><span class="m">1</span><span class="p">],</span> <span class="c1"># 6:1 reorders so legend order matches graph</span></span>
+<span class="code-line">    title <span class="o">=</span> <span class="s">&quot;Years&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -550,41 +615,41 @@ legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><spa
 			<p>This is an explanation of how I used R to combine all my GPS cycling tracks from my Garmin Forerunner 305.</p>
 <h2>Converting to CSV</h2>
 <p>You can convert pretty much any GPS data to .csv by using <a href="http://www.gpsbabel.org/htmldoc-1.4.4/readme.html">GPSBabel</a>. For importing directly from my Garmin, I used the command:</p>
-<div class="highlight"><pre><span class="go">gpsbabel -t -i garmin -f usb: -o unicsv -F out.csv</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">gpsbabel -t -i garmin -f usb: -o unicsv -F out.csv</span></span>
 </pre></div>
 
 
 <p>[Note: you'll probably need to work as root to access your device directly]</p>
 <p>For importing from a .tcx file, you can use:</p>
-<div class="highlight"><pre><span class="go">gpsbabel -t -i gtrnctr -f test2.tcx -o unicsv -F old.csv</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">gpsbabel -t -i gtrnctr -f test2.tcx -o unicsv -F old.csv</span></span>
 </pre></div>
 
 
 <h2>Mapping in R</h2>
 <p>After converting to .csv, we'll have a file with several columns, such as latitude, longitude, date, and time. We can now easily import this into R.</p>
-<div class="highlight"><pre>gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;out.csv&quot;</span><span class="p">,</span> 
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">gps <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;out.csv&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>Next we want to load up ggmap and get our base map. To determine how zoomed in we are, we can set <code>zoom</code> and <code>size</code>. We can also choose the <code>maptype</code>, with options of terrain, satellite, roadmap, or hybrid (satellite + roadmap).</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span>
-mapImageData <span class="o">&lt;-</span> get_googlemap<span class="p">(</span>center <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span> lat <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Latitude<span class="p">)),</span>
-    zoom <span class="o">=</span> <span class="m">11</span><span class="p">,</span>
-<span class="c1"># size = c(500, 500),</span>
-    maptype <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;terrain&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span></span>
+<span class="code-line">mapImageData <span class="o">&lt;-</span> get_googlemap<span class="p">(</span>center <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Longitude<span class="p">),</span> lat <span class="o">=</span> median<span class="p">(</span>gps<span class="o">$</span>Latitude<span class="p">)),</span></span>
+<span class="code-line">    zoom <span class="o">=</span> <span class="m">11</span><span class="p">,</span></span>
+<span class="code-line"><span class="c1"># size = c(500, 500),</span></span>
+<span class="code-line">    maptype <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;terrain&quot;</span><span class="p">))</span></span>
 </pre></div>
 
 
 <p>I chose to set the <code>center</code> of the map to the median of my latitudes and the median of my longitudes. I've done some biking when traveling, so median made more sense for me than mean.
 Finally we want to map our GPS data. There are several <a href="http://www.endmemo.com/program/R/pchsymbols.php"><code>pch</code> options</a> to try.</p>
-<div class="highlight"><pre>ggmap<span class="p">(</span>mapImageData<span class="p">,</span>
-    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># takes out axes, etc.</span>
-    geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span>
-        y <span class="o">=</span> Latitude<span class="p">),</span>
-    data <span class="o">=</span> gps<span class="p">,</span>
-    colour <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span>
-    size <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
+<div class="highlight"><pre><span class="code-line">ggmap<span class="p">(</span>mapImageData<span class="p">,</span></span>
+<span class="code-line">    extent <span class="o">=</span> <span class="s">&quot;device&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># takes out axes, etc.</span></span>
+<span class="code-line">    geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> Longitude<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> Latitude<span class="p">),</span></span>
+<span class="code-line">    data <span class="o">=</span> gps<span class="p">,</span></span>
+<span class="code-line">    colour <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">1</span><span class="p">,</span></span>
 </pre></div>
 
 
@@ -643,83 +708,6 @@ Finally we want to map our GPS data. There are several <a href="http://www.endme
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/organization.html" rel="tag">organization</a>,  <a href="http://blog.mollietaylor.com/tag/workflowy.html" rel="tag">WorkFlowy</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2012/11/sorting-within-lattice-graphics-in-r.html">Thu 29 November 2012</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2012/11/sorting-within-lattice-graphics-in-r.html" title="Permalink to Sorting Within Lattice Graphics in R" rel="bookmark">Sorting Within Lattice Graphics in R</a>
-		</h2>
-		<div class="entry-content">
-			<h2>Default</h2>
-<p>By default, <strong>lattice</strong> sorts the observations by the axis values, starting at the bottom left.</p>
-<p>For example,</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span>
-colors <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;#1B9E77&quot;</span><span class="p">,</span> <span class="s">&quot;#D95F02&quot;</span><span class="p">,</span> <span class="s">&quot;#7570B3&quot;</span><span class="p">)</span>
-dotplot<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span>
-    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
-</pre></div>
-
-
-<p>produces:</p>
-<p><img alt="Default lattice dotplot" src="http://blog.mollietaylor.com/images/r-lattice-default.png" /></p>
-<p>(Note: The <code>rownames(cars)</code> bit is just because of how this data set is stored. For your data, you might just type the variable name (<code>model</code>, for example) instead.)</p>
-<h2>Graphing one variable, sorting by another</h2>
-<p>If we want to show the same data, but we want to sort by another variable (or the same variable, for that matter), we can just add <code>reorder(yvar, sortvar)</code>. For example, to sort by the number of cylinders, we could:</p>
-<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="p">],</span>
-</pre></div>
-
-
-<p><img alt="Sorted by number of cylinders" src="http://blog.mollietaylor.com/images/r-lattice-by-cyl.png" /></p>
-<h2>Graphing two variables</h2>
-<p>To better show how this works, let's graph <code>cyl</code> alongside <code>mpg</code>, so we can see how it is sorting:</p>
-<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">,</span>
-    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
-    pch <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
-</pre></div>
-
-
-<p><img alt="Graph of mpg and cyl, sorted by cyl" src="http://blog.mollietaylor.com/images/r-lattice-mpg-cyl.png" /></p>
-<h2>Reverse order</h2>
-<p>We can also sort in reverse order, by adding a "-" before the variable name:</p>
-<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">,</span>
-    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
-</pre></div>
-
-
-<p><img alt="Graph of mpg and cyl, sorted by cyl, reversed" src="http://blog.mollietaylor.com/images/r-lattice-mpg-cyl-reverse.png" /></p>
-<h2>Adding a legend</h2>
-<p>We can also add a legend:</p>
-<div class="highlight"><pre>dotplot<span class="p">(</span>reorder<span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>mtcars<span class="p">),</span> <span class="o">-</span>cyl<span class="p">)</span> <span class="o">~</span> mpg <span class="o">+</span> cyl<span class="p">,</span>
-    data <span class="o">=</span> mtcars<span class="p">,</span>
-    xlab <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
-    col <span class="o">=</span> colors<span class="p">,</span>
-    pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span>
-    key <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>points <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>col <span class="o">=</span> colors<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">],</span> pch <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">)),</span>
-        text <span class="o">=</span> <span class="kt">list</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Miles per gallon&quot;</span><span class="p">,</span> <span class="s">&quot;Number of cylinders&quot;</span><span class="p">)),</span>
-        space <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">))</span>
-</pre></div>
-
-
-<p><img alt="With legend" src="http://blog.mollietaylor.com/images/r-lattice-legend.png" /></p>
-<h2>Other lattice types</h2>
-<p>The same technique will work with other lattice graphs, such as barchart, bwplot, and stripplot.</p>
-<p>Full code available as a <a href="https://gist.github.com/4063837">gist</a>.</p>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/barchart.html" rel="tag">barchart</a>,  <a href="http://blog.mollietaylor.com/tag/dotplot.html" rel="tag">dotplot</a>,  <a href="http://blog.mollietaylor.com/tag/key.html" rel="tag">key</a>,  <a href="http://blog.mollietaylor.com/tag/lattice.html" rel="tag">lattice</a>,  <a href="http://blog.mollietaylor.com/tag/legend.html" rel="tag">legend</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/reorder.html" rel="tag">reorder</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">

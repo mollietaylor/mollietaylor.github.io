@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -39,6 +40,101 @@
 	
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/nsuserdefaults.html">Sun 18 January 2015</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/objective-c.html" title="View all posts in Objective-C" rel="category tag">Objective-C</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/nsuserdefaults.html" title="Permalink to NSUserDefaults Example with NSMutableArray" rel="bookmark">NSUserDefaults Example with NSMutableArray</a>
+		</h2>
+		<div class="entry-content">
+			<p>I was misinformed that to have information persist between app uses, you had to either use Core Data or a cloud backend. Boy, was I ever wrong. It's so much easier than that!</p>
+<p>From <a href="http://nshipster.com/nscoding/">NSHipster</a>:</p>
+<p><img alt="NSHipster's opinion" class="size-auto" src="http://blog.mollietaylor.com/images/nsuserdefaults-nshipster.png" /></p>
+<p>In this case, we're going to be doing something even easier than the full <code>NSKeyedArchiver</code>. For this blog post, we'll be creating a very simple array example for using <code>NSUserDefaults</code> to persistently store data. We'll be able to add items to and remove items from the array.</p>
+<ul>
+<li>Start a new Single View Application project.</li>
+<li>Delete <code>ViewController.h</code> and <code>ViewController.m</code>.</li>
+<li>Remove the View Controller from the storyboard.</li>
+<li>Make a new file that is a subclass of <code>UITableViewController</code>. Name it <code>ItemTVC</code>.</li>
+<li>Drag a Table View Controller into the storyboard and make it the Initial View Controller (in the Attributes inspector). Give it the class <code>ItemTVC</code>. Give the cell the identifier "<code>Cell</code>".</li>
+<li>Leave <code>ItemTVC.h</code> as it is and work in <code>ItemTVC.m</code>.</li>
+</ul>
+<p>In <code>viewDidLoad</code>:</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="p">[</span><span class="nb">super</span> <span class="n">viewDidLoad</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="bp">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="o">=</span> <span class="p">[[</span><span class="n">defaults</span> <span class="nl">arrayForKey</span><span class="p">:</span><span class="s">@&quot;array&quot;</span><span class="p">]</span> <span class="n">mutableCopy</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p><code>NSUserDefaults</code> will always return an immutable version of any object you pass it. As a result, we need to use <code>mutableCopy</code> before using the array we've retrieved from <code>NSUserDefaults</code>.</p>
+<p>In <code>(IBAction)addItem</code> (storyboard for add item button) or <code>insertNewObject</code> (code for add item button) or similar:</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// if you aren&#39;t using storyboard, this might be insertNewObject or a similar method instead of an IBAction</span></span>
+<span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">addItem:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="bp">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">([</span><span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="n">count</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSMutableArray</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="nl">addObject</span><span class="p">:[</span><span class="bp">NSDate</span> <span class="n">date</span><span class="p">]];</span></span>
+<span class="code-line">    <span class="p">[</span><span class="n">defaults</span> <span class="nl">setObject</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="nl">forKey</span><span class="p">:</span><span class="s">@&quot;array&quot;</span><span class="p">];</span></span>
+<span class="code-line">    <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">tableView</span> <span class="n">reloadData</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>In <code>cellForRowAtIndexPath</code>:</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="bp">UITableViewCell</span> <span class="o">*</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="bp">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">cellForRowAtIndexPath:</span><span class="p">(</span><span class="bp">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="bp">UITableViewCell</span> <span class="o">*</span><span class="n">cell</span> <span class="o">=</span> <span class="p">[</span><span class="n">tableView</span> <span class="nl">dequeueReusableCellWithIdentifier</span><span class="p">:</span><span class="s">@&quot;Cell&quot;</span> <span class="nl">forIndexPath</span><span class="p">:</span><span class="n">indexPath</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="bp">NSDate</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">array</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span></span>
+<span class="code-line">    <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="n">description</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">cell</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>This step is optional. If you want to be able to remove items, add this in <code>commitEditingStyle forRowAtIndexPath</code>. </p>
+<div class="highlight"><pre><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="bp">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">commitEditingStyle:</span><span class="p">(</span><span class="n">UITableViewCellEditingStyle</span><span class="p">)</span><span class="nv">editingStyle</span> <span class="nf">forRowAtIndexPath:</span><span class="p">(</span><span class="bp">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleDelete</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="bp">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="nl">removeObjectAtIndex</span><span class="p">:</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span></span>
+<span class="code-line">        <span class="p">[</span><span class="n">defaults</span> <span class="nl">setObject</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="nl">forKey</span><span class="p">:</span><span class="s">@&quot;array&quot;</span><span class="p">];</span></span>
+<span class="code-line">        <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">tableView</span> <span class="n">reloadData</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p><a href="https://github.com/mollietaylor/NSUserDefaults-Example/tree/cd562c1a72410fd4e09071af265fe510c1200725">The full code is available on Github</a>.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://nshipster.com/nscoding/">http://nshipster.com/nscoding/</a></li>
+<li><a href="https://www.udemy.com/complete-ios-developer-course/#/">https://www.udemy.com/complete-ios-developer-course/#/</a></li>
+<li><a href="http://stackoverflow.com/questions/19634426/how-to-save-nsmutablearray-in-nsuserdefaults">http://stackoverflow.com/questions/19634426/how-to-save-nsmutablearray-in-nsuserdefaults</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/arrayforkey.html" rel="tag">arrayForKey</a>,  <a href="http://blog.mollietaylor.com/tag/core-data.html" rel="tag">Core Data</a>,  <a href="http://blog.mollietaylor.com/tag/mutablecopy.html" rel="tag">mutableCopy</a>,  <a href="http://blog.mollietaylor.com/tag/nskeyedarchiver.html" rel="tag">NSKeyedArchiver</a>,  <a href="http://blog.mollietaylor.com/tag/nsmutablearray.html" rel="tag">NSMutableArray</a>,  <a href="http://blog.mollietaylor.com/tag/nsuserdefaults.html" rel="tag">NSUserDefaults</a>,  <a href="http://blog.mollietaylor.com/tag/objective-c.html" rel="tag">Objective-C</a>,  <a href="http://blog.mollietaylor.com/tag/setobject-forkey.html" rel="tag">setObject forKey</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/first-post-with-pelican.html">Tue 13 January 2015</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
@@ -99,29 +195,29 @@
 			<p>When you have multiple layers, it can help to add a legend to the map. This tutorial shows how to add icons to the layer control in Leaflet. This tutorial shows only marker layers, but you could create icons for polygon layers and use those as well.</p>
 <p><img alt="Legend with marker icons" src="http://blog.mollietaylor.com/images/add-icons-layer-control-legend.png" /></p>
 <p>The following code sets up our map, layers, and the layer control. This is the standard way maps look in Leaflet, with no visual indication of which layer goes with which markers, without checking the boxes on and off.</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">33.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">84.4</span><span class="p">],</span>
-    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span>
-        <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span><span class="nx">trainLayer</span><span class="p">,</span> <span class="nx">treeLayer</span><span class="p">]</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;Train&quot;</span><span class="o">:</span> <span class="nx">trainLayer</span><span class="p">,</span>
-    <span class="s2">&quot;Tree&quot;</span><span class="o">:</span> <span class="nx">treeLayer</span>
-<span class="p">};</span>
-
-<span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">collapsed</span><span class="o">:</span> <span class="kc">false</span>
-<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">33.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">84.4</span><span class="p">],</span></span>
+<span class="code-line">    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span></span>
+<span class="code-line">        <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span><span class="nx">trainLayer</span><span class="p">,</span> <span class="nx">treeLayer</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">});</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="s2">&quot;Train&quot;</span><span class="o">:</span> <span class="nx">trainLayer</span><span class="p">,</span></span>
+<span class="code-line">    <span class="s2">&quot;Tree&quot;</span><span class="o">:</span> <span class="nx">treeLayer</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">collapsed</span><span class="o">:</span> <span class="kc">false</span></span>
+<span class="code-line"><span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
 </pre></div>
 
 
 <p><img alt="Default legend" src="http://blog.mollietaylor.com/images/add-icons-layer-control-no-legend.png" /></p>
 <p>In order to add a legend to the layer control, you can simply change the overlayMaps code to add any HTML you'd like. In this case, we'll add the map icon pngs with a small height so they will look okay in the layer control:</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;&lt;img src=&#39;http://mollietaylor.com/skills/js/leaflet/train.png&#39; height=24&gt;Train&quot;</span><span class="o">:</span> <span class="nx">trainLayer</span><span class="p">,</span>
-    <span class="s2">&quot;&lt;img src=&#39;http://mollietaylor.com/skills/js/leaflet/arbol.png&#39; height=24&gt;Tree&quot;</span><span class="o">:</span> <span class="nx">treeLayer</span>
-<span class="p">};</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="s2">&quot;&lt;img src=&#39;http://mollietaylor.com/skills/js/leaflet/train.png&#39; height=24&gt;Train&quot;</span><span class="o">:</span> <span class="nx">trainLayer</span><span class="p">,</span></span>
+<span class="code-line">    <span class="s2">&quot;&lt;img src=&#39;http://mollietaylor.com/skills/js/leaflet/arbol.png&#39; height=24&gt;Tree&quot;</span><span class="o">:</span> <span class="nx">treeLayer</span></span>
+<span class="code-line"><span class="p">};</span></span>
 </pre></div>
 
 
@@ -146,29 +242,29 @@
 <p><img alt="Slides beside map" class="size-auto" src="http://blog.mollietaylor.com/images/slidemapper-side.png" /></p>
 <h2>CSS changes</h2>
 <p>We need to make a couple of changes to how the smapp-show and smapp-map classes are displayed. You'll want to play around with these some, but this is what worked well for me:</p>
-<div class="highlight"><pre><span class="nc">.smapp-show</span> <span class="p">{</span> 
-    <span class="k">width</span><span class="o">:</span><span class="m">50%</span><span class="p">;</span> 
-<span class="p">}</span>
-<span class="nc">.smapp-show</span> <span class="nc">.slide</span> <span class="p">{</span> 
-    <span class="k">overflow-y</span><span class="o">:</span><span class="k">visible</span><span class="p">;</span> 
-<span class="p">}</span>
-<span class="nc">.smapp-map</span> <span class="p">{</span> 
-    <span class="k">margin</span><span class="o">:</span><span class="m">10px</span><span class="p">;</span> 
-    <span class="k">width</span><span class="o">:</span><span class="m">48%</span><span class="p">;</span> 
-    <span class="k">height</span><span class="o">:</span><span class="m">95%</span><span class="p">;</span> 
-    <span class="k">position</span><span class="o">:</span><span class="k">absolute</span><span class="p">;</span> 
-    <span class="k">top</span><span class="o">:</span><span class="m">0</span><span class="p">;</span> 
-    <span class="k">right</span><span class="o">:</span><span class="m">0</span><span class="p">;</span> 
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="nc">.smapp-show</span> <span class="p">{</span> </span>
+<span class="code-line">    <span class="k">width</span><span class="o">:</span><span class="m">50%</span><span class="p">;</span> </span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="nc">.smapp-show</span> <span class="nc">.slide</span> <span class="p">{</span> </span>
+<span class="code-line">    <span class="k">overflow-y</span><span class="o">:</span><span class="k">visible</span><span class="p">;</span> </span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="nc">.smapp-map</span> <span class="p">{</span> </span>
+<span class="code-line">    <span class="k">margin</span><span class="o">:</span><span class="m">10px</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="k">width</span><span class="o">:</span><span class="m">48%</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="k">height</span><span class="o">:</span><span class="m">95%</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="k">position</span><span class="o">:</span><span class="k">absolute</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="k">top</span><span class="o">:</span><span class="m">0</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="k">right</span><span class="o">:</span><span class="m">0</span><span class="p">;</span> </span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <h2>Slidemapper changes</h2>
 <p>On the slidemapper side of things, the only edit we need to make is changing the options of our slideshow. Specifically, we need to edit the slideHeight and mapHeight to something appropriate for having the slides beside the map. For example, I chose:</p>
-<div class="highlight"><pre><span class="nx">$mySlideMap</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#slideshow-container&#39;</span><span class="p">).</span><span class="nx">slideMapper</span><span class="p">({</span>
-    <span class="nx">slideHeight</span><span class="o">:</span> <span class="mi">540</span><span class="p">,</span>
-    <span class="nx">mapHeight</span><span class="o">:</span> <span class="s1">&#39;98%&#39;</span>
-<span class="p">});</span>
+<div class="highlight"><pre><span class="code-line"><span class="nx">$mySlideMap</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#slideshow-container&#39;</span><span class="p">).</span><span class="nx">slideMapper</span><span class="p">({</span></span>
+<span class="code-line">    <span class="nx">slideHeight</span><span class="o">:</span> <span class="mi">540</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">mapHeight</span><span class="o">:</span> <span class="s1">&#39;98%&#39;</span></span>
+<span class="code-line"><span class="p">});</span></span>
 </pre></div>
 
 
@@ -196,68 +292,68 @@
 <h2>Specify Where Links Will Go</h2>
 <p>After the <code>$mySlideMap</code> code in your html file, you can create a list of links that you will later add to the slides. Generally, this will be the last thing in the <code>&lt;script&gt;</code> tag at the end of the body.</p>
 <p>For example, in the sample code from the <a href="https://github.com/cavis/slidemapper">slidemapper example</a>, the <code>&lt;script&gt;</code> initially contains:</p>
-<div class="highlight"><pre><span class="nx">$mySlideMap</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#slideshow-container&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">slideMapper</span><span class="p">();</span>
-
-<span class="nx">$mySlideMap</span><span class="p">.</span><span class="nx">slideMapper</span><span class="p">(</span><span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="nx">EXAMPLEDATA</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="nx">$mySlideMap</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#slideshow-container&#39;</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">.</span><span class="nx">slideMapper</span><span class="p">();</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">$mySlideMap</span><span class="p">.</span><span class="nx">slideMapper</span><span class="p">(</span><span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="nx">EXAMPLEDATA</span><span class="p">);</span></span>
 </pre></div>
 
 
 <p>At the end of the script, let's add a link to the first slide and a link to the last slide. The jQuery we use allows any code with a specific class to be transformed into a link. We can combine that with the slidemapper move method to create links to specific slides.</p>
-<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.toc&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">$mySlideMap</span><span class="p">.</span><span class="nx">slideMapper</span><span class="p">(</span><span class="s1">&#39;move&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-<span class="p">});</span>
-
-<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.end&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">$mySlideMap</span><span class="p">.</span><span class="nx">slideMapper</span><span class="p">(</span><span class="s1">&#39;move&#39;</span><span class="p">,</span> <span class="nx">EXAMPLEDATA</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-<span class="p">});</span>
+<div class="highlight"><pre><span class="code-line"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.toc&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">$mySlideMap</span><span class="p">.</span><span class="nx">slideMapper</span><span class="p">(</span><span class="s1">&#39;move&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">});</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.end&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">$mySlideMap</span><span class="p">.</span><span class="nx">slideMapper</span><span class="p">(</span><span class="s1">&#39;move&#39;</span><span class="p">,</span> <span class="nx">EXAMPLEDATA</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">});</span></span>
 </pre></div>
 
 
 <h2>Add the Links</h2>
 <p>Next, we need to actually include the links in the slides. The links references will go in the data file. In the example, the file is named data.js.</p>
 <p>Here's a link to the last slide from the first slide:</p>
-<div class="highlight"><pre>// intro marker
-{
-    icon: &#39;other.png&#39;,
-    marker: [42.516846, -70.898499],
-    center: [40.423, -98.7372],
-    html: &#39;<span class="nt">&lt;table</span> <span class="na">style=</span><span class="s">&quot;margin:0 40px; padding:10px&quot;</span><span class="nt">&gt;&lt;tr&gt;</span>&#39; +
-            &#39;<span class="nt">&lt;td&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://placehold.it/300x180&amp;text=Map+Stuff&quot;</span><span class="nt">/&gt;&lt;/td&gt;</span>&#39; +
-            &#39;<span class="nt">&lt;td</span> <span class="na">style=</span><span class="s">&quot;padding-left:10px&quot;</span><span class="nt">&gt;</span>&#39; +
-                &#39;<span class="nt">&lt;h1&gt;</span>SlideMapper FTW!<span class="nt">&lt;/h1&gt;</span>&#39; +
-                &#39;<span class="nt">&lt;p&gt;</span>This is a demo of the different sorts of slides you can setup using slidemapper.<span class="nt">&lt;/p&gt;</span>&#39; +
-                &#39;<span class="nt">&lt;p&gt;&lt;a</span> <span class="na">class=</span><span class="s">&quot;end&quot;</span><span class="nt">&gt;</span>Skip to the end.<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>&#39; +
-            &#39;<span class="nt">&lt;/td&gt;</span>&#39; +
-        &#39;<span class="nt">&lt;/tr&gt;&lt;/table&gt;</span>&#39;,
-    popup: &#39;So it begins!&#39;
-},
+<div class="highlight"><pre><span class="code-line">// intro marker</span>
+<span class="code-line">{</span>
+<span class="code-line">    icon: &#39;other.png&#39;,</span>
+<span class="code-line">    marker: [42.516846, -70.898499],</span>
+<span class="code-line">    center: [40.423, -98.7372],</span>
+<span class="code-line">    html: &#39;<span class="nt">&lt;table</span> <span class="na">style=</span><span class="s">&quot;margin:0 40px; padding:10px&quot;</span><span class="nt">&gt;&lt;tr&gt;</span>&#39; +</span>
+<span class="code-line">            &#39;<span class="nt">&lt;td&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://placehold.it/300x180&amp;text=Map+Stuff&quot;</span><span class="nt">/&gt;&lt;/td&gt;</span>&#39; +</span>
+<span class="code-line">            &#39;<span class="nt">&lt;td</span> <span class="na">style=</span><span class="s">&quot;padding-left:10px&quot;</span><span class="nt">&gt;</span>&#39; +</span>
+<span class="code-line">                &#39;<span class="nt">&lt;h1&gt;</span>SlideMapper FTW!<span class="nt">&lt;/h1&gt;</span>&#39; +</span>
+<span class="code-line">                &#39;<span class="nt">&lt;p&gt;</span>This is a demo of the different sorts of slides you can setup using slidemapper.<span class="nt">&lt;/p&gt;</span>&#39; +</span>
+<span class="code-line">                &#39;<span class="nt">&lt;p&gt;&lt;a</span> <span class="na">class=</span><span class="s">&quot;end&quot;</span><span class="nt">&gt;</span>Skip to the end.<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>&#39; +</span>
+<span class="code-line">            &#39;<span class="nt">&lt;/td&gt;</span>&#39; +</span>
+<span class="code-line">        &#39;<span class="nt">&lt;/tr&gt;&lt;/table&gt;</span>&#39;,</span>
+<span class="code-line">    popup: &#39;So it begins!&#39;</span>
+<span class="code-line">},</span>
 </pre></div>
 
 
 <p>And here's a link from the last slide to the first slide:</p>
-<div class="highlight"><pre>// empty slide
-{
-    html: &#39;<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;margin:0 40px; padding:20px 10px&quot;</span><span class="nt">&gt;</span>&#39; +
-            &#39;<span class="nt">&lt;div&gt;</span>&#39; +
-                &#39;<span class="nt">&lt;h2&gt;</span>The End<span class="nt">&lt;/h2&gt;</span>&#39; +
-                &#39;<span class="nt">&lt;p&gt;</span>Goodbye.<span class="nt">&lt;/p&gt;</span>&#39; +
-                &#39;<span class="nt">&lt;p&gt;&lt;a</span> <span class="na">class=</span><span class="s">&quot;toc&quot;</span><span class="nt">&gt;</span>Return to Table of Contents.<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>&#39; +
-            &#39;<span class="nt">&lt;/div&gt;</span>&#39; +
-        &#39;<span class="nt">&lt;/div&gt;</span>&#39;
-}
+<div class="highlight"><pre><span class="code-line">// empty slide</span>
+<span class="code-line">{</span>
+<span class="code-line">    html: &#39;<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;margin:0 40px; padding:20px 10px&quot;</span><span class="nt">&gt;</span>&#39; +</span>
+<span class="code-line">            &#39;<span class="nt">&lt;div&gt;</span>&#39; +</span>
+<span class="code-line">                &#39;<span class="nt">&lt;h2&gt;</span>The End<span class="nt">&lt;/h2&gt;</span>&#39; +</span>
+<span class="code-line">                &#39;<span class="nt">&lt;p&gt;</span>Goodbye.<span class="nt">&lt;/p&gt;</span>&#39; +</span>
+<span class="code-line">                &#39;<span class="nt">&lt;p&gt;&lt;a</span> <span class="na">class=</span><span class="s">&quot;toc&quot;</span><span class="nt">&gt;</span>Return to Table of Contents.<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>&#39; +</span>
+<span class="code-line">            &#39;<span class="nt">&lt;/div&gt;</span>&#39; +</span>
+<span class="code-line">        &#39;<span class="nt">&lt;/div&gt;</span>&#39;</span>
+<span class="code-line">}</span>
 </pre></div>
 
 
 <h2>Prettifying</h2>
 <p>Because of the unusual way these links are made using jQuery, we should probably add some css to make them look like links. I added the following css to the <code>&lt;head&gt;</code>, but you can add any css to the head or as a separate stylesheet.</p>
-<div class="highlight"><pre><span class="o">&lt;</span><span class="nt">style</span> <span class="nt">type</span><span class="o">=</span><span class="s2">&quot;text/css&quot;</span><span class="o">&gt;</span>
-    <span class="nt">a</span> <span class="p">{</span>
-        <span class="k">color</span><span class="o">:</span> <span class="nb">orange</span><span class="p">;</span>
-        <span class="k">cursor</span><span class="o">:</span> <span class="k">pointer</span><span class="p">;</span>
-        <span class="k">text-decoration</span><span class="o">:</span> <span class="k">underline</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&lt;</span><span class="nt">style</span> <span class="nt">type</span><span class="o">=</span><span class="s2">&quot;text/css&quot;</span><span class="o">&gt;</span></span>
+<span class="code-line">    <span class="nt">a</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="k">color</span><span class="o">:</span> <span class="nb">orange</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">cursor</span><span class="o">:</span> <span class="k">pointer</span><span class="p">;</span></span>
+<span class="code-line">        <span class="k">text-decoration</span><span class="o">:</span> <span class="k">underline</span><span class="p">;</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span></span>
 </pre></div>
 
 
@@ -287,45 +383,45 @@
 			<p>In Leaflet, it can be helpful to change the bounds of the map when the user adds or changes the visible map layers.</p>
 <h2>The Basics</h2>
 <p>First, we'll start with the initial code including our map and polygon layers:</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
-    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span>
-    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span>
-    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span>
-<span class="p">]);</span>
-
-<span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">51.505</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">],</span>
-    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">13</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;Circle&quot;</span><span class="o">:</span> <span class="nx">circle</span><span class="p">,</span>
-    <span class="s2">&quot;Polygon&quot;</span><span class="o">:</span> <span class="nx">polygon</span>
-<span class="p">};</span>
-
-<span class="nx">L</span><span class="p">.</span><span class="nx">tileLayer</span><span class="p">(</span><span class="s1">&#39;http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">attribution</span><span class="o">:</span> <span class="s1">&#39;&amp;copy; &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;CC-BY-SA&lt;/a&gt;&#39;</span>
-<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
-
-<span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="nx">overlayMaps</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">collapsed</span><span class="o">:</span> <span class="kc">false</span>
-<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span></span>
+<span class="code-line"><span class="p">});</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">]);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">51.505</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">],</span></span>
+<span class="code-line">    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">13</span></span>
+<span class="code-line"><span class="p">});</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="s2">&quot;Circle&quot;</span><span class="o">:</span> <span class="nx">circle</span><span class="p">,</span></span>
+<span class="code-line">    <span class="s2">&quot;Polygon&quot;</span><span class="o">:</span> <span class="nx">polygon</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">L</span><span class="p">.</span><span class="nx">tileLayer</span><span class="p">(</span><span class="s1">&#39;http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&#39;</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">attribution</span><span class="o">:</span> <span class="s1">&#39;&amp;copy; &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;CC-BY-SA&lt;/a&gt;&#39;</span></span>
+<span class="code-line"><span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="nx">overlayMaps</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">collapsed</span><span class="o">:</span> <span class="kc">false</span></span>
+<span class="code-line"><span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
 </pre></div>
 
 
 <p>So far, most of this should be familiar from the <a href="http://leafletjs.com/examples/quick-start.html">Leaflet Quick Start Guide</a>.</p>
 <p>Next, we want to add a listener function that will zoom and re-center upon a change in the circle or polygon layer.</p>
 <p>The <code>.on</code> method of <code>map</code> allows you to watch for an event to occur and then execute a function when it does. In this case, we want to wait for the event <code>'baselayerchange'</code>. This way the map will automatically zoom and recenter when the user changes layers.</p>
-<div class="highlight"><pre><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;baselayerchange&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
-    <span class="nx">map</span><span class="p">.</span><span class="nx">fitBounds</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">layer</span><span class="p">);</span>
-<span class="p">});</span>
+<div class="highlight"><pre><span class="code-line"><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;baselayerchange&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span></span>
+<span class="code-line">    <span class="nx">map</span><span class="p">.</span><span class="nx">fitBounds</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">layer</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">});</span></span>
 </pre></div>
 
 
@@ -333,18 +429,18 @@
 <h2>Options</h2>
 <p>There are a few options for exactly how the map is zoomed and/or re-centered and for what type of layers are affected.</p>
 <p>If you want to do this with overlay layers instead of base layers, you can substitute <code>'overlayadd'</code> for <code>'baselayerchange'</code>. Using overlay layers is more common for drawing shapes, but treating your layers as base layers makes it easy to display only one at a time.</p>
-<div class="highlight"><pre><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;overlayadd&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
-    <span class="nx">map</span><span class="p">.</span><span class="nx">fitBounds</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">layer</span><span class="p">);</span>
-<span class="p">});</span>
+<div class="highlight"><pre><span class="code-line"><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;overlayadd&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span></span>
+<span class="code-line">    <span class="nx">map</span><span class="p">.</span><span class="nx">fitBounds</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">layer</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">});</span></span>
 </pre></div>
 
 
 <p><code>fitBounds</code> automatically zooms to the tightest zoom level where the whole shape is visible. If you don't want to use <code>fitBounds</code> (say you're centering on a new overlay layer and don't want to zoom all the way in), you can use <code>setView</code> or <code>panTo</code> instead. <code>panTo</code> animates as the view changes.</p>
-<div class="highlight"><pre><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;overlayadd&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
-    <span class="nx">map</span><span class="p">.</span><span class="nx">panTo</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">layer</span><span class="p">);</span>
-<span class="p">});</span>
+<div class="highlight"><pre><span class="code-line"><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;overlayadd&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span></span>
+<span class="code-line">    <span class="nx">map</span><span class="p">.</span><span class="nx">panTo</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">layer</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">});</span></span>
 </pre></div>
 
 
@@ -373,67 +469,67 @@
 		<div class="entry-content">
 			<p>Often, you'll need to merge two data frames based on multiple variables. For this example, we'll use the common case of needing to merge by city and state.</p>
 <p>First, you need to read in both your data sets:</p>
-<div class="highlight"><pre><span class="c1"># import city coordinate data:</span>
-coords <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;cities-coords.csv&quot;</span><span class="p">,</span>
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
-
-<span class="c1"># import population data:</span>
-data <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;cities-data.csv&quot;</span><span class="p">,</span>
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># import city coordinate data:</span></span>
+<span class="code-line">coords <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;cities-coords.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># import population data:</span></span>
+<span class="code-line">data <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;cities-data.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>Next comes the merge. You can use <code>by.x</code> and <code>by.y</code> to declare which variables the merge will be based on. If the variables have exactly the same name in both data sets, you can use by instead of <code>by.x</code> and <code>by.y</code>.</p>
 <p><code>x</code> and <code>y</code> represent the two data sets you are merging, in that order.</p>
 <p>You also want to state whether you want to include all data from either data set, using <code>all</code> or <code>all.x</code> and <code>all.y</code>. In this case, we want to make sure we hold onto all our city data, even data for the cities we do not have coordinates for.</p>
-<div class="highlight"><pre><span class="c1"># merge data &amp; coords by city &amp; state:</span>
-dataCoords <span class="o">&lt;-</span> <span class="kp">merge</span><span class="p">(</span>coords<span class="p">,</span> data<span class="p">,</span> 
-    by.x <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;City&quot;</span><span class="p">,</span> <span class="s">&quot;State&quot;</span><span class="p">),</span>
-    by.y <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;state&quot;</span><span class="p">),</span>
-    all.x <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-    all.y <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># merge data &amp; coords by city &amp; state:</span></span>
+<span class="code-line">dataCoords <span class="o">&lt;-</span> <span class="kp">merge</span><span class="p">(</span>coords<span class="p">,</span> data<span class="p">,</span> </span>
+<span class="code-line">    by.x <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;City&quot;</span><span class="p">,</span> <span class="s">&quot;State&quot;</span><span class="p">),</span></span>
+<span class="code-line">    by.y <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;state&quot;</span><span class="p">),</span></span>
+<span class="code-line">    all.x <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">    all.y <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>Running that code shows what we would expect. Houston is included in the final data set even though there are no coordinates for it, while Dallas is not included since it has coordinates but no data:</p>
-<div class="highlight"><pre>            City State Latitude  Longitude year population
-<span class="m">1</span>        Chicago    IL <span class="m">41.85003</span>  <span class="m">-87.65005</span> <span class="m">2012</span>    <span class="m">2714856</span>
-<span class="m">2</span>       Columbus    GA <span class="m">32.46098</span>  <span class="m">-84.98771</span> <span class="m">2012</span>     <span class="m">198413</span>
-<span class="m">3</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2012</span>     <span class="m">809798</span>
-<span class="m">4</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2010</span>     <span class="m">787033</span>
-<span class="m">5</span>    Los Angeles    CA <span class="m">34.05223</span> <span class="m">-118.24368</span> <span class="m">2012</span>    <span class="m">3857799</span>
-<span class="m">6</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2012</span>    <span class="m">8336697</span>
-<span class="m">7</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2010</span>    <span class="m">8175133</span>
-<span class="m">8</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2012</span>     <span class="m">825863</span>
-<span class="m">9</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2010</span>     <span class="m">805235</span>
-<span class="m">10</span>       Houston    TX       <span class="kc">NA</span>         <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span>
+<div class="highlight"><pre><span class="code-line">            City State Latitude  Longitude year population</span>
+<span class="code-line"><span class="m">1</span>        Chicago    IL <span class="m">41.85003</span>  <span class="m">-87.65005</span> <span class="m">2012</span>    <span class="m">2714856</span></span>
+<span class="code-line"><span class="m">2</span>       Columbus    GA <span class="m">32.46098</span>  <span class="m">-84.98771</span> <span class="m">2012</span>     <span class="m">198413</span></span>
+<span class="code-line"><span class="m">3</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2012</span>     <span class="m">809798</span></span>
+<span class="code-line"><span class="m">4</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2010</span>     <span class="m">787033</span></span>
+<span class="code-line"><span class="m">5</span>    Los Angeles    CA <span class="m">34.05223</span> <span class="m">-118.24368</span> <span class="m">2012</span>    <span class="m">3857799</span></span>
+<span class="code-line"><span class="m">6</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2012</span>    <span class="m">8336697</span></span>
+<span class="code-line"><span class="m">7</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2010</span>    <span class="m">8175133</span></span>
+<span class="code-line"><span class="m">8</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2012</span>     <span class="m">825863</span></span>
+<span class="code-line"><span class="m">9</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2010</span>     <span class="m">805235</span></span>
+<span class="code-line"><span class="m">10</span>       Houston    TX       <span class="kc">NA</span>         <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span></span>
 </pre></div>
 
 
 <h2>Bonus</h2>
 <p>If you'd like to get a list of which cases got merged in but lack coordinate data, there's a simple line of code to do that:</p>
-<div class="highlight"><pre><span class="o">&gt;</span> dataCoords<span class="p">[</span><span class="o">!</span>complete.cases<span class="p">(</span>dataCoords<span class="p">[,</span><span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">)]),]</span>
-      City State Latitude Longitude year population
-<span class="m">10</span> Houston    TX       <span class="kc">NA</span>        <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> dataCoords<span class="p">[</span><span class="o">!</span>complete.cases<span class="p">(</span>dataCoords<span class="p">[,</span><span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">)]),]</span></span>
+<span class="code-line">      City State Latitude Longitude year population</span>
+<span class="code-line"><span class="m">10</span> Houston    TX       <span class="kc">NA</span>        <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span></span>
 </pre></div>
 
 
 <p>Also, you might want to tidy up the names of your variables, if they followed different conventions in their respective initial data sets:</p>
-<div class="highlight"><pre><span class="o">&gt;</span> <span class="kp">names</span><span class="p">(</span>dataCoords<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;City&quot;</span><span class="p">,</span> <span class="s">&quot;State&quot;</span><span class="p">,</span> <span class="s">&quot;Latitude&quot;</span><span class="p">,</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span> <span class="s">&quot;Year&quot;</span><span class="p">,</span> <span class="s">&quot;Population&quot;</span><span class="p">)</span>
-<span class="o">&gt;</span> dataCoords
-            City State Latitude  Longitude Year Population
-<span class="m">1</span>        Chicago    IL <span class="m">41.85003</span>  <span class="m">-87.65005</span> <span class="m">2012</span>    <span class="m">2714856</span>
-<span class="m">2</span>       Columbus    GA <span class="m">32.46098</span>  <span class="m">-84.98771</span> <span class="m">2012</span>     <span class="m">198413</span>
-<span class="m">3</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2012</span>     <span class="m">809798</span>
-<span class="m">4</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2010</span>     <span class="m">787033</span>
-<span class="m">5</span>    Los Angeles    CA <span class="m">34.05223</span> <span class="m">-118.24368</span> <span class="m">2012</span>    <span class="m">3857799</span>
-<span class="m">6</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2012</span>    <span class="m">8336697</span>
-<span class="m">7</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2010</span>    <span class="m">8175133</span>
-<span class="m">8</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2012</span>     <span class="m">825863</span>
-<span class="m">9</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2010</span>     <span class="m">805235</span>
-<span class="m">10</span>       Houston    TX       <span class="kc">NA</span>         <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="kp">names</span><span class="p">(</span>dataCoords<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;City&quot;</span><span class="p">,</span> <span class="s">&quot;State&quot;</span><span class="p">,</span> <span class="s">&quot;Latitude&quot;</span><span class="p">,</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span> <span class="s">&quot;Year&quot;</span><span class="p">,</span> <span class="s">&quot;Population&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">&gt;</span> dataCoords</span>
+<span class="code-line">            City State Latitude  Longitude Year Population</span>
+<span class="code-line"><span class="m">1</span>        Chicago    IL <span class="m">41.85003</span>  <span class="m">-87.65005</span> <span class="m">2012</span>    <span class="m">2714856</span></span>
+<span class="code-line"><span class="m">2</span>       Columbus    GA <span class="m">32.46098</span>  <span class="m">-84.98771</span> <span class="m">2012</span>     <span class="m">198413</span></span>
+<span class="code-line"><span class="m">3</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2012</span>     <span class="m">809798</span></span>
+<span class="code-line"><span class="m">4</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2010</span>     <span class="m">787033</span></span>
+<span class="code-line"><span class="m">5</span>    Los Angeles    CA <span class="m">34.05223</span> <span class="m">-118.24368</span> <span class="m">2012</span>    <span class="m">3857799</span></span>
+<span class="code-line"><span class="m">6</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2012</span>    <span class="m">8336697</span></span>
+<span class="code-line"><span class="m">7</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2010</span>    <span class="m">8175133</span></span>
+<span class="code-line"><span class="m">8</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2012</span>     <span class="m">825863</span></span>
+<span class="code-line"><span class="m">9</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2010</span>     <span class="m">805235</span></span>
+<span class="code-line"><span class="m">10</span>       Houston    TX       <span class="kc">NA</span>         <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span></span>
 </pre></div>
 
 
@@ -460,47 +556,47 @@ dataCoords <span class="o">&lt;-</span> <span class="kp">merge</span><span class
 			<p>Let's add a fit line to a scatterplot!</p>
 <h2>Fit Line in Base Graphics</h2>
 <p>Here's how to do it in <strong>base</strong> graphics:</p>
-<div class="highlight"><pre>ols <span class="o">&lt;-</span> lm<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span>
-    data <span class="o">=</span> airquality<span class="p">)</span>
-
-<span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span>
-
-plot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span>
-    data <span class="o">=</span> airquality<span class="p">)</span>
-abline<span class="p">(</span>ols
+<div class="highlight"><pre><span class="code-line">ols <span class="o">&lt;-</span> lm<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">plot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">)</span></span>
+<span class="code-line">abline<span class="p">(</span>ols</span>
 </pre></div>
 
 
 <p><img alt="Fit line in base graphics in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-base.png" /></p>
 <h2>Fit Line in ggplot</h2>
 <p>And here's how to do it in <strong>ggplot</strong>:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span>
-        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> 
-    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> 
-    geom_abline<span class="p">(</span>intercept <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">1</span><span class="p">],</span>
-        slope <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">2</span><span class="p">])</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_abline<span class="p">(</span>intercept <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">1</span><span class="p">],</span></span>
+<span class="code-line">        slope <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">2</span><span class="p">])</span></span>
 </pre></div>
 
 
 <p>You can access the info from your regression results through <code>ols$coefficients</code>.</p>
 <p>Edit: Thanks to an anonymous commenter, I have learned that you can simplify this by using <code>geom_smooth</code>.  This way you don't have to specify the intercept and slope of the fit line.</p>
-<div class="highlight"><pre>ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span>
-        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> 
-    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> 
-    geom_smooth<span class="p">(</span>method <span class="o">=</span> lm<span class="p">,</span>
-        se <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_smooth<span class="p">(</span>method <span class="o">=</span> lm<span class="p">,</span></span>
+<span class="code-line">        se <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p><img alt="Fit line in ggplot in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-ggplot.png" /></p>
 <h2>Fit Line in Lattice</h2>
 <p>In <strong>lattice</strong>, it's even easier. You don't even need to run a regression; you can just add to the <code>type</code> option.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span>
-
-xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span>
-    data <span class="o">=</span> airquality<span class="p">,</span>
-    type <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">    type <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">))</span></span>
 </pre></div>
 
 
@@ -526,75 +622,75 @@ xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="
 		</h2>
 		<div class="entry-content">
 			<p>Including a series of dummy variables in a regression in R is very simple. For example,</p>
-<div class="highlight"><pre>ols <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span>
-    data <span class="o">=</span> ChickWeight<span class="p">)</span>
-<span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">ols <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span></span>
 </pre></div>
 
 
 <p>The above regression automatically includes a dummy variable for all but the first level of the factor of the <code>Diet</code> variable.</p>
-<div class="highlight"><pre>Call<span class="o">:</span>
-lm<span class="p">(</span>formula <span class="o">=</span> weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span> data <span class="o">=</span> ChickWeight<span class="p">)</span>
-
-Residuals<span class="o">:</span>
-     Min       <span class="m">1</span>Q   Median       <span class="m">3</span>Q      Max 
-<span class="m">-136.851</span>  <span class="m">-17.151</span>   <span class="m">-2.595</span>   <span class="m">15.033</span>  <span class="m">141.816</span>
-
-Coefficients<span class="o">:</span>
-            Estimate Std. Error t value Pr<span class="p">(</span><span class="o">&gt;|</span><span class="kp">t</span><span class="o">|</span><span class="p">)</span>    
-<span class="p">(</span>Intercept<span class="p">)</span>  <span class="m">10.9244</span>     <span class="m">3.3607</span>   <span class="m">3.251</span>  <span class="m">0.00122</span> <span class="o">**</span> 
-Time          <span class="m">8.7505</span>     <span class="m">0.2218</span>  <span class="m">39.451</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span>
-Diet2        <span class="m">16.1661</span>     <span class="m">4.0858</span>   <span class="m">3.957</span> <span class="m">8.56e-05</span> <span class="o">***</span>
-Diet3        <span class="m">36.4994</span>     <span class="m">4.0858</span>   <span class="m">8.933</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span>
-Diet4        <span class="m">30.2335</span>     <span class="m">4.1075</span>   <span class="m">7.361</span> <span class="m">6.39e-13</span> <span class="o">***</span>
-<span class="o">---</span>
-Signif. codes<span class="o">:</span>  <span class="m">0</span> ‘<span class="o">***</span>’ <span class="m">0.001</span> ‘<span class="o">**</span>’ <span class="m">0.01</span> ‘<span class="o">*</span>’ <span class="m">0.05</span> ‘<span class="m">.</span>’ <span class="m">0.1</span> ‘ ’ <span class="m">1</span>
-
-Residual standard error<span class="o">:</span> <span class="m">35.99</span> on <span class="m">573</span> degrees of freedom
-Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7453</span><span class="p">,</span>  Adjusted R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7435</span> 
-<span class="bp">F</span><span class="o">-</span>statistic<span class="o">:</span> <span class="m">419.2</span> on <span class="m">4</span> and <span class="m">573</span> DF<span class="p">,</span>  p<span class="o">-</span>value<span class="o">:</span> <span class="o">&lt;</span> <span class="m">2.2e-16</span>
+<div class="highlight"><pre><span class="code-line">Call<span class="o">:</span></span>
+<span class="code-line">lm<span class="p">(</span>formula <span class="o">=</span> weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span> data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">Residuals<span class="o">:</span></span>
+<span class="code-line">     Min       <span class="m">1</span>Q   Median       <span class="m">3</span>Q      Max </span>
+<span class="code-line"><span class="m">-136.851</span>  <span class="m">-17.151</span>   <span class="m">-2.595</span>   <span class="m">15.033</span>  <span class="m">141.816</span></span>
+<span class="code-line"></span>
+<span class="code-line">Coefficients<span class="o">:</span></span>
+<span class="code-line">            Estimate Std. Error t value Pr<span class="p">(</span><span class="o">&gt;|</span><span class="kp">t</span><span class="o">|</span><span class="p">)</span>    </span>
+<span class="code-line"><span class="p">(</span>Intercept<span class="p">)</span>  <span class="m">10.9244</span>     <span class="m">3.3607</span>   <span class="m">3.251</span>  <span class="m">0.00122</span> <span class="o">**</span> </span>
+<span class="code-line">Time          <span class="m">8.7505</span>     <span class="m">0.2218</span>  <span class="m">39.451</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
+<span class="code-line">Diet2        <span class="m">16.1661</span>     <span class="m">4.0858</span>   <span class="m">3.957</span> <span class="m">8.56e-05</span> <span class="o">***</span></span>
+<span class="code-line">Diet3        <span class="m">36.4994</span>     <span class="m">4.0858</span>   <span class="m">8.933</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
+<span class="code-line">Diet4        <span class="m">30.2335</span>     <span class="m">4.1075</span>   <span class="m">7.361</span> <span class="m">6.39e-13</span> <span class="o">***</span></span>
+<span class="code-line"><span class="o">---</span></span>
+<span class="code-line">Signif. codes<span class="o">:</span>  <span class="m">0</span> ‘<span class="o">***</span>’ <span class="m">0.001</span> ‘<span class="o">**</span>’ <span class="m">0.01</span> ‘<span class="o">*</span>’ <span class="m">0.05</span> ‘<span class="m">.</span>’ <span class="m">0.1</span> ‘ ’ <span class="m">1</span></span>
+<span class="code-line"></span>
+<span class="code-line">Residual standard error<span class="o">:</span> <span class="m">35.99</span> on <span class="m">573</span> degrees of freedom</span>
+<span class="code-line">Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7453</span><span class="p">,</span>  Adjusted R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7435</span> </span>
+<span class="code-line"><span class="bp">F</span><span class="o">-</span>statistic<span class="o">:</span> <span class="m">419.2</span> on <span class="m">4</span> and <span class="m">573</span> DF<span class="p">,</span>  p<span class="o">-</span>value<span class="o">:</span> <span class="o">&lt;</span> <span class="m">2.2e-16</span></span>
 </pre></div>
 
 
 <p>This is great, and it's often what you want. But in this case, it's comparing each of the diets to Diet1. In some cases, you might want to compare to a specific diet that isn't the first in the factor list.</p>
 <p>How can we choose which dummy to compare to? Fortunately, it's simple to compare to a specific dummy in R. We can just <code>relevel</code> the factor so the dummy we want to compare to is first.</p>
-<div class="highlight"><pre>ChickWeight<span class="o">$</span>Diet <span class="o">&lt;-</span> relevel<span class="p">(</span>ChickWeight<span class="o">$</span>Diet<span class="p">,</span>
-    ref <span class="o">=</span> <span class="m">4</span><span class="p">)</span>
-
-olsRelevel <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span>
-    data <span class="o">=</span> ChickWeight<span class="p">)</span>
-<span class="kp">summary</span><span class="p">(</span>olsRelevel<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">ChickWeight<span class="o">$</span>Diet <span class="o">&lt;-</span> relevel<span class="p">(</span>ChickWeight<span class="o">$</span>Diet<span class="p">,</span></span>
+<span class="code-line">    ref <span class="o">=</span> <span class="m">4</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">olsRelevel <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>olsRelevel<span class="p">)</span></span>
 </pre></div>
 
 
 <p>The <code>ref</code> argument allows us to change the reference level of the factor variable. This means that when we perform regression analysis</p>
 <p>You can use <code>table</code> or <code>str</code> to find the factor levels, if you don't already know them.</p>
 <p>After releveling the factor variable, we can simply perform the same regression again, and this time it will compare the results to the new reference level:</p>
-<div class="highlight"><pre>olsRelevel <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span>
-    data <span class="o">=</span> ChickWeight<span class="p">)</span>
-<span class="kp">summary</span><span class="p">(</span>olsRelevel<span class="p">)</span>
-
-<span class="o">:::</span>r
-Call<span class="o">:</span>
-lm<span class="p">(</span>formula <span class="o">=</span> weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span> data <span class="o">=</span> ChickWeight<span class="p">)</span>
-
-Residuals<span class="o">:</span>
-     Min       <span class="m">1</span>Q   Median       <span class="m">3</span>Q      Max 
-<span class="m">-136.851</span>  <span class="m">-17.151</span>   <span class="m">-2.595</span>   <span class="m">15.033</span>  <span class="m">141.816</span>
-
-Coefficients<span class="o">:</span>
-            Estimate Std. Error t value Pr<span class="p">(</span><span class="o">&gt;|</span><span class="kp">t</span><span class="o">|</span><span class="p">)</span>    
-<span class="p">(</span>Intercept<span class="p">)</span>  <span class="m">41.1578</span>     <span class="m">4.0828</span>  <span class="m">10.081</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span>
-Time          <span class="m">8.7505</span>     <span class="m">0.2218</span>  <span class="m">39.451</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span>
-Diet1       <span class="m">-30.2335</span>     <span class="m">4.1075</span>  <span class="m">-7.361</span> <span class="m">6.39e-13</span> <span class="o">***</span>
-Diet2       <span class="m">-14.0674</span>     <span class="m">4.6665</span>  <span class="m">-3.015</span>  <span class="m">0.00269</span> <span class="o">**</span> 
-Diet3         <span class="m">6.2660</span>     <span class="m">4.6665</span>   <span class="m">1.343</span>  <span class="m">0.17989</span>    
-<span class="o">---</span>
-Signif. codes<span class="o">:</span>  <span class="m">0</span> ‘<span class="o">***</span>’ <span class="m">0.001</span> ‘<span class="o">**</span>’ <span class="m">0.01</span> ‘<span class="o">*</span>’ <span class="m">0.05</span> ‘<span class="m">.</span>’ <span class="m">0.1</span> ‘ ’ <span class="m">1</span>
-
-Residual standard error<span class="o">:</span> <span class="m">35.99</span> on <span class="m">573</span> degrees of freedom
-Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7453</span><span class="p">,</span>  Adjusted R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7435</span> 
-<span class="bp">F</span><span class="o">-</span>statistic<span class="o">:</span> <span class="m">419.2</span> on <span class="m">4</span> and <span class="m">573</span> DF<span class="p">,</span>  p<span class="o">-</span>value<span class="o">:</span> <span class="o">&lt;</span> <span class="m">2.2e-16</span>
+<div class="highlight"><pre><span class="code-line">olsRelevel <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>olsRelevel<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">:::</span>r</span>
+<span class="code-line">Call<span class="o">:</span></span>
+<span class="code-line">lm<span class="p">(</span>formula <span class="o">=</span> weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span> data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">Residuals<span class="o">:</span></span>
+<span class="code-line">     Min       <span class="m">1</span>Q   Median       <span class="m">3</span>Q      Max </span>
+<span class="code-line"><span class="m">-136.851</span>  <span class="m">-17.151</span>   <span class="m">-2.595</span>   <span class="m">15.033</span>  <span class="m">141.816</span></span>
+<span class="code-line"></span>
+<span class="code-line">Coefficients<span class="o">:</span></span>
+<span class="code-line">            Estimate Std. Error t value Pr<span class="p">(</span><span class="o">&gt;|</span><span class="kp">t</span><span class="o">|</span><span class="p">)</span>    </span>
+<span class="code-line"><span class="p">(</span>Intercept<span class="p">)</span>  <span class="m">41.1578</span>     <span class="m">4.0828</span>  <span class="m">10.081</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
+<span class="code-line">Time          <span class="m">8.7505</span>     <span class="m">0.2218</span>  <span class="m">39.451</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
+<span class="code-line">Diet1       <span class="m">-30.2335</span>     <span class="m">4.1075</span>  <span class="m">-7.361</span> <span class="m">6.39e-13</span> <span class="o">***</span></span>
+<span class="code-line">Diet2       <span class="m">-14.0674</span>     <span class="m">4.6665</span>  <span class="m">-3.015</span>  <span class="m">0.00269</span> <span class="o">**</span> </span>
+<span class="code-line">Diet3         <span class="m">6.2660</span>     <span class="m">4.6665</span>   <span class="m">1.343</span>  <span class="m">0.17989</span>    </span>
+<span class="code-line"><span class="o">---</span></span>
+<span class="code-line">Signif. codes<span class="o">:</span>  <span class="m">0</span> ‘<span class="o">***</span>’ <span class="m">0.001</span> ‘<span class="o">**</span>’ <span class="m">0.01</span> ‘<span class="o">*</span>’ <span class="m">0.05</span> ‘<span class="m">.</span>’ <span class="m">0.1</span> ‘ ’ <span class="m">1</span></span>
+<span class="code-line"></span>
+<span class="code-line">Residual standard error<span class="o">:</span> <span class="m">35.99</span> on <span class="m">573</span> degrees of freedom</span>
+<span class="code-line">Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7453</span><span class="p">,</span>  Adjusted R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7435</span> </span>
+<span class="code-line"><span class="bp">F</span><span class="o">-</span>statistic<span class="o">:</span> <span class="m">419.2</span> on <span class="m">4</span> and <span class="m">573</span> DF<span class="p">,</span>  p<span class="o">-</span>value<span class="o">:</span> <span class="o">&lt;</span> <span class="m">2.2e-16</span></span>
 </pre></div>
 
 
@@ -606,34 +702,6 @@ Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/lm.html" rel="tag">lm</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/relevel.html" rel="tag">relevel</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/lwimw3-trail-magic.html">Sun 02 February 2014</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2014/02/lwimw3-trail-magic.html" title="Permalink to LWIMW3: Trail Magic" rel="bookmark">LWIMW3: Trail Magic</a>
-		</h2>
-		<div class="entry-content">
-			<p>I just finished my submission for <a href="http://lookwhatimadeweekend.com/">Look What I Made Weekend 3</a>. Look What I Made Weekend (LWIMW) is a chance for people to create something over the course of 48 hours. The concept is based on <a href="http://www.ludumdare.com/">Ludum Dare</a> and other game jams, but for LWIMW you don't have to make a game. Instead, you are free to pursue any creative endeavor and show off your results at the end.</p>
-<blockquote>
-<p>NB: The content below is mostly a reprint of <a href="http://lookwhatimadeweekend.com/contest/3/submission/110/">my submission at LWIMW</a>.</p>
-</blockquote>
-<p>My project is an interactive website that will be part of the companion site to a book <a href="http://www.driven2divide.com/">my friend Scott Thigpen</a> is writing.
-I didn't quite start from scratch on this project. This image shows the progress I had made before the weekend. You can also view it <a href="http://mollietaylor.com/trailmagic/preLWIMW-slide.html">on the web</a>.</p>
-<p><img alt="pre-LWIMW" class="size-auto" src="http://blog.mollietaylor.com/images/pre-LWIMW.png" /></p>
-<p>The other images show the current status after the weekend.</p>
-<p>I made a lot of progress this weekend. I added GPS routes to the map, added a table of contents, added marker clustering, improved the graphic design (CSS and basemap), and added about 25% of the final content.</p>
-<p><img alt="post-LWIMW" class="size-auto" src="http://blog.mollietaylor.com/images/post-LWIMW.png" /></p>
-<p><img alt="post-LWIMW" class="size-auto" src="http://blog.mollietaylor.com/images/post-LWIMW-2.png" /></p>
-<p>The only essential things I have left to do are adding the rest of the content, working with my friend on palette and graphics, and tweaking some small things.</p>
-<p>You can view the current state of the <a href="http://mollietaylor.com/trailmagic/LWIMW.html">Trail Magic site here</a>.</p>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/competitions.html" rel="tag">competitions</a>,  <a href="http://blog.mollietaylor.com/tag/javascript.html" rel="tag">Javascript</a>,  <a href="http://blog.mollietaylor.com/tag/jquery.html" rel="tag">jQuery</a>,  <a href="http://blog.mollietaylor.com/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="http://blog.mollietaylor.com/tag/lwimw.html" rel="tag">LWIMW</a>,  <a href="http://blog.mollietaylor.com/tag/slidemapper.html" rel="tag">slidemapper</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-next"><a href="http://blog.mollietaylor.com/index2.html" >Older posts <span class="meta-nav">&rarr;</span></a></div>

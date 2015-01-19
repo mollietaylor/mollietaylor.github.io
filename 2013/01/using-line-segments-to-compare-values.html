@@ -28,6 +28,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -58,18 +59,18 @@
 </ul>
 <p>One method I like to use to do this is using <code>geom_segment</code> and <code>geom_point</code> in the <strong>ggplot2</strong> package.</p>
 <p>First, let's load <strong>ggplot2</strong> and our data:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span>
-data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">data <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>USPersonalExpenditure<span class="p">)</span> <span class="c1"># data from package datasets</span></span>
+<span class="code-line">data<span class="o">$</span>Category <span class="o">&lt;-</span> <span class="kp">as.character</span><span class="p">(</span><span class="kp">rownames</span><span class="p">(</span>USPersonalExpenditure<span class="p">))</span> <span class="c1"># this makes things simpler later</span></span>
 </pre></div>
 
 
 <p>Next, we'll set up our plot and axes:</p>
-<div class="highlight"><pre>ggplot<span class="p">(</span>data<span class="p">,</span>
-    aes<span class="p">(</span>y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span>
-labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span>
-    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line">ggplot<span class="p">(</span>data<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>y <span class="o">=</span> Category<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Expenditure&quot;</span><span class="p">,</span></span>
+<span class="code-line">    y <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 
@@ -83,45 +84,45 @@ labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Exp
 </ul>
 <!--end the list-->
 
-<div class="highlight"><pre>geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-  y <span class="o">=</span> Category<span class="p">,</span>
-  xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-  yend <span class="o">=</span> Category<span class="p">),</span>
- size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line">geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">  y <span class="o">=</span> Category<span class="p">,</span></span>
+<span class="code-line">  xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">  yend <span class="o">=</span> Category<span class="p">),</span></span>
+<span class="code-line"> size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 
 <p>Next, we want to plot points for the 1940 and 1960 values. We could do the same for the 1945, 1950, and 1955 values, if we wanted to.</p>
-<div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-    color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span>
-    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
-geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-    color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
-    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">    color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">    color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span></span>
+<span class="code-line">    size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 
 <p>Finally, we'll finish up by touching up the legend for the plot:</p>
-<div class="highlight"><pre>scale_color_discrete<span class="p">(</span>name <span class="o">=</span> <span class="s">&quot;Year&quot;</span><span class="p">)</span> <span class="o">+</span>
-theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">scale_color_discrete<span class="p">(</span>name <span class="o">=</span> <span class="s">&quot;Year&quot;</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;bottom&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p><img alt="geom_segment, then geom_point" src="http://blog.mollietaylor.com/images/r-line-segments.png" /></p>
 <p>The order of <code>geom_segment</code> and the <code>geom_points</code> matters. The first <code>geom</code> line in the code will get plotted first. Therefore, if you want the points displayed over the segments, put the segments first in the code. Likewise, if you want the segments displayed over the points, put the points first in the code.</p>
 <p>For example, we could change the middle section of the code to:</p>
-<div class="highlight"><pre>geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-  color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span>
-  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
-geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-  color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span>
-  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span>
-
-geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span>
-    y <span class="o">=</span> Category<span class="p">,</span>
-    xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span>
-    yend <span class="o">=</span> Category<span class="p">),</span>
-  size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+<div class="highlight"><pre><span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">  color <span class="o">=</span> <span class="s">&quot;1940&quot;</span><span class="p">),</span></span>
+<span class="code-line">  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line">geom_point<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">  color <span class="o">=</span> <span class="s">&quot;1960&quot;</span><span class="p">),</span></span>
+<span class="code-line">  size <span class="o">=</span> <span class="m">4</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">15</span><span class="p">)</span> <span class="o">+</span></span>
+<span class="code-line"></span>
+<span class="code-line">geom_segment<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1940&quot;</span><span class="p">,</span></span>
+<span class="code-line">    y <span class="o">=</span> Category<span class="p">,</span></span>
+<span class="code-line">    xend <span class="o">=</span> data<span class="o">$</span><span class="s">&quot;1960&quot;</span><span class="p">,</span></span>
+<span class="code-line">    yend <span class="o">=</span> Category<span class="p">),</span></span>
+<span class="code-line">  size <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span></span>
 </pre></div>
 
 

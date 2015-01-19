@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -54,67 +55,67 @@
 		<div class="entry-content">
 			<p>Often, you'll need to merge two data frames based on multiple variables. For this example, we'll use the common case of needing to merge by city and state.</p>
 <p>First, you need to read in both your data sets:</p>
-<div class="highlight"><pre><span class="c1"># import city coordinate data:</span>
-coords <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;cities-coords.csv&quot;</span><span class="p">,</span>
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
-
-<span class="c1"># import population data:</span>
-data <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;cities-data.csv&quot;</span><span class="p">,</span>
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># import city coordinate data:</span></span>
+<span class="code-line">coords <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;cities-coords.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># import population data:</span></span>
+<span class="code-line">data <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;cities-data.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>Next comes the merge. You can use <code>by.x</code> and <code>by.y</code> to declare which variables the merge will be based on. If the variables have exactly the same name in both data sets, you can use by instead of <code>by.x</code> and <code>by.y</code>.</p>
 <p><code>x</code> and <code>y</code> represent the two data sets you are merging, in that order.</p>
 <p>You also want to state whether you want to include all data from either data set, using <code>all</code> or <code>all.x</code> and <code>all.y</code>. In this case, we want to make sure we hold onto all our city data, even data for the cities we do not have coordinates for.</p>
-<div class="highlight"><pre><span class="c1"># merge data &amp; coords by city &amp; state:</span>
-dataCoords <span class="o">&lt;-</span> <span class="kp">merge</span><span class="p">(</span>coords<span class="p">,</span> data<span class="p">,</span> 
-    by.x <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;City&quot;</span><span class="p">,</span> <span class="s">&quot;State&quot;</span><span class="p">),</span>
-    by.y <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;state&quot;</span><span class="p">),</span>
-    all.x <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-    all.y <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># merge data &amp; coords by city &amp; state:</span></span>
+<span class="code-line">dataCoords <span class="o">&lt;-</span> <span class="kp">merge</span><span class="p">(</span>coords<span class="p">,</span> data<span class="p">,</span> </span>
+<span class="code-line">    by.x <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;City&quot;</span><span class="p">,</span> <span class="s">&quot;State&quot;</span><span class="p">),</span></span>
+<span class="code-line">    by.y <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;state&quot;</span><span class="p">),</span></span>
+<span class="code-line">    all.x <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">    all.y <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>Running that code shows what we would expect. Houston is included in the final data set even though there are no coordinates for it, while Dallas is not included since it has coordinates but no data:</p>
-<div class="highlight"><pre>            City State Latitude  Longitude year population
-<span class="m">1</span>        Chicago    IL <span class="m">41.85003</span>  <span class="m">-87.65005</span> <span class="m">2012</span>    <span class="m">2714856</span>
-<span class="m">2</span>       Columbus    GA <span class="m">32.46098</span>  <span class="m">-84.98771</span> <span class="m">2012</span>     <span class="m">198413</span>
-<span class="m">3</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2012</span>     <span class="m">809798</span>
-<span class="m">4</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2010</span>     <span class="m">787033</span>
-<span class="m">5</span>    Los Angeles    CA <span class="m">34.05223</span> <span class="m">-118.24368</span> <span class="m">2012</span>    <span class="m">3857799</span>
-<span class="m">6</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2012</span>    <span class="m">8336697</span>
-<span class="m">7</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2010</span>    <span class="m">8175133</span>
-<span class="m">8</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2012</span>     <span class="m">825863</span>
-<span class="m">9</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2010</span>     <span class="m">805235</span>
-<span class="m">10</span>       Houston    TX       <span class="kc">NA</span>         <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span>
+<div class="highlight"><pre><span class="code-line">            City State Latitude  Longitude year population</span>
+<span class="code-line"><span class="m">1</span>        Chicago    IL <span class="m">41.85003</span>  <span class="m">-87.65005</span> <span class="m">2012</span>    <span class="m">2714856</span></span>
+<span class="code-line"><span class="m">2</span>       Columbus    GA <span class="m">32.46098</span>  <span class="m">-84.98771</span> <span class="m">2012</span>     <span class="m">198413</span></span>
+<span class="code-line"><span class="m">3</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2012</span>     <span class="m">809798</span></span>
+<span class="code-line"><span class="m">4</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2010</span>     <span class="m">787033</span></span>
+<span class="code-line"><span class="m">5</span>    Los Angeles    CA <span class="m">34.05223</span> <span class="m">-118.24368</span> <span class="m">2012</span>    <span class="m">3857799</span></span>
+<span class="code-line"><span class="m">6</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2012</span>    <span class="m">8336697</span></span>
+<span class="code-line"><span class="m">7</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2010</span>    <span class="m">8175133</span></span>
+<span class="code-line"><span class="m">8</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2012</span>     <span class="m">825863</span></span>
+<span class="code-line"><span class="m">9</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2010</span>     <span class="m">805235</span></span>
+<span class="code-line"><span class="m">10</span>       Houston    TX       <span class="kc">NA</span>         <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span></span>
 </pre></div>
 
 
 <h2>Bonus</h2>
 <p>If you'd like to get a list of which cases got merged in but lack coordinate data, there's a simple line of code to do that:</p>
-<div class="highlight"><pre><span class="o">&gt;</span> dataCoords<span class="p">[</span><span class="o">!</span>complete.cases<span class="p">(</span>dataCoords<span class="p">[,</span><span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">)]),]</span>
-      City State Latitude Longitude year population
-<span class="m">10</span> Houston    TX       <span class="kc">NA</span>        <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> dataCoords<span class="p">[</span><span class="o">!</span>complete.cases<span class="p">(</span>dataCoords<span class="p">[,</span><span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">)]),]</span></span>
+<span class="code-line">      City State Latitude Longitude year population</span>
+<span class="code-line"><span class="m">10</span> Houston    TX       <span class="kc">NA</span>        <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span></span>
 </pre></div>
 
 
 <p>Also, you might want to tidy up the names of your variables, if they followed different conventions in their respective initial data sets:</p>
-<div class="highlight"><pre><span class="o">&gt;</span> <span class="kp">names</span><span class="p">(</span>dataCoords<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;City&quot;</span><span class="p">,</span> <span class="s">&quot;State&quot;</span><span class="p">,</span> <span class="s">&quot;Latitude&quot;</span><span class="p">,</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span> <span class="s">&quot;Year&quot;</span><span class="p">,</span> <span class="s">&quot;Population&quot;</span><span class="p">)</span>
-<span class="o">&gt;</span> dataCoords
-            City State Latitude  Longitude Year Population
-<span class="m">1</span>        Chicago    IL <span class="m">41.85003</span>  <span class="m">-87.65005</span> <span class="m">2012</span>    <span class="m">2714856</span>
-<span class="m">2</span>       Columbus    GA <span class="m">32.46098</span>  <span class="m">-84.98771</span> <span class="m">2012</span>     <span class="m">198413</span>
-<span class="m">3</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2012</span>     <span class="m">809798</span>
-<span class="m">4</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2010</span>     <span class="m">787033</span>
-<span class="m">5</span>    Los Angeles    CA <span class="m">34.05223</span> <span class="m">-118.24368</span> <span class="m">2012</span>    <span class="m">3857799</span>
-<span class="m">6</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2012</span>    <span class="m">8336697</span>
-<span class="m">7</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2010</span>    <span class="m">8175133</span>
-<span class="m">8</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2012</span>     <span class="m">825863</span>
-<span class="m">9</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2010</span>     <span class="m">805235</span>
-<span class="m">10</span>       Houston    TX       <span class="kc">NA</span>         <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="kp">names</span><span class="p">(</span>dataCoords<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;City&quot;</span><span class="p">,</span> <span class="s">&quot;State&quot;</span><span class="p">,</span> <span class="s">&quot;Latitude&quot;</span><span class="p">,</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span> <span class="s">&quot;Year&quot;</span><span class="p">,</span> <span class="s">&quot;Population&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">&gt;</span> dataCoords</span>
+<span class="code-line">            City State Latitude  Longitude Year Population</span>
+<span class="code-line"><span class="m">1</span>        Chicago    IL <span class="m">41.85003</span>  <span class="m">-87.65005</span> <span class="m">2012</span>    <span class="m">2714856</span></span>
+<span class="code-line"><span class="m">2</span>       Columbus    GA <span class="m">32.46098</span>  <span class="m">-84.98771</span> <span class="m">2012</span>     <span class="m">198413</span></span>
+<span class="code-line"><span class="m">3</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2012</span>     <span class="m">809798</span></span>
+<span class="code-line"><span class="m">4</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2010</span>     <span class="m">787033</span></span>
+<span class="code-line"><span class="m">5</span>    Los Angeles    CA <span class="m">34.05223</span> <span class="m">-118.24368</span> <span class="m">2012</span>    <span class="m">3857799</span></span>
+<span class="code-line"><span class="m">6</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2012</span>    <span class="m">8336697</span></span>
+<span class="code-line"><span class="m">7</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2010</span>    <span class="m">8175133</span></span>
+<span class="code-line"><span class="m">8</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2012</span>     <span class="m">825863</span></span>
+<span class="code-line"><span class="m">9</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2010</span>     <span class="m">805235</span></span>
+<span class="code-line"><span class="m">10</span>       Houston    TX       <span class="kc">NA</span>         <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span></span>
 </pre></div>
 
 

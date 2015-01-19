@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -58,114 +59,114 @@
 <p>There are multiple ways to find or choose the names of the files you want to analyze.</p>
 <p>You can explicitly state the file names or you can get R to find any files with a particular extension.</p>
 <h3>Explicitly Stating File Names</h3>
-<div class="highlight"><pre>fileNames <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;sample1.csv&quot;</span><span class="p">,</span> <span class="s">&quot;sample2.csv&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">fileNames <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;sample1.csv&quot;</span><span class="p">,</span> <span class="s">&quot;sample2.csv&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <h3>Finding Files with a Specific Extension</h3>
 <p>In this case, we use <code>Sys.glob</code> from the <strong>base</strong> package to find all files including the wildcard "*.csv".</p>
-<div class="highlight"><pre>fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="s">&quot;*.csv&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="s">&quot;*.csv&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <h2>Iterating Across All Files</h2>
 <p>We'll start with a loop and then we can add whatever functions we want to the inside of the loop:</p>
-<div class="highlight"><pre><span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span>
-
-    <span class="c1"># read data:</span>
-    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span>
-        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
-
-    <span class="c1"># add more stuff here</span>
-
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># read data:</span></span>
+<span class="code-line">    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span></span>
+<span class="code-line">        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># add more stuff here</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>For example, we could add one to every "Widget" value in each file and overwrite the old data with the new data:</p>
-<div class="highlight"><pre><span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span>
-
-    <span class="c1"># read old data:</span>
-    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span>
-        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
-
-    <span class="c1"># add one to every widget value in every file:</span>
-    <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">&lt;-</span> <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">+</span> <span class="m">1</span>
-
-    <span class="c1"># overwrite old data with new data:</span>
-    write.table<span class="p">(</span><span class="kp">sample</span><span class="p">,</span> 
-        fileName<span class="p">,</span>
-        append <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        quote <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span>
-        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        col.names <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># read old data:</span></span>
+<span class="code-line">    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span></span>
+<span class="code-line">        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># add one to every widget value in every file:</span></span>
+<span class="code-line">    <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">&lt;-</span> <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">+</span> <span class="m">1</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># overwrite old data with new data:</span></span>
+<span class="code-line">    write.table<span class="p">(</span><span class="kp">sample</span><span class="p">,</span> </span>
+<span class="code-line">        fileName<span class="p">,</span></span>
+<span class="code-line">        append <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        quote <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span></span>
+<span class="code-line">        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        col.names <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>Or we could do the same thing, but create a new copy of each file:</p>
-<div class="highlight"><pre>extension <span class="o">&lt;-</span> <span class="s">&quot;csv&quot;</span>
-
-fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;*.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
-
-fileNumbers <span class="o">&lt;-</span> <span class="kp">seq</span><span class="p">(</span>fileNames<span class="p">)</span>
-
-<span class="kr">for</span> <span class="p">(</span>fileNumber <span class="kr">in</span> fileNumbers<span class="p">)</span> <span class="p">{</span>
-
-    newFileName <span class="o">&lt;-</span>  <span class="kp">paste</span><span class="p">(</span><span class="s">&quot;new-&quot;</span><span class="p">,</span> 
-        <span class="kp">sub</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;\\.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">),</span> <span class="s">&quot;&quot;</span><span class="p">,</span> fileNames<span class="p">[</span>fileNumber<span class="p">]),</span> 
-        <span class="s">&quot;.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-
-    <span class="c1"># read old data:</span>
-    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileNames<span class="p">[</span>fileNumber<span class="p">],</span>
-        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
-
-    <span class="c1"># add one to every widget value in every file:</span>
-    <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">&lt;-</span> <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">+</span> <span class="m">1</span>
-
-    <span class="c1"># write old data to new files:</span>
-    write.table<span class="p">(</span><span class="kp">sample</span><span class="p">,</span> 
-        newFileName<span class="p">,</span>
-        append <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        quote <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span>
-        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        col.names <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line">extension <span class="o">&lt;-</span> <span class="s">&quot;csv&quot;</span></span>
+<span class="code-line"></span>
+<span class="code-line">fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;*.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line">fileNumbers <span class="o">&lt;-</span> <span class="kp">seq</span><span class="p">(</span>fileNames<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kr">for</span> <span class="p">(</span>fileNumber <span class="kr">in</span> fileNumbers<span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    newFileName <span class="o">&lt;-</span>  <span class="kp">paste</span><span class="p">(</span><span class="s">&quot;new-&quot;</span><span class="p">,</span> </span>
+<span class="code-line">        <span class="kp">sub</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;\\.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">),</span> <span class="s">&quot;&quot;</span><span class="p">,</span> fileNames<span class="p">[</span>fileNumber<span class="p">]),</span> </span>
+<span class="code-line">        <span class="s">&quot;.&quot;</span><span class="p">,</span> extension<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># read old data:</span></span>
+<span class="code-line">    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileNames<span class="p">[</span>fileNumber<span class="p">],</span></span>
+<span class="code-line">        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># add one to every widget value in every file:</span></span>
+<span class="code-line">    <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">&lt;-</span> <span class="kp">sample</span><span class="o">$</span>Widgets <span class="o">+</span> <span class="m">1</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># write old data to new files:</span></span>
+<span class="code-line">    write.table<span class="p">(</span><span class="kp">sample</span><span class="p">,</span> </span>
+<span class="code-line">        newFileName<span class="p">,</span></span>
+<span class="code-line">        append <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        quote <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span></span>
+<span class="code-line">        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        col.names <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>In the above example, we used the <code>paste</code> and <code>sub</code> functions from the <strong>base</strong> package to automatically create new file names based on the old file names.</p>
 <p>Or we could instead use each dataset to create an entirely new dataset, where each row is based on data from one file:</p>
-<div class="highlight"><pre>fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="s">&quot;*.csv&quot;</span><span class="p">)</span>
-
-<span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span>
-
-    <span class="c1"># read original data:</span>
-    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span>
-        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
-
-    <span class="c1"># create new data based on contents of original file:</span>
-    allWidgets <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>
-        File <span class="o">=</span> fileName<span class="p">,</span>
-        Widgets <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span><span class="kp">sample</span><span class="o">$</span>Widgets<span class="p">))</span>
-
-    <span class="c1"># write new data to separate file:</span>
-    write.table<span class="p">(</span>allWidgets<span class="p">,</span> 
-        <span class="s">&quot;Output/sample-allSamples.csv&quot;</span><span class="p">,</span>
-        append <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span>
-        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
-        col.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
-
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line">fileNames <span class="o">&lt;-</span> <span class="kp">Sys.glob</span><span class="p">(</span><span class="s">&quot;*.csv&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kr">for</span> <span class="p">(</span>fileName <span class="kr">in</span> fileNames<span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># read original data:</span></span>
+<span class="code-line">    sample <span class="o">&lt;-</span> read.csv<span class="p">(</span>fileName<span class="p">,</span></span>
+<span class="code-line">        header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># create new data based on contents of original file:</span></span>
+<span class="code-line">    allWidgets <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span></span>
+<span class="code-line">        File <span class="o">=</span> fileName<span class="p">,</span></span>
+<span class="code-line">        Widgets <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span><span class="kp">sample</span><span class="o">$</span>Widgets<span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># write new data to separate file:</span></span>
+<span class="code-line">    write.table<span class="p">(</span>allWidgets<span class="p">,</span> </span>
+<span class="code-line">        <span class="s">&quot;Output/sample-allSamples.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">        append <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">        sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span></span>
+<span class="code-line">        row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">        col.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
@@ -200,27 +201,27 @@ I haven't tested it, but it is likely this is more efficient than using <code>fo
 		</h2>
 		<div class="entry-content">
 			<p>Sometimes, you only need to analyze part of the data stored as a vector. In this example, there is a list of patents. Each patent has been assigned to one or more patent classes. Let's say that we want to analyze the dataset based on only the first patent class listed for each patent.</p>
-<div class="highlight"><pre>patents <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>
-    patent <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,</span>
-    class <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;405&quot;</span><span class="p">,</span> <span class="s">&quot;33/209&quot;</span><span class="p">,</span> <span class="s">&quot;549/514&quot;</span><span class="p">,</span> <span class="s">&quot;110&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;43&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;315/327&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;536/514&quot;</span><span class="p">,</span> <span class="s">&quot;523/522&quot;</span><span class="p">,</span> <span class="s">&quot;315&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;138/248/285&quot;</span><span class="p">,</span> <span class="s">&quot;24&quot;</span><span class="p">,</span> <span class="s">&quot;365&quot;</span><span class="p">,</span> <span class="s">&quot;73/116/137&quot;</span><span class="p">,</span> <span class="s">&quot;73/200&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;252/508&quot;</span><span class="p">,</span> <span class="s">&quot;96/261&quot;</span><span class="p">,</span> <span class="s">&quot;327/318&quot;</span><span class="p">,</span> <span class="s">&quot;426/424/512&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;75/423&quot;</span><span class="p">,</span> <span class="s">&quot;430&quot;</span><span class="p">,</span> <span class="s">&quot;416&quot;</span><span class="p">,</span> <span class="s">&quot;536/423/530&quot;</span><span class="p">,</span> <span class="s">&quot;381/181&quot;</span><span class="p">,</span> <span class="s">&quot;4&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;340/187&quot;</span><span class="p">,</span> <span class="s">&quot;423/75&quot;</span><span class="p">,</span> <span class="s">&quot;360/392/G9B&quot;</span><span class="p">,</span> <span class="s">&quot;524/106/423&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line">patents <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span></span>
+<span class="code-line">    patent <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,</span></span>
+<span class="code-line">    class <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;405&quot;</span><span class="p">,</span> <span class="s">&quot;33/209&quot;</span><span class="p">,</span> <span class="s">&quot;549/514&quot;</span><span class="p">,</span> <span class="s">&quot;110&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;43&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;315/327&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;536/514&quot;</span><span class="p">,</span> <span class="s">&quot;523/522&quot;</span><span class="p">,</span> <span class="s">&quot;315&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;138/248/285&quot;</span><span class="p">,</span> <span class="s">&quot;24&quot;</span><span class="p">,</span> <span class="s">&quot;365&quot;</span><span class="p">,</span> <span class="s">&quot;73/116/137&quot;</span><span class="p">,</span> <span class="s">&quot;73/200&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;252/508&quot;</span><span class="p">,</span> <span class="s">&quot;96/261&quot;</span><span class="p">,</span> <span class="s">&quot;327/318&quot;</span><span class="p">,</span> <span class="s">&quot;426/424/512&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;75/423&quot;</span><span class="p">,</span> <span class="s">&quot;430&quot;</span><span class="p">,</span> <span class="s">&quot;416&quot;</span><span class="p">,</span> <span class="s">&quot;536/423/530&quot;</span><span class="p">,</span> <span class="s">&quot;381/181&quot;</span><span class="p">,</span> <span class="s">&quot;4&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;340/187&quot;</span><span class="p">,</span> <span class="s">&quot;423/75&quot;</span><span class="p">,</span> <span class="s">&quot;360/392/G9B&quot;</span><span class="p">,</span> <span class="s">&quot;524/106/423&quot;</span><span class="p">))</span></span>
 </pre></div>
 
 
 <p>We can use <a href="http://en.wikipedia.org/wiki/Regular_expression">regular expressions</a> to truncate each element of the vector just before the first "/".</p>
 <p><code>grep</code>,<code>grepl</code>,<code>sub</code>,<code>gsub</code>,<code>regexpr</code>,<code>gregexpr</code>, and <code>regexec</code> are all functions in the <strong>base</strong> package that allow you to use regular expressions within each element of a character vector. <code>sub</code> and <code>gsub</code> allow you to replace within each element of the vector. <code>sub</code> replaces the first match within each element, while <code>gsub</code> replaces all matches within each element. In this case, we want to remove everything from the first "/" on, and we want to replace it with nothing. Here's how we can use <code>sub</code> to do that:</p>
-<div class="highlight"><pre>patents<span class="o">$</span>primaryClass <span class="o">&lt;-</span> <span class="kp">sub</span><span class="p">(</span><span class="s">&quot;/.*&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> patents<span class="o">$</span><span class="kp">class</span><span class="p">)</span>
-
-<span class="o">&gt;</span> <span class="kp">table</span><span class="p">(</span>patents<span class="o">$</span>primaryClass<span class="p">)</span>
-
-<span class="m">110</span> <span class="m">138</span>  <span class="m">24</span> <span class="m">252</span> <span class="m">315</span> <span class="m">327</span>  <span class="m">33</span> <span class="m">340</span> <span class="m">360</span> <span class="m">365</span> <span class="m">381</span>   <span class="m">4</span> <span class="m">405</span> <span class="m">416</span> <span class="m">423</span> <span class="m">426</span>  <span class="m">43</span> <span class="m">430</span> <span class="m">523</span> <span class="m">524</span> 
-  <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span> 
-<span class="m">536</span> <span class="m">540</span> <span class="m">549</span>  <span class="m">73</span>  <span class="m">75</span>  <span class="m">96</span> 
-  <span class="m">2</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span>
+<div class="highlight"><pre><span class="code-line">patents<span class="o">$</span>primaryClass <span class="o">&lt;-</span> <span class="kp">sub</span><span class="p">(</span><span class="s">&quot;/.*&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> patents<span class="o">$</span><span class="kp">class</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">table</span><span class="p">(</span>patents<span class="o">$</span>primaryClass<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="m">110</span> <span class="m">138</span>  <span class="m">24</span> <span class="m">252</span> <span class="m">315</span> <span class="m">327</span>  <span class="m">33</span> <span class="m">340</span> <span class="m">360</span> <span class="m">365</span> <span class="m">381</span>   <span class="m">4</span> <span class="m">405</span> <span class="m">416</span> <span class="m">423</span> <span class="m">426</span>  <span class="m">43</span> <span class="m">430</span> <span class="m">523</span> <span class="m">524</span> </span>
+<span class="code-line">  <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span> </span>
+<span class="code-line"><span class="m">536</span> <span class="m">540</span> <span class="m">549</span>  <span class="m">73</span>  <span class="m">75</span>  <span class="m">96</span> </span>
+<span class="code-line">  <span class="m">2</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span></span>
 </pre></div>
 
 

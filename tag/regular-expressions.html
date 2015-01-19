@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -57,28 +58,28 @@
 <p>Here's the messy looking example:</p>
 <p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-none.png" /></p>
 <p>And here's the code for the messy looking example:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-data<span class="p">(</span>birds<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-ggplot<span class="p">(</span>birds<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
-        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
-geom_boxplot<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span></span>
 </pre></div>
 
 
 <h2>With Line Breaks</h2>
 <p>We can use <a href="http://regex.learncodethehardway.org/">regular expressions</a> to add line breaks to the factor levels by substituting any spaces with line breaks:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-data<span class="p">(</span>birds<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
-ggplot<span class="p">(</span>birds<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
-        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
-geom_boxplot<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span></span>
 </pre></div>
 
 
@@ -88,16 +89,16 @@ geom_boxplot<span class="p">()</span>
 <p>Here we can see the difference in a box plot with horizontal boxes. It's up to you to decide which style looks better:</p>
 <p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip-none.png" /></p>
 <p><img alt="Line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip.png" /></p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-data<span class="p">(</span>birds<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
-ggplot<span class="p">(</span>birds<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
-        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
-geom_boxplot<span class="p">()</span> <span class="o">+</span> 
-coord_flip<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span> <span class="o">+</span> </span>
+<span class="code-line">coord_flip<span class="p">()</span></span>
 </pre></div>
 
 
@@ -128,27 +129,27 @@ coord_flip<span class="p">()</span>
 		</h2>
 		<div class="entry-content">
 			<p>Sometimes, you only need to analyze part of the data stored as a vector. In this example, there is a list of patents. Each patent has been assigned to one or more patent classes. Let's say that we want to analyze the dataset based on only the first patent class listed for each patent.</p>
-<div class="highlight"><pre>patents <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>
-    patent <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,</span>
-    class <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;405&quot;</span><span class="p">,</span> <span class="s">&quot;33/209&quot;</span><span class="p">,</span> <span class="s">&quot;549/514&quot;</span><span class="p">,</span> <span class="s">&quot;110&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;43&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;315/327&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;536/514&quot;</span><span class="p">,</span> <span class="s">&quot;523/522&quot;</span><span class="p">,</span> <span class="s">&quot;315&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;138/248/285&quot;</span><span class="p">,</span> <span class="s">&quot;24&quot;</span><span class="p">,</span> <span class="s">&quot;365&quot;</span><span class="p">,</span> <span class="s">&quot;73/116/137&quot;</span><span class="p">,</span> <span class="s">&quot;73/200&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;252/508&quot;</span><span class="p">,</span> <span class="s">&quot;96/261&quot;</span><span class="p">,</span> <span class="s">&quot;327/318&quot;</span><span class="p">,</span> <span class="s">&quot;426/424/512&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;75/423&quot;</span><span class="p">,</span> <span class="s">&quot;430&quot;</span><span class="p">,</span> <span class="s">&quot;416&quot;</span><span class="p">,</span> <span class="s">&quot;536/423/530&quot;</span><span class="p">,</span> <span class="s">&quot;381/181&quot;</span><span class="p">,</span> <span class="s">&quot;4&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;340/187&quot;</span><span class="p">,</span> <span class="s">&quot;423/75&quot;</span><span class="p">,</span> <span class="s">&quot;360/392/G9B&quot;</span><span class="p">,</span> <span class="s">&quot;524/106/423&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line">patents <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span></span>
+<span class="code-line">    patent <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,</span></span>
+<span class="code-line">    class <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;405&quot;</span><span class="p">,</span> <span class="s">&quot;33/209&quot;</span><span class="p">,</span> <span class="s">&quot;549/514&quot;</span><span class="p">,</span> <span class="s">&quot;110&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;43&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;315/327&quot;</span><span class="p">,</span> <span class="s">&quot;540&quot;</span><span class="p">,</span> <span class="s">&quot;536/514&quot;</span><span class="p">,</span> <span class="s">&quot;523/522&quot;</span><span class="p">,</span> <span class="s">&quot;315&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;138/248/285&quot;</span><span class="p">,</span> <span class="s">&quot;24&quot;</span><span class="p">,</span> <span class="s">&quot;365&quot;</span><span class="p">,</span> <span class="s">&quot;73/116/137&quot;</span><span class="p">,</span> <span class="s">&quot;73/200&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;252/508&quot;</span><span class="p">,</span> <span class="s">&quot;96/261&quot;</span><span class="p">,</span> <span class="s">&quot;327/318&quot;</span><span class="p">,</span> <span class="s">&quot;426/424/512&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;75/423&quot;</span><span class="p">,</span> <span class="s">&quot;430&quot;</span><span class="p">,</span> <span class="s">&quot;416&quot;</span><span class="p">,</span> <span class="s">&quot;536/423/530&quot;</span><span class="p">,</span> <span class="s">&quot;381/181&quot;</span><span class="p">,</span> <span class="s">&quot;4&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    <span class="s">&quot;340/187&quot;</span><span class="p">,</span> <span class="s">&quot;423/75&quot;</span><span class="p">,</span> <span class="s">&quot;360/392/G9B&quot;</span><span class="p">,</span> <span class="s">&quot;524/106/423&quot;</span><span class="p">))</span></span>
 </pre></div>
 
 
 <p>We can use <a href="http://en.wikipedia.org/wiki/Regular_expression">regular expressions</a> to truncate each element of the vector just before the first "/".</p>
 <p><code>grep</code>,<code>grepl</code>,<code>sub</code>,<code>gsub</code>,<code>regexpr</code>,<code>gregexpr</code>, and <code>regexec</code> are all functions in the <strong>base</strong> package that allow you to use regular expressions within each element of a character vector. <code>sub</code> and <code>gsub</code> allow you to replace within each element of the vector. <code>sub</code> replaces the first match within each element, while <code>gsub</code> replaces all matches within each element. In this case, we want to remove everything from the first "/" on, and we want to replace it with nothing. Here's how we can use <code>sub</code> to do that:</p>
-<div class="highlight"><pre>patents<span class="o">$</span>primaryClass <span class="o">&lt;-</span> <span class="kp">sub</span><span class="p">(</span><span class="s">&quot;/.*&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> patents<span class="o">$</span><span class="kp">class</span><span class="p">)</span>
-
-<span class="o">&gt;</span> <span class="kp">table</span><span class="p">(</span>patents<span class="o">$</span>primaryClass<span class="p">)</span>
-
-<span class="m">110</span> <span class="m">138</span>  <span class="m">24</span> <span class="m">252</span> <span class="m">315</span> <span class="m">327</span>  <span class="m">33</span> <span class="m">340</span> <span class="m">360</span> <span class="m">365</span> <span class="m">381</span>   <span class="m">4</span> <span class="m">405</span> <span class="m">416</span> <span class="m">423</span> <span class="m">426</span>  <span class="m">43</span> <span class="m">430</span> <span class="m">523</span> <span class="m">524</span> 
-  <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span> 
-<span class="m">536</span> <span class="m">540</span> <span class="m">549</span>  <span class="m">73</span>  <span class="m">75</span>  <span class="m">96</span> 
-  <span class="m">2</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span>
+<div class="highlight"><pre><span class="code-line">patents<span class="o">$</span>primaryClass <span class="o">&lt;-</span> <span class="kp">sub</span><span class="p">(</span><span class="s">&quot;/.*&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> patents<span class="o">$</span><span class="kp">class</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">table</span><span class="p">(</span>patents<span class="o">$</span>primaryClass<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="m">110</span> <span class="m">138</span>  <span class="m">24</span> <span class="m">252</span> <span class="m">315</span> <span class="m">327</span>  <span class="m">33</span> <span class="m">340</span> <span class="m">360</span> <span class="m">365</span> <span class="m">381</span>   <span class="m">4</span> <span class="m">405</span> <span class="m">416</span> <span class="m">423</span> <span class="m">426</span>  <span class="m">43</span> <span class="m">430</span> <span class="m">523</span> <span class="m">524</span> </span>
+<span class="code-line">  <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span>   <span class="m">1</span> </span>
+<span class="code-line"><span class="m">536</span> <span class="m">540</span> <span class="m">549</span>  <span class="m">73</span>  <span class="m">75</span>  <span class="m">96</span> </span>
+<span class="code-line">  <span class="m">2</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">1</span>   <span class="m">1</span></span>
 </pre></div>
 
 

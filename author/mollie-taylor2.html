@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -41,6 +42,34 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/lwimw3-trail-magic.html">Sun 02 February 2014</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2014/02/lwimw3-trail-magic.html" title="Permalink to LWIMW3: Trail Magic" rel="bookmark">LWIMW3: Trail Magic</a>
+		</h2>
+		<div class="entry-content">
+			<p>I just finished my submission for <a href="http://lookwhatimadeweekend.com/">Look What I Made Weekend 3</a>. Look What I Made Weekend (LWIMW) is a chance for people to create something over the course of 48 hours. The concept is based on <a href="http://www.ludumdare.com/">Ludum Dare</a> and other game jams, but for LWIMW you don't have to make a game. Instead, you are free to pursue any creative endeavor and show off your results at the end.</p>
+<blockquote>
+<p>NB: The content below is mostly a reprint of <a href="http://lookwhatimadeweekend.com/contest/3/submission/110/">my submission at LWIMW</a>.</p>
+</blockquote>
+<p>My project is an interactive website that will be part of the companion site to a book <a href="http://www.driven2divide.com/">my friend Scott Thigpen</a> is writing.
+I didn't quite start from scratch on this project. This image shows the progress I had made before the weekend. You can also view it <a href="http://mollietaylor.com/trailmagic/preLWIMW-slide.html">on the web</a>.</p>
+<p><img alt="pre-LWIMW" class="size-auto" src="http://blog.mollietaylor.com/images/pre-LWIMW.png" /></p>
+<p>The other images show the current status after the weekend.</p>
+<p>I made a lot of progress this weekend. I added GPS routes to the map, added a table of contents, added marker clustering, improved the graphic design (CSS and basemap), and added about 25% of the final content.</p>
+<p><img alt="post-LWIMW" class="size-auto" src="http://blog.mollietaylor.com/images/post-LWIMW.png" /></p>
+<p><img alt="post-LWIMW" class="size-auto" src="http://blog.mollietaylor.com/images/post-LWIMW-2.png" /></p>
+<p>The only essential things I have left to do are adding the rest of the content, working with my friend on palette and graphics, and tweaking some small things.</p>
+<p>You can view the current state of the <a href="http://mollietaylor.com/trailmagic/LWIMW.html">Trail Magic site here</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/competitions.html" rel="tag">competitions</a>,  <a href="http://blog.mollietaylor.com/tag/javascript.html" rel="tag">Javascript</a>,  <a href="http://blog.mollietaylor.com/tag/jquery.html" rel="tag">jQuery</a>,  <a href="http://blog.mollietaylor.com/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="http://blog.mollietaylor.com/tag/lwimw.html" rel="tag">LWIMW</a>,  <a href="http://blog.mollietaylor.com/tag/slidemapper.html" rel="tag">slidemapper</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/2014/01/append-layer-to-overlaymaps-in-leaflet.html">Thu 30 January 2014</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
@@ -52,61 +81,61 @@
 		<div class="entry-content">
 			<p>What if we want to create a layer based on geolocation, but have the layer only be added to the map once geolocation occurs? I didn't find this example in any Leaflet tutorials, but it's pretty simple with some basic JavaScript</p>
 <p>I'll start with some code that should look familiar from the <a href="http://leafletjs.com/examples/quick-start.html">Leaflet Quick Start Guide</a>, but with each item as its own layer.</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">marker</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">([</span><span class="mf">51.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">]);</span>
-
-<span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
-    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span>
-    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span>
-    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span>
-<span class="p">]);</span>
-
-<span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">51.505</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">],</span>
-    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">13</span><span class="p">,</span>
-    <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span><span class="nx">marker</span><span class="p">,</span> <span class="nx">circle</span><span class="p">,</span> <span class="nx">polygon</span><span class="p">]</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;Marker&quot;</span><span class="o">:</span> <span class="nx">marker</span><span class="p">,</span>
-    <span class="s2">&quot;Circle&quot;</span><span class="o">:</span> <span class="nx">circle</span><span class="p">,</span>
-    <span class="s2">&quot;Polygon&quot;</span><span class="o">:</span> <span class="nx">polygon</span>
-<span class="p">};</span>
-<span class="nx">L</span><span class="p">.</span><span class="nx">tileLayer</span><span class="p">(</span><span class="s1">&#39;http://tile.cloudmade.com/[API-KEY]/29889/256/{z}/{x}/{y}.png&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">attribution</span><span class="o">:</span> <span class="s1">&#39;Map data &amp;copy; &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;CC-BY-SA&lt;/a&gt;, Imagery © &lt;a href=&quot;http://cloudmade.com&quot;&gt;CloudMade&lt;/a&gt;&#39;</span><span class="p">,</span>
-  <span class="nx">maxZoom</span><span class="o">:</span> <span class="mi">18</span>
-<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">marker</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">([</span><span class="mf">51.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">]);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span></span>
+<span class="code-line"><span class="p">});</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">]);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">51.505</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">],</span></span>
+<span class="code-line">    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">13</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span><span class="nx">marker</span><span class="p">,</span> <span class="nx">circle</span><span class="p">,</span> <span class="nx">polygon</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">});</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="s2">&quot;Marker&quot;</span><span class="o">:</span> <span class="nx">marker</span><span class="p">,</span></span>
+<span class="code-line">    <span class="s2">&quot;Circle&quot;</span><span class="o">:</span> <span class="nx">circle</span><span class="p">,</span></span>
+<span class="code-line">    <span class="s2">&quot;Polygon&quot;</span><span class="o">:</span> <span class="nx">polygon</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"><span class="nx">L</span><span class="p">.</span><span class="nx">tileLayer</span><span class="p">(</span><span class="s1">&#39;http://tile.cloudmade.com/[API-KEY]/29889/256/{z}/{x}/{y}.png&#39;</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">attribution</span><span class="o">:</span> <span class="s1">&#39;Map data &amp;copy; &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;CC-BY-SA&lt;/a&gt;, Imagery © &lt;a href=&quot;http://cloudmade.com&quot;&gt;CloudMade&lt;/a&gt;&#39;</span><span class="p">,</span></span>
+<span class="code-line">  <span class="nx">maxZoom</span><span class="o">:</span> <span class="mi">18</span></span>
+<span class="code-line"><span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
 </pre></div>
 
 
 <p>Next let's add the code that will display the three original layers if geolocation does not occur. In this case, we do not want the geolocated layer to show.</p>
-<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onLocationError</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
-
-    <span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;locationerror&#39;</span><span class="p">,</span> <span class="nx">onLocationError</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">function</span> <span class="nx">onLocationError</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;locationerror&#39;</span><span class="p">,</span> <span class="nx">onLocationError</span><span class="p">);</span></span>
 </pre></div>
 
 
 <p>You can see in the below screenshot that only the three layers are displayed.</p>
 <p><img alt="With geolocation off" class="size-auto" src="http://blog.mollietaylor.com/images/append-layer-geolocation-off.png" /></p>
 <p>Finally, we need to add code that will display all the layers (including the geolocation layer) if geolocation does occur. We simply need to add the "yourLocation" layer to overlayMaps and then display the layers as normal.</p>
-<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onLocationFound</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">yourLocation</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">);</span>
-
-    <span class="nx">overlayMaps</span><span class="p">[</span><span class="s2">&quot;You&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">yourLocation</span><span class="p">;</span>
-
-    <span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;locationfound&#39;</span><span class="p">,</span> <span class="nx">onLocationFound</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">function</span> <span class="nx">onLocationFound</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">yourLocation</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nx">overlayMaps</span><span class="p">[</span><span class="s2">&quot;You&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">yourLocation</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">overlayMaps</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;locationfound&#39;</span><span class="p">,</span> <span class="nx">onLocationFound</span><span class="p">);</span></span>
 </pre></div>
 
 
@@ -135,30 +164,30 @@
 		<div class="entry-content">
 			<p>Similar to the popup example in the Leaflet tutorial, you might want to allow a user to add a circle centered on the point they click.</p>
 <p>After defining your map, you first need to declare the variable you'll be using:</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">clickCircle</span><span class="p">;</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">clickCircle</span><span class="p">;</span></span>
 </pre></div>
 
 
 <p>While popups automatically disappear on the next click, circles do not. The following code removes the former circle from the leaflet map before drawing the new circle:</p>
-<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onMapClick</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">clickCircle</span> <span class="o">!=</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">map</span><span class="p">.</span><span class="nx">removeLayer</span><span class="p">(</span><span class="nx">clickCircle</span><span class="p">);</span>
-    <span class="p">};</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">function</span> <span class="nx">onMapClick</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="nx">clickCircle</span> <span class="o">!=</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="nx">map</span><span class="p">.</span><span class="nx">removeLayer</span><span class="p">(</span><span class="nx">clickCircle</span><span class="p">);</span></span>
+<span class="code-line">    <span class="p">};</span></span>
 </pre></div>
 
 
 <p>Next, we want our function to draw the new circle (NB: "1609 * 3" is the radius of the circle. This makes the radius equal 3 miles):</p>
-<div class="highlight"><pre>    <span class="nx">clickCircle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">,</span> <span class="mi">1609</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="p">{</span>
-        <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#f07300&#39;</span><span class="p">,</span>
-        <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="nx">opacity</span><span class="o">:</span> <span class="mf">0.5</span>
-  <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line">    <span class="nx">clickCircle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">,</span> <span class="mi">1609</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#f07300&#39;</span><span class="p">,</span></span>
+<span class="code-line">        <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span></span>
+<span class="code-line">        <span class="nx">opacity</span><span class="o">:</span> <span class="mf">0.5</span></span>
+<span class="code-line">  <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>And finally, we need to add an event listener so that the function will be run when a user clicks on the map:</p>
-<div class="highlight"><pre><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">onMapClick</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">onMapClick</span><span class="p">);</span></span>
 </pre></div>
 
 
@@ -186,46 +215,46 @@
 		<div class="entry-content">
 			<p>Here's how to embed audio in a leaflet map. This example will also show you how to embed most other HTML in a leaflet map, or how to embed audio in an HTML file.</p>
 <p>In your map code:</p>
-<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onEachAudio</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">layer</span><span class="p">.</span><span class="nx">bindPopup</span><span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;&lt;br&gt;&quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">html</span><span class="p">);</span>
-<span class="p">};</span>
-
-<span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">GeoJSON</span><span class="p">.</span><span class="nx">AJAX</span><span class="p">(</span><span class="s2">&quot;audio.geojson&quot;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">onEachFeature</span><span class="o">:</span> <span class="nx">onEachAudio</span><span class="p">,</span>
-    <span class="nx">pointToLayer</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">latlng</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">audioIcon</span><span class="p">});</span>
-    <span class="p">}</span>
-<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">function</span> <span class="nx">onEachAudio</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">layer</span><span class="p">.</span><span class="nx">bindPopup</span><span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;&lt;br&gt;&quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">html</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">GeoJSON</span><span class="p">.</span><span class="nx">AJAX</span><span class="p">(</span><span class="s2">&quot;audio.geojson&quot;</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">onEachFeature</span><span class="o">:</span> <span class="nx">onEachAudio</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">pointToLayer</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">latlng</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">      <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">audioIcon</span><span class="p">});</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"><span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
 </pre></div>
 
 
 <p>And here's the geojson format where you'll include your audio HTML and the coordinates where you want to view each file:</p>
-<div class="highlight"><pre><span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;a href=&#39;http://www.freesound.org/people/genghis%20attenborough/sounds/212798/&#39;&gt;Deep basement&lt;/a&gt;&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;p&gt;&lt;audio width=&#39;300&#39; height=&#39;32&#39; src=&#39;http://www.freesound.org/data/previews/212/212798_205108-lq.mp3&#39; controls=&#39;controls&#39;&gt;&lt;br /&gt;Your browser does not support the audio element.&lt;br /&gt;&lt;/audio&gt;&lt;/p&gt;&quot;</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-100</span><span class="p">,</span><span class="mi">34</span><span class="p">]</span>
-        <span class="p">}</span>
-    <span class="p">},{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;a href=&#39;http://www.freesound.org/people/John%20Sipos/sounds/125696/&#39;&gt;Atlantis docks then lands.&lt;/a&gt;&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;p&gt;&lt;audio width=&#39;300&#39; height=&#39;32&#39; src=&#39;http://www.freesound.org/data/previews/125/125696_593024-lq.mp3&#39; controls=&#39;controls&#39;&gt;&lt;br /&gt;Your browser does not support the audio element.&lt;br /&gt;&lt;/audio&gt;&lt;/p&gt;&quot;</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-84</span><span class="p">,</span><span class="mi">40</span><span class="p">]</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nt">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span></span>
+<span class="code-line">    <span class="p">{</span></span>
+<span class="code-line">        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span></span>
+<span class="code-line">        <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;a href=&#39;http://www.freesound.org/people/genghis%20attenborough/sounds/212798/&#39;&gt;Deep basement&lt;/a&gt;&quot;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="nt">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;p&gt;&lt;audio width=&#39;300&#39; height=&#39;32&#39; src=&#39;http://www.freesound.org/data/previews/212/212798_205108-lq.mp3&#39; controls=&#39;controls&#39;&gt;&lt;br /&gt;Your browser does not support the audio element.&lt;br /&gt;&lt;/audio&gt;&lt;/p&gt;&quot;</span></span>
+<span class="code-line">        <span class="p">},</span></span>
+<span class="code-line">        <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-100</span><span class="p">,</span><span class="mi">34</span><span class="p">]</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">    <span class="p">},{</span></span>
+<span class="code-line">        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span></span>
+<span class="code-line">        <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;a href=&#39;http://www.freesound.org/people/John%20Sipos/sounds/125696/&#39;&gt;Atlantis docks then lands.&lt;/a&gt;&quot;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="nt">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;p&gt;&lt;audio width=&#39;300&#39; height=&#39;32&#39; src=&#39;http://www.freesound.org/data/previews/125/125696_593024-lq.mp3&#39; controls=&#39;controls&#39;&gt;&lt;br /&gt;Your browser does not support the audio element.&lt;br /&gt;&lt;/audio&gt;&lt;/p&gt;&quot;</span></span>
+<span class="code-line">        <span class="p">},</span></span>
+<span class="code-line">        <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-84</span><span class="p">,</span><span class="mi">40</span><span class="p">]</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="p">]</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
@@ -249,39 +278,39 @@
 		<div class="entry-content">
 			<p>If your JSON or GeoJSON data is long, you might want to store it in a separate file to make your code more readable or to reduce repetition and allow you to access the same data file from multiple pages. You can do that with jQuery.</p>
 <p>First, load jQuery 1.10.2 or the newest version of jQuery (2.0 onward does not support Internet Explorer 6, 7, or 8) in the header:</p>
-<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<div class="highlight"><pre><span class="code-line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span></span>
 </pre></div>
 
 
 <p>Next, in your leaflet script at the bottom of the body, you'll need to add all your other code and your basemap, like normal, for example:</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">).</span><span class="nx">setView</span><span class="p">([</span><span class="mf">38.0740</span><span class="p">,</span> <span class="o">-</span><span class="mi">55</span><span class="p">],</span> <span class="mi">3</span><span class="p">);</span>
-
-<span class="kd">function</span> <span class="nx">onEachFeature</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">layer</span><span class="p">.</span><span class="nx">bindPopup</span><span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">City</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">State</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">Country</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">).</span><span class="nx">setView</span><span class="p">([</span><span class="mf">38.0740</span><span class="p">,</span> <span class="o">-</span><span class="mi">55</span><span class="p">],</span> <span class="mi">3</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">function</span> <span class="nx">onEachFeature</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">layer</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">layer</span><span class="p">.</span><span class="nx">bindPopup</span><span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">City</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">State</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">Country</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>Then, you can just use jQuery to get the JSON or GeoJSON file. A simple version of this would be:</p>
-<div class="highlight"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;cities.geoJSON&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cities</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">L</span><span class="p">.</span><span class="nx">geoJson</span><span class="p">(</span><span class="nx">cities</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
-<span class="p">})</span>
+<div class="highlight"><pre><span class="code-line"><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;cities.geoJSON&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cities</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">L</span><span class="p">.</span><span class="nx">geoJson</span><span class="p">(</span><span class="nx">cities</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">})</span></span>
 </pre></div>
 
 
 <p>But you can also add more options to your <code>L.geoJson</code> code, just like you would if using data stored in the HTML file. For example:</p>
-<div class="highlight"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;cities.geoJSON&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cities</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">L</span><span class="p">.</span><span class="nx">geoJson</span><span class="p">(</span><span class="nx">cities</span><span class="p">,</span> <span class="p">{</span>
-        <span class="nx">onEachFeature</span><span class="o">:</span> <span class="nx">onEachFeature</span><span class="p">,</span>
-        <span class="nx">pointToLayer</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">latlng</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">switch</span> <span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">Remember</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">case</span> <span class="s1">&#39;1&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">visitedIcon</span><span class="p">});</span>
-                <span class="k">case</span> <span class="s1">&#39;?&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">uncertainIcon</span><span class="p">});</span>
-                <span class="k">case</span> <span class="s1">&#39;0&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">uncertainIcon</span><span class="p">});</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
-<span class="p">})</span>
+<div class="highlight"><pre><span class="code-line"><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;cities.geoJSON&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cities</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">L</span><span class="p">.</span><span class="nx">geoJson</span><span class="p">(</span><span class="nx">cities</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="nx">onEachFeature</span><span class="o">:</span> <span class="nx">onEachFeature</span><span class="p">,</span></span>
+<span class="code-line">        <span class="nx">pointToLayer</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">latlng</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="k">switch</span> <span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">Remember</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">                <span class="k">case</span> <span class="s1">&#39;1&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">visitedIcon</span><span class="p">});</span></span>
+<span class="code-line">                <span class="k">case</span> <span class="s1">&#39;?&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">uncertainIcon</span><span class="p">});</span></span>
+<span class="code-line">                <span class="k">case</span> <span class="s1">&#39;0&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">marker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span> <span class="p">{</span><span class="nx">icon</span><span class="o">:</span> <span class="nx">uncertainIcon</span><span class="p">});</span></span>
+<span class="code-line">            <span class="p">}</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">    <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">})</span></span>
 </pre></div>
 
 
@@ -307,31 +336,31 @@
 		</h2>
 		<div class="entry-content">
 			<p>The <a href="http://leafletjs.com/examples/quick-start.html">Quick Start tutorial</a> shows us how to change the color of a polygon:</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
-    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span>
-    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span>
-<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span></span>
+<span class="code-line"><span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
 </pre></div>
 
 
 <p>But what if we want to change the color and style of all (or a set of the) polygons?</p>
 <p>First we can define the style:</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">defaultStyle</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
-    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.2</span>
-<span class="p">};</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">defaultStyle</span> <span class="o">=</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.2</span></span>
+<span class="code-line"><span class="p">};</span></span>
 </pre></div>
 
 
 <p>And then we can just add that style to our polygons:</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span>
-    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span>
-<span class="p">]).</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">defaultStyle</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
-
-<span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">).</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">defaultStyle</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">]).</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">defaultStyle</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">).</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">defaultStyle</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
 </pre></div>
 
 
@@ -353,22 +382,22 @@
 		<div class="entry-content">
 			<p>I had an issue where LaTeX wasn't adding spaces between references when I had multiple references in the same place.</p>
 <p>So this:</p>
-<div class="highlight"><pre>of their own <span class="k">\cite</span><span class="nb">{</span>moretti:2012,saxenian:1996,casper:2007<span class="nb">}</span>.
+<div class="highlight"><pre><span class="code-line">of their own <span class="k">\cite</span><span class="nb">{</span>moretti:2012,saxenian:1996,casper:2007<span class="nb">}</span>.</span>
 </pre></div>
 
 
 <p>was compiling as this:</p>
-<div class="highlight"><pre>of their own [Moretti, 2012,Saxenian, 1996,Casper, 2007].
+<div class="highlight"><pre><span class="code-line">of their own [Moretti, 2012,Saxenian, 1996,Casper, 2007].</span>
 </pre></div>
 
 
 <p>To fix the problem, I simply added the space option for the <strong>cite</strong> package.</p>
-<div class="highlight"><pre><span class="k">\usepackage</span><span class="na">[space]</span><span class="nb">{</span>cite<span class="nb">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="k">\usepackage</span><span class="na">[space]</span><span class="nb">{</span>cite<span class="nb">}</span></span>
 </pre></div>
 
 
 <p>And now it looks as it should:</p>
-<div class="highlight"><pre>of their own [Moretti, 2012, Saxenian, 1996, Casper, 2007].
+<div class="highlight"><pre><span class="code-line">of their own [Moretti, 2012, Saxenian, 1996, Casper, 2007].</span>
 </pre></div>
 
 
@@ -393,33 +422,33 @@
 		</h2>
 		<div class="entry-content">
 			<p>If you use <code>attach</code>, it is easy to tell if a variable exists. You can simply use <code>exists</code> to check:</p>
-<div class="highlight"><pre><span class="o">&gt;</span><span class="kn">attach</span><span class="p">(</span>df<span class="p">)</span>
-
-<span class="o">&gt;</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;varName&quot;</span><span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span><span class="kn">attach</span><span class="p">(</span>df<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;varName&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
 </pre></div>
 
 
 <p>However, if you don't use <code>attach</code> (and I find you generally don't want to), this simple solution doesn't work.</p>
-<div class="highlight"><pre><span class="o">&gt;</span> <span class="kn">detach</span><span class="p">(</span>df<span class="p">)</span>
-<span class="o">&gt;</span> <span class="kp">exists</span><span class="p">(</span><span class="s">&quot;df$varName&quot;</span><span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">FALSE</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="kn">detach</span><span class="p">(</span>df<span class="p">)</span></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">exists</span><span class="p">(</span><span class="s">&quot;df$varName&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">FALSE</span></span>
 </pre></div>
 
 
 <p>Instead of using <code>exists</code>, you can use <code>in</code> or <code>any</code> from the <strong>base</strong> package to determine if a variable is defined in a data frame:</p>
-<div class="highlight"><pre><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">names</span><span class="p">(</span>df<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
-<span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">names</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">names</span><span class="p">(</span>df<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">names</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
 </pre></div>
 
 
 <p>Or to determine if a variable is defined in a matrix:</p>
-<div class="highlight"><pre><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
-<span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span>
-<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
 </pre></div>
 
 
@@ -447,26 +476,26 @@
 <p><img alt="PNG table" src="http://blog.mollietaylor.com/images/r-table-image.png" /></p>
 <h2>Creating the Table</h2>
 <p>After loading the data, let's first use <a href="http://www.mollietaylor.com/2013/10/line-breaks-between-words-in-axis.html">this trick</a> to put line breaks between the levels of the effect variable. Depending on your data, you may or may not need or want to do this.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-data<span class="p">(</span>birds<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>gridExtra<span class="p">)</span>
-
-<span class="c1"># line breaks between words for levels of birds$effect:</span>
-<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>gridExtra<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># line breaks between words for levels of birds$effect:</span></span>
+<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
 </pre></div>
 
 
 <p>Next let's make our table: </p>
-<div class="highlight"><pre>xyTable <span class="o">&lt;-</span> <span class="kp">table</span><span class="p">(</span>birds<span class="o">$</span>sky<span class="p">,</span> birds<span class="o">$</span>effect<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">xyTable <span class="o">&lt;-</span> <span class="kp">table</span><span class="p">(</span>birds<span class="o">$</span>sky<span class="p">,</span> birds<span class="o">$</span>effect<span class="p">)</span></span>
 </pre></div>
 
 
 <p>Now we can create an empty plot, center our table in it, and use the <code>grid.table</code> function from the <strong>gridExtra</strong> package to display the table and choose a font size.</p>
-<div class="highlight"><pre>plot.new<span class="p">()</span>
-grid.table<span class="p">(</span>xyTable<span class="p">,</span>
-    <span class="c1"># change font sizes:</span>
-    gpar.coltext <span class="o">=</span> gpar<span class="p">(</span>cex <span class="o">=</span> <span class="m">1.2</span><span class="p">),</span>
-    gpar.rowtext <span class="o">=</span> gpar<span class="p">(</span>cex <span class="o">=</span> <span class="m">1.2</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line">plot.new<span class="p">()</span></span>
+<span class="code-line">grid.table<span class="p">(</span>xyTable<span class="p">,</span></span>
+<span class="code-line">    <span class="c1"># change font sizes:</span></span>
+<span class="code-line">    gpar.coltext <span class="o">=</span> gpar<span class="p">(</span>cex <span class="o">=</span> <span class="m">1.2</span><span class="p">),</span></span>
+<span class="code-line">    gpar.rowtext <span class="o">=</span> gpar<span class="p">(</span>cex <span class="o">=</span> <span class="m">1.2</span><span class="p">))</span></span>
 </pre></div>
 
 
@@ -497,28 +526,28 @@ grid.table<span class="p">(</span>xyTable<span class="p">,</span>
 <p>Here's the messy looking example:</p>
 <p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-none.png" /></p>
 <p>And here's the code for the messy looking example:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-data<span class="p">(</span>birds<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-ggplot<span class="p">(</span>birds<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
-        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
-geom_boxplot<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span></span>
 </pre></div>
 
 
 <h2>With Line Breaks</h2>
 <p>We can use <a href="http://regex.learncodethehardway.org/">regular expressions</a> to add line breaks to the factor levels by substituting any spaces with line breaks:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-data<span class="p">(</span>birds<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
-ggplot<span class="p">(</span>birds<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
-        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
-geom_boxplot<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span></span>
 </pre></div>
 
 
@@ -528,16 +557,16 @@ geom_boxplot<span class="p">()</span>
 <p>Here we can see the difference in a box plot with horizontal boxes. It's up to you to decide which style looks better:</p>
 <p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip-none.png" /></p>
 <p><img alt="Line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip.png" /></p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-data<span class="p">(</span>birds<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-
-<span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span>
-ggplot<span class="p">(</span>birds<span class="p">,</span>
-    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span>
-        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span>
-geom_boxplot<span class="p">()</span> <span class="o">+</span> 
-coord_flip<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span> <span class="o">+</span> </span>
+<span class="code-line">coord_flip<span class="p">()</span></span>
 </pre></div>
 
 
@@ -555,174 +584,6 @@ coord_flip<span class="p">()</span>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/abline.html" rel="tag">abline</a>,  <a href="http://blog.mollietaylor.com/tag/coord_flip.html" rel="tag">coord_flip</a>,  <a href="http://blog.mollietaylor.com/tag/geom_boxplot.html" rel="tag">geom_boxplot</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gsub.html" rel="tag">gsub</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/regular-expressions.html" rel="tag">regular expressions</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2013/10/custom-legend-in-r.html">Thu 10 October 2013</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2013/10/custom-legend-in-r.html" title="Permalink to Custom Legend in R" rel="bookmark">Custom Legend in R</a>
-		</h2>
-		<div class="entry-content">
-			<p>This particular custom legend was designed with three purposes:</p>
-<ul>
-<li>To effectively bin values based on a theoretical minimum and maximum value for that variable (e.g. -1 and 1 or 0 and 100)</li>
-<li>To use a <a href="http://en.wikipedia.org/wiki/Interval_(mathematics)">different interval</a> notation than the default</li>
-<li>To handle NA values</li>
-</ul>
-<p>Even though this particular legend was designed with those needs, it should be simple to extrapolate from that to build legends based on other criteria.</p>
-<h2>Standard Legend</h2>
-<p>For this post, I'll be assuming you've looked through the <a href="http://geography.uoregon.edu/geogr/topics/maps.htm">Oregon map tutorial</a> or have other experience making legends in R. If not, you'll probably want to check that link out. It's an awesome tutorial.</p>
-<p>Let's start by creating a map with a standard legend, and then we move on to customization later.</p>
-<p>First, we'll load the packages we need and the data from <strong>OIdata</strong>:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>classInt<span class="p">)</span>
-
-<span class="c1"># load state data from OIdata package:</span>
-data<span class="p">(</span>state<span class="p">)</span>
-</pre></div>
-
-
-<p>Next we want to set some constants. This will save us a bunch of typing and will make the code easier to read, especially once we start creating a custom legend. Also, it will allow us to easily change the values if we want a different number of bins or a different min and max.</p>
-<p>In this example, we're assuming we have a theoretical minimum and maximum and want to determine our choropleth bins based on that.</p>
-<div class="highlight"><pre>nclr <span class="o">&lt;-</span> <span class="m">8</span> <span class="c1"># number of bins</span>
-min <span class="o">&lt;-</span> <span class="m">0</span> <span class="c1"># theoretical minimum</span>
-max <span class="o">&lt;-</span> <span class="m">100</span> <span class="c1"># theoretical maximum</span>
-breaks <span class="o">&lt;-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr
-</pre></div>
-
-
-<p>Next, we'll set up our choropleth colors (this should look familiar from the <a href="http://geography.uoregon.edu/geogr/topics/maps.htm">Oregon tutorial</a>):</p>
-<div class="highlight"><pre><span class="c1"># set up colors:</span>
-plotclr <span class="o">&lt;-</span> brewer.pal<span class="p">(</span>nclr<span class="p">,</span> <span class="s">&quot;Oranges&quot;</span><span class="p">)</span>
-plotvar <span class="o">&lt;-</span> state<span class="o">$</span>coal
-class <span class="o">&lt;-</span> classIntervals<span class="p">(</span>plotvar<span class="p">,</span>
-    nclr<span class="p">,</span>
-    style <span class="o">=</span> <span class="s">&quot;fixed&quot;</span><span class="p">,</span>
-    fixedBreaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> <span class="kp">max</span><span class="p">,</span> breaks<span class="p">))</span>
-colcode <span class="o">&lt;-</span> findColours<span class="p">(</span><span class="kp">class</span><span class="p">,</span> 
-    plotclr<span class="p">)</span>
-</pre></div>
-
-
-<p>And now let's map the data:</p>
-<div class="highlight"><pre><span class="c1"># map data:</span>
-map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># base</span>
-    col <span class="o">=</span> <span class="s">&quot;gray80&quot;</span><span class="p">,</span>
-    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    lty <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
-map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># data</span>
-    col <span class="o">=</span> colcode<span class="p">,</span>
-    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    lty <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
-    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># border</span>
-    col <span class="o">=</span> <span class="s">&quot;gray&quot;</span><span class="p">,</span>
-    lwd <span class="o">=</span> <span class="m">1.4</span><span class="p">,</span>
-    lty <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
-    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</pre></div>
-
-
-<p>And finally let's add our default legend:</p>
-<div class="highlight"><pre>legend<span class="p">(</span><span class="s">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="c1"># position</span>
-    legend <span class="o">=</span> <span class="kp">names</span><span class="p">(</span><span class="kp">attr</span><span class="p">(</span>colcode<span class="p">,</span> <span class="s">&quot;table&quot;</span><span class="p">)),</span> 
-    title <span class="o">=</span> <span class="s">&quot;Percent&quot;</span><span class="p">,</span>
-    fill <span class="o">=</span> <span class="kp">attr</span><span class="p">(</span>colcode<span class="p">,</span> <span class="s">&quot;palette&quot;</span><span class="p">),</span>
-    cex <span class="o">=</span> <span class="m">0.56</span><span class="p">,</span>
-    bty <span class="o">=</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="c1"># border</span>
-</pre></div>
-
-
-<p>Here's the output of this code (see <a href="https://gist.github.com/mollietaylor/6757351#file-map-standard-legend-r">map-standard-legend.R</a> in the gist):</p>
-<p><img alt="Percent of power coming from coal sources (standard legend)" src="http://blog.mollietaylor.com/images/r-legend-standard.png" /></p>
-<h2>Custom Legend</h2>
-<p>Next we want to add a few lines here and there to enhance the legend.</p>
-<p>For starters, let's deal with NA values. We don't have any in this particular dataset, but if we did, we would have seen they were left as the base color of the map and not included in the legend.</p>
-<p>After our former code setting up the colors, we should add the color for NAs. It's important that these lines go after all the other set up code, or the wrong colors will be mapped.</p>
-<div class="highlight"><pre><span class="c1"># set up colors:</span>
-plotclr <span class="o">&lt;-</span> brewer.pal<span class="p">(</span>nclr<span class="p">,</span> <span class="s">&quot;Oranges&quot;</span><span class="p">)</span>
-plotvar <span class="o">&lt;-</span> state<span class="o">$</span>coal
-class <span class="o">&lt;-</span> classIntervals<span class="p">(</span>plotvar<span class="p">,</span>
-    nclr<span class="p">,</span>
-    style <span class="o">=</span> <span class="s">&quot;fixed&quot;</span><span class="p">,</span>
-    fixedBreaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> <span class="kp">max</span><span class="p">,</span> breaks<span class="p">))</span>
-colcode <span class="o">&lt;-</span> findColours<span class="p">(</span><span class="kp">class</span><span class="p">,</span> 
-    plotclr<span class="p">)</span>
-NAColor <span class="o">&lt;-</span> <span class="s">&quot;gray80&quot;</span>
-plotclr <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>plotclr<span class="p">,</span> NAColor<span class="p">)</span>
-</pre></div>
-
-
-<p>We also want to let the map know to have our NA color as the default color, so the map will use that instead of having those areas be transparent:</p>
-<div class="highlight"><pre><span class="c1"># map data:</span>
-map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># base</span>
-    col <span class="o">=</span> NAColor<span class="p">,</span>
-    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    lty <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
-map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># data</span>
-    col <span class="o">=</span> colcode<span class="p">,</span>
-    fill <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    lty <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
-    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-map<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">,</span> <span class="c1"># border</span>
-    col <span class="o">=</span> <span class="s">&quot;gray&quot;</span><span class="p">,</span>
-    lwd <span class="o">=</span> <span class="m">1.4</span><span class="p">,</span>
-    lty <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
-    add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Next, we want to set up the legend text. For all but the last interval, we want it to say <code>i ≤ n &lt; (i + breaks)</code>. The last interval should be <code>i ≤ n ≤ (i + breaks)</code>. This can be accomplished by</p>
-<div class="highlight"><pre><span class="c1"># set legend text:</span>
-legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">()</span>
-<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">))</span> <span class="p">{</span>
-    <span class="kr">if</span> <span class="p">(</span>i <span class="o">==</span> <span class="kp">max</span><span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">)))</span> <span class="p">{</span>
-        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n \u2264&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span>
-    <span class="p">}</span> <span class="kp">else</span>
-        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n &lt;&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span> 
-<span class="p">}</span>
-</pre></div>
-
-
-<p>But we also want to include NAs in the legend, so we need to add a line:</p>
-<div class="highlight"><pre><span class="c1"># set legend text:</span>
-legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">()</span>
-<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">))</span> <span class="p">{</span>
-    <span class="kr">if</span> <span class="p">(</span>i <span class="o">==</span> <span class="kp">max</span><span class="p">(</span><span class="kp">seq</span><span class="p">(</span><span class="kp">min</span><span class="p">,</span> max <span class="o">-</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">)))</span> <span class="p">{</span>
-        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n \u2264&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span>
-        <span class="kr">if</span> <span class="p">(</span><span class="o">!</span><span class="kp">is.na</span><span class="p">(</span>NAColor<span class="p">))</span> legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="s">&quot;NA&quot;</span><span class="p">)</span>
-    <span class="p">}</span> <span class="kp">else</span>
-        legendText <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>legendText<span class="p">,</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">round</span><span class="p">(</span>i<span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="s">&quot;\u2264 n &lt;&quot;</span><span class="p">,</span> <span class="kp">round</span><span class="p">(</span>i <span class="o">+</span> <span class="p">(</span>max <span class="o">-</span> <span class="kp">min</span><span class="p">)</span> <span class="o">/</span> nclr<span class="p">,</span><span class="m">3</span><span class="p">)))</span> 
-<span class="p">}</span>
-</pre></div>
-
-
-<p>And finally we need to add the legend to the map:</p>
-<div class="highlight"><pre>legend<span class="p">(</span><span class="s">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="c1"># position</span>
-    legend <span class="o">=</span> legendText<span class="p">,</span> 
-    title <span class="o">=</span> <span class="s">&quot;Percent&quot;</span><span class="p">,</span>
-    fill <span class="o">=</span> plotclr<span class="p">,</span>
-    cex <span class="o">=</span> <span class="m">0.56</span><span class="p">,</span>
-    bty <span class="o">=</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="c1"># border</span>
-</pre></div>
-
-
-<p>The new map (see <a href="https://gist.github.com/mollietaylor/6757351#file-map-new-legend-r">map-new-legend.R</a>) meets all the criteria we started with that the original legend didn't have.</p>
-<p><img alt="Percent of power coming from coal sources (custom legend)" src="http://blog.mollietaylor.com/images/r-legend-custom.png" /></p>
-<p>Code is available in a <a href="https://gist.github.com/mollietaylor/6757351">gist</a>.</p>
-<h2>Citations and Further Reading</h2>
-<ul>
-<li><a href="http://geography.uoregon.edu/geogr/topics/maps.htm">http://geography.uoregon.edu/geogr/topics/maps.htm</a></li>
-<li><a href="http://stackoverflow.com/questions/13192984/displaying-a-greater-than-or-equal-sign">http://stackoverflow.com/questions/13192984/displaying-a-greater-than-or-equal-sign</a></li>
-</ul>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/choropleth.html" rel="tag">choropleth</a>,  <a href="http://blog.mollietaylor.com/tag/classint.html" rel="tag">classInt</a>,  <a href="http://blog.mollietaylor.com/tag/classintervals.html" rel="tag">classIntervals</a>,  <a href="http://blog.mollietaylor.com/tag/legend.html" rel="tag">legend</a>,  <a href="http://blog.mollietaylor.com/tag/map.html" rel="tag">map</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">

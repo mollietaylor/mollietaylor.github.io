@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -54,22 +55,22 @@
 		<div class="entry-content">
 			<p>I had an issue where LaTeX wasn't adding spaces between references when I had multiple references in the same place.</p>
 <p>So this:</p>
-<div class="highlight"><pre>of their own <span class="k">\cite</span><span class="nb">{</span>moretti:2012,saxenian:1996,casper:2007<span class="nb">}</span>.
+<div class="highlight"><pre><span class="code-line">of their own <span class="k">\cite</span><span class="nb">{</span>moretti:2012,saxenian:1996,casper:2007<span class="nb">}</span>.</span>
 </pre></div>
 
 
 <p>was compiling as this:</p>
-<div class="highlight"><pre>of their own [Moretti, 2012,Saxenian, 1996,Casper, 2007].
+<div class="highlight"><pre><span class="code-line">of their own [Moretti, 2012,Saxenian, 1996,Casper, 2007].</span>
 </pre></div>
 
 
 <p>To fix the problem, I simply added the space option for the <strong>cite</strong> package.</p>
-<div class="highlight"><pre><span class="k">\usepackage</span><span class="na">[space]</span><span class="nb">{</span>cite<span class="nb">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="k">\usepackage</span><span class="na">[space]</span><span class="nb">{</span>cite<span class="nb">}</span></span>
 </pre></div>
 
 
 <p>And now it looks as it should:</p>
-<div class="highlight"><pre>of their own [Moretti, 2012, Saxenian, 1996, Casper, 2007].
+<div class="highlight"><pre><span class="code-line">of their own [Moretti, 2012, Saxenian, 1996, Casper, 2007].</span>
 </pre></div>
 
 
@@ -107,29 +108,29 @@
 <li>The overall figure caption</li>
 </ul>
 <p>We also need to let LaTeX know to use the <strong>caption</strong> and <strong>subcaption</strong> packages. The full code for the example image above is included below, and also <a href="https://gist.github.com/3984730">in a gist</a>.</p>
-<div class="highlight"><pre><span class="k">\documentclass</span><span class="nb">{</span>article<span class="nb">}</span>
-
-<span class="k">\usepackage</span><span class="nb">{</span>graphicx<span class="nb">}</span>
-<span class="k">\usepackage</span><span class="nb">{</span>caption<span class="nb">}</span>
-<span class="k">\usepackage</span><span class="nb">{</span>subcaption<span class="nb">}</span>
-
-<span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
-
-<span class="k">\begin</span><span class="nb">{</span>figure<span class="nb">}</span>
-    <span class="k">\centering</span>
-    <span class="k">\begin</span><span class="nb">{</span>subfigure<span class="nb">}{</span>0.4<span class="k">\textwidth</span><span class="nb">}</span> <span class="c">% width of left subfigure</span>
-        <span class="k">\includegraphics</span><span class="na">[width=\textwidth]</span><span class="nb">{</span>rncalt.png<span class="nb">}</span>
-        <span class="k">\caption</span><span class="nb">{</span>RNC<span class="nb">}</span> <span class="c">% subcaption</span>
-    <span class="k">\end</span><span class="nb">{</span>subfigure<span class="nb">}</span>
-    <span class="k">\vspace</span><span class="nb">{</span>1em<span class="nb">}</span> <span class="c">% here you can insert horizontal or vertical space</span>
-    <span class="k">\begin</span><span class="nb">{</span>subfigure<span class="nb">}{</span>0.4<span class="k">\textwidth</span><span class="nb">}</span> <span class="c">% width of right subfigure</span>
-        <span class="k">\includegraphics</span><span class="na">[width=\textwidth]</span><span class="nb">{</span>dncalt.png<span class="nb">}</span>
-        <span class="k">\caption</span><span class="nb">{</span>DNC<span class="nb">}</span> <span class="c">% subcaption</span>
-    <span class="k">\end</span><span class="nb">{</span>subfigure<span class="nb">}</span>
-    <span class="k">\caption</span><span class="nb">{</span>Wordcloud of national conventions<span class="nb">}</span> <span class="c">% caption for whole figure</span>
-<span class="k">\end</span><span class="nb">{</span>figure<span class="nb">}</span>
-
-<span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="k">\documentclass</span><span class="nb">{</span>article<span class="nb">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">\usepackage</span><span class="nb">{</span>graphicx<span class="nb">}</span></span>
+<span class="code-line"><span class="k">\usepackage</span><span class="nb">{</span>caption<span class="nb">}</span></span>
+<span class="code-line"><span class="k">\usepackage</span><span class="nb">{</span>subcaption<span class="nb">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">\begin</span><span class="nb">{</span>figure<span class="nb">}</span></span>
+<span class="code-line">    <span class="k">\centering</span></span>
+<span class="code-line">    <span class="k">\begin</span><span class="nb">{</span>subfigure<span class="nb">}{</span>0.4<span class="k">\textwidth</span><span class="nb">}</span> <span class="c">% width of left subfigure</span></span>
+<span class="code-line">        <span class="k">\includegraphics</span><span class="na">[width=\textwidth]</span><span class="nb">{</span>rncalt.png<span class="nb">}</span></span>
+<span class="code-line">        <span class="k">\caption</span><span class="nb">{</span>RNC<span class="nb">}</span> <span class="c">% subcaption</span></span>
+<span class="code-line">    <span class="k">\end</span><span class="nb">{</span>subfigure<span class="nb">}</span></span>
+<span class="code-line">    <span class="k">\vspace</span><span class="nb">{</span>1em<span class="nb">}</span> <span class="c">% here you can insert horizontal or vertical space</span></span>
+<span class="code-line">    <span class="k">\begin</span><span class="nb">{</span>subfigure<span class="nb">}{</span>0.4<span class="k">\textwidth</span><span class="nb">}</span> <span class="c">% width of right subfigure</span></span>
+<span class="code-line">        <span class="k">\includegraphics</span><span class="na">[width=\textwidth]</span><span class="nb">{</span>dncalt.png<span class="nb">}</span></span>
+<span class="code-line">        <span class="k">\caption</span><span class="nb">{</span>DNC<span class="nb">}</span> <span class="c">% subcaption</span></span>
+<span class="code-line">    <span class="k">\end</span><span class="nb">{</span>subfigure<span class="nb">}</span></span>
+<span class="code-line">    <span class="k">\caption</span><span class="nb">{</span>Wordcloud of national conventions<span class="nb">}</span> <span class="c">% caption for whole figure</span></span>
+<span class="code-line"><span class="k">\end</span><span class="nb">{</span>figure<span class="nb">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span></span>
 </pre></div>
 
 

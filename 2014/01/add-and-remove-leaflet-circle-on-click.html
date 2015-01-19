@@ -28,6 +28,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -52,30 +53,30 @@
 		<div class="entry-content">
 			<p>Similar to the popup example in the Leaflet tutorial, you might want to allow a user to add a circle centered on the point they click.</p>
 <p>After defining your map, you first need to declare the variable you'll be using:</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">clickCircle</span><span class="p">;</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">clickCircle</span><span class="p">;</span></span>
 </pre></div>
 
 
 <p>While popups automatically disappear on the next click, circles do not. The following code removes the former circle from the leaflet map before drawing the new circle:</p>
-<div class="highlight"><pre><span class="kd">function</span> <span class="nx">onMapClick</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">clickCircle</span> <span class="o">!=</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">map</span><span class="p">.</span><span class="nx">removeLayer</span><span class="p">(</span><span class="nx">clickCircle</span><span class="p">);</span>
-    <span class="p">};</span>
+<div class="highlight"><pre><span class="code-line"><span class="kd">function</span> <span class="nx">onMapClick</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="nx">clickCircle</span> <span class="o">!=</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="nx">map</span><span class="p">.</span><span class="nx">removeLayer</span><span class="p">(</span><span class="nx">clickCircle</span><span class="p">);</span></span>
+<span class="code-line">    <span class="p">};</span></span>
 </pre></div>
 
 
 <p>Next, we want our function to draw the new circle (NB: "1609 * 3" is the radius of the circle. This makes the radius equal 3 miles):</p>
-<div class="highlight"><pre>    <span class="nx">clickCircle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">,</span> <span class="mi">1609</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="p">{</span>
-        <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#f07300&#39;</span><span class="p">,</span>
-        <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="nx">opacity</span><span class="o">:</span> <span class="mf">0.5</span>
-  <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line">    <span class="nx">clickCircle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">,</span> <span class="mi">1609</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#f07300&#39;</span><span class="p">,</span></span>
+<span class="code-line">        <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span></span>
+<span class="code-line">        <span class="nx">opacity</span><span class="o">:</span> <span class="mf">0.5</span></span>
+<span class="code-line">  <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>And finally, we need to add an event listener so that the function will be run when a user clicks on the map:</p>
-<div class="highlight"><pre><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">onMapClick</span><span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">onMapClick</span><span class="p">);</span></span>
 </pre></div>
 
 

@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -55,58 +56,58 @@
 			<p>This is a short tutorial on how to create a web version of a <a href="http://www.rstudio.com/shiny/">Shiny</a> app you've built once you've received <a href="https://rstudio.wufoo.com/forms/shiny-server-beta-program/">access to the shiny hosting beta</a>.</p>
 <h2>SSH: Setting Up Directories</h2>
 <p>To connect to your account, input this line into a terminal (obviously input your own username instead of "username"):</p>
-<div class="highlight"><pre><span class="go">ssh username@spark.rstudio.com</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">ssh username@spark.rstudio.com</span></span>
 </pre></div>
 
 
 <p>It will prompt you for your password. Enter the password you received in the email.</p>
 <p>Next, create a folder to put your first app in. Like the email says, you want to put this at <code>~/ShinyApps/myapp/</code>. The "myapp" folder can be named whatever you want, but the "ShinyApps" folder needs to have that name.</p>
-<div class="highlight"><pre><span class="go">mkdir ShinyApps</span>
-<span class="go">mkdir ShinyApps/myapp</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">mkdir ShinyApps</span></span>
+<span class="code-line"><span class="go">mkdir ShinyApps/myapp</span></span>
 </pre></div>
 
 
 <h2>SSH: Installing R Packages</h2>
 <p>Next, you can go ahead and install R packages, if you know which ones your application will need.</p>
 <p>First, open R just like you would on your own computer:</p>
-<div class="highlight"><pre><span class="go">R</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">R</span></span>
 </pre></div>
 
 
 <p>Next, install a package (e.g. "maps"):</p>
-<div class="highlight"><pre><span class="go">install.packages(&quot;maps&quot;, dependencies = TRUE)</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">install.packages(&quot;maps&quot;, dependencies = TRUE)</span></span>
 </pre></div>
 
 
 <p>It will ask you the following questions:</p>
-<div class="highlight"><pre><span class="go">Would you like to use a personal library instead?  (y/n)</span>
-<span class="go">Would you like to create a personal library </span>
-<span class="go">~/R/library </span>
-<span class="go">to install packages into?  (y/n)</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">Would you like to use a personal library instead?  (y/n)</span></span>
+<span class="code-line"><span class="go">Would you like to create a personal library </span></span>
+<span class="code-line"><span class="go">~/R/library </span></span>
+<span class="code-line"><span class="go">to install packages into?  (y/n)</span></span>
 </pre></div>
 
 
 <p>You can answer "y" to both of these. Your applications will be able to use packages installed here.</p>
 <p>Then you can follow the standard procedure for installing R packages.</p>
 <p>You can now quit R and exit ssh:</p>
-<div class="highlight"><pre><span class="go">q()</span>
-<span class="go">exit</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">q()</span></span>
+<span class="code-line"><span class="go">exit</span></span>
 </pre></div>
 
 
 <h2>Copying Files</h2>
 <p>On your own computer, navigate to the directory your Shiny application's folder is in, e.g.:</p>
-<div class="highlight"><pre><span class="go">cd Shiny</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">cd Shiny</span></span>
 </pre></div>
 
 
 <p>Once you're there, you can copy the application folder to the server:</p>
-<div class="highlight"><pre><span class="go">scp -r myapp/ username@spark.rstudio.com:ShinyApps/</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">scp -r myapp/ username@spark.rstudio.com:ShinyApps/</span></span>
 </pre></div>
 
 
 <p>Or if you don't want to copy all the files, you can move them one at a time:</p>
-<div class="highlight"><pre><span class="go">scp myapp/ui.R username@spark.rstudio.com:ShinyApps/myapp/ui.R</span>
+<div class="highlight"><pre><span class="code-line"><span class="go">scp myapp/ui.R username@spark.rstudio.com:ShinyApps/myapp/ui.R</span></span>
 </pre></div>
 
 

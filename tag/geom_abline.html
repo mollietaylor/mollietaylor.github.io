@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -55,47 +56,47 @@
 			<p>Let's add a fit line to a scatterplot!</p>
 <h2>Fit Line in Base Graphics</h2>
 <p>Here's how to do it in <strong>base</strong> graphics:</p>
-<div class="highlight"><pre>ols <span class="o">&lt;-</span> lm<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span>
-    data <span class="o">=</span> airquality<span class="p">)</span>
-
-<span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span>
-
-plot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span>
-    data <span class="o">=</span> airquality<span class="p">)</span>
-abline<span class="p">(</span>ols
+<div class="highlight"><pre><span class="code-line">ols <span class="o">&lt;-</span> lm<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">plot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">)</span></span>
+<span class="code-line">abline<span class="p">(</span>ols</span>
 </pre></div>
 
 
 <p><img alt="Fit line in base graphics in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-base.png" /></p>
 <h2>Fit Line in ggplot</h2>
 <p>And here's how to do it in <strong>ggplot</strong>:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span>
-        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> 
-    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> 
-    geom_abline<span class="p">(</span>intercept <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">1</span><span class="p">],</span>
-        slope <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">2</span><span class="p">])</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_abline<span class="p">(</span>intercept <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">1</span><span class="p">],</span></span>
+<span class="code-line">        slope <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">2</span><span class="p">])</span></span>
 </pre></div>
 
 
 <p>You can access the info from your regression results through <code>ols$coefficients</code>.</p>
 <p>Edit: Thanks to an anonymous commenter, I have learned that you can simplify this by using <code>geom_smooth</code>.  This way you don't have to specify the intercept and slope of the fit line.</p>
-<div class="highlight"><pre>ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span>
-        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> 
-    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> 
-    geom_smooth<span class="p">(</span>method <span class="o">=</span> lm<span class="p">,</span>
-        se <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_smooth<span class="p">(</span>method <span class="o">=</span> lm<span class="p">,</span></span>
+<span class="code-line">        se <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p><img alt="Fit line in ggplot in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-ggplot.png" /></p>
 <h2>Fit Line in Lattice</h2>
 <p>In <strong>lattice</strong>, it's even easier. You don't even need to run a regression; you can just add to the <code>type</code> option.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span>
-
-xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span>
-    data <span class="o">=</span> airquality<span class="p">,</span>
-    type <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">    type <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">))</span></span>
 </pre></div>
 
 

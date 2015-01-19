@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Articles tagged mutableCopy</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+<div class="page-title">
+	<h2>Tagged with <span>mutableCopy</span> &hellip;</h2>
+</div>
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/nsuserdefaults.html">Sun 18 January 2015</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/objective-c.html" title="View all posts in Objective-C" rel="category tag">Objective-C</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/nsuserdefaults.html" title="Permalink to NSUserDefaults Example with NSMutableArray" rel="bookmark">NSUserDefaults Example with NSMutableArray</a>
+		</h2>
+		<div class="entry-content">
+			<p>I was misinformed that to have information persist between app uses, you had to either use Core Data or a cloud backend. Boy, was I ever wrong. It's so much easier than that!</p>
+<p>From <a href="http://nshipster.com/nscoding/">NSHipster</a>:</p>
+<p><img alt="NSHipster's opinion" class="size-auto" src="http://blog.mollietaylor.com/images/nsuserdefaults-nshipster.png" /></p>
+<p>In this case, we're going to be doing something even easier than the full <code>NSKeyedArchiver</code>. For this blog post, we'll be creating a very simple array example for using <code>NSUserDefaults</code> to persistently store data. We'll be able to add items to and remove items from the array.</p>
+<ul>
+<li>Start a new Single View Application project.</li>
+<li>Delete <code>ViewController.h</code> and <code>ViewController.m</code>.</li>
+<li>Remove the View Controller from the storyboard.</li>
+<li>Make a new file that is a subclass of <code>UITableViewController</code>. Name it <code>ItemTVC</code>.</li>
+<li>Drag a Table View Controller into the storyboard and make it the Initial View Controller (in the Attributes inspector). Give it the class <code>ItemTVC</code>. Give the cell the identifier "<code>Cell</code>".</li>
+<li>Leave <code>ItemTVC.h</code> as it is and work in <code>ItemTVC.m</code>.</li>
+</ul>
+<p>In <code>viewDidLoad</code>:</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="p">[</span><span class="nb">super</span> <span class="n">viewDidLoad</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="bp">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="o">=</span> <span class="p">[[</span><span class="n">defaults</span> <span class="nl">arrayForKey</span><span class="p">:</span><span class="s">@&quot;array&quot;</span><span class="p">]</span> <span class="n">mutableCopy</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p><code>NSUserDefaults</code> will always return an immutable version of any object you pass it. As a result, we need to use <code>mutableCopy</code> before using the array we've retrieved from <code>NSUserDefaults</code>.</p>
+<p>In <code>(IBAction)addItem</code> (storyboard for add item button) or <code>insertNewObject</code> (code for add item button) or similar:</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// if you aren&#39;t using storyboard, this might be insertNewObject or a similar method instead of an IBAction</span></span>
+<span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">addItem:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="bp">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">([</span><span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="n">count</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSMutableArray</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="nl">addObject</span><span class="p">:[</span><span class="bp">NSDate</span> <span class="n">date</span><span class="p">]];</span></span>
+<span class="code-line">    <span class="p">[</span><span class="n">defaults</span> <span class="nl">setObject</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="nl">forKey</span><span class="p">:</span><span class="s">@&quot;array&quot;</span><span class="p">];</span></span>
+<span class="code-line">    <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">tableView</span> <span class="n">reloadData</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>In <code>cellForRowAtIndexPath</code>:</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="bp">UITableViewCell</span> <span class="o">*</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="bp">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">cellForRowAtIndexPath:</span><span class="p">(</span><span class="bp">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="bp">UITableViewCell</span> <span class="o">*</span><span class="n">cell</span> <span class="o">=</span> <span class="p">[</span><span class="n">tableView</span> <span class="nl">dequeueReusableCellWithIdentifier</span><span class="p">:</span><span class="s">@&quot;Cell&quot;</span> <span class="nl">forIndexPath</span><span class="p">:</span><span class="n">indexPath</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="bp">NSDate</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">array</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span></span>
+<span class="code-line">    <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="n">description</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">cell</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>This step is optional. If you want to be able to remove items, add this in <code>commitEditingStyle forRowAtIndexPath</code>. </p>
+<div class="highlight"><pre><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="bp">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">commitEditingStyle:</span><span class="p">(</span><span class="n">UITableViewCellEditingStyle</span><span class="p">)</span><span class="nv">editingStyle</span> <span class="nf">forRowAtIndexPath:</span><span class="p">(</span><span class="bp">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleDelete</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="bp">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="nl">removeObjectAtIndex</span><span class="p">:</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span></span>
+<span class="code-line">        <span class="p">[</span><span class="n">defaults</span> <span class="nl">setObject</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">array</span> <span class="nl">forKey</span><span class="p">:</span><span class="s">@&quot;array&quot;</span><span class="p">];</span></span>
+<span class="code-line">        <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">tableView</span> <span class="n">reloadData</span><span class="p">];</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p><a href="https://github.com/mollietaylor/NSUserDefaults-Example/tree/cd562c1a72410fd4e09071af265fe510c1200725">The full code is available on Github</a>.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://nshipster.com/nscoding/">http://nshipster.com/nscoding/</a></li>
+<li><a href="https://www.udemy.com/complete-ios-developer-course/#/">https://www.udemy.com/complete-ios-developer-course/#/</a></li>
+<li><a href="http://stackoverflow.com/questions/19634426/how-to-save-nsmutablearray-in-nsuserdefaults">http://stackoverflow.com/questions/19634426/how-to-save-nsmutablearray-in-nsuserdefaults</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/arrayforkey.html" rel="tag">arrayForKey</a>,  <a href="http://blog.mollietaylor.com/tag/core-data.html" rel="tag">Core Data</a>,  <a href="http://blog.mollietaylor.com/tag/mutablecopy.html" rel="tag">mutableCopy</a>,  <a href="http://blog.mollietaylor.com/tag/nskeyedarchiver.html" rel="tag">NSKeyedArchiver</a>,  <a href="http://blog.mollietaylor.com/tag/nsmutablearray.html" rel="tag">NSMutableArray</a>,  <a href="http://blog.mollietaylor.com/tag/nsuserdefaults.html" rel="tag">NSUserDefaults</a>,  <a href="http://blog.mollietaylor.com/tag/objective-c.html" rel="tag">Objective-C</a>,  <a href="http://blog.mollietaylor.com/tag/setobject-forkey.html" rel="tag">setObject forKey</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="navigation">
+</div>
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

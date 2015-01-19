@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -56,17 +57,17 @@
 <p>In this case, the words have been counted already. If you are starting with plain text, you can use the text mining package <strong>tm</strong> to obtain the counts. <a href="http://onertipaday.blogspot.com/2011/07/word-cloud-in-r.html">Other bloggers</a> have provided good examples of this. I'll just be covering the simple case where we already have the frequencies.</p>
 <p>Let's look at some commonly used words during the National Conventions this year. <a href="http://www.nytimes.com/interactive/2012/09/06/us/politics/convention-word-counts.html">The New York Times produced a cool infographic</a> that we'll use as our data source. The data in csv format (and the R code too) are available in a <a href="https://gist.github.com/3671518">gist</a>.</p>
 <p>First we need to load up the packages and our data:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>wordcloud<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
-
-conventions <span class="o">&lt;-</span> read.table<span class="p">(</span><span class="s">&quot;conventions.csv&quot;</span><span class="p">,</span>
-    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
-    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>wordcloud<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">conventions <span class="o">&lt;-</span> read.table<span class="p">(</span><span class="s">&quot;conventions.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>And then we can get to using the <strong>wordcloud</strong> library to produce our clouds in R:</p>
-<div class="highlight"><pre>
+<div class="highlight"><pre><span class="code-line"></span>
 </pre></div>
 
 
@@ -77,13 +78,13 @@ conventions <span class="o">&lt;-</span> read.table<span class="p">(</span><span
         colors = brewer.pal(9,"Blues"), # number of colors, palette
         rot.per = 0) # proportion of words to rotate 90 degrees
     dev.off()</p>
-<div class="highlight"><pre><span class="x">png(&quot;rnc.png&quot;)</span>
-<span class="x">wordcloud(conventions</span><span class="p">$</span><span class="nv">wordper25k</span><span class="x">,</span>
-<span class="x">    conventions</span><span class="p">$</span><span class="nv">republicans</span><span class="x">,</span>
-<span class="x">    scale = c(4,1),</span>
-<span class="x">    colors = brewer.pal(9,&quot;Reds&quot;),</span>
-<span class="x">    rot.per = 0)</span>
-<span class="x">dev.off()</span>
+<div class="highlight"><pre><span class="code-line"><span class="x">png(&quot;rnc.png&quot;)</span></span>
+<span class="code-line"><span class="x">wordcloud(conventions</span><span class="p">$</span><span class="nv">wordper25k</span><span class="x">,</span></span>
+<span class="code-line"><span class="x">    conventions</span><span class="p">$</span><span class="nv">republicans</span><span class="x">,</span></span>
+<span class="code-line"><span class="x">    scale = c(4,1),</span></span>
+<span class="code-line"><span class="x">    colors = brewer.pal(9,&quot;Reds&quot;),</span></span>
+<span class="code-line"><span class="x">    rot.per = 0)</span></span>
+<span class="code-line"><span class="x">dev.off()</span></span>
 </pre></div>
 
 
@@ -92,13 +93,13 @@ conventions <span class="o">&lt;-</span> read.table<span class="p">(</span><span
 <p>The default word cloud has some words rotated 90 degrees, but I prefer to use rot.per = 0 to make them all horizontal for readability.</p>
 <p>You can easily change to just one color if you prefer that since the size already denotes the frequency of the word, by changing color to "red3", for example:</p>
 <p><img alt="RNC single color" src="http://blog.mollietaylor.com/images/r-word-cloud-rnc-alt.png" /></p>
-<div class="highlight"><pre>png<span class="p">(</span><span class="s">&quot;rncalt.png&quot;</span><span class="p">)</span>
-wordcloud<span class="p">(</span>conventions<span class="o">$</span>wordper25k<span class="p">,</span>
-    conventions<span class="o">$</span>republicans<span class="p">,</span>
-    scale <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">1</span><span class="p">),</span>
-    colors <span class="o">=</span> <span class="s">&quot;red3&quot;</span><span class="p">,</span>
-    rot.per <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
-dev.off<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line">png<span class="p">(</span><span class="s">&quot;rncalt.png&quot;</span><span class="p">)</span></span>
+<span class="code-line">wordcloud<span class="p">(</span>conventions<span class="o">$</span>wordper25k<span class="p">,</span></span>
+<span class="code-line">    conventions<span class="o">$</span>republicans<span class="p">,</span></span>
+<span class="code-line">    scale <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">1</span><span class="p">),</span></span>
+<span class="code-line">    colors <span class="o">=</span> <span class="s">&quot;red3&quot;</span><span class="p">,</span></span>
+<span class="code-line">    rot.per <span class="o">=</span> <span class="m">0</span><span class="p">)</span></span>
+<span class="code-line">dev.off<span class="p">()</span></span>
 </pre></div>
 
 

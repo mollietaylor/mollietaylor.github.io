@@ -28,6 +28,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -54,29 +55,29 @@
 <p><img alt="Slides beside map" class="size-auto" src="http://blog.mollietaylor.com/images/slidemapper-side.png" /></p>
 <h2>CSS changes</h2>
 <p>We need to make a couple of changes to how the smapp-show and smapp-map classes are displayed. You'll want to play around with these some, but this is what worked well for me:</p>
-<div class="highlight"><pre><span class="nc">.smapp-show</span> <span class="p">{</span> 
-    <span class="k">width</span><span class="o">:</span><span class="m">50%</span><span class="p">;</span> 
-<span class="p">}</span>
-<span class="nc">.smapp-show</span> <span class="nc">.slide</span> <span class="p">{</span> 
-    <span class="k">overflow-y</span><span class="o">:</span><span class="k">visible</span><span class="p">;</span> 
-<span class="p">}</span>
-<span class="nc">.smapp-map</span> <span class="p">{</span> 
-    <span class="k">margin</span><span class="o">:</span><span class="m">10px</span><span class="p">;</span> 
-    <span class="k">width</span><span class="o">:</span><span class="m">48%</span><span class="p">;</span> 
-    <span class="k">height</span><span class="o">:</span><span class="m">95%</span><span class="p">;</span> 
-    <span class="k">position</span><span class="o">:</span><span class="k">absolute</span><span class="p">;</span> 
-    <span class="k">top</span><span class="o">:</span><span class="m">0</span><span class="p">;</span> 
-    <span class="k">right</span><span class="o">:</span><span class="m">0</span><span class="p">;</span> 
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="nc">.smapp-show</span> <span class="p">{</span> </span>
+<span class="code-line">    <span class="k">width</span><span class="o">:</span><span class="m">50%</span><span class="p">;</span> </span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="nc">.smapp-show</span> <span class="nc">.slide</span> <span class="p">{</span> </span>
+<span class="code-line">    <span class="k">overflow-y</span><span class="o">:</span><span class="k">visible</span><span class="p">;</span> </span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="nc">.smapp-map</span> <span class="p">{</span> </span>
+<span class="code-line">    <span class="k">margin</span><span class="o">:</span><span class="m">10px</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="k">width</span><span class="o">:</span><span class="m">48%</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="k">height</span><span class="o">:</span><span class="m">95%</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="k">position</span><span class="o">:</span><span class="k">absolute</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="k">top</span><span class="o">:</span><span class="m">0</span><span class="p">;</span> </span>
+<span class="code-line">    <span class="k">right</span><span class="o">:</span><span class="m">0</span><span class="p">;</span> </span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <h2>Slidemapper changes</h2>
 <p>On the slidemapper side of things, the only edit we need to make is changing the options of our slideshow. Specifically, we need to edit the slideHeight and mapHeight to something appropriate for having the slides beside the map. For example, I chose:</p>
-<div class="highlight"><pre><span class="nx">$mySlideMap</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#slideshow-container&#39;</span><span class="p">).</span><span class="nx">slideMapper</span><span class="p">({</span>
-    <span class="nx">slideHeight</span><span class="o">:</span> <span class="mi">540</span><span class="p">,</span>
-    <span class="nx">mapHeight</span><span class="o">:</span> <span class="s1">&#39;98%&#39;</span>
-<span class="p">});</span>
+<div class="highlight"><pre><span class="code-line"><span class="nx">$mySlideMap</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#slideshow-container&#39;</span><span class="p">).</span><span class="nx">slideMapper</span><span class="p">({</span></span>
+<span class="code-line">    <span class="nx">slideHeight</span><span class="o">:</span> <span class="mi">540</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">mapHeight</span><span class="o">:</span> <span class="s1">&#39;98%&#39;</span></span>
+<span class="code-line"><span class="p">});</span></span>
 </pre></div>
 
 

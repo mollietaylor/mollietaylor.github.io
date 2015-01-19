@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -55,47 +56,47 @@
 			<p>Let's add a fit line to a scatterplot!</p>
 <h2>Fit Line in Base Graphics</h2>
 <p>Here's how to do it in <strong>base</strong> graphics:</p>
-<div class="highlight"><pre>ols <span class="o">&lt;-</span> lm<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span>
-    data <span class="o">=</span> airquality<span class="p">)</span>
-
-<span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span>
-
-plot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span>
-    data <span class="o">=</span> airquality<span class="p">)</span>
-abline<span class="p">(</span>ols
+<div class="highlight"><pre><span class="code-line">ols <span class="o">&lt;-</span> lm<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">plot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">)</span></span>
+<span class="code-line">abline<span class="p">(</span>ols</span>
 </pre></div>
 
 
 <p><img alt="Fit line in base graphics in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-base.png" /></p>
 <h2>Fit Line in ggplot</h2>
 <p>And here's how to do it in <strong>ggplot</strong>:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span>
-        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> 
-    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> 
-    geom_abline<span class="p">(</span>intercept <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">1</span><span class="p">],</span>
-        slope <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">2</span><span class="p">])</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_abline<span class="p">(</span>intercept <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">1</span><span class="p">],</span></span>
+<span class="code-line">        slope <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">2</span><span class="p">])</span></span>
 </pre></div>
 
 
 <p>You can access the info from your regression results through <code>ols$coefficients</code>.</p>
 <p>Edit: Thanks to an anonymous commenter, I have learned that you can simplify this by using <code>geom_smooth</code>.  This way you don't have to specify the intercept and slope of the fit line.</p>
-<div class="highlight"><pre>ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span>
-        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> 
-    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> 
-    geom_smooth<span class="p">(</span>method <span class="o">=</span> lm<span class="p">,</span>
-        se <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_smooth<span class="p">(</span>method <span class="o">=</span> lm<span class="p">,</span></span>
+<span class="code-line">        se <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p><img alt="Fit line in ggplot in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-ggplot.png" /></p>
 <h2>Fit Line in Lattice</h2>
 <p>In <strong>lattice</strong>, it's even easier. You don't even need to run a regression; you can just add to the <code>type</code> option.</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span>
-
-xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span>
-    data <span class="o">=</span> airquality<span class="p">,</span>
-    type <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">    type <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">))</span></span>
 </pre></div>
 
 
@@ -121,75 +122,75 @@ xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="
 		</h2>
 		<div class="entry-content">
 			<p>Including a series of dummy variables in a regression in R is very simple. For example,</p>
-<div class="highlight"><pre>ols <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span>
-    data <span class="o">=</span> ChickWeight<span class="p">)</span>
-<span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">ols <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span></span>
 </pre></div>
 
 
 <p>The above regression automatically includes a dummy variable for all but the first level of the factor of the <code>Diet</code> variable.</p>
-<div class="highlight"><pre>Call<span class="o">:</span>
-lm<span class="p">(</span>formula <span class="o">=</span> weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span> data <span class="o">=</span> ChickWeight<span class="p">)</span>
-
-Residuals<span class="o">:</span>
-     Min       <span class="m">1</span>Q   Median       <span class="m">3</span>Q      Max 
-<span class="m">-136.851</span>  <span class="m">-17.151</span>   <span class="m">-2.595</span>   <span class="m">15.033</span>  <span class="m">141.816</span>
-
-Coefficients<span class="o">:</span>
-            Estimate Std. Error t value Pr<span class="p">(</span><span class="o">&gt;|</span><span class="kp">t</span><span class="o">|</span><span class="p">)</span>    
-<span class="p">(</span>Intercept<span class="p">)</span>  <span class="m">10.9244</span>     <span class="m">3.3607</span>   <span class="m">3.251</span>  <span class="m">0.00122</span> <span class="o">**</span> 
-Time          <span class="m">8.7505</span>     <span class="m">0.2218</span>  <span class="m">39.451</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span>
-Diet2        <span class="m">16.1661</span>     <span class="m">4.0858</span>   <span class="m">3.957</span> <span class="m">8.56e-05</span> <span class="o">***</span>
-Diet3        <span class="m">36.4994</span>     <span class="m">4.0858</span>   <span class="m">8.933</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span>
-Diet4        <span class="m">30.2335</span>     <span class="m">4.1075</span>   <span class="m">7.361</span> <span class="m">6.39e-13</span> <span class="o">***</span>
-<span class="o">---</span>
-Signif. codes<span class="o">:</span>  <span class="m">0</span> ‘<span class="o">***</span>’ <span class="m">0.001</span> ‘<span class="o">**</span>’ <span class="m">0.01</span> ‘<span class="o">*</span>’ <span class="m">0.05</span> ‘<span class="m">.</span>’ <span class="m">0.1</span> ‘ ’ <span class="m">1</span>
-
-Residual standard error<span class="o">:</span> <span class="m">35.99</span> on <span class="m">573</span> degrees of freedom
-Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7453</span><span class="p">,</span>  Adjusted R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7435</span> 
-<span class="bp">F</span><span class="o">-</span>statistic<span class="o">:</span> <span class="m">419.2</span> on <span class="m">4</span> and <span class="m">573</span> DF<span class="p">,</span>  p<span class="o">-</span>value<span class="o">:</span> <span class="o">&lt;</span> <span class="m">2.2e-16</span>
+<div class="highlight"><pre><span class="code-line">Call<span class="o">:</span></span>
+<span class="code-line">lm<span class="p">(</span>formula <span class="o">=</span> weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span> data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">Residuals<span class="o">:</span></span>
+<span class="code-line">     Min       <span class="m">1</span>Q   Median       <span class="m">3</span>Q      Max </span>
+<span class="code-line"><span class="m">-136.851</span>  <span class="m">-17.151</span>   <span class="m">-2.595</span>   <span class="m">15.033</span>  <span class="m">141.816</span></span>
+<span class="code-line"></span>
+<span class="code-line">Coefficients<span class="o">:</span></span>
+<span class="code-line">            Estimate Std. Error t value Pr<span class="p">(</span><span class="o">&gt;|</span><span class="kp">t</span><span class="o">|</span><span class="p">)</span>    </span>
+<span class="code-line"><span class="p">(</span>Intercept<span class="p">)</span>  <span class="m">10.9244</span>     <span class="m">3.3607</span>   <span class="m">3.251</span>  <span class="m">0.00122</span> <span class="o">**</span> </span>
+<span class="code-line">Time          <span class="m">8.7505</span>     <span class="m">0.2218</span>  <span class="m">39.451</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
+<span class="code-line">Diet2        <span class="m">16.1661</span>     <span class="m">4.0858</span>   <span class="m">3.957</span> <span class="m">8.56e-05</span> <span class="o">***</span></span>
+<span class="code-line">Diet3        <span class="m">36.4994</span>     <span class="m">4.0858</span>   <span class="m">8.933</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
+<span class="code-line">Diet4        <span class="m">30.2335</span>     <span class="m">4.1075</span>   <span class="m">7.361</span> <span class="m">6.39e-13</span> <span class="o">***</span></span>
+<span class="code-line"><span class="o">---</span></span>
+<span class="code-line">Signif. codes<span class="o">:</span>  <span class="m">0</span> ‘<span class="o">***</span>’ <span class="m">0.001</span> ‘<span class="o">**</span>’ <span class="m">0.01</span> ‘<span class="o">*</span>’ <span class="m">0.05</span> ‘<span class="m">.</span>’ <span class="m">0.1</span> ‘ ’ <span class="m">1</span></span>
+<span class="code-line"></span>
+<span class="code-line">Residual standard error<span class="o">:</span> <span class="m">35.99</span> on <span class="m">573</span> degrees of freedom</span>
+<span class="code-line">Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7453</span><span class="p">,</span>  Adjusted R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7435</span> </span>
+<span class="code-line"><span class="bp">F</span><span class="o">-</span>statistic<span class="o">:</span> <span class="m">419.2</span> on <span class="m">4</span> and <span class="m">573</span> DF<span class="p">,</span>  p<span class="o">-</span>value<span class="o">:</span> <span class="o">&lt;</span> <span class="m">2.2e-16</span></span>
 </pre></div>
 
 
 <p>This is great, and it's often what you want. But in this case, it's comparing each of the diets to Diet1. In some cases, you might want to compare to a specific diet that isn't the first in the factor list.</p>
 <p>How can we choose which dummy to compare to? Fortunately, it's simple to compare to a specific dummy in R. We can just <code>relevel</code> the factor so the dummy we want to compare to is first.</p>
-<div class="highlight"><pre>ChickWeight<span class="o">$</span>Diet <span class="o">&lt;-</span> relevel<span class="p">(</span>ChickWeight<span class="o">$</span>Diet<span class="p">,</span>
-    ref <span class="o">=</span> <span class="m">4</span><span class="p">)</span>
-
-olsRelevel <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span>
-    data <span class="o">=</span> ChickWeight<span class="p">)</span>
-<span class="kp">summary</span><span class="p">(</span>olsRelevel<span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">ChickWeight<span class="o">$</span>Diet <span class="o">&lt;-</span> relevel<span class="p">(</span>ChickWeight<span class="o">$</span>Diet<span class="p">,</span></span>
+<span class="code-line">    ref <span class="o">=</span> <span class="m">4</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">olsRelevel <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>olsRelevel<span class="p">)</span></span>
 </pre></div>
 
 
 <p>The <code>ref</code> argument allows us to change the reference level of the factor variable. This means that when we perform regression analysis</p>
 <p>You can use <code>table</code> or <code>str</code> to find the factor levels, if you don't already know them.</p>
 <p>After releveling the factor variable, we can simply perform the same regression again, and this time it will compare the results to the new reference level:</p>
-<div class="highlight"><pre>olsRelevel <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span>
-    data <span class="o">=</span> ChickWeight<span class="p">)</span>
-<span class="kp">summary</span><span class="p">(</span>olsRelevel<span class="p">)</span>
-
-<span class="o">:::</span>r
-Call<span class="o">:</span>
-lm<span class="p">(</span>formula <span class="o">=</span> weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span> data <span class="o">=</span> ChickWeight<span class="p">)</span>
-
-Residuals<span class="o">:</span>
-     Min       <span class="m">1</span>Q   Median       <span class="m">3</span>Q      Max 
-<span class="m">-136.851</span>  <span class="m">-17.151</span>   <span class="m">-2.595</span>   <span class="m">15.033</span>  <span class="m">141.816</span>
-
-Coefficients<span class="o">:</span>
-            Estimate Std. Error t value Pr<span class="p">(</span><span class="o">&gt;|</span><span class="kp">t</span><span class="o">|</span><span class="p">)</span>    
-<span class="p">(</span>Intercept<span class="p">)</span>  <span class="m">41.1578</span>     <span class="m">4.0828</span>  <span class="m">10.081</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span>
-Time          <span class="m">8.7505</span>     <span class="m">0.2218</span>  <span class="m">39.451</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span>
-Diet1       <span class="m">-30.2335</span>     <span class="m">4.1075</span>  <span class="m">-7.361</span> <span class="m">6.39e-13</span> <span class="o">***</span>
-Diet2       <span class="m">-14.0674</span>     <span class="m">4.6665</span>  <span class="m">-3.015</span>  <span class="m">0.00269</span> <span class="o">**</span> 
-Diet3         <span class="m">6.2660</span>     <span class="m">4.6665</span>   <span class="m">1.343</span>  <span class="m">0.17989</span>    
-<span class="o">---</span>
-Signif. codes<span class="o">:</span>  <span class="m">0</span> ‘<span class="o">***</span>’ <span class="m">0.001</span> ‘<span class="o">**</span>’ <span class="m">0.01</span> ‘<span class="o">*</span>’ <span class="m">0.05</span> ‘<span class="m">.</span>’ <span class="m">0.1</span> ‘ ’ <span class="m">1</span>
-
-Residual standard error<span class="o">:</span> <span class="m">35.99</span> on <span class="m">573</span> degrees of freedom
-Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7453</span><span class="p">,</span>  Adjusted R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7435</span> 
-<span class="bp">F</span><span class="o">-</span>statistic<span class="o">:</span> <span class="m">419.2</span> on <span class="m">4</span> and <span class="m">573</span> DF<span class="p">,</span>  p<span class="o">-</span>value<span class="o">:</span> <span class="o">&lt;</span> <span class="m">2.2e-16</span>
+<div class="highlight"><pre><span class="code-line">olsRelevel <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>olsRelevel<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">:::</span>r</span>
+<span class="code-line">Call<span class="o">:</span></span>
+<span class="code-line">lm<span class="p">(</span>formula <span class="o">=</span> weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span> data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">Residuals<span class="o">:</span></span>
+<span class="code-line">     Min       <span class="m">1</span>Q   Median       <span class="m">3</span>Q      Max </span>
+<span class="code-line"><span class="m">-136.851</span>  <span class="m">-17.151</span>   <span class="m">-2.595</span>   <span class="m">15.033</span>  <span class="m">141.816</span></span>
+<span class="code-line"></span>
+<span class="code-line">Coefficients<span class="o">:</span></span>
+<span class="code-line">            Estimate Std. Error t value Pr<span class="p">(</span><span class="o">&gt;|</span><span class="kp">t</span><span class="o">|</span><span class="p">)</span>    </span>
+<span class="code-line"><span class="p">(</span>Intercept<span class="p">)</span>  <span class="m">41.1578</span>     <span class="m">4.0828</span>  <span class="m">10.081</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
+<span class="code-line">Time          <span class="m">8.7505</span>     <span class="m">0.2218</span>  <span class="m">39.451</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
+<span class="code-line">Diet1       <span class="m">-30.2335</span>     <span class="m">4.1075</span>  <span class="m">-7.361</span> <span class="m">6.39e-13</span> <span class="o">***</span></span>
+<span class="code-line">Diet2       <span class="m">-14.0674</span>     <span class="m">4.6665</span>  <span class="m">-3.015</span>  <span class="m">0.00269</span> <span class="o">**</span> </span>
+<span class="code-line">Diet3         <span class="m">6.2660</span>     <span class="m">4.6665</span>   <span class="m">1.343</span>  <span class="m">0.17989</span>    </span>
+<span class="code-line"><span class="o">---</span></span>
+<span class="code-line">Signif. codes<span class="o">:</span>  <span class="m">0</span> ‘<span class="o">***</span>’ <span class="m">0.001</span> ‘<span class="o">**</span>’ <span class="m">0.01</span> ‘<span class="o">*</span>’ <span class="m">0.05</span> ‘<span class="m">.</span>’ <span class="m">0.1</span> ‘ ’ <span class="m">1</span></span>
+<span class="code-line"></span>
+<span class="code-line">Residual standard error<span class="o">:</span> <span class="m">35.99</span> on <span class="m">573</span> degrees of freedom</span>
+<span class="code-line">Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7453</span><span class="p">,</span>  Adjusted R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7435</span> </span>
+<span class="code-line"><span class="bp">F</span><span class="o">-</span>statistic<span class="o">:</span> <span class="m">419.2</span> on <span class="m">4</span> and <span class="m">573</span> DF<span class="p">,</span>  p<span class="o">-</span>value<span class="o">:</span> <span class="o">&lt;</span> <span class="m">2.2e-16</span></span>
 </pre></div>
 
 

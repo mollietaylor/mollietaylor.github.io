@@ -28,6 +28,7 @@
 						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
 
 				</ul>
@@ -55,26 +56,26 @@
 			<p>Plotting a histogram using <code>hist</code> from the <strong>graphics</strong> package is pretty straightforward, but what if you want to view the density plot on top of the histogram? This combination of graphics can help us compare the distributions of groups.</p>
 <p>Let's use some of the data included with R in the package <strong>datasets</strong>. It will help to have two things to compare, so we'll use the <a href="http://stat.ethz.ch/R-manual/R-patched/library/datasets/html/beavers.html"><code>beaver</code> data sets</a>, <code>beaver1</code> and <code>beaver2</code>: the body temperatures of two beavers, taken at 10 minute intervals.</p>
 <p>First we want to plot the histogram of one beaver:</p>
-<div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
-    col<span class="o">=</span><span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
-    border<span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span>
-    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
-    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span>
-    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span></span>
+<span class="code-line">    col<span class="o">=</span><span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span></span>
+<span class="code-line">    border<span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span></span>
+<span class="code-line">    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span></span>
+<span class="code-line">    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p><img alt="Histogram" src="http://blog.mollietaylor.com/images/r-histogram.png" /></p>
 <p>Next, we want to add in the density line, using <code>lines</code>:</p>
-<div class="highlight"><pre>hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
-    col<span class="o">=</span><span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
-    border<span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span>
-    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
-    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span>
-    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span>
-lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span>
-    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span>
-    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="code-line">hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span></span>
+<span class="code-line">    col<span class="o">=</span><span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span></span>
+<span class="code-line">    border<span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span></span>
+<span class="code-line">    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span></span>
+<span class="code-line">    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span></span>
+<span class="code-line">lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span></span>
+<span class="code-line">    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -82,30 +83,30 @@ lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="
 <p>Now let's show the plots for both beavers on the same image. We'll make a histogram and density plot for Beaver #2, wrap the graphs in a <code>layout</code> and <code>png</code>, and change the x-axis to be the same, using <code>xlim</code>.</p>
 <p><img alt="Histogram and density" src="http://blog.mollietaylor.com/images/r-histogram-density-2.png" /></p>
 <p>Here's the final code, <a href="https://gist.github.com/3685924">also available on gist</a>:</p>
-<div class="highlight"><pre>png<span class="p">(</span><span class="s">&quot;beaverhist.png&quot;</span><span class="p">)</span>
-layout<span class="p">(</span><span class="kt">matrix</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">),</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span>
-    byrow <span class="o">=</span> <span class="kc">TRUE</span><span class="p">))</span>
-hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
-    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
-    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span>
-    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
-    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span>
-    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span>
-    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span>
-lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span>
-    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span>
-    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span>
-hist<span class="p">(</span>beaver2<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span>
-    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span>
-    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span>
-    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span>
-    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span>
-    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span>
-    main <span class="o">=</span> <span class="s">&quot;Beaver #2&quot;</span><span class="p">)</span>
-lines<span class="p">(</span>density<span class="p">(</span>beaver2<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span>
-    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span>
-    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span>
-dev.off<span class="p">()</span>
+<div class="highlight"><pre><span class="code-line">png<span class="p">(</span><span class="s">&quot;beaverhist.png&quot;</span><span class="p">)</span></span>
+<span class="code-line">layout<span class="p">(</span><span class="kt">matrix</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">),</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span></span>
+<span class="code-line">    byrow <span class="o">=</span> <span class="kc">TRUE</span><span class="p">))</span></span>
+<span class="code-line">hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span></span>
+<span class="code-line">    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span></span>
+<span class="code-line">    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span></span>
+<span class="code-line">    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span></span>
+<span class="code-line">    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span></span>
+<span class="code-line">lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span></span>
+<span class="code-line">    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span></span>
+<span class="code-line">hist<span class="p">(</span>beaver2<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span></span>
+<span class="code-line">    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span></span>
+<span class="code-line">    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span></span>
+<span class="code-line">    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span></span>
+<span class="code-line">    main <span class="o">=</span> <span class="s">&quot;Beaver #2&quot;</span><span class="p">)</span></span>
+<span class="code-line">lines<span class="p">(</span>density<span class="p">(</span>beaver2<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span></span>
+<span class="code-line">    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span></span>
+<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span></span>
+<span class="code-line">dev.off<span class="p">()</span></span>
 </pre></div>
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
