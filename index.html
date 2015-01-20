@@ -41,6 +41,69 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/reality-tv-app.html">Tue 20 January 2015</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/objective-c.html" title="View all posts in Objective-C" rel="category tag">Objective-C</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/reality-tv-app.html" title="Permalink to Reality TV Show Name Generator App" rel="bookmark">Reality TV Show Name Generator App</a>
+		</h2>
+		<div class="entry-content">
+			<h2>The Idea</h2>
+<p>I had come across webpages like <a href="http://www.theyfightcrime.org/">They Fight Crime</a> and the <a href="http://rinkworks.com/namegen/">Fantasy Name Generator</a>, so creating a random reality TV show name generator app was not at all an original idea. </p>
+<p>When I was flipping through channels one day and saw an endless stream of a naming convention, inspiration struck. I noticed that most reality shows have a name that's just an adjective and a noun: American Idol, Hell's Kitchen, Pawn Stars, Top Chef, just to name a few. This seemed like a really simple concept to implement while learning a new language. Really, it's the simplest unique app I've thought of.</p>
+<h2>The Javascript Implementation</h2>
+<p>In 2013, I created a <a href="http://realitytvgenerator.com/">Javascript version</a> of the app. I was just learning Javascript when I thought of the idea, and it was an easy first project to complete.</p>
+<p><img alt="Javascript version" src="http://blog.mollietaylor.com/images/reality-js.png" /></p>
+<h2>The Objective-C Implementation</h2>
+<p>When I started learning Objective-C in December, I followed the <a href="http://teamtreehouse.com/library/build-a-simple-iphone-app-ios7">Crystal Ball app tutorial on Team Treehouse</a>, and after that, I had enough knowledge to build the most simple version of the Reality TV app.</p>
+<p>Basically, all the simplest version needs to do is:</p>
+<ul>
+<li>Have two arrays</li>
+<li>Pick a random item from the first array</li>
+<li>Pick a random item from the second array</li>
+<li>Concatenate them</li>
+<li>Display the name</li>
+<li>Have a straightforward way to refresh and get a new random name</li>
+</ul>
+<p>Here's a screenshot of an early version:</p>
+<p><img alt="Early Objective-C version" src="http://blog.mollietaylor.com/images/reality-early.png" /></p>
+<h3>Components</h3>
+<p>As I advanced in Objective-C, I wanted to add more features. The first thing I added was a "share" button. This was surprisingly simple.</p>
+<p>Once I started taking the <a href="http://theironyard.com/academy/mobile-engineering/">Mobile Engineering class at The Iron Yard</a>, I began to add more features. I wanted to add a "recent names" list and a "favorites" list and to have a way for people to add a name to their favorites.</p>
+<p>Once we learned about TableViewControllers, adding the recent names list was fairly straightforward.</p>
+<p><img alt="Early Recent Items" src="http://blog.mollietaylor.com/images/reality-early-recent.png" /></p>
+<p><img alt="Early Share &amp; Recent" src="http://blog.mollietaylor.com/images/reality-early-recent-share.png" /></p>
+<p>What was more complicated was adding a "favorites" list. I wanted to have the favorites persist between app uses. This is something we haven't covered yet in class, but I got a tip from John–one of our TAs–and I managed to figure out how to implement it using <code>NSUserDefaults</code>.</p>
+<p>Now that all of the functionality worked, what was left was the design. I needed icons for favoriting and sharing, and I wanted to make a custom TV design instead of using one someone else made since it was such a central part of the app.</p>
+<h3>Design</h3>
+<p>I wasn't happy with the way the original design looked, so I changed the color palette.</p>
+<table>
+<tr><td style="width: 70px; height: 50px; background-color:#009762">#009762</td><td style="width: 70px; height: 50px; background-color:#13BD81">#13BD81</td><td style="width: 70px; height: 50px; background-color:#000000">#000000</td><td style="width: 70px; height: 50px; background-color:#ffffff">#ffffff</td></tr>
+</table>
+
+<p>Looking better!</p>
+<p>One thing I'd had no intention of making was a sliding drawer that would give you more options. I didn't really even think of this as being an option! But then in class we made a drawer for one of our apps, and I realized it would be the perfect way to handle all the buttons I wanted to have (favorite, favorites, recent, share). I designed a drawer and added it to the app.</p>
+<p><img alt="Drawer" src="http://blog.mollietaylor.com/images/reality-drawer.png" /></p>
+<p>For the icons in the drawer (favorite, menu, and share), I used <a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a> and <a href="https://ionicons.com">Ionicons</a>, which are both free-to-use icon packages. </p>
+<p>For the TV image, I wanted to create something custom, since it was so prominently displayed in the app. I played around some in Photoshop. Even though I can't draw at all, I can sure use a rectangle tool, and I think I managed to come up with something that looks acceptable. You can see my design on <a href="https://dribbble.com/shots/1887417-TV">Dribbble</a>. I also used this TV as my app icon, but I gave the app version wider antennae to make them easier to see in the smaller size.</p>
+<p>I've been learning Sketch, but I've really only used it for UI mockups, not drawing things. Hopefully soon I'll be able to use a more appropriate tool like Sketch or Illustrator instead of using Photoshop for this kind of work, but for the moment, I'm still more comfortable in Photoshop.</p>
+<p><img alt="Custom TV" src="http://blog.mollietaylor.com/images/reality-new-tv.png" /></p>
+<p>The last design decision I had to make was how to handle:</p>
+<ol>
+<li>Favoriting recent names</li>
+<li>Sharing recent names and favorites</li>
+</ol>
+<p>Originally, I had a share icon on the side of each cell on the recent items list. But once I added favorites, I would have needed to have two icons in each cell, one for sharing and one for favoriting. I decided this would be too cluttered, so I decided to return users to the main view when they tap on a name in a list. From there, they can do anything they would have been able to do when the name first appeared. This setup has the additional benefit of allowing people to make screenshots of items from their recent items list or favorites list.</p>
+<h3>Complete</h3>
+<p>Once the app is available on the store, you'll be able to download it <a href="http://realitytvgenerator.com/">here</a>. The code is available <a href="https://github.com/mollietaylor/reality-tv-iOS">on Github</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/ios.html" rel="tag">iOS</a>,  <a href="http://blog.mollietaylor.com/tag/objective-c.html" rel="tag">Objective-C</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/nsuserdefaults.html">Sun 18 January 2015</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/objective-c.html" title="View all posts in Objective-C" rel="category tag">Objective-C</a></span>
@@ -609,99 +672,6 @@
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/geom_abline.html" rel="tag">geom_abline</a>,  <a href="http://blog.mollietaylor.com/tag/geom_smooth.html" rel="tag">geom_smooth</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/lattice.html" rel="tag">lattice</a>,  <a href="http://blog.mollietaylor.com/tag/lm.html" rel="tag">lm</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/type.html" rel="tag">type</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/compare-regression-results-to-specific.html">Thu 06 February 2014</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2014/02/compare-regression-results-to-specific.html" title="Permalink to Compare Regression Results to a Specific Factor Level in R" rel="bookmark">Compare Regression Results to a Specific Factor Level in R</a>
-		</h2>
-		<div class="entry-content">
-			<p>Including a series of dummy variables in a regression in R is very simple. For example,</p>
-<div class="highlight"><pre><span class="code-line">ols <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span></span>
-<span class="code-line">    data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
-<span class="code-line"><span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span></span>
-</pre></div>
-
-
-<p>The above regression automatically includes a dummy variable for all but the first level of the factor of the <code>Diet</code> variable.</p>
-<div class="highlight"><pre><span class="code-line">Call<span class="o">:</span></span>
-<span class="code-line">lm<span class="p">(</span>formula <span class="o">=</span> weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span> data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line">Residuals<span class="o">:</span></span>
-<span class="code-line">     Min       <span class="m">1</span>Q   Median       <span class="m">3</span>Q      Max </span>
-<span class="code-line"><span class="m">-136.851</span>  <span class="m">-17.151</span>   <span class="m">-2.595</span>   <span class="m">15.033</span>  <span class="m">141.816</span></span>
-<span class="code-line"></span>
-<span class="code-line">Coefficients<span class="o">:</span></span>
-<span class="code-line">            Estimate Std. Error t value Pr<span class="p">(</span><span class="o">&gt;|</span><span class="kp">t</span><span class="o">|</span><span class="p">)</span>    </span>
-<span class="code-line"><span class="p">(</span>Intercept<span class="p">)</span>  <span class="m">10.9244</span>     <span class="m">3.3607</span>   <span class="m">3.251</span>  <span class="m">0.00122</span> <span class="o">**</span> </span>
-<span class="code-line">Time          <span class="m">8.7505</span>     <span class="m">0.2218</span>  <span class="m">39.451</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
-<span class="code-line">Diet2        <span class="m">16.1661</span>     <span class="m">4.0858</span>   <span class="m">3.957</span> <span class="m">8.56e-05</span> <span class="o">***</span></span>
-<span class="code-line">Diet3        <span class="m">36.4994</span>     <span class="m">4.0858</span>   <span class="m">8.933</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
-<span class="code-line">Diet4        <span class="m">30.2335</span>     <span class="m">4.1075</span>   <span class="m">7.361</span> <span class="m">6.39e-13</span> <span class="o">***</span></span>
-<span class="code-line"><span class="o">---</span></span>
-<span class="code-line">Signif. codes<span class="o">:</span>  <span class="m">0</span> ‘<span class="o">***</span>’ <span class="m">0.001</span> ‘<span class="o">**</span>’ <span class="m">0.01</span> ‘<span class="o">*</span>’ <span class="m">0.05</span> ‘<span class="m">.</span>’ <span class="m">0.1</span> ‘ ’ <span class="m">1</span></span>
-<span class="code-line"></span>
-<span class="code-line">Residual standard error<span class="o">:</span> <span class="m">35.99</span> on <span class="m">573</span> degrees of freedom</span>
-<span class="code-line">Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7453</span><span class="p">,</span>  Adjusted R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7435</span> </span>
-<span class="code-line"><span class="bp">F</span><span class="o">-</span>statistic<span class="o">:</span> <span class="m">419.2</span> on <span class="m">4</span> and <span class="m">573</span> DF<span class="p">,</span>  p<span class="o">-</span>value<span class="o">:</span> <span class="o">&lt;</span> <span class="m">2.2e-16</span></span>
-</pre></div>
-
-
-<p>This is great, and it's often what you want. But in this case, it's comparing each of the diets to Diet1. In some cases, you might want to compare to a specific diet that isn't the first in the factor list.</p>
-<p>How can we choose which dummy to compare to? Fortunately, it's simple to compare to a specific dummy in R. We can just <code>relevel</code> the factor so the dummy we want to compare to is first.</p>
-<div class="highlight"><pre><span class="code-line">ChickWeight<span class="o">$</span>Diet <span class="o">&lt;-</span> relevel<span class="p">(</span>ChickWeight<span class="o">$</span>Diet<span class="p">,</span></span>
-<span class="code-line">    ref <span class="o">=</span> <span class="m">4</span><span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line">olsRelevel <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span></span>
-<span class="code-line">    data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
-<span class="code-line"><span class="kp">summary</span><span class="p">(</span>olsRelevel<span class="p">)</span></span>
-</pre></div>
-
-
-<p>The <code>ref</code> argument allows us to change the reference level of the factor variable. This means that when we perform regression analysis</p>
-<p>You can use <code>table</code> or <code>str</code> to find the factor levels, if you don't already know them.</p>
-<p>After releveling the factor variable, we can simply perform the same regression again, and this time it will compare the results to the new reference level:</p>
-<div class="highlight"><pre><span class="code-line">olsRelevel <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span></span>
-<span class="code-line">    data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
-<span class="code-line"><span class="kp">summary</span><span class="p">(</span>olsRelevel<span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="o">:::</span>r</span>
-<span class="code-line">Call<span class="o">:</span></span>
-<span class="code-line">lm<span class="p">(</span>formula <span class="o">=</span> weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span> data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line">Residuals<span class="o">:</span></span>
-<span class="code-line">     Min       <span class="m">1</span>Q   Median       <span class="m">3</span>Q      Max </span>
-<span class="code-line"><span class="m">-136.851</span>  <span class="m">-17.151</span>   <span class="m">-2.595</span>   <span class="m">15.033</span>  <span class="m">141.816</span></span>
-<span class="code-line"></span>
-<span class="code-line">Coefficients<span class="o">:</span></span>
-<span class="code-line">            Estimate Std. Error t value Pr<span class="p">(</span><span class="o">&gt;|</span><span class="kp">t</span><span class="o">|</span><span class="p">)</span>    </span>
-<span class="code-line"><span class="p">(</span>Intercept<span class="p">)</span>  <span class="m">41.1578</span>     <span class="m">4.0828</span>  <span class="m">10.081</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
-<span class="code-line">Time          <span class="m">8.7505</span>     <span class="m">0.2218</span>  <span class="m">39.451</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
-<span class="code-line">Diet1       <span class="m">-30.2335</span>     <span class="m">4.1075</span>  <span class="m">-7.361</span> <span class="m">6.39e-13</span> <span class="o">***</span></span>
-<span class="code-line">Diet2       <span class="m">-14.0674</span>     <span class="m">4.6665</span>  <span class="m">-3.015</span>  <span class="m">0.00269</span> <span class="o">**</span> </span>
-<span class="code-line">Diet3         <span class="m">6.2660</span>     <span class="m">4.6665</span>   <span class="m">1.343</span>  <span class="m">0.17989</span>    </span>
-<span class="code-line"><span class="o">---</span></span>
-<span class="code-line">Signif. codes<span class="o">:</span>  <span class="m">0</span> ‘<span class="o">***</span>’ <span class="m">0.001</span> ‘<span class="o">**</span>’ <span class="m">0.01</span> ‘<span class="o">*</span>’ <span class="m">0.05</span> ‘<span class="m">.</span>’ <span class="m">0.1</span> ‘ ’ <span class="m">1</span></span>
-<span class="code-line"></span>
-<span class="code-line">Residual standard error<span class="o">:</span> <span class="m">35.99</span> on <span class="m">573</span> degrees of freedom</span>
-<span class="code-line">Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7453</span><span class="p">,</span>  Adjusted R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7435</span> </span>
-<span class="code-line"><span class="bp">F</span><span class="o">-</span>statistic<span class="o">:</span> <span class="m">419.2</span> on <span class="m">4</span> and <span class="m">573</span> DF<span class="p">,</span>  p<span class="o">-</span>value<span class="o">:</span> <span class="o">&lt;</span> <span class="m">2.2e-16</span></span>
-</pre></div>
-
-
-<p>Now we can choose any factor level as the reference for the series of dummies in the regression analysis. The code is available in <a href="https://gist.github.com/mollietaylor/8214220">a gist</a>.</p>
-<h2>Reference</h2>
-<ul>
-<li><a href="http://stackoverflow.com/a/3872213/2926101">http://stackoverflow.com/a/3872213/2926101</a></li>
-</ul>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/lm.html" rel="tag">lm</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/relevel.html" rel="tag">relevel</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-next"><a href="http://blog.mollietaylor.com/index2.html" >Older posts <span class="meta-nav">&rarr;</span></a></div>

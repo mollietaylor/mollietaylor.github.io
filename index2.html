@@ -41,6 +41,99 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/compare-regression-results-to-specific.html">Thu 06 February 2014</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2014/02/compare-regression-results-to-specific.html" title="Permalink to Compare Regression Results to a Specific Factor Level in R" rel="bookmark">Compare Regression Results to a Specific Factor Level in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Including a series of dummy variables in a regression in R is very simple. For example,</p>
+<div class="highlight"><pre><span class="code-line">ols <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span></span>
+</pre></div>
+
+
+<p>The above regression automatically includes a dummy variable for all but the first level of the factor of the <code>Diet</code> variable.</p>
+<div class="highlight"><pre><span class="code-line">Call<span class="o">:</span></span>
+<span class="code-line">lm<span class="p">(</span>formula <span class="o">=</span> weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span> data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">Residuals<span class="o">:</span></span>
+<span class="code-line">     Min       <span class="m">1</span>Q   Median       <span class="m">3</span>Q      Max </span>
+<span class="code-line"><span class="m">-136.851</span>  <span class="m">-17.151</span>   <span class="m">-2.595</span>   <span class="m">15.033</span>  <span class="m">141.816</span></span>
+<span class="code-line"></span>
+<span class="code-line">Coefficients<span class="o">:</span></span>
+<span class="code-line">            Estimate Std. Error t value Pr<span class="p">(</span><span class="o">&gt;|</span><span class="kp">t</span><span class="o">|</span><span class="p">)</span>    </span>
+<span class="code-line"><span class="p">(</span>Intercept<span class="p">)</span>  <span class="m">10.9244</span>     <span class="m">3.3607</span>   <span class="m">3.251</span>  <span class="m">0.00122</span> <span class="o">**</span> </span>
+<span class="code-line">Time          <span class="m">8.7505</span>     <span class="m">0.2218</span>  <span class="m">39.451</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
+<span class="code-line">Diet2        <span class="m">16.1661</span>     <span class="m">4.0858</span>   <span class="m">3.957</span> <span class="m">8.56e-05</span> <span class="o">***</span></span>
+<span class="code-line">Diet3        <span class="m">36.4994</span>     <span class="m">4.0858</span>   <span class="m">8.933</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
+<span class="code-line">Diet4        <span class="m">30.2335</span>     <span class="m">4.1075</span>   <span class="m">7.361</span> <span class="m">6.39e-13</span> <span class="o">***</span></span>
+<span class="code-line"><span class="o">---</span></span>
+<span class="code-line">Signif. codes<span class="o">:</span>  <span class="m">0</span> ‘<span class="o">***</span>’ <span class="m">0.001</span> ‘<span class="o">**</span>’ <span class="m">0.01</span> ‘<span class="o">*</span>’ <span class="m">0.05</span> ‘<span class="m">.</span>’ <span class="m">0.1</span> ‘ ’ <span class="m">1</span></span>
+<span class="code-line"></span>
+<span class="code-line">Residual standard error<span class="o">:</span> <span class="m">35.99</span> on <span class="m">573</span> degrees of freedom</span>
+<span class="code-line">Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7453</span><span class="p">,</span>  Adjusted R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7435</span> </span>
+<span class="code-line"><span class="bp">F</span><span class="o">-</span>statistic<span class="o">:</span> <span class="m">419.2</span> on <span class="m">4</span> and <span class="m">573</span> DF<span class="p">,</span>  p<span class="o">-</span>value<span class="o">:</span> <span class="o">&lt;</span> <span class="m">2.2e-16</span></span>
+</pre></div>
+
+
+<p>This is great, and it's often what you want. But in this case, it's comparing each of the diets to Diet1. In some cases, you might want to compare to a specific diet that isn't the first in the factor list.</p>
+<p>How can we choose which dummy to compare to? Fortunately, it's simple to compare to a specific dummy in R. We can just <code>relevel</code> the factor so the dummy we want to compare to is first.</p>
+<div class="highlight"><pre><span class="code-line">ChickWeight<span class="o">$</span>Diet <span class="o">&lt;-</span> relevel<span class="p">(</span>ChickWeight<span class="o">$</span>Diet<span class="p">,</span></span>
+<span class="code-line">    ref <span class="o">=</span> <span class="m">4</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">olsRelevel <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>olsRelevel<span class="p">)</span></span>
+</pre></div>
+
+
+<p>The <code>ref</code> argument allows us to change the reference level of the factor variable. This means that when we perform regression analysis</p>
+<p>You can use <code>table</code> or <code>str</code> to find the factor levels, if you don't already know them.</p>
+<p>After releveling the factor variable, we can simply perform the same regression again, and this time it will compare the results to the new reference level:</p>
+<div class="highlight"><pre><span class="code-line">olsRelevel <span class="o">&lt;-</span> lm<span class="p">(</span>weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>olsRelevel<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">:::</span>r</span>
+<span class="code-line">Call<span class="o">:</span></span>
+<span class="code-line">lm<span class="p">(</span>formula <span class="o">=</span> weight <span class="o">~</span> Time <span class="o">+</span> Diet<span class="p">,</span> data <span class="o">=</span> ChickWeight<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">Residuals<span class="o">:</span></span>
+<span class="code-line">     Min       <span class="m">1</span>Q   Median       <span class="m">3</span>Q      Max </span>
+<span class="code-line"><span class="m">-136.851</span>  <span class="m">-17.151</span>   <span class="m">-2.595</span>   <span class="m">15.033</span>  <span class="m">141.816</span></span>
+<span class="code-line"></span>
+<span class="code-line">Coefficients<span class="o">:</span></span>
+<span class="code-line">            Estimate Std. Error t value Pr<span class="p">(</span><span class="o">&gt;|</span><span class="kp">t</span><span class="o">|</span><span class="p">)</span>    </span>
+<span class="code-line"><span class="p">(</span>Intercept<span class="p">)</span>  <span class="m">41.1578</span>     <span class="m">4.0828</span>  <span class="m">10.081</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
+<span class="code-line">Time          <span class="m">8.7505</span>     <span class="m">0.2218</span>  <span class="m">39.451</span>  <span class="o">&lt;</span> <span class="m">2e-16</span> <span class="o">***</span></span>
+<span class="code-line">Diet1       <span class="m">-30.2335</span>     <span class="m">4.1075</span>  <span class="m">-7.361</span> <span class="m">6.39e-13</span> <span class="o">***</span></span>
+<span class="code-line">Diet2       <span class="m">-14.0674</span>     <span class="m">4.6665</span>  <span class="m">-3.015</span>  <span class="m">0.00269</span> <span class="o">**</span> </span>
+<span class="code-line">Diet3         <span class="m">6.2660</span>     <span class="m">4.6665</span>   <span class="m">1.343</span>  <span class="m">0.17989</span>    </span>
+<span class="code-line"><span class="o">---</span></span>
+<span class="code-line">Signif. codes<span class="o">:</span>  <span class="m">0</span> ‘<span class="o">***</span>’ <span class="m">0.001</span> ‘<span class="o">**</span>’ <span class="m">0.01</span> ‘<span class="o">*</span>’ <span class="m">0.05</span> ‘<span class="m">.</span>’ <span class="m">0.1</span> ‘ ’ <span class="m">1</span></span>
+<span class="code-line"></span>
+<span class="code-line">Residual standard error<span class="o">:</span> <span class="m">35.99</span> on <span class="m">573</span> degrees of freedom</span>
+<span class="code-line">Multiple R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7453</span><span class="p">,</span>  Adjusted R<span class="o">-</span>squared<span class="o">:</span>  <span class="m">0.7435</span> </span>
+<span class="code-line"><span class="bp">F</span><span class="o">-</span>statistic<span class="o">:</span> <span class="m">419.2</span> on <span class="m">4</span> and <span class="m">573</span> DF<span class="p">,</span>  p<span class="o">-</span>value<span class="o">:</span> <span class="o">&lt;</span> <span class="m">2.2e-16</span></span>
+</pre></div>
+
+
+<p>Now we can choose any factor level as the reference for the series of dummies in the regression analysis. The code is available in <a href="https://gist.github.com/mollietaylor/8214220">a gist</a>.</p>
+<h2>Reference</h2>
+<ul>
+<li><a href="http://stackoverflow.com/a/3872213/2926101">http://stackoverflow.com/a/3872213/2926101</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/lm.html" rel="tag">lm</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/relevel.html" rel="tag">relevel</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/lwimw3-trail-magic.html">Sun 02 February 2014</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
@@ -508,81 +601,6 @@ I didn't quite start from scratch on this project. This image shows the progress
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gridextra.html" rel="tag">gridExtra</a>,  <a href="http://blog.mollietaylor.com/tag/qplot.html" rel="tag">qplot</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/table.html" rel="tag">table</a>,  <a href="http://blog.mollietaylor.com/tag/tablegrob.html" rel="tag">tableGrob</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2013/10/line-breaks-between-words-in-axis.html">Thu 17 October 2013</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2013/10/line-breaks-between-words-in-axis.html" title="Permalink to Line Breaks Between Words in Axis Labels in ggplot in R" rel="bookmark">Line Breaks Between Words in Axis Labels in ggplot in R</a>
-		</h2>
-		<div class="entry-content">
-			<p>Sometimes when plotting factor variables in R, the graphics can look pretty messy thanks to long factor levels. If the level attributes have multiple words, there is an easy fix to this that often makes the axis labels look much cleaner.</p>
-<h2>Without Line Breaks</h2>
-<p>Here's the messy looking example:</p>
-<p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-none.png" /></p>
-<p>And here's the code for the messy looking example:</p>
-<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
-<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
-<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
-<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
-<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
-<span class="code-line">geom_boxplot<span class="p">()</span></span>
-</pre></div>
-
-
-<h2>With Line Breaks</h2>
-<p>We can use <a href="http://regex.learncodethehardway.org/">regular expressions</a> to add line breaks to the factor levels by substituting any spaces with line breaks:</p>
-<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
-<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
-<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
-<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
-<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
-<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
-<span class="code-line">geom_boxplot<span class="p">()</span></span>
-</pre></div>
-
-
-<p><img alt="Line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks.png" /></p>
-<p>Just one line made the plot look much better, and it will carry over to other plots you make as well. For example, you could <a href="http://www.mollietaylor.com/2013/10/table-as-image-in-r.html">create a table with the same variable</a>.</p>
-<h2>Horizontal Boxes</h2>
-<p>Here we can see the difference in a box plot with horizontal boxes. It's up to you to decide which style looks better:</p>
-<p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip-none.png" /></p>
-<p><img alt="Line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip.png" /></p>
-<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
-<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
-<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
-<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
-<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
-<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
-<span class="code-line">geom_boxplot<span class="p">()</span> <span class="o">+</span> </span>
-<span class="code-line">coord_flip<span class="p">()</span></span>
-</pre></div>
-
-
-<p>Just a note: if you're not using <strong>ggplot</strong>, the multi-line axis labels might overflow into the graph.</p>
-<p><a href="https://gist.github.com/mollietaylor/6930567#file-linebreaks-r">The code is available in a gist</a>.</p>
-<h2>Citations and Further Reading</h2>
-<ul>
-<li><a href="http://regex.learncodethehardway.org/">http://regex.learncodethehardway.org/</a></li>
-</ul>
-<blockquote>
-<p><a href="http://mollietaylor.blogspot.com/2013/10/line-breaks-between-words-in-axis.html?showComment=1382273496557#c3818712081785475594">In a comment, Jason Bryer mentioned</a> that you can also break the lines by using a set character width instead of breaking at every space. Here's the code he suggested:
-    :::r
-    sapply(strwrap(as.character(value), width=25, simplify=FALSE), paste, collapse="\n")</p>
-</blockquote>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/abline.html" rel="tag">abline</a>,  <a href="http://blog.mollietaylor.com/tag/coord_flip.html" rel="tag">coord_flip</a>,  <a href="http://blog.mollietaylor.com/tag/geom_boxplot.html" rel="tag">geom_boxplot</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gsub.html" rel="tag">gsub</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/regular-expressions.html" rel="tag">regular expressions</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">

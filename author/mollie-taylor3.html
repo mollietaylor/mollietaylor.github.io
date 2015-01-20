@@ -42,6 +42,81 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/10/line-breaks-between-words-in-axis.html">Thu 17 October 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2013/10/line-breaks-between-words-in-axis.html" title="Permalink to Line Breaks Between Words in Axis Labels in ggplot in R" rel="bookmark">Line Breaks Between Words in Axis Labels in ggplot in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Sometimes when plotting factor variables in R, the graphics can look pretty messy thanks to long factor levels. If the level attributes have multiple words, there is an easy fix to this that often makes the axis labels look much cleaner.</p>
+<h2>Without Line Breaks</h2>
+<p>Here's the messy looking example:</p>
+<p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-none.png" /></p>
+<p>And here's the code for the messy looking example:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span></span>
+</pre></div>
+
+
+<h2>With Line Breaks</h2>
+<p>We can use <a href="http://regex.learncodethehardway.org/">regular expressions</a> to add line breaks to the factor levels by substituting any spaces with line breaks:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span></span>
+</pre></div>
+
+
+<p><img alt="Line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks.png" /></p>
+<p>Just one line made the plot look much better, and it will carry over to other plots you make as well. For example, you could <a href="http://www.mollietaylor.com/2013/10/table-as-image-in-r.html">create a table with the same variable</a>.</p>
+<h2>Horizontal Boxes</h2>
+<p>Here we can see the difference in a box plot with horizontal boxes. It's up to you to decide which style looks better:</p>
+<p><img alt="No line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip-none.png" /></p>
+<p><img alt="Line breaks in axis labels" src="http://blog.mollietaylor.com/images/line-breaks-flip.png" /></p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
+<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
+<span class="code-line">ggplot<span class="p">(</span>birds<span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>x <span class="o">=</span> effect<span class="p">,</span></span>
+<span class="code-line">        y <span class="o">=</span> speed<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">geom_boxplot<span class="p">()</span> <span class="o">+</span> </span>
+<span class="code-line">coord_flip<span class="p">()</span></span>
+</pre></div>
+
+
+<p>Just a note: if you're not using <strong>ggplot</strong>, the multi-line axis labels might overflow into the graph.</p>
+<p><a href="https://gist.github.com/mollietaylor/6930567#file-linebreaks-r">The code is available in a gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://regex.learncodethehardway.org/">http://regex.learncodethehardway.org/</a></li>
+</ul>
+<blockquote>
+<p><a href="http://mollietaylor.blogspot.com/2013/10/line-breaks-between-words-in-axis.html?showComment=1382273496557#c3818712081785475594">In a comment, Jason Bryer mentioned</a> that you can also break the lines by using a set character width instead of breaking at every space. Here's the code he suggested:
+    :::r
+    sapply(strwrap(as.character(value), width=25, simplify=FALSE), paste, collapse="\n")</p>
+</blockquote>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/abline.html" rel="tag">abline</a>,  <a href="http://blog.mollietaylor.com/tag/coord_flip.html" rel="tag">coord_flip</a>,  <a href="http://blog.mollietaylor.com/tag/geom_boxplot.html" rel="tag">geom_boxplot</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gsub.html" rel="tag">gsub</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/regular-expressions.html" rel="tag">regular expressions</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/2013/10/custom-legend-in-r.html">Thu 10 October 2013</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
@@ -1048,74 +1123,6 @@ I haven't tested it, but it is likely this is more efficient than using <code>fo
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/geom_point.html" rel="tag">geom_point</a>,  <a href="http://blog.mollietaylor.com/tag/geom_segment.html" rel="tag">geom_segment</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="http://blog.mollietaylor.com/tag/scale_color_manual.html" rel="tag">scale_color_manual</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2013/02/shapefiles-in-r.html">Thu 28 February 2013</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2013/02/shapefiles-in-r.html" title="Permalink to Shapefiles in R" rel="bookmark">Shapefiles in R</a>
-		</h2>
-		<div class="entry-content">
-			<p>Let's learn how to use <a href="http://en.wikipedia.org/wiki/Shapefile">Shapefiles</a> in R. This will allow us to map data for complicated areas or jurisdictions like zipcodes or school districts. For the United States, many shapefiles are available from the [Census Bureau](http://www.census.gov/geo/www/tiger/tgrshp2010/tgrshp2010.html. Our example will map U.S. national parks.</p>
-<p>First, download the <a href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/parks-and-protected-lands/">U.S. Parks and Protected Lands shape files from Natural Earth</a>. We'll be using the ne_10m_parks_and_protected_lands_area.shp file.</p>
-<p>Next, start working in R. First, we'll load the shapefile and <strong>maptools</strong>:</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1"># load up area shape file:</span></span>
-<span class="code-line"><span class="kn">library</span><span class="p">(</span>maptools<span class="p">)</span></span>
-<span class="code-line">area <span class="o">&lt;-</span> readShapePoly<span class="p">(</span><span class="s">&quot;ne_10m_parks_and_protected_lands_area.shp&quot;</span><span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="c1"># # or file.choose:</span></span>
-<span class="code-line"><span class="c1"># area &lt;- readShapePoly(file.choose())</span></span>
-</pre></div>
-
-
-<p>Next we can set the colors we want to use. And then we can set up our <a href="http://blog.mollietaylor.com/2013/02/gps-basemaps-in-r-using-getmap.html">basemap</a>.</p>
-<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span></span>
-<span class="code-line">colors <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="kn">library</span><span class="p">(</span>ggmap<span class="p">)</span></span>
-<span class="code-line">mapImage <span class="o">&lt;-</span> get_map<span class="p">(</span>location <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>lon <span class="o">=</span> <span class="m">-118</span><span class="p">,</span> lat <span class="o">=</span> <span class="m">37.5</span><span class="p">),</span></span>
-<span class="code-line">    color <span class="o">=</span> <span class="s">&quot;color&quot;</span><span class="p">,</span></span>
-<span class="code-line">    <span class="kn">source</span> <span class="o">=</span> <span class="s">&quot;osm&quot;</span><span class="p">,</span></span>
-<span class="code-line">    <span class="c1"># maptype = &quot;terrain&quot;,</span></span>
-<span class="code-line">    zoom <span class="o">=</span> <span class="m">6</span><span class="p">)</span></span>
-</pre></div>
-
-
-<p>Next, we can use the <code>fortify</code> function from the <em>ggplot2</em> package. This converts the crazy shape file with all its nested attributes into a data frame that ggmap will know what to do with.</p>
-<div class="highlight"><pre><span class="code-line">area.points <span class="o">&lt;-</span> fortify<span class="p">(</span>area<span class="p">)</span></span>
-</pre></div>
-
-
-<p>Finally, we can map our shape files!</p>
-<div class="highlight"><pre><span class="code-line">ggmap<span class="p">(</span>mapImage<span class="p">)</span> <span class="o">+</span></span>
-<span class="code-line">    geom_polygon<span class="p">(</span>aes<span class="p">(</span>x <span class="o">=</span> long<span class="p">,</span></span>
-<span class="code-line">            y <span class="o">=</span> lat<span class="p">,</span></span>
-<span class="code-line">            group <span class="o">=</span> group<span class="p">),</span></span>
-<span class="code-line">        data <span class="o">=</span> area.points<span class="p">,</span></span>
-<span class="code-line">        color <span class="o">=</span> colors<span class="p">[</span><span class="m">9</span><span class="p">],</span></span>
-<span class="code-line">        fill <span class="o">=</span> colors<span class="p">[</span><span class="m">6</span><span class="p">],</span></span>
-<span class="code-line">        alpha <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span> <span class="o">+</span></span>
-<span class="code-line">labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span></span>
-<span class="code-line">    y <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)</span></span>
-</pre></div>
-
-
-<p><img alt="National Parks and Protected Lands in California and Nevada" src="http://blog.mollietaylor.com/images/shapefiles-osm.png" /></p>
-<p><img alt="Same figure, with a Stamen terrain basemap with ColorBrewer palette &quot;RdPu&quot;" src="http://blog.mollietaylor.com/images/shapefiles-stamen.png" /></p>
-<h2>Citations and Further Reading</h2>
-<ul>
-<li><a href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/parks-and-protected-lands/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/parks-and-protected-lands/</a></li>
-<li><a href="http://stackoverflow.com/questions/11428176/plotting-a-shape-file-with-ggplot2-error">http://stackoverflow.com/questions/11428176/plotting-a-shape-file-with-ggplot2-error</a></li>
-<li><a href="http://geography.uoregon.edu/GeogR/topics/maps.htm">http://geography.uoregon.edu/GeogR/topics/maps.htm</a></li>
-<li>Basemaps from <a href="http://www.openstreetmap.org/">OpenStreetMap</a> and <a href="http://stamen.com/maps">Stamen</a></li>
-</ul>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/fortify.html" rel="tag">fortify</a>,  <a href="http://blog.mollietaylor.com/tag/geom_polygon.html" rel="tag">geom_polygon</a>,  <a href="http://blog.mollietaylor.com/tag/get_map.html" rel="tag">get_map</a>,  <a href="http://blog.mollietaylor.com/tag/ggmap.html" rel="tag">ggmap</a>,  <a href="http://blog.mollietaylor.com/tag/gps.html" rel="tag">gps</a>,  <a href="http://blog.mollietaylor.com/tag/maptools.html" rel="tag">maptools</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="http://blog.mollietaylor.com/tag/readshapepoly.html" rel="tag">readShapePoly</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">

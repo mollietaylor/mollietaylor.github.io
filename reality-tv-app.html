@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Maps & Apps &mdash; Reality TV Show Name Generator App</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="http://blog.mollietaylor.com/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Maps & Apps — Flux Atom"
+			href="http://blog.mollietaylor.com/" /> 
+		<!--[if lte IE 8]><script src="http://blog.mollietaylor.com/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="http://blog.mollietaylor.com">Maps & Apps</a></h1>
+		</div><!-- /#banner -->
+		
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/pages/about/index.html">About Mollie</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/.html"></a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/latex.html">LaTeX</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+		</div>
+	
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/reality-tv-app.html">Tue 20 January 2015</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/objective-c.html" title="View all posts in Objective-C" rel="category tag">Objective-C</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/reality-tv-app.html" title="Permalink to Reality TV Show Name Generator App" rel="bookmark">Reality TV Show Name Generator App</a>
+		</h2>
+		<div class="entry-content">
+			<h2>The Idea</h2>
+<p>I had come across webpages like <a href="http://www.theyfightcrime.org/">They Fight Crime</a> and the <a href="http://rinkworks.com/namegen/">Fantasy Name Generator</a>, so creating a random reality TV show name generator app was not at all an original idea. </p>
+<p>When I was flipping through channels one day and saw an endless stream of a naming convention, inspiration struck. I noticed that most reality shows have a name that's just an adjective and a noun: American Idol, Hell's Kitchen, Pawn Stars, Top Chef, just to name a few. This seemed like a really simple concept to implement while learning a new language. Really, it's the simplest unique app I've thought of.</p>
+<h2>The Javascript Implementation</h2>
+<p>In 2013, I created a <a href="http://realitytvgenerator.com/">Javascript version</a> of the app. I was just learning Javascript when I thought of the idea, and it was an easy first project to complete.</p>
+<p><img alt="Javascript version" src="http://blog.mollietaylor.com/images/reality-js.png" /></p>
+<h2>The Objective-C Implementation</h2>
+<p>When I started learning Objective-C in December, I followed the <a href="http://teamtreehouse.com/library/build-a-simple-iphone-app-ios7">Crystal Ball app tutorial on Team Treehouse</a>, and after that, I had enough knowledge to build the most simple version of the Reality TV app.</p>
+<p>Basically, all the simplest version needs to do is:</p>
+<ul>
+<li>Have two arrays</li>
+<li>Pick a random item from the first array</li>
+<li>Pick a random item from the second array</li>
+<li>Concatenate them</li>
+<li>Display the name</li>
+<li>Have a straightforward way to refresh and get a new random name</li>
+</ul>
+<p>Here's a screenshot of an early version:</p>
+<p><img alt="Early Objective-C version" src="http://blog.mollietaylor.com/images/reality-early.png" /></p>
+<h3>Components</h3>
+<p>As I advanced in Objective-C, I wanted to add more features. The first thing I added was a "share" button. This was surprisingly simple.</p>
+<p>Once I started taking the <a href="http://theironyard.com/academy/mobile-engineering/">Mobile Engineering class at The Iron Yard</a>, I began to add more features. I wanted to add a "recent names" list and a "favorites" list and to have a way for people to add a name to their favorites.</p>
+<p>Once we learned about TableViewControllers, adding the recent names list was fairly straightforward.</p>
+<p><img alt="Early Recent Items" src="http://blog.mollietaylor.com/images/reality-early-recent.png" /></p>
+<p><img alt="Early Share &amp; Recent" src="http://blog.mollietaylor.com/images/reality-early-recent-share.png" /></p>
+<p>What was more complicated was adding a "favorites" list. I wanted to have the favorites persist between app uses. This is something we haven't covered yet in class, but I got a tip from John–one of our TAs–and I managed to figure out how to implement it using <code>NSUserDefaults</code>.</p>
+<p>Now that all of the functionality worked, what was left was the design. I needed icons for favoriting and sharing, and I wanted to make a custom TV design instead of using one someone else made since it was such a central part of the app.</p>
+<h3>Design</h3>
+<p>I wasn't happy with the way the original design looked, so I changed the color palette.</p>
+<table>
+<tr><td style="width: 70px; height: 50px; background-color:#009762">#009762</td><td style="width: 70px; height: 50px; background-color:#13BD81">#13BD81</td><td style="width: 70px; height: 50px; background-color:#000000">#000000</td><td style="width: 70px; height: 50px; background-color:#ffffff">#ffffff</td></tr>
+</table>
+
+<p>Looking better!</p>
+<p>One thing I'd had no intention of making was a sliding drawer that would give you more options. I didn't really even think of this as being an option! But then in class we made a drawer for one of our apps, and I realized it would be the perfect way to handle all the buttons I wanted to have (favorite, favorites, recent, share). I designed a drawer and added it to the app.</p>
+<p><img alt="Drawer" src="http://blog.mollietaylor.com/images/reality-drawer.png" /></p>
+<p>For the icons in the drawer (favorite, menu, and share), I used <a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a> and <a href="https://ionicons.com">Ionicons</a>, which are both free-to-use icon packages. </p>
+<p>For the TV image, I wanted to create something custom, since it was so prominently displayed in the app. I played around some in Photoshop. Even though I can't draw at all, I can sure use a rectangle tool, and I think I managed to come up with something that looks acceptable. You can see my design on <a href="https://dribbble.com/shots/1887417-TV">Dribbble</a>. I also used this TV as my app icon, but I gave the app version wider antennae to make them easier to see in the smaller size.</p>
+<p>I've been learning Sketch, but I've really only used it for UI mockups, not drawing things. Hopefully soon I'll be able to use a more appropriate tool like Sketch or Illustrator instead of using Photoshop for this kind of work, but for the moment, I'm still more comfortable in Photoshop.</p>
+<p><img alt="Custom TV" src="http://blog.mollietaylor.com/images/reality-new-tv.png" /></p>
+<p>The last design decision I had to make was how to handle:</p>
+<ol>
+<li>Favoriting recent names</li>
+<li>Sharing recent names and favorites</li>
+</ol>
+<p>Originally, I had a share icon on the side of each cell on the recent items list. But once I added favorites, I would have needed to have two icons in each cell, one for sharing and one for favoriting. I decided this would be too cluttered, so I decided to return users to the main view when they tap on a name in a list. From there, they can do anything they would have been able to do when the name first appeared. This setup has the additional benefit of allowing people to make screenshots of items from their recent items list or favorites list.</p>
+<h3>Complete</h3>
+<p>Once the app is available on the store, you'll be able to download it <a href="http://realitytvgenerator.com/">here</a>. The code is available <a href="https://github.com/mollietaylor/reality-tv-iOS">on Github</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/ios.html" rel="tag">iOS</a>,  <a href="http://blog.mollietaylor.com/tag/objective-c.html" rel="tag">Objective-C</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+		
+		<div id="footer">
+			<p>Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.</p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>
