@@ -30,6 +30,7 @@
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/leaflet.html">Leaflet</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/objective-c.html">Objective-C</a></li>
 						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/r.html">R</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://blog.mollietaylor.com/category/swift.html">Swift</a></li>
 
 				</ul>
 			</div> <!--/#menu-navigation-container-->
@@ -41,6 +42,74 @@
 	
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html">Thu 13 February 2014</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html" title="Permalink to ggplot Fit Line and Lattice Fit Line in R" rel="bookmark">ggplot Fit Line and Lattice Fit Line in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Let's add a fit line to a scatterplot!</p>
+<h2>Fit Line in Base Graphics</h2>
+<p>Here's how to do it in <strong>base</strong> graphics:</p>
+<div class="highlight"><pre><span class="code-line">ols <span class="o">&lt;-</span> lm<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kp">summary</span><span class="p">(</span>ols<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">plot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">)</span></span>
+<span class="code-line">abline<span class="p">(</span>ols</span>
+</pre></div>
+
+
+<p><img alt="Fit line in base graphics in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-base.png" /></p>
+<h2>Fit Line in ggplot</h2>
+<p>And here's how to do it in <strong>ggplot</strong>:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_abline<span class="p">(</span>intercept <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">1</span><span class="p">],</span></span>
+<span class="code-line">        slope <span class="o">=</span> ols<span class="o">$</span>coefficients<span class="p">[</span><span class="m">2</span><span class="p">])</span></span>
+</pre></div>
+
+
+<p>You can access the info from your regression results through <code>ols$coefficients</code>.</p>
+<p>Edit: Thanks to an anonymous commenter, I have learned that you can simplify this by using <code>geom_smooth</code>.  This way you don't have to specify the intercept and slope of the fit line.</p>
+<div class="highlight"><pre><span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">        aes<span class="p">(</span>Solar.R<span class="p">,</span> Temp<span class="p">))</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_point<span class="p">(</span>pch <span class="o">=</span> <span class="m">19</span><span class="p">)</span> <span class="o">+</span> </span>
+<span class="code-line">    geom_smooth<span class="p">(</span>method <span class="o">=</span> lm<span class="p">,</span></span>
+<span class="code-line">        se <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span></span>
+</pre></div>
+
+
+<p><img alt="Fit line in ggplot in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-ggplot.png" /></p>
+<h2>Fit Line in Lattice</h2>
+<p>In <strong>lattice</strong>, it's even easier. You don't even need to run a regression; you can just add to the <code>type</code> option.</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>lattice<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">xyplot<span class="p">(</span>Temp <span class="o">~</span> Solar.R<span class="p">,</span></span>
+<span class="code-line">    data <span class="o">=</span> airquality<span class="p">,</span></span>
+<span class="code-line">    type <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">))</span></span>
+</pre></div>
+
+
+<p><img alt="Fit Line in Lattice in R" src="http://blog.mollietaylor.com/images/ggplot-fit-line-lattice.png" /></p>
+<p>The code is available in <a href="https://gist.github.com/mollietaylor/8203926">a gist</a>.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/12972039/plotting-xyplot-with-regression-line-on-lattice-graphics">http://stackoverflow.com/questions/12972039/plotting-xyplot-with-regression-line-on-lattice-graphics</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/geom_abline.html" rel="tag">geom_abline</a>,  <a href="http://blog.mollietaylor.com/tag/geom_smooth.html" rel="tag">geom_smooth</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/lattice.html" rel="tag">lattice</a>,  <a href="http://blog.mollietaylor.com/tag/lm.html" rel="tag">lm</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/type.html" rel="tag">type</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/compare-regression-results-to-specific.html">Thu 06 February 2014</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
@@ -553,55 +622,6 @@ I didn't quite start from scratch on this project. This image shows the progress
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/any.html" rel="tag">any</a>,  <a href="http://blog.mollietaylor.com/tag/attach.html" rel="tag">attach</a>,  <a href="http://blog.mollietaylor.com/tag/colnames.html" rel="tag">colnames</a>,  <a href="http://blog.mollietaylor.com/tag/exists.html" rel="tag">exists</a>,  <a href="http://blog.mollietaylor.com/tag/in.html" rel="tag">in</a>,  <a href="http://blog.mollietaylor.com/tag/names.html" rel="tag">names</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2013/10/table-as-image-in-r.html">Thu 24 October 2013</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2013/10/table-as-image-in-r.html" title="Permalink to Table as an Image in R" rel="bookmark">Table as an Image in R</a>
-		</h2>
-		<div class="entry-content">
-			<p>Usually, it's best to keep tables as text, but if you're making a lot of graphics, it can be helpful to be able to create images of tables.</p>
-<p><img alt="PNG table" src="http://blog.mollietaylor.com/images/r-table-image.png" /></p>
-<h2>Creating the Table</h2>
-<p>After loading the data, let's first use <a href="http://www.mollietaylor.com/2013/10/line-breaks-between-words-in-axis.html">this trick</a> to put line breaks between the levels of the effect variable. Depending on your data, you may or may not need or want to do this.</p>
-<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>OIdata<span class="p">)</span></span>
-<span class="code-line">data<span class="p">(</span>birds<span class="p">)</span></span>
-<span class="code-line"><span class="kn">library</span><span class="p">(</span>gridExtra<span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="c1"># line breaks between words for levels of birds$effect:</span></span>
-<span class="code-line"><span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">,</span> <span class="kp">levels</span><span class="p">(</span>birds<span class="o">$</span>effect<span class="p">))</span></span>
-</pre></div>
-
-
-<p>Next let's make our table: </p>
-<div class="highlight"><pre><span class="code-line">xyTable <span class="o">&lt;-</span> <span class="kp">table</span><span class="p">(</span>birds<span class="o">$</span>sky<span class="p">,</span> birds<span class="o">$</span>effect<span class="p">)</span></span>
-</pre></div>
-
-
-<p>Now we can create an empty plot, center our table in it, and use the <code>grid.table</code> function from the <strong>gridExtra</strong> package to display the table and choose a font size.</p>
-<div class="highlight"><pre><span class="code-line">plot.new<span class="p">()</span></span>
-<span class="code-line">grid.table<span class="p">(</span>xyTable<span class="p">,</span></span>
-<span class="code-line">    <span class="c1"># change font sizes:</span></span>
-<span class="code-line">    gpar.coltext <span class="o">=</span> gpar<span class="p">(</span>cex <span class="o">=</span> <span class="m">1.2</span><span class="p">),</span></span>
-<span class="code-line">    gpar.rowtext <span class="o">=</span> gpar<span class="p">(</span>cex <span class="o">=</span> <span class="m">1.2</span><span class="p">))</span></span>
-</pre></div>
-
-
-<p>Now you can view and save the image just like any other plot.</p>
-<p><a href="https://gist.github.com/mollietaylor/6930567#file-tableasimage-simple-r">The code is available in a gist</a>.</p>
-<h2>Citations and Further Reading</h2>
-<ul>
-<li><a href="http://stackoverflow.com/questions/12318120/adding-table-within-the-plotting-region-of-a-ggplot-in-r">http://stackoverflow.com/questions/12318120/adding-table-within-the-plotting-region-of-a-ggplot-in-r</a></li>
-<li><a href="http://stackoverflow.com/questions/12518387/can-i-create-an-empty-ggplot2-plot-in-r">http://stackoverflow.com/questions/12518387/can-i-create-an-empty-ggplot2-plot-in-r</a></li>
-</ul>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gridextra.html" rel="tag">gridExtra</a>,  <a href="http://blog.mollietaylor.com/tag/qplot.html" rel="tag">qplot</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/table.html" rel="tag">table</a>,  <a href="http://blog.mollietaylor.com/tag/tablegrob.html" rel="tag">tableGrob</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">
