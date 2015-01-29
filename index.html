@@ -42,6 +42,96 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/swift-mapbox-image-marker.html">Thu 29 January 2015</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/swift.html" title="View all posts in Swift" rel="category tag">Swift</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/swift-mapbox-image-marker.html" title="Permalink to Adding a marker with a custom image to a Mapbox map in Swift" rel="bookmark">Adding a marker with a custom image to a Mapbox map in Swift</a>
+		</h2>
+		<div class="entry-content">
+			<p>There aren't a lot of Swift mapping tutorials out there, so I'm writing a series of blog posts on the topic. First up is how to create a map marker with a custom image in a Mapbox map.</p>
+<p>First, <a href="https://www.mapbox.com/mapbox-ios-sdk/#binary">install the Mapbox SDK as described here</a>.</p>
+<p>Next, since we're using Swift, you'll need to create a bridging header by creating a new Objective-C file (empty file) in the project and answering "Yes" to "Would you like to configure an Objective-C bridging header?" In the <code>Project Name-Bridging-Header.h</code> file that was just created, add:</p>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#import &lt;UIKit/UIKit.h&gt;</span></span>
+<span class="code-line"><span class="cp">#import &quot;Mapbox.h&quot;</span></span>
+</pre></div>
+
+
+<p>Now, in your <code>ViewController.swift</code> (or wherever you choose), make sure your class is a <code>RMMapViewDelegate</code>.</p>
+<p>In <code>viewDidLoad</code>, add your API access token. You can get your API access token <a href="https://www.mapbox.com/projects/">here</a>.</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">RMConfiguration</span><span class="p">().</span><span class="n">accessToken</span> <span class="p">=</span> <span class="s">&quot;your-token-goes-here&quot;</span></span>
+</pre></div>
+
+
+<p>Next, add the map view:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nv">mapFrame</span> <span class="p">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">view</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">view</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">height</span><span class="p">)</span></span>
+<span class="code-line"><span class="kd">var</span> <span class="nv">mapTiles</span> <span class="p">=</span> <span class="n">RMMapboxSource</span><span class="p">(</span><span class="n">mapID</span><span class="p">:</span> <span class="s">&quot;your-map-id&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="kd">var</span> <span class="nv">mapView</span> <span class="p">=</span> <span class="n">RMMapView</span><span class="p">(</span><span class="n">frame</span><span class="p">:</span> <span class="n">mapFrame</span><span class="p">,</span> <span class="n">andTilesource</span><span class="p">:</span> <span class="n">mapTiles</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">mapView</span><span class="p">.</span><span class="n">delegate</span> <span class="p">=</span> <span class="kc">self</span></span>
+</pre></div>
+
+
+<p>If you want, you can also zoom and center the map now:</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">mapView</span><span class="p">.</span><span class="n">zoom</span> <span class="p">=</span> <span class="mi">10</span></span>
+<span class="code-line"><span class="n">mapView</span><span class="p">.</span><span class="n">centerCoordinate</span> <span class="p">=</span> <span class="n">CLLocationCoordinate2DMake</span><span class="p">(</span><span class="mf">33.755</span><span class="p">,</span> <span class="o">-</span><span class="mf">84.39</span><span class="p">)</span></span>
+</pre></div>
+
+
+<p>Now, take the file you want to use as your map marker and add it to the <code>Images.xcassets</code>.</p>
+<p>Back in your View Controller (or other file), add:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nv">location</span><span class="p">:</span><span class="n">CLLocationCoordinate2D</span> <span class="p">=</span> <span class="n">CLLocationCoordinate2DMake</span><span class="p">(</span><span class="mf">33.78</span><span class="p">,</span><span class="o">-</span><span class="mf">84.41</span><span class="p">)</span></span>
+<span class="code-line"><span class="kd">var</span> <span class="nv">annotation</span> <span class="p">=</span> <span class="n">RMAnnotation</span><span class="p">(</span><span class="n">mapView</span><span class="p">:</span> <span class="n">mapView</span><span class="p">,</span> <span class="n">coordinate</span><span class="p">:</span> <span class="n">location</span><span class="p">,</span> <span class="n">andTitle</span><span class="p">:</span> <span class="s">&quot;Proximity Viz LLC&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">annotation</span><span class="p">.</span><span class="n">subtitle</span> <span class="p">=</span> <span class="s">&quot;Maps &amp; Apps&quot;</span></span>
+<span class="code-line"><span class="n">annotation</span><span class="p">.</span><span class="n">userInfo</span> <span class="p">=</span> <span class="s">&quot;company&quot;</span></span>
+</pre></div>
+
+
+<p>Of course here you will put in your own coordinates, title, and subtitle. <code>userInfo</code> is a handy place to put any other information you might want, i.e. categories that the icon will be based on. E.g. "company" would have one icon and "park" would have another.</p>
+<p>Now is when the delegate action comes in, so make sure you included <code>RMMapViewDelegate</code> at the beginning of your file. Let's add the function that will create a layer for each of our annotations. If you only have one image for your markers, you can use this code:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kd">func</span> <span class="nf">mapView</span><span class="p">(</span><span class="n">mapView</span><span class="p">:</span> <span class="n">RMMapView</span><span class="p">!,</span> <span class="n">layerForAnnotation</span> <span class="n">annotation</span><span class="p">:</span> <span class="n">RMAnnotation</span><span class="p">!)</span> <span class="p">-&gt;</span> <span class="n">RMMapLayer</span><span class="p">!</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">var</span> <span class="nv">marker</span><span class="p">:</span> <span class="n">RMMarker</span> <span class="p">=</span> <span class="n">RMMarker</span><span class="p">(</span><span class="bp">UIImage</span><span class="p">:</span> <span class="bp">UIImage</span><span class="p">(</span><span class="n">named</span><span class="p">:</span> <span class="s">&quot;proximity&quot;</span><span class="p">))</span></span>
+<span class="code-line">    <span class="n">marker</span><span class="p">.</span><span class="n">canShowCallout</span> <span class="p">=</span> <span class="kc">true</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">marker</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>Or if you have multiple images for different categories, you can use this code:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kd">func</span> <span class="nf">mapView</span><span class="p">(</span><span class="n">mapView</span><span class="p">:</span> <span class="n">RMMapView</span><span class="p">!,</span> <span class="n">layerForAnnotation</span> <span class="n">annotation</span><span class="p">:</span> <span class="n">RMAnnotation</span><span class="p">!)</span> <span class="p">-&gt;</span> <span class="n">RMMapLayer</span><span class="p">!</span> <span class="p">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">var</span> <span class="nv">marker</span><span class="p">:</span> <span class="n">RMMarker</span> <span class="p">=</span> <span class="n">RMMarker</span><span class="p">(</span><span class="bp">UIImage</span><span class="p">:</span> <span class="bp">UIImage</span><span class="p">(</span><span class="n">named</span><span class="p">:</span> <span class="s">&quot;proximity&quot;</span><span class="p">))</span></span>
+<span class="code-line">    <span class="n">marker</span><span class="p">.</span><span class="n">canShowCallout</span> <span class="p">=</span> <span class="kc">true</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">var</span> <span class="nv">parkMarker</span><span class="p">:</span> <span class="n">RMMarker</span> <span class="p">=</span> <span class="n">RMMarker</span><span class="p">(</span><span class="bp">UIImage</span><span class="p">:</span> <span class="bp">UIImage</span><span class="p">(</span><span class="n">named</span><span class="p">:</span> <span class="s">&quot;park&quot;</span><span class="p">))</span></span>
+<span class="code-line">    <span class="n">parkMarker</span><span class="p">.</span><span class="n">canShowCallout</span> <span class="p">=</span> <span class="kc">true</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span><span class="p">(</span><span class="n">annotation</span><span class="p">.</span><span class="n">userInfo</span> <span class="kc">as</span> <span class="bp">NSString</span> <span class="p">==</span> <span class="s">&quot;park&quot;</span><span class="p">){</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">parkMarker</span></span>
+<span class="code-line">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">marker</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>Now when you run the app, you should see your custom marker(s)!</p>
+<p><img alt="Mapbox map with custom marker" src="http://blog.mollietaylor.com/images/swift-mapbox-image-marker.png" /></p>
+<p>The code is available in a <a href="https://gist.github.com/mollietaylor/883c6cf2836f25a82f07">gist</a>.</p>
+<blockquote>
+<p>This post is one part of <a href="http://blog.mollietaylor.com/tag/series-mapping-in-swift.html">my series on Mapping in Swift</a>.</p>
+</blockquote>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/bridging.html" rel="tag">bridging</a>,  <a href="http://blog.mollietaylor.com/tag/mapbox.html" rel="tag">Mapbox</a>,  <a href="http://blog.mollietaylor.com/tag/rmmapboxsource.html" rel="tag">RMMapboxSource</a>,  <a href="http://blog.mollietaylor.com/tag/rmmapview.html" rel="tag">RMMapView</a>,  <a href="http://blog.mollietaylor.com/tag/rmmapviewdelegate.html" rel="tag">RMMapViewDelegate</a>,  <a href="http://blog.mollietaylor.com/tag/series-mapping-in-swift.html" rel="tag">Series: Mapping in Swift</a>,  <a href="http://blog.mollietaylor.com/tag/swift.html" rel="tag">Swift</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/lwimw9.html">Sun 25 January 2015</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/swift.html" title="View all posts in Swift" rel="category tag">Swift</a></span>
@@ -560,92 +650,6 @@
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/baselayerchange.html" rel="tag">baselayerchange</a>,  <a href="http://blog.mollietaylor.com/tag/fitbounds.html" rel="tag">fitBounds</a>,  <a href="http://blog.mollietaylor.com/tag/javascript.html" rel="tag">Javascript</a>,  <a href="http://blog.mollietaylor.com/tag/lcircle.html" rel="tag">L.circle</a>,  <a href="http://blog.mollietaylor.com/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="http://blog.mollietaylor.com/tag/lpolygon.html" rel="tag">L.polygon</a>,  <a href="http://blog.mollietaylor.com/tag/panto.html" rel="tag">panTo</a>,  <a href="http://blog.mollietaylor.com/tag/setview.html" rel="tag">setView</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/merge-by-city-and-state-in-r.html">Thu 20 February 2014</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2014/02/merge-by-city-and-state-in-r.html" title="Permalink to Merge by City and State in R" rel="bookmark">Merge by City and State in R</a>
-		</h2>
-		<div class="entry-content">
-			<p>Often, you'll need to merge two data frames based on multiple variables. For this example, we'll use the common case of needing to merge by city and state.</p>
-<p>First, you need to read in both your data sets:</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1"># import city coordinate data:</span></span>
-<span class="code-line">coords <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;cities-coords.csv&quot;</span><span class="p">,</span></span>
-<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
-<span class="code-line">    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="c1"># import population data:</span></span>
-<span class="code-line">data <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;cities-data.csv&quot;</span><span class="p">,</span></span>
-<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
-<span class="code-line">    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
-</pre></div>
-
-
-<p>Next comes the merge. You can use <code>by.x</code> and <code>by.y</code> to declare which variables the merge will be based on. If the variables have exactly the same name in both data sets, you can use by instead of <code>by.x</code> and <code>by.y</code>.</p>
-<p><code>x</code> and <code>y</code> represent the two data sets you are merging, in that order.</p>
-<p>You also want to state whether you want to include all data from either data set, using <code>all</code> or <code>all.x</code> and <code>all.y</code>. In this case, we want to make sure we hold onto all our city data, even data for the cities we do not have coordinates for.</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1"># merge data &amp; coords by city &amp; state:</span></span>
-<span class="code-line">dataCoords <span class="o">&lt;-</span> <span class="kp">merge</span><span class="p">(</span>coords<span class="p">,</span> data<span class="p">,</span> </span>
-<span class="code-line">    by.x <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;City&quot;</span><span class="p">,</span> <span class="s">&quot;State&quot;</span><span class="p">),</span></span>
-<span class="code-line">    by.y <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;state&quot;</span><span class="p">),</span></span>
-<span class="code-line">    all.x <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
-<span class="code-line">    all.y <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
-</pre></div>
-
-
-<p>Running that code shows what we would expect. Houston is included in the final data set even though there are no coordinates for it, while Dallas is not included since it has coordinates but no data:</p>
-<div class="highlight"><pre><span class="code-line">            City State Latitude  Longitude year population</span>
-<span class="code-line"><span class="m">1</span>        Chicago    IL <span class="m">41.85003</span>  <span class="m">-87.65005</span> <span class="m">2012</span>    <span class="m">2714856</span></span>
-<span class="code-line"><span class="m">2</span>       Columbus    GA <span class="m">32.46098</span>  <span class="m">-84.98771</span> <span class="m">2012</span>     <span class="m">198413</span></span>
-<span class="code-line"><span class="m">3</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2012</span>     <span class="m">809798</span></span>
-<span class="code-line"><span class="m">4</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2010</span>     <span class="m">787033</span></span>
-<span class="code-line"><span class="m">5</span>    Los Angeles    CA <span class="m">34.05223</span> <span class="m">-118.24368</span> <span class="m">2012</span>    <span class="m">3857799</span></span>
-<span class="code-line"><span class="m">6</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2012</span>    <span class="m">8336697</span></span>
-<span class="code-line"><span class="m">7</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2010</span>    <span class="m">8175133</span></span>
-<span class="code-line"><span class="m">8</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2012</span>     <span class="m">825863</span></span>
-<span class="code-line"><span class="m">9</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2010</span>     <span class="m">805235</span></span>
-<span class="code-line"><span class="m">10</span>       Houston    TX       <span class="kc">NA</span>         <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span></span>
-</pre></div>
-
-
-<h2>Bonus</h2>
-<p>If you'd like to get a list of which cases got merged in but lack coordinate data, there's a simple line of code to do that:</p>
-<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> dataCoords<span class="p">[</span><span class="o">!</span>complete.cases<span class="p">(</span>dataCoords<span class="p">[,</span><span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">)]),]</span></span>
-<span class="code-line">      City State Latitude Longitude year population</span>
-<span class="code-line"><span class="m">10</span> Houston    TX       <span class="kc">NA</span>        <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span></span>
-</pre></div>
-
-
-<p>Also, you might want to tidy up the names of your variables, if they followed different conventions in their respective initial data sets:</p>
-<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="kp">names</span><span class="p">(</span>dataCoords<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;City&quot;</span><span class="p">,</span> <span class="s">&quot;State&quot;</span><span class="p">,</span> <span class="s">&quot;Latitude&quot;</span><span class="p">,</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span> <span class="s">&quot;Year&quot;</span><span class="p">,</span> <span class="s">&quot;Population&quot;</span><span class="p">)</span></span>
-<span class="code-line"><span class="o">&gt;</span> dataCoords</span>
-<span class="code-line">            City State Latitude  Longitude Year Population</span>
-<span class="code-line"><span class="m">1</span>        Chicago    IL <span class="m">41.85003</span>  <span class="m">-87.65005</span> <span class="m">2012</span>    <span class="m">2714856</span></span>
-<span class="code-line"><span class="m">2</span>       Columbus    GA <span class="m">32.46098</span>  <span class="m">-84.98771</span> <span class="m">2012</span>     <span class="m">198413</span></span>
-<span class="code-line"><span class="m">3</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2012</span>     <span class="m">809798</span></span>
-<span class="code-line"><span class="m">4</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2010</span>     <span class="m">787033</span></span>
-<span class="code-line"><span class="m">5</span>    Los Angeles    CA <span class="m">34.05223</span> <span class="m">-118.24368</span> <span class="m">2012</span>    <span class="m">3857799</span></span>
-<span class="code-line"><span class="m">6</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2012</span>    <span class="m">8336697</span></span>
-<span class="code-line"><span class="m">7</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2010</span>    <span class="m">8175133</span></span>
-<span class="code-line"><span class="m">8</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2012</span>     <span class="m">825863</span></span>
-<span class="code-line"><span class="m">9</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2010</span>     <span class="m">805235</span></span>
-<span class="code-line"><span class="m">10</span>       Houston    TX       <span class="kc">NA</span>         <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span></span>
-</pre></div>
-
-
-<p>The full sample code is available as <a href="https://gist.github.com/mollietaylor/8565624">a gist</a>.</p>
-<h2>References</h2>
-<ul>
-<li><a href="https://stat.ethz.ch/pipermail/r-help/2006-August/111120.html">https://stat.ethz.ch/pipermail/r-help/2006-August/111120.html</a></li>
-</ul>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/completecases.html" rel="tag">complete.cases</a>,  <a href="http://blog.mollietaylor.com/tag/merge.html" rel="tag">merge</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-next"><a href="http://blog.mollietaylor.com/index2.html" >Older posts <span class="meta-nav">&rarr;</span></a></div>

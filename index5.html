@@ -42,6 +42,55 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-google-earth.html">Thu 20 December 2012</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/.html" title="View all posts in " rel="category tag"></a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-google-earth.html" title="Permalink to Mapping GPS Tracks in Google Earth" rel="bookmark">Mapping GPS Tracks in Google Earth</a>
+		</h2>
+		<div class="entry-content">
+			<p>Even though I find the <a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">R solution</a> easier, I'm sure not everyone agrees with me, so here's the Google Earth way to import a bunch of GPS tracks and map them:</p>
+<h2>Export to TCX</h2>
+<p>From inside Garmin Training Center or other GPS device software, export a huge TCX file with all your tracks.</p>
+<h2>Mapping in Google Earth</h2>
+<p><img alt="Opening your TCX file" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-open.png" /></p>
+<p>Select File -&gt; Open. Change the dropbox for "Files of type" to "Gps", and then find your file and open it. Make sure the "Create KML LineStrings" box is checked and the "Create KML Tracks" box is unchecked. This will save us some work later.</p>
+<p><img alt="Import settings" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-import.png" /></p>
+<p>Next, zoom in, zoom out, and recenter as desired. If you want North to be up, you can click the "N" in the compass in the upper right. </p>
+<p>In the layers (bottom left), I personally like to check Roads and uncheck everything else.</p>
+<p>In the places (just above layers), right click "GPS device" and select "Properties". Click over to the "Style, Color" tab, and then click "Share Style".</p>
+<p><img alt="Share style" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-style.png" /></p>
+<p>I like to use the following settings:</p>
+<p>Lines:</p>
+<ul>
+<li>Color: red</li>
+<li>Width: 3.0</li>
+<li>Opacity: 100%</li>
+</ul>
+<p>Label:</p>
+<ul>
+<li>Opacity: 0%</li>
+</ul>
+<p>Icon:</p>
+<ul>
+<li>Opacity: 0%</li>
+</ul>
+<p><img alt="Example style and color settings" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-settings.png" /></p>
+<p>Make sure you've selected all the dates you want on the date slider. Then you can select "Print" to export to a PDF, or you can take a screenshot.</p>
+<p><img alt="Export image" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-export.png" /></p>
+<p><img alt="Date slider and final map" class="size-auto" src="http://blog.mollietaylor.com/images/earth-gpx-final.png" /></p>
+<p>And that's all there is to it. Large maps may take a long time to load and edit.</p>
+<blockquote>
+<p>This post is one part of <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html">my series on Mapping GPS Tracks</a>.</p>
+</blockquote>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/google-earth.html" rel="tag">Google Earth</a>,  <a href="http://blog.mollietaylor.com/tag/series-gps-tracks.html" rel="tag">Series: GPS Tracks</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-r.html">Thu 13 December 2012</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
@@ -742,76 +791,6 @@ There also are units that have definitions relative to your document. These are 
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/abline.html" rel="tag">abline</a>,  <a href="http://blog.mollietaylor.com/tag/hist.html" rel="tag">hist</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2012/09/histogram-density-plot-combo-in-r.html">Thu 27 September 2012</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2012/09/histogram-density-plot-combo-in-r.html" title="Permalink to Histogram + Density Plot Combo in R" rel="bookmark">Histogram + Density Plot Combo in R</a>
-		</h2>
-		<div class="entry-content">
-			<p>Plotting a histogram using <code>hist</code> from the <strong>graphics</strong> package is pretty straightforward, but what if you want to view the density plot on top of the histogram? This combination of graphics can help us compare the distributions of groups.</p>
-<p>Let's use some of the data included with R in the package <strong>datasets</strong>. It will help to have two things to compare, so we'll use the <a href="http://stat.ethz.ch/R-manual/R-patched/library/datasets/html/beavers.html"><code>beaver</code> data sets</a>, <code>beaver1</code> and <code>beaver2</code>: the body temperatures of two beavers, taken at 10 minute intervals.</p>
-<p>First we want to plot the histogram of one beaver:</p>
-<div class="highlight"><pre><span class="code-line">hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span></span>
-<span class="code-line">    col<span class="o">=</span><span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span></span>
-<span class="code-line">    border<span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span></span>
-<span class="code-line">    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span></span>
-<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span></span>
-<span class="code-line">    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span></span>
-</pre></div>
-
-
-<p><img alt="Histogram" src="http://blog.mollietaylor.com/images/r-histogram.png" /></p>
-<p>Next, we want to add in the density line, using <code>lines</code>:</p>
-<div class="highlight"><pre><span class="code-line">hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span></span>
-<span class="code-line">    col<span class="o">=</span><span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span></span>
-<span class="code-line">    border<span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span></span>
-<span class="code-line">    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span></span>
-<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span></span>
-<span class="code-line">    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span></span>
-<span class="code-line">lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span></span>
-<span class="code-line">    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span></span>
-<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span></span>
-</pre></div>
-
-
-<p><img alt="Histogram and density" src="http://blog.mollietaylor.com/images/r-histogram-density.png" /></p>
-<p>Now let's show the plots for both beavers on the same image. We'll make a histogram and density plot for Beaver #2, wrap the graphs in a <code>layout</code> and <code>png</code>, and change the x-axis to be the same, using <code>xlim</code>.</p>
-<p><img alt="Histogram and density" src="http://blog.mollietaylor.com/images/r-histogram-density-2.png" /></p>
-<p>Here's the final code, <a href="https://gist.github.com/3685924">also available on gist</a>:</p>
-<div class="highlight"><pre><span class="code-line">png<span class="p">(</span><span class="s">&quot;beaverhist.png&quot;</span><span class="p">)</span></span>
-<span class="code-line">layout<span class="p">(</span><span class="kt">matrix</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">),</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span></span>
-<span class="code-line">    byrow <span class="o">=</span> <span class="kc">TRUE</span><span class="p">))</span></span>
-<span class="code-line">hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span></span>
-<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span></span>
-<span class="code-line">    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span></span>
-<span class="code-line">    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span></span>
-<span class="code-line">    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span></span>
-<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span></span>
-<span class="code-line">    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span></span>
-<span class="code-line">lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span></span>
-<span class="code-line">    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span></span>
-<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span></span>
-<span class="code-line">hist<span class="p">(</span>beaver2<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span></span>
-<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span></span>
-<span class="code-line">    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span></span>
-<span class="code-line">    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span></span>
-<span class="code-line">    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span></span>
-<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span></span>
-<span class="code-line">    main <span class="o">=</span> <span class="s">&quot;Beaver #2&quot;</span><span class="p">)</span></span>
-<span class="code-line">lines<span class="p">(</span>density<span class="p">(</span>beaver2<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span></span>
-<span class="code-line">    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span></span>
-<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span></span>
-<span class="code-line">dev.off<span class="p">()</span></span>
-</pre></div>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/hist.html" rel="tag">hist</a>,  <a href="http://blog.mollietaylor.com/tag/lines.html" rel="tag">lines</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">

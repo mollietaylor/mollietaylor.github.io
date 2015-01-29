@@ -42,6 +42,92 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/merge-by-city-and-state-in-r.html">Thu 20 February 2014</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2014/02/merge-by-city-and-state-in-r.html" title="Permalink to Merge by City and State in R" rel="bookmark">Merge by City and State in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Often, you'll need to merge two data frames based on multiple variables. For this example, we'll use the common case of needing to merge by city and state.</p>
+<p>First, you need to read in both your data sets:</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># import city coordinate data:</span></span>
+<span class="code-line">coords <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;cities-coords.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># import population data:</span></span>
+<span class="code-line">data <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;cities-data.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">)</span></span>
+</pre></div>
+
+
+<p>Next comes the merge. You can use <code>by.x</code> and <code>by.y</code> to declare which variables the merge will be based on. If the variables have exactly the same name in both data sets, you can use by instead of <code>by.x</code> and <code>by.y</code>.</p>
+<p><code>x</code> and <code>y</code> represent the two data sets you are merging, in that order.</p>
+<p>You also want to state whether you want to include all data from either data set, using <code>all</code> or <code>all.x</code> and <code>all.y</code>. In this case, we want to make sure we hold onto all our city data, even data for the cities we do not have coordinates for.</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># merge data &amp; coords by city &amp; state:</span></span>
+<span class="code-line">dataCoords <span class="o">&lt;-</span> <span class="kp">merge</span><span class="p">(</span>coords<span class="p">,</span> data<span class="p">,</span> </span>
+<span class="code-line">    by.x <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;City&quot;</span><span class="p">,</span> <span class="s">&quot;State&quot;</span><span class="p">),</span></span>
+<span class="code-line">    by.y <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;state&quot;</span><span class="p">),</span></span>
+<span class="code-line">    all.x <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span></span>
+<span class="code-line">    all.y <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
+</pre></div>
+
+
+<p>Running that code shows what we would expect. Houston is included in the final data set even though there are no coordinates for it, while Dallas is not included since it has coordinates but no data:</p>
+<div class="highlight"><pre><span class="code-line">            City State Latitude  Longitude year population</span>
+<span class="code-line"><span class="m">1</span>        Chicago    IL <span class="m">41.85003</span>  <span class="m">-87.65005</span> <span class="m">2012</span>    <span class="m">2714856</span></span>
+<span class="code-line"><span class="m">2</span>       Columbus    GA <span class="m">32.46098</span>  <span class="m">-84.98771</span> <span class="m">2012</span>     <span class="m">198413</span></span>
+<span class="code-line"><span class="m">3</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2012</span>     <span class="m">809798</span></span>
+<span class="code-line"><span class="m">4</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2010</span>     <span class="m">787033</span></span>
+<span class="code-line"><span class="m">5</span>    Los Angeles    CA <span class="m">34.05223</span> <span class="m">-118.24368</span> <span class="m">2012</span>    <span class="m">3857799</span></span>
+<span class="code-line"><span class="m">6</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2012</span>    <span class="m">8336697</span></span>
+<span class="code-line"><span class="m">7</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2010</span>    <span class="m">8175133</span></span>
+<span class="code-line"><span class="m">8</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2012</span>     <span class="m">825863</span></span>
+<span class="code-line"><span class="m">9</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2010</span>     <span class="m">805235</span></span>
+<span class="code-line"><span class="m">10</span>       Houston    TX       <span class="kc">NA</span>         <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span></span>
+</pre></div>
+
+
+<h2>Bonus</h2>
+<p>If you'd like to get a list of which cases got merged in but lack coordinate data, there's a simple line of code to do that:</p>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> dataCoords<span class="p">[</span><span class="o">!</span>complete.cases<span class="p">(</span>dataCoords<span class="p">[,</span><span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">)]),]</span></span>
+<span class="code-line">      City State Latitude Longitude year population</span>
+<span class="code-line"><span class="m">10</span> Houston    TX       <span class="kc">NA</span>        <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span></span>
+</pre></div>
+
+
+<p>Also, you might want to tidy up the names of your variables, if they followed different conventions in their respective initial data sets:</p>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="kp">names</span><span class="p">(</span>dataCoords<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;City&quot;</span><span class="p">,</span> <span class="s">&quot;State&quot;</span><span class="p">,</span> <span class="s">&quot;Latitude&quot;</span><span class="p">,</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span> <span class="s">&quot;Year&quot;</span><span class="p">,</span> <span class="s">&quot;Population&quot;</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">&gt;</span> dataCoords</span>
+<span class="code-line">            City State Latitude  Longitude Year Population</span>
+<span class="code-line"><span class="m">1</span>        Chicago    IL <span class="m">41.85003</span>  <span class="m">-87.65005</span> <span class="m">2012</span>    <span class="m">2714856</span></span>
+<span class="code-line"><span class="m">2</span>       Columbus    GA <span class="m">32.46098</span>  <span class="m">-84.98771</span> <span class="m">2012</span>     <span class="m">198413</span></span>
+<span class="code-line"><span class="m">3</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2012</span>     <span class="m">809798</span></span>
+<span class="code-line"><span class="m">4</span>       Columbus    OH <span class="m">39.96118</span>  <span class="m">-82.99879</span> <span class="m">2010</span>     <span class="m">787033</span></span>
+<span class="code-line"><span class="m">5</span>    Los Angeles    CA <span class="m">34.05223</span> <span class="m">-118.24368</span> <span class="m">2012</span>    <span class="m">3857799</span></span>
+<span class="code-line"><span class="m">6</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2012</span>    <span class="m">8336697</span></span>
+<span class="code-line"><span class="m">7</span>       New York    NY <span class="m">40.71427</span>  <span class="m">-74.00597</span> <span class="m">2010</span>    <span class="m">8175133</span></span>
+<span class="code-line"><span class="m">8</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2012</span>     <span class="m">825863</span></span>
+<span class="code-line"><span class="m">9</span>  San Francisco    CA <span class="m">37.77823</span> <span class="m">-122.44250</span> <span class="m">2010</span>     <span class="m">805235</span></span>
+<span class="code-line"><span class="m">10</span>       Houston    TX       <span class="kc">NA</span>         <span class="kc">NA</span> <span class="m">2012</span>    <span class="m">2160821</span></span>
+</pre></div>
+
+
+<p>The full sample code is available as <a href="https://gist.github.com/mollietaylor/8565624">a gist</a>.</p>
+<h2>References</h2>
+<ul>
+<li><a href="https://stat.ethz.ch/pipermail/r-help/2006-August/111120.html">https://stat.ethz.ch/pipermail/r-help/2006-August/111120.html</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/completecases.html" rel="tag">complete.cases</a>,  <a href="http://blog.mollietaylor.com/tag/merge.html" rel="tag">merge</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/ggplot-fit-line-and-lattice-fit-line-in.html">Thu 13 February 2014</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
@@ -570,57 +656,6 @@ I didn't quite start from scratch on this project. This image shows the progress
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/cite.html" rel="tag">cite</a>,  <a href="http://blog.mollietaylor.com/tag/latex.html" rel="tag">LaTeX</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2013/12/check-if-variable-exists-in-r.html">Thu 05 December 2013</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2013/12/check-if-variable-exists-in-r.html" title="Permalink to Check if a Variable Exists in R" rel="bookmark">Check if a Variable Exists in R</a>
-		</h2>
-		<div class="entry-content">
-			<p>If you use <code>attach</code>, it is easy to tell if a variable exists. You can simply use <code>exists</code> to check:</p>
-<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span><span class="kn">attach</span><span class="p">(</span>df<span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="o">&gt;</span><span class="kp">exists</span><span class="p">(</span><span class="s">&quot;varName&quot;</span><span class="p">)</span></span>
-<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
-</pre></div>
-
-
-<p>However, if you don't use <code>attach</code> (and I find you generally don't want to), this simple solution doesn't work.</p>
-<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="kn">detach</span><span class="p">(</span>df<span class="p">)</span></span>
-<span class="code-line"><span class="o">&gt;</span> <span class="kp">exists</span><span class="p">(</span><span class="s">&quot;df$varName&quot;</span><span class="p">)</span></span>
-<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">FALSE</span></span>
-</pre></div>
-
-
-<p>Instead of using <code>exists</code>, you can use <code>in</code> or <code>any</code> from the <strong>base</strong> package to determine if a variable is defined in a data frame:</p>
-<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">names</span><span class="p">(</span>df<span class="p">)</span></span>
-<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
-<span class="code-line"><span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">names</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span></span>
-<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
-</pre></div>
-
-
-<p>Or to determine if a variable is defined in a matrix:</p>
-<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="s">&quot;varName&quot;</span> <span class="o">%in%</span> <span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span></span>
-<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
-<span class="code-line"><span class="o">&gt;</span> <span class="kp">any</span><span class="p">(</span><span class="kp">colnames</span><span class="p">(</span>df<span class="p">)</span> <span class="o">==</span> <span class="s">&quot;varName&quot;</span><span class="p">)</span></span>
-<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="kc">TRUE</span></span>
-</pre></div>
-
-
-<h2>References</h2>
-<ul>
-<li><a href="https://stat.ethz.ch/pipermail/r-help/2009-June/202178.html">https://stat.ethz.ch/pipermail/r-help/2009-June/202178.html</a></li>
-<li><a href="https://stat.ethz.ch/pipermail/r-help/2011-February/267518.html">https://stat.ethz.ch/pipermail/r-help/2011-February/267518.html</a></li>
-</ul>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/any.html" rel="tag">any</a>,  <a href="http://blog.mollietaylor.com/tag/attach.html" rel="tag">attach</a>,  <a href="http://blog.mollietaylor.com/tag/colnames.html" rel="tag">colnames</a>,  <a href="http://blog.mollietaylor.com/tag/exists.html" rel="tag">exists</a>,  <a href="http://blog.mollietaylor.com/tag/in.html" rel="tag">in</a>,  <a href="http://blog.mollietaylor.com/tag/names.html" rel="tag">names</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">
