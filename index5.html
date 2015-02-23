@@ -42,6 +42,100 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/01/stacked-bar-charts-in-r.html">Thu 10 January 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2013/01/stacked-bar-charts-in-r.html" title="Permalink to Stacked Bar Charts in R" rel="bookmark">Stacked Bar Charts in R</a>
+		</h2>
+		<div class="entry-content">
+			<h2>Reshape Wide to Long</h2>
+<p>Let's use the <code>Loblolly</code> dataset from the <strong>datasets</strong> package. These data track the growth of some loblolly pine trees.</p>
+<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> Loblolly<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,]</span></span>
+<span class="code-line">   height age Seed</span>
+<span class="code-line"><span class="m">1</span>    <span class="m">4.51</span>   <span class="m">3</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">15</span>  <span class="m">10.89</span>   <span class="m">5</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">29</span>  <span class="m">28.72</span>  <span class="m">10</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">43</span>  <span class="m">41.74</span>  <span class="m">15</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">57</span>  <span class="m">52.70</span>  <span class="m">20</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">71</span>  <span class="m">60.92</span>  <span class="m">25</span>  <span class="m">301</span></span>
+<span class="code-line"><span class="m">2</span>    <span class="m">4.55</span>   <span class="m">3</span>  <span class="m">303</span></span>
+<span class="code-line"><span class="m">16</span>  <span class="m">10.92</span>   <span class="m">5</span>  <span class="m">303</span></span>
+<span class="code-line"><span class="m">30</span>  <span class="m">29.07</span>  <span class="m">10</span>  <span class="m">303</span></span>
+<span class="code-line"><span class="m">44</span>  <span class="m">42.83</span>  <span class="m">15</span>  <span class="m">303</span></span>
+</pre></div>
+
+
+<p>First, we need to convert the data to wide form, so each age (i.e. 3, 5, 10, 15, 20, 25) will have its own variable.</p>
+<div class="highlight"><pre><span class="code-line">wide <span class="o">&lt;-</span> reshape<span class="p">(</span>Loblolly<span class="p">,</span></span>
+<span class="code-line">    v.names <span class="o">=</span> <span class="s">&quot;height&quot;</span><span class="p">,</span></span>
+<span class="code-line">    timevar <span class="o">=</span> <span class="s">&quot;age&quot;</span><span class="p">,</span></span>
+<span class="code-line">    idvar <span class="o">=</span> <span class="s">&quot;Seed&quot;</span><span class="p">,</span></span>
+<span class="code-line">    direction <span class="o">=</span> <span class="s">&quot;wide&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> wide<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,]</span></span>
+<span class="code-line">  Seed height.3 height.5 height.10 height.15 height.20 height.25</span>
+<span class="code-line"><span class="m">1</span>  <span class="m">301</span>     <span class="m">4.51</span>    <span class="m">10.89</span>     <span class="m">28.72</span>     <span class="m">41.74</span>     <span class="m">52.70</span>     <span class="m">60.92</span></span>
+<span class="code-line"><span class="m">2</span>  <span class="m">303</span>     <span class="m">4.55</span>    <span class="m">10.92</span>     <span class="m">29.07</span>     <span class="m">42.83</span>     <span class="m">53.88</span>     <span class="m">63.39</span></span>
+<span class="code-line"><span class="m">3</span>  <span class="m">305</span>     <span class="m">4.79</span>    <span class="m">11.37</span>     <span class="m">30.21</span>     <span class="m">44.40</span>     <span class="m">55.82</span>     <span class="m">64.10</span></span>
+<span class="code-line"><span class="m">4</span>  <span class="m">307</span>     <span class="m">3.91</span>     <span class="m">9.48</span>     <span class="m">25.66</span>     <span class="m">39.07</span>     <span class="m">50.78</span>     <span class="m">59.07</span></span>
+<span class="code-line"><span class="m">5</span>  <span class="m">309</span>     <span class="m">4.81</span>    <span class="m">11.20</span>     <span class="m">28.66</span>     <span class="m">41.66</span>     <span class="m">53.31</span>     <span class="m">63.05</span></span>
+</pre></div>
+
+
+<h2>Create Variables</h2>
+<p>Then we want to create new columns showing how much each tree has grown between data points. For example, instead of knowing a tree's height at age 10, we want to know how much it's grown between age 5 and age 10, so that can be a bar in our graph.</p>
+<div class="highlight"><pre><span class="code-line">wide<span class="o">$</span>h0.3 <span class="o">&lt;-</span> wide<span class="o">$</span>height.3</span>
+<span class="code-line">wide<span class="o">$</span>h3.5 <span class="o">&lt;-</span> wide<span class="o">$</span>height.5 <span class="o">-</span> wide<span class="o">$</span>height.3</span>
+<span class="code-line">wide<span class="o">$</span>h5.10 <span class="o">&lt;-</span> wide<span class="o">$</span>height.10 <span class="o">-</span> wide<span class="o">$</span>height.5</span>
+<span class="code-line">wide<span class="o">$</span>h10.15 <span class="o">&lt;-</span> wide<span class="o">$</span>height.15 <span class="o">-</span> wide<span class="o">$</span>height.10</span>
+<span class="code-line">wide<span class="o">$</span>h15.20 <span class="o">&lt;-</span> wide<span class="o">$</span>height.20 <span class="o">-</span> wide<span class="o">$</span>height.15</span>
+<span class="code-line">wide<span class="o">$</span>h20.25 <span class="o">&lt;-</span> wide<span class="o">$</span>height.25 <span class="o">-</span> wide<span class="o">$</span>height.20</span>
+</pre></div>
+
+
+<h2>Plot Stacked Bar Chart</h2>
+<p>Finally, we want to plot all the new data points:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span></span>
+<span class="code-line">sequential <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span></span>
+<span class="code-line">barplot<span class="p">(</span><span class="kp">t</span><span class="p">(</span>wide<span class="p">[,</span><span class="m">8</span><span class="o">:</span><span class="m">13</span><span class="p">]),</span></span>
+<span class="code-line">    names.arg <span class="o">=</span> wide<span class="o">$</span>Seed<span class="p">,</span> <span class="c1"># x-axis labels</span></span>
+<span class="code-line">    cex.names <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> <span class="c1"># makes x-axis labels small enough to show all</span></span>
+<span class="code-line">    col <span class="o">=</span> sequential<span class="p">,</span> <span class="c1"># colors</span></span>
+<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;Seed Source&quot;</span><span class="p">,</span></span>
+<span class="code-line">    ylab <span class="o">=</span> <span class="s">&quot;Height, Feet&quot;</span><span class="p">,</span></span>
+<span class="code-line">    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20</span><span class="p">),</span> <span class="c1"># these two lines allow space for the legend</span></span>
+<span class="code-line">    width <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># these two lines allow space for the legend</span></span>
+<span class="code-line">legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    legend <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;20-25&quot;</span><span class="p">,</span> <span class="s">&quot;15-20&quot;</span><span class="p">,</span> <span class="s">&quot;10-15&quot;</span><span class="p">,</span> <span class="s">&quot;5-10&quot;</span><span class="p">,</span> <span class="s">&quot;3-5&quot;</span><span class="p">,</span> <span class="s">&quot;0-3&quot;</span><span class="p">),</span> <span class="c1">#in order from top to bottom</span></span>
+<span class="code-line">    fill <span class="o">=</span> sequential<span class="p">[</span><span class="m">6</span><span class="o">:</span><span class="m">1</span><span class="p">],</span> <span class="c1"># 6:1 reorders so legend order matches graph</span></span>
+<span class="code-line">    title <span class="o">=</span> <span class="s">&quot;Years&quot;</span><span class="p">)</span></span>
+</pre></div>
+
+
+<p><img alt="Stacked bar chart" src="http://blog.mollietaylor.com/images/r-stacked-bars.png" /></p>
+<p>If you decide you'd rather have clustered bars instead of stacked bars, you can just add the option <code>beside = TRUE</code> to the <code>barplot</code>.</p>
+<p>The full code is available in a <a href="https://gist.github.com/4263515">gist</a>.</p>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li>Reshape<ul>
+<li><a href="http://stat.ethz.ch/R-manual/R-patched/library/stats/html/reshape.html">http://stat.ethz.ch/R-manual/R-patched/library/stats/html/reshape.html</a></li>
+</ul>
+</li>
+<li>Stacked bar graphs<ul>
+<li><a href="http://www.cs.grinnell.edu/~rebelsky/Courses/MAT115/2008S/R/stacked-bar-graphs.html">http://www.cs.grinnell.edu/~rebelsky/Courses/MAT115/2008S/R/stacked-bar-graphs.html</a></li>
+<li><a href="http://www.harding.edu/fmccown/r/#barcharts">http://www.harding.edu/fmccown/r/#barcharts</a></li>
+</ul>
+</li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/barplot.html" rel="tag">barplot</a>,  <a href="http://blog.mollietaylor.com/tag/datasets.html" rel="tag">datasets</a>,  <a href="http://blog.mollietaylor.com/tag/legend.html" rel="tag">legend</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/2012/12/mapping-gps-tracks-in-google-earth.html">Thu 20 December 2012</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/.html" title="View all posts in " rel="category tag"></a></span>
@@ -727,70 +821,6 @@ There also are units that have definitions relative to your document. These are 
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/anyduplicated.html" rel="tag">anyDuplicated</a>,  <a href="http://blog.mollietaylor.com/tag/cat.html" rel="tag">cat</a>,  <a href="http://blog.mollietaylor.com/tag/duplicated.html" rel="tag">duplicated</a>,  <a href="http://blog.mollietaylor.com/tag/length.html" rel="tag">length</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/sample.html" rel="tag">sample</a>,  <a href="http://blog.mollietaylor.com/tag/sort.html" rel="tag">sort</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2012/10/adding-measures-of-central-tendency-to.html">Thu 04 October 2012</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2012/10/adding-measures-of-central-tendency-to.html" title="Permalink to Adding Measures of Central Tendency to Histograms in R" rel="bookmark">Adding Measures of Central Tendency to Histograms in R</a>
-		</h2>
-		<div class="entry-content">
-			<p>Building on the <a href="http://blog.mollietaylor.com/2012/09/histogram-density-plot-combo-in-r.html">basic histogram with a density plot</a>, we can add measures of central tendency (in this case, mean and median) and a legend.</p>
-<p>Like last time, we'll use the beaver data from the <strong>datasets</strong> package.</p>
-<div class="highlight"><pre><span class="code-line">hist<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">,</span> <span class="c1"># histogram</span></span>
-<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;peachpuff&quot;</span><span class="p">,</span> <span class="c1"># column color</span></span>
-<span class="code-line">    border <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">,</span> </span>
-<span class="code-line">    prob <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="c1"># show densities instead of frequencies</span></span>
-<span class="code-line">    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">36</span><span class="p">,</span><span class="m">38.5</span><span class="p">),</span></span>
-<span class="code-line">    ylim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">3</span><span class="p">),</span></span>
-<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;Temperature&quot;</span><span class="p">,</span></span>
-<span class="code-line">    main <span class="o">=</span> <span class="s">&quot;Beaver #1&quot;</span><span class="p">)</span></span>
-<span class="code-line">lines<span class="p">(</span>density<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span> <span class="c1"># density plot</span></span>
-<span class="code-line">    lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="c1"># thickness of line</span></span>
-<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;chocolate3&quot;</span><span class="p">)</span></span>
-</pre></div>
-
-
-<p>Next we'll add a line for the mean: </p>
-<div class="highlight"><pre><span class="code-line">abline<span class="p">(</span>v <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span></span>
-<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;royalblue&quot;</span><span class="p">,</span></span>
-<span class="code-line">    lwd <span class="o">=</span> <span class="m">2</span><span class="p">)</span></span>
-</pre></div>
-
-
-<p>And a line for the median: </p>
-<div class="highlight"><pre><span class="code-line">abline<span class="p">(</span>v <span class="o">=</span> median<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">),</span></span>
-<span class="code-line">    col <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span></span>
-<span class="code-line">    lwd <span class="o">=</span> <span class="m">2</span><span class="p">)</span></span>
-</pre></div>
-
-
-<p>And then we can also add a legend, so it will be easy to tell which line is which. 
-    :::r
-    legend(x = "topright", # location of legend within plot area
-        c("Density plot", "Mean", "Median"),
-        col = c("chocolate3", "royalblue", "red"),
-        lwd = c(2, 2, 2))</p>
-<p>All of this together gives us the following graphic:</p>
-<p><img alt="Beaver #1 central tendency" src="http://blog.mollietaylor.com/images/r-histogram-tendency-1.png" /></p>
-<p>In this example, the mean and median are very close, as we can see by using <code>median()</code> and <code>mode()</code>.</p>
-<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> <span class="kp">mean</span><span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">)</span></span>
-<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">36.86219</span></span>
-<span class="code-line"><span class="o">&gt;</span> median<span class="p">(</span>beaver1<span class="o">$</span>temp<span class="p">)</span></span>
-<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">36.87</span></span>
-</pre></div>
-
-
-<p>We can do like we did in the previous post and graph beaver1 and beaver2 together by adding a layout line and changing the limits of x and y. The full code for this is available in a <a href="https://gist.github.com/3768715#file_histdens2.r">gist</a>.</p>
-<p>Here's the output from that code: </p>
-<p><img alt="Beaver #1 and #2 central tendency" src="http://blog.mollietaylor.com/images/r-histogram-tendency-2.png" /></p>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/abline.html" rel="tag">abline</a>,  <a href="http://blog.mollietaylor.com/tag/hist.html" rel="tag">hist</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">

@@ -43,6 +43,93 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/center-map-on-layer-change-in-leaflet.html">Thu 27 February 2014</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2014/02/center-map-on-layer-change-in-leaflet.html" title="Permalink to Center Map on Layer Change in Leaflet" rel="bookmark">Center Map on Layer Change in Leaflet</a>
+		</h2>
+		<div class="entry-content">
+			<p>In Leaflet, it can be helpful to change the bounds of the map when the user adds or changes the visible map layers.</p>
+<h2>The Basics</h2>
+<p>First, we'll start with the initial code including our map and polygon layers:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span></span>
+<span class="code-line"><span class="p">});</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">]);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mf">51.505</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09</span><span class="p">],</span></span>
+<span class="code-line">    <span class="nx">zoom</span><span class="o">:</span> <span class="mi">13</span></span>
+<span class="code-line"><span class="p">});</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">overlayMaps</span> <span class="o">=</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="s2">&quot;Circle&quot;</span><span class="o">:</span> <span class="nx">circle</span><span class="p">,</span></span>
+<span class="code-line">    <span class="s2">&quot;Polygon&quot;</span><span class="o">:</span> <span class="nx">polygon</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">L</span><span class="p">.</span><span class="nx">tileLayer</span><span class="p">(</span><span class="s1">&#39;http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&#39;</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">attribution</span><span class="o">:</span> <span class="s1">&#39;&amp;copy; &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;CC-BY-SA&lt;/a&gt;&#39;</span></span>
+<span class="code-line"><span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">L</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">layers</span><span class="p">(</span><span class="nx">overlayMaps</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">collapsed</span><span class="o">:</span> <span class="kc">false</span></span>
+<span class="code-line"><span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+</pre></div>
+
+
+<p>So far, most of this should be familiar from the <a href="http://leafletjs.com/examples/quick-start.html">Leaflet Quick Start Guide</a>.</p>
+<p>Next, we want to add a listener function that will zoom and re-center upon a change in the circle or polygon layer.</p>
+<p>The <code>.on</code> method of <code>map</code> allows you to watch for an event to occur and then execute a function when it does. In this case, we want to wait for the event <code>'baselayerchange'</code>. This way the map will automatically zoom and recenter when the user changes layers.</p>
+<div class="highlight"><pre><span class="code-line"><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;baselayerchange&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span></span>
+<span class="code-line">    <span class="nx">map</span><span class="p">.</span><span class="nx">fitBounds</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">layer</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">});</span></span>
+</pre></div>
+
+
+<p><img alt="The map automatically zooms to the bounds of the shape when the layer is activated." class="size-auto" src="http://blog.mollietaylor.com/images/center-map-circle.png" /></p>
+<h2>Options</h2>
+<p>There are a few options for exactly how the map is zoomed and/or re-centered and for what type of layers are affected.</p>
+<p>If you want to do this with overlay layers instead of base layers, you can substitute <code>'overlayadd'</code> for <code>'baselayerchange'</code>. Using overlay layers is more common for drawing shapes, but treating your layers as base layers makes it easy to display only one at a time.</p>
+<div class="highlight"><pre><span class="code-line"><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;overlayadd&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span></span>
+<span class="code-line">    <span class="nx">map</span><span class="p">.</span><span class="nx">fitBounds</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">layer</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">});</span></span>
+</pre></div>
+
+
+<p><code>fitBounds</code> automatically zooms to the tightest zoom level where the whole shape is visible. If you don't want to use <code>fitBounds</code> (say you're centering on a new overlay layer and don't want to zoom all the way in), you can use <code>setView</code> or <code>panTo</code> instead. <code>panTo</code> animates as the view changes.</p>
+<div class="highlight"><pre><span class="code-line"><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;overlayadd&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span></span>
+<span class="code-line">    <span class="nx">map</span><span class="p">.</span><span class="nx">panTo</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">layer</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">});</span></span>
+</pre></div>
+
+
+<p>And there you have a few different ways to center and/or zoom in when an overlay layer is added or when the baselayer is changed. I'd recommend you <a href="http://leafletjs.com/reference.html">check out the documentation for fitBounds, setView, and panTo</a> and play around with the options. The <a href="http://leafletjs.com/reference.html#control-layers">options for L.control.layers</a> are also helpful. For example, you can set <code>collapsed</code> to false to encourage users to change the layers.</p>
+<p>The full code is available in <a href="https://gist.github.com/mollietaylor/9127811">a gist</a>.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://leafletjs.com/reference.html#map-fitbounds">http://leafletjs.com/reference.html#map-fitbounds</a></li>
+<li><a href="http://leafletjs.com/reference.html#control-layers-baselayerchange">http://leafletjs.com/reference.html#control-layers-baselayerchange</a></li>
+<li><a href="http://leafletjs.com/reference.html#map-overlayadd">http://leafletjs.com/reference.html#map-overlayadd</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/baselayerchange.html" rel="tag">baselayerchange</a>,  <a href="http://blog.mollietaylor.com/tag/fitbounds.html" rel="tag">fitBounds</a>,  <a href="http://blog.mollietaylor.com/tag/javascript.html" rel="tag">Javascript</a>,  <a href="http://blog.mollietaylor.com/tag/lcircle.html" rel="tag">L.circle</a>,  <a href="http://blog.mollietaylor.com/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="http://blog.mollietaylor.com/tag/lpolygon.html" rel="tag">L.polygon</a>,  <a href="http://blog.mollietaylor.com/tag/panto.html" rel="tag">panTo</a>,  <a href="http://blog.mollietaylor.com/tag/setview.html" rel="tag">setView</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/2014/02/merge-by-city-and-state-in-r.html">Thu 20 February 2014</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
@@ -616,47 +703,6 @@ I didn't quite start from scratch on this project. This image shows the progress
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/javascript.html" rel="tag">Javascript</a>,  <a href="http://blog.mollietaylor.com/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="http://blog.mollietaylor.com/tag/lpolygon.html" rel="tag">L.polygon</a>,  <a href="http://blog.mollietaylor.com/tag/setstyle.html" rel="tag">setStyle</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2013/12/add-spaces-between-citations-in-latex.html">Thu 12 December 2013</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/latex.html" title="View all posts in LaTeX" rel="category tag">LaTeX</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2013/12/add-spaces-between-citations-in-latex.html" title="Permalink to Add Spaces Between Citations in LaTeX" rel="bookmark">Add Spaces Between Citations in LaTeX</a>
-		</h2>
-		<div class="entry-content">
-			<p>I had an issue where LaTeX wasn't adding spaces between references when I had multiple references in the same place.</p>
-<p>So this:</p>
-<div class="highlight"><pre><span class="code-line">of their own <span class="k">\cite</span><span class="nb">{</span>moretti:2012,saxenian:1996,casper:2007<span class="nb">}</span>.</span>
-</pre></div>
-
-
-<p>was compiling as this:</p>
-<div class="highlight"><pre><span class="code-line">of their own [Moretti, 2012,Saxenian, 1996,Casper, 2007].</span>
-</pre></div>
-
-
-<p>To fix the problem, I simply added the space option for the <strong>cite</strong> package.</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">\usepackage</span><span class="na">[space]</span><span class="nb">{</span>cite<span class="nb">}</span></span>
-</pre></div>
-
-
-<p>And now it looks as it should:</p>
-<div class="highlight"><pre><span class="code-line">of their own [Moretti, 2012, Saxenian, 1996, Casper, 2007].</span>
-</pre></div>
-
-
-<p>If you have spaces and don't want them, you can instead use the <code>nospace</code> option to remove the space between each citation.</p>
-<h2>References</h2>
-<ul>
-<li><a href="http://texdoc.net/texmf-dist/doc/latex/cite/cite.pdf">http://texdoc.net/texmf-dist/doc/latex/cite/cite.pdf</a></li>
-</ul>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/cite.html" rel="tag">cite</a>,  <a href="http://blog.mollietaylor.com/tag/latex.html" rel="tag">LaTeX</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">

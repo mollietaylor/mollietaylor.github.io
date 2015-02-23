@@ -42,6 +42,120 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/08/plot-weekly-or-monthly-totals-in-r.html">Thu 29 August 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2013/08/plot-weekly-or-monthly-totals-in-r.html" title="Permalink to Plot Weekly or Monthly Totals in R" rel="bookmark">Plot Weekly or Monthly Totals in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>When plotting time series data, you might want to bin the values so that each data point corresponds to the sum for a given month or week. This post will show an easy way to use <code>cut</code> and <strong>ggplot2</strong>'s <code>stat_summary</code> to plot month totals in R without needing to reorganize the data into a second data frame.</p>
+<p>Let's start with a simple sample data set with a series of dates and quantities:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
+<span class="code-line"><span class="kn">library</span><span class="p">(</span>scales<span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># load data:</span></span>
+<span class="code-line">log <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>Date <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;2013/05/25&quot;</span><span class="p">,</span><span class="s">&quot;2013/05/28&quot;</span><span class="p">,</span><span class="s">&quot;2013/05/31&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/01&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/02&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/05&quot;</span><span class="p">,</span><span class="s">&quot;2013/06/07&quot;</span><span class="p">),</span> </span>
+<span class="code-line">  Quantity <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">9</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">15</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">17</span><span class="p">,</span><span class="m">18</span><span class="p">))</span></span>
+<span class="code-line"><span class="kp">log</span></span>
+<span class="code-line">str<span class="p">(</span><span class="kp">log</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">:::</span>r</span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">log</span></span>
+<span class="code-line">        Date Quantity</span>
+<span class="code-line"><span class="m">1</span> <span class="m">2013</span><span class="o">/</span><span class="m">05</span><span class="o">/</span><span class="m">25</span>        <span class="m">9</span></span>
+<span class="code-line"><span class="m">2</span> <span class="m">2013</span><span class="o">/</span><span class="m">05</span><span class="o">/</span><span class="m">28</span>        <span class="m">1</span></span>
+<span class="code-line"><span class="m">3</span> <span class="m">2013</span><span class="o">/</span><span class="m">05</span><span class="o">/</span><span class="m">31</span>       <span class="m">15</span></span>
+<span class="code-line"><span class="m">4</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">01</span>        <span class="m">4</span></span>
+<span class="code-line"><span class="m">5</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">02</span>        <span class="m">5</span></span>
+<span class="code-line"><span class="m">6</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">05</span>       <span class="m">17</span></span>
+<span class="code-line"><span class="m">7</span> <span class="m">2013</span><span class="o">/</span><span class="m">06</span><span class="o">/</span><span class="m">07</span>       <span class="m">18</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> str<span class="p">(</span><span class="kp">log</span><span class="p">)</span></span>
+<span class="code-line"><span class="s">&#39;data.frame&#39;</span><span class="o">:</span> <span class="m">7</span> obs. of  <span class="m">2</span> variables<span class="o">:</span></span>
+<span class="code-line"> <span class="o">$</span> Date    <span class="o">:</span> Factor w<span class="o">/</span> <span class="m">7</span> levels <span class="s">&quot;2013/05/25&quot;</span><span class="p">,</span><span class="s">&quot;2013/05/28&quot;</span><span class="p">,</span><span class="m">..</span><span class="o">:</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span> <span class="m">6</span> <span class="m">7</span></span>
+<span class="code-line"> <span class="o">$</span> Quantity<span class="o">:</span> num  <span class="m">9</span> <span class="m">1</span> <span class="m">15</span> <span class="m">4</span> <span class="m">5</span> <span class="m">17</span> <span class="m">18</span></span>
+</pre></div>
+
+
+<p>Next, if the date data is not already in a date format, we'll need to <a href="http://blog.mollietaylor.com/2013/08/date-formats-in-r.html">convert it to date format</a>:</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># convert date variable from factor to date format:</span></span>
+<span class="code-line"><span class="kp">log</span><span class="o">$</span>Date <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">log</span><span class="o">$</span>Date<span class="p">,</span></span>
+<span class="code-line">    <span class="s">&quot;%Y/%m/%d&quot;</span><span class="p">)</span> <span class="c1"># tabulate all the options here</span></span>
+<span class="code-line">str<span class="p">(</span><span class="kp">log</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">:::</span>r</span>
+<span class="code-line"><span class="o">&gt;</span> str<span class="p">(</span><span class="kp">log</span><span class="p">)</span></span>
+<span class="code-line"><span class="s">&#39;data.frame&#39;</span><span class="o">:</span> <span class="m">7</span> obs. of  <span class="m">2</span> variables<span class="o">:</span></span>
+<span class="code-line"> <span class="o">$</span> Date    <span class="o">:</span> Date<span class="p">,</span> <span class="kp">format</span><span class="o">:</span> <span class="s">&quot;2013-05-25&quot;</span> <span class="s">&quot;2013-05-28&quot;</span> <span class="kc">...</span></span>
+<span class="code-line"> <span class="o">$</span> Quantity<span class="o">:</span> num  <span class="m">9</span> <span class="m">1</span> <span class="m">15</span> <span class="m">4</span> <span class="m">5</span> <span class="m">17</span> <span class="m">18</span></span>
+</pre></div>
+
+
+<p>Next we need to create variables stating the week and month of each observation. For week, <code>cut</code> has an option that allows you to break weeks as you'd like, beginning weeks on either Sunday or Monday.</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># create variables of the week and month of each observation:</span></span>
+<span class="code-line"><span class="kp">log</span><span class="o">$</span>Month <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">cut</span><span class="p">(</span><span class="kp">log</span><span class="o">$</span>Date<span class="p">,</span></span>
+<span class="code-line">  breaks <span class="o">=</span> <span class="s">&quot;month&quot;</span><span class="p">))</span></span>
+<span class="code-line"><span class="kp">log</span><span class="o">$</span>Week <span class="o">&lt;-</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">cut</span><span class="p">(</span><span class="kp">log</span><span class="o">$</span>Date<span class="p">,</span></span>
+<span class="code-line">  breaks <span class="o">=</span> <span class="s">&quot;week&quot;</span><span class="p">,</span></span>
+<span class="code-line">  start.on.monday <span class="o">=</span> <span class="kc">FALSE</span><span class="p">))</span> <span class="c1"># changes weekly break point to Sunday</span></span>
+<span class="code-line"><span class="kp">log</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">log</span></span>
+<span class="code-line">        Date Quantity      Month       Week</span>
+<span class="code-line"><span class="m">1</span> <span class="m">2013-05-25</span>        <span class="m">9</span> <span class="m">2013-05-01</span> <span class="m">2013-05-19</span></span>
+<span class="code-line"><span class="m">2</span> <span class="m">2013-05-28</span>        <span class="m">1</span> <span class="m">2013-05-01</span> <span class="m">2013-05-26</span></span>
+<span class="code-line"><span class="m">3</span> <span class="m">2013-05-31</span>       <span class="m">15</span> <span class="m">2013-05-01</span> <span class="m">2013-05-26</span></span>
+<span class="code-line"><span class="m">4</span> <span class="m">2013-06-01</span>        <span class="m">4</span> <span class="m">2013-06-01</span> <span class="m">2013-05-26</span></span>
+<span class="code-line"><span class="m">5</span> <span class="m">2013-06-02</span>        <span class="m">5</span> <span class="m">2013-06-01</span> <span class="m">2013-06-02</span></span>
+<span class="code-line"><span class="m">6</span> <span class="m">2013-06-05</span>       <span class="m">17</span> <span class="m">2013-06-01</span> <span class="m">2013-06-02</span></span>
+<span class="code-line"><span class="m">7</span> <span class="m">2013-06-07</span>       <span class="m">18</span> <span class="m">2013-06-01</span> <span class="m">2013-06-02</span></span>
+</pre></div>
+
+
+<p>Finally, we can create either a line or bar plot of the data by month and by week, using <code>stat_summary</code> to sum up the values associated with each week or month:</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># graph by month:</span></span>
+<span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log</span><span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>Month<span class="p">,</span> Quantity<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">    stat_summary<span class="p">(</span>fun.y <span class="o">=</span> <span class="kp">sum</span><span class="p">,</span> <span class="c1"># adds up all observations for the month</span></span>
+<span class="code-line">        geom <span class="o">=</span> <span class="s">&quot;bar&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># or &quot;line&quot;</span></span>
+<span class="code-line">    scale_x_date<span class="p">(</span></span>
+<span class="code-line">        labels <span class="o">=</span> date_format<span class="p">(</span><span class="s">&quot;%Y-%m&quot;</span><span class="p">),</span></span>
+<span class="code-line">        breaks <span class="o">=</span> <span class="s">&quot;1 month&quot;</span><span class="p">)</span> <span class="c1"># custom x-axis labels</span></span>
+</pre></div>
+
+
+<p><img alt="Time series plot, binned by month" src="http://blog.mollietaylor.com/images/plot-monthly-total.png" /></p>
+<div class="highlight"><pre><span class="code-line"><span class="c1"># graph by week:</span></span>
+<span class="code-line">ggplot<span class="p">(</span>data <span class="o">=</span> <span class="kp">log</span><span class="p">,</span></span>
+<span class="code-line">    aes<span class="p">(</span>Week<span class="p">,</span> Quantity<span class="p">))</span> <span class="o">+</span></span>
+<span class="code-line">    stat_summary<span class="p">(</span>fun.y <span class="o">=</span> <span class="kp">sum</span><span class="p">,</span> <span class="c1"># adds up all observations for the week</span></span>
+<span class="code-line">        geom <span class="o">=</span> <span class="s">&quot;bar&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="c1"># or &quot;line&quot;</span></span>
+<span class="code-line">    scale_x_date<span class="p">(</span></span>
+<span class="code-line">        labels <span class="o">=</span> date_format<span class="p">(</span><span class="s">&quot;%Y-%m-%d&quot;</span><span class="p">),</span></span>
+<span class="code-line">        breaks <span class="o">=</span> <span class="s">&quot;1 week&quot;</span><span class="p">)</span> <span class="c1"># custom x-axis labels</span></span>
+</pre></div>
+
+
+<p><img alt="Time series plot, totaled by week" src="http://blog.mollietaylor.com/images/plot-weekly-total.png" /></p>
+<p>The full code is available in a <a href="https://gist.github.com/mollietaylor/5846843">gist</a>.</p>
+<blockquote>
+<p>In a <a href="mollietaylor.blogspot.com/2013/08/plot-weekly-or-monthly-totals-in-r.html">comment</a>, Achim Zeileis pointed out that the aggregation part can be more easily handled using time series packages like <strong>zoo</strong> or <strong>xts</strong>.</p>
+</blockquote>
+<h2>References</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/3496536/barplot-totals-by-month-with-ggplot">http://stackoverflow.com/questions/3496536/barplot-totals-by-month-with-ggplot</a></li>
+</ul>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/asdate.html" rel="tag">as.Date</a>,  <a href="http://blog.mollietaylor.com/tag/cut.html" rel="tag">cut</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/scale_x_date.html" rel="tag">scale_x_date</a>,  <a href="http://blog.mollietaylor.com/tag/scales.html" rel="tag">scales</a>,  <a href="http://blog.mollietaylor.com/tag/stat_summary.html" rel="tag">stat_summary</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/2013/08/date-formats-in-r.html">Thu 22 August 2013</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
@@ -875,100 +989,6 @@
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/aggregate.html" rel="tag">aggregate</a>,  <a href="http://blog.mollietaylor.com/tag/analysis.html" rel="tag">analysis</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gini.html" rel="tag">gini</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/reldist.html" rel="tag">reldist</a>,  <a href="http://blog.mollietaylor.com/tag/sample.html" rel="tag">sample</a>,  <a href="http://blog.mollietaylor.com/tag/stat_density.html" rel="tag">stat_density</a>,  <a href="http://blog.mollietaylor.com/tag/writecsv.html" rel="tag">write.csv</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2013/01/stacked-bar-charts-in-r.html">Thu 10 January 2013</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2013/01/stacked-bar-charts-in-r.html" title="Permalink to Stacked Bar Charts in R" rel="bookmark">Stacked Bar Charts in R</a>
-		</h2>
-		<div class="entry-content">
-			<h2>Reshape Wide to Long</h2>
-<p>Let's use the <code>Loblolly</code> dataset from the <strong>datasets</strong> package. These data track the growth of some loblolly pine trees.</p>
-<div class="highlight"><pre><span class="code-line"><span class="o">&gt;</span> Loblolly<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,]</span></span>
-<span class="code-line">   height age Seed</span>
-<span class="code-line"><span class="m">1</span>    <span class="m">4.51</span>   <span class="m">3</span>  <span class="m">301</span></span>
-<span class="code-line"><span class="m">15</span>  <span class="m">10.89</span>   <span class="m">5</span>  <span class="m">301</span></span>
-<span class="code-line"><span class="m">29</span>  <span class="m">28.72</span>  <span class="m">10</span>  <span class="m">301</span></span>
-<span class="code-line"><span class="m">43</span>  <span class="m">41.74</span>  <span class="m">15</span>  <span class="m">301</span></span>
-<span class="code-line"><span class="m">57</span>  <span class="m">52.70</span>  <span class="m">20</span>  <span class="m">301</span></span>
-<span class="code-line"><span class="m">71</span>  <span class="m">60.92</span>  <span class="m">25</span>  <span class="m">301</span></span>
-<span class="code-line"><span class="m">2</span>    <span class="m">4.55</span>   <span class="m">3</span>  <span class="m">303</span></span>
-<span class="code-line"><span class="m">16</span>  <span class="m">10.92</span>   <span class="m">5</span>  <span class="m">303</span></span>
-<span class="code-line"><span class="m">30</span>  <span class="m">29.07</span>  <span class="m">10</span>  <span class="m">303</span></span>
-<span class="code-line"><span class="m">44</span>  <span class="m">42.83</span>  <span class="m">15</span>  <span class="m">303</span></span>
-</pre></div>
-
-
-<p>First, we need to convert the data to wide form, so each age (i.e. 3, 5, 10, 15, 20, 25) will have its own variable.</p>
-<div class="highlight"><pre><span class="code-line">wide <span class="o">&lt;-</span> reshape<span class="p">(</span>Loblolly<span class="p">,</span></span>
-<span class="code-line">    v.names <span class="o">=</span> <span class="s">&quot;height&quot;</span><span class="p">,</span></span>
-<span class="code-line">    timevar <span class="o">=</span> <span class="s">&quot;age&quot;</span><span class="p">,</span></span>
-<span class="code-line">    idvar <span class="o">=</span> <span class="s">&quot;Seed&quot;</span><span class="p">,</span></span>
-<span class="code-line">    direction <span class="o">=</span> <span class="s">&quot;wide&quot;</span><span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="o">&gt;</span> wide<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,]</span></span>
-<span class="code-line">  Seed height.3 height.5 height.10 height.15 height.20 height.25</span>
-<span class="code-line"><span class="m">1</span>  <span class="m">301</span>     <span class="m">4.51</span>    <span class="m">10.89</span>     <span class="m">28.72</span>     <span class="m">41.74</span>     <span class="m">52.70</span>     <span class="m">60.92</span></span>
-<span class="code-line"><span class="m">2</span>  <span class="m">303</span>     <span class="m">4.55</span>    <span class="m">10.92</span>     <span class="m">29.07</span>     <span class="m">42.83</span>     <span class="m">53.88</span>     <span class="m">63.39</span></span>
-<span class="code-line"><span class="m">3</span>  <span class="m">305</span>     <span class="m">4.79</span>    <span class="m">11.37</span>     <span class="m">30.21</span>     <span class="m">44.40</span>     <span class="m">55.82</span>     <span class="m">64.10</span></span>
-<span class="code-line"><span class="m">4</span>  <span class="m">307</span>     <span class="m">3.91</span>     <span class="m">9.48</span>     <span class="m">25.66</span>     <span class="m">39.07</span>     <span class="m">50.78</span>     <span class="m">59.07</span></span>
-<span class="code-line"><span class="m">5</span>  <span class="m">309</span>     <span class="m">4.81</span>    <span class="m">11.20</span>     <span class="m">28.66</span>     <span class="m">41.66</span>     <span class="m">53.31</span>     <span class="m">63.05</span></span>
-</pre></div>
-
-
-<h2>Create Variables</h2>
-<p>Then we want to create new columns showing how much each tree has grown between data points. For example, instead of knowing a tree's height at age 10, we want to know how much it's grown between age 5 and age 10, so that can be a bar in our graph.</p>
-<div class="highlight"><pre><span class="code-line">wide<span class="o">$</span>h0.3 <span class="o">&lt;-</span> wide<span class="o">$</span>height.3</span>
-<span class="code-line">wide<span class="o">$</span>h3.5 <span class="o">&lt;-</span> wide<span class="o">$</span>height.5 <span class="o">-</span> wide<span class="o">$</span>height.3</span>
-<span class="code-line">wide<span class="o">$</span>h5.10 <span class="o">&lt;-</span> wide<span class="o">$</span>height.10 <span class="o">-</span> wide<span class="o">$</span>height.5</span>
-<span class="code-line">wide<span class="o">$</span>h10.15 <span class="o">&lt;-</span> wide<span class="o">$</span>height.15 <span class="o">-</span> wide<span class="o">$</span>height.10</span>
-<span class="code-line">wide<span class="o">$</span>h15.20 <span class="o">&lt;-</span> wide<span class="o">$</span>height.20 <span class="o">-</span> wide<span class="o">$</span>height.15</span>
-<span class="code-line">wide<span class="o">$</span>h20.25 <span class="o">&lt;-</span> wide<span class="o">$</span>height.25 <span class="o">-</span> wide<span class="o">$</span>height.20</span>
-</pre></div>
-
-
-<h2>Plot Stacked Bar Chart</h2>
-<p>Finally, we want to plot all the new data points:</p>
-<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>RColorBrewer<span class="p">)</span></span>
-<span class="code-line">sequential <span class="o">&lt;-</span> brewer.pal<span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="s">&quot;BuGn&quot;</span><span class="p">)</span></span>
-<span class="code-line">barplot<span class="p">(</span><span class="kp">t</span><span class="p">(</span>wide<span class="p">[,</span><span class="m">8</span><span class="o">:</span><span class="m">13</span><span class="p">]),</span></span>
-<span class="code-line">    names.arg <span class="o">=</span> wide<span class="o">$</span>Seed<span class="p">,</span> <span class="c1"># x-axis labels</span></span>
-<span class="code-line">    cex.names <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> <span class="c1"># makes x-axis labels small enough to show all</span></span>
-<span class="code-line">    col <span class="o">=</span> sequential<span class="p">,</span> <span class="c1"># colors</span></span>
-<span class="code-line">    xlab <span class="o">=</span> <span class="s">&quot;Seed Source&quot;</span><span class="p">,</span></span>
-<span class="code-line">    ylab <span class="o">=</span> <span class="s">&quot;Height, Feet&quot;</span><span class="p">,</span></span>
-<span class="code-line">    xlim <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">20</span><span class="p">),</span> <span class="c1"># these two lines allow space for the legend</span></span>
-<span class="code-line">    width <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># these two lines allow space for the legend</span></span>
-<span class="code-line">legend<span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span> </span>
-<span class="code-line">    legend <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;20-25&quot;</span><span class="p">,</span> <span class="s">&quot;15-20&quot;</span><span class="p">,</span> <span class="s">&quot;10-15&quot;</span><span class="p">,</span> <span class="s">&quot;5-10&quot;</span><span class="p">,</span> <span class="s">&quot;3-5&quot;</span><span class="p">,</span> <span class="s">&quot;0-3&quot;</span><span class="p">),</span> <span class="c1">#in order from top to bottom</span></span>
-<span class="code-line">    fill <span class="o">=</span> sequential<span class="p">[</span><span class="m">6</span><span class="o">:</span><span class="m">1</span><span class="p">],</span> <span class="c1"># 6:1 reorders so legend order matches graph</span></span>
-<span class="code-line">    title <span class="o">=</span> <span class="s">&quot;Years&quot;</span><span class="p">)</span></span>
-</pre></div>
-
-
-<p><img alt="Stacked bar chart" src="http://blog.mollietaylor.com/images/r-stacked-bars.png" /></p>
-<p>If you decide you'd rather have clustered bars instead of stacked bars, you can just add the option <code>beside = TRUE</code> to the <code>barplot</code>.</p>
-<p>The full code is available in a <a href="https://gist.github.com/4263515">gist</a>.</p>
-<h2>Citations and Further Reading</h2>
-<ul>
-<li>Reshape<ul>
-<li><a href="http://stat.ethz.ch/R-manual/R-patched/library/stats/html/reshape.html">http://stat.ethz.ch/R-manual/R-patched/library/stats/html/reshape.html</a></li>
-</ul>
-</li>
-<li>Stacked bar graphs<ul>
-<li><a href="http://www.cs.grinnell.edu/~rebelsky/Courses/MAT115/2008S/R/stacked-bar-graphs.html">http://www.cs.grinnell.edu/~rebelsky/Courses/MAT115/2008S/R/stacked-bar-graphs.html</a></li>
-<li><a href="http://www.harding.edu/fmccown/r/#barcharts">http://www.harding.edu/fmccown/r/#barcharts</a></li>
-</ul>
-</li>
-</ul>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/barplot.html" rel="tag">barplot</a>,  <a href="http://blog.mollietaylor.com/tag/datasets.html" rel="tag">datasets</a>,  <a href="http://blog.mollietaylor.com/tag/legend.html" rel="tag">legend</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/rcolorbrewer.html" rel="tag">RColorBrewer</a>,  <a href="http://blog.mollietaylor.com/tag/visualization.html" rel="tag">visualization</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">
