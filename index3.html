@@ -42,6 +42,51 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/12/make-all-polygons-same-shade-in-leaflet.html">Thu 19 December 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/leaflet.html" title="View all posts in Leaflet" rel="category tag">Leaflet</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2013/12/make-all-polygons-same-shade-in-leaflet.html" title="Permalink to Make All Polygons the Same Shade in Leaflet" rel="bookmark">Make All Polygons the Same Shade in Leaflet</a>
+		</h2>
+		<div class="entry-content">
+			<p>The <a href="http://leafletjs.com/examples/quick-start.html">Quick Start tutorial</a> shows us how to change the color of a polygon:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">&#39;#f03&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.5</span></span>
+<span class="code-line"><span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+</pre></div>
+
+
+<p>But what if we want to change the color and style of all (or a set of the) polygons?</p>
+<p>First we can define the style:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">defaultStyle</span> <span class="o">=</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span></span>
+<span class="code-line">    <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.2</span></span>
+<span class="code-line"><span class="p">};</span></span>
+</pre></div>
+
+
+<p>And then we can just add that style to our polygons:</p>
+<div class="highlight"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">polygon</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">polygon</span><span class="p">([</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.509</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08</span><span class="p">],</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.503</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">],</span></span>
+<span class="code-line">    <span class="p">[</span><span class="mf">51.51</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.047</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">]).</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">defaultStyle</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circle</span><span class="p">([</span><span class="mf">51.508</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.11</span><span class="p">],</span> <span class="mi">500</span><span class="p">).</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">defaultStyle</span><span class="p">).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span></span>
+</pre></div>
+
+
+<p>The full code (based on <a href="http://leafletjs.com/examples/quick-start.html">the Quick Start tutorial</a>) is available in a <a href="https://gist.github.com/mollietaylor/7110969">gist</a>.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/javascript.html" rel="tag">Javascript</a>,  <a href="http://blog.mollietaylor.com/tag/leaflet.html" rel="tag">Leaflet</a>,  <a href="http://blog.mollietaylor.com/tag/lpolygon.html" rel="tag">L.polygon</a>,  <a href="http://blog.mollietaylor.com/tag/setstyle.html" rel="tag">setStyle</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/2013/12/add-spaces-between-citations-in-latex.html">Thu 12 December 2013</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/latex.html" title="View all posts in LaTeX" rel="category tag">LaTeX</a></span>
@@ -730,76 +775,6 @@ I haven't tested it, but it is likely this is more efficient than using <code>fo
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/exists.html" rel="tag">exists</a>,  <a href="http://blog.mollietaylor.com/tag/if.html" rel="tag">if</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/readcsv.html" rel="tag">read.csv</a>,  <a href="http://blog.mollietaylor.com/tag/readtable.html" rel="tag">read.table</a>,  <a href="http://blog.mollietaylor.com/tag/series-large-data.html" rel="tag">Series: Large Data</a>,  <a href="http://blog.mollietaylor.com/tag/setup.html" rel="tag">setup</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2013/09/using-colclasses-to-load-data-more.html">Thu 05 September 2013</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2013/09/using-colclasses-to-load-data-more.html" title="Permalink to Using colClasses to Load Data More Quickly in R" rel="bookmark">Using colClasses to Load Data More Quickly in R</a>
-		</h2>
-		<div class="entry-content">
-			<p>Specifying a <code>colClasses</code> argument to <code>read.table</code> or <code>read.csv</code> can save time on importing data, while also saving steps to specify classes for each variable later.</p>
-<p>For example, loading a 893 MB took 441 seconds to load when not using <code>colClasses</code>, but only 268 seconds to load when using <code>colClasses</code>. The <code>system.time</code> function in <strong>base</strong> can help you check your own times.</p>
-<p>Without specifying <code>colClasses</code>:</p>
-<div class="highlight"><pre><span class="code-line">   user  system elapsed </span>
-<span class="code-line"><span class="m">441.224</span>   <span class="m">8.200</span> <span class="m">454.155</span></span>
-</pre></div>
-
-
-<p>When specifying <code>colClasses</code>:</p>
-<div class="highlight"><pre><span class="code-line">   user  system elapsed </span>
-<span class="code-line"><span class="m">268.036</span>   <span class="m">6.096</span> <span class="m">284.099</span></span>
-</pre></div>
-
-
-<p>Dates that are in the <a href="http://blog.mollietaylor.com/2013/08/date-formats-in-r.html">form %Y-%m-%d or Y/%m/%d</a> will import correctly. <a href="http://stackoverflow.com/a/13022441">This tip allows you to import dates properly</a> for dates in other formats.</p>
-<div class="highlight"><pre><span class="code-line"><span class="kp">system.time</span><span class="p">(</span>largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span></span>
-<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
-<span class="code-line">    colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;complex&quot;</span><span class="p">,</span> </span>
-<span class="code-line">        <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> </span>
-<span class="code-line">        <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;numeric&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span></span>
-<span class="code-line">        <span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;logical&quot;</span><span class="p">)))</span></span>
-</pre></div>
-
-
-<p>If there aren't any classes that you want to change from their defaults, you can read in the first few rows, <a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">determine the classes from that</a>, and then import the rest of the file:</p>
-<div class="highlight"><pre><span class="code-line">sampleData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> nrows <span class="o">=</span> <span class="m">5</span><span class="p">)</span></span>
-<span class="code-line">classes <span class="o">&lt;-</span> <span class="kp">sapply</span><span class="p">(</span>sampleData<span class="p">,</span> <span class="kp">class</span><span class="p">)</span></span>
-<span class="code-line">largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> colClasses <span class="o">=</span> classes<span class="p">)</span></span>
-<span class="code-line">str<span class="p">(</span>largeData<span class="p">)</span></span>
-</pre></div>
-
-
-<p>If you aren't concerned about the time it takes to read the data file, but instead just want the classes to be correct on import, you have the option of only specifying certain classes:</p>
-<div class="highlight"><pre><span class="code-line">smallData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;small-file.csv&quot;</span><span class="p">,</span> </span>
-<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
-<span class="code-line">    colClasses<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;variableName&quot;</span><span class="o">=</span><span class="s">&quot;character&quot;</span><span class="p">))</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="o">&gt;</span> <span class="kp">class</span><span class="p">(</span>smallData<span class="o">$</span>variableName<span class="p">)</span></span>
-<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;character&quot;</span></span>
-</pre></div>
-
-
-<blockquote>
-<p>This post is one part of <a href="http://blog.mollietaylor.com/tag/series-large-data.html">my series on dealing with large datasets</a>.</p>
-</blockquote>
-<h2>Citations and Further Reading</h2>
-<ul>
-<li><a href="http://stackoverflow.com/questions/2805357/specifying-colclasses-in-the-read-csv">http://stackoverflow.com/questions/2805357/specifying-colclasses-in-the-read-csv</a></li>
-<li><a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html</a></li>
-<li><a href="http://blog.mollietaylor.com/2013/08/date-formats-in-r.html">Date Formats in R</a></li>
-<li><a href="http://stackoverflow.com/a/13022441">http://stackoverflow.com/a/13022441</a></li>
-</ul>
-<blockquote>
-<p>In a <a href="http://mollietaylor.blogspot.com/2013/09/using-colclasses-to-load-data-more.html?showComment=1378560018132#c2964058082964060072">comment</a>, Michael pointed out that if you don't need all the columns in your dataset, providing their <code>colClass</code> as <code>NULL</code> will exclude them from being loaded.</p>
-</blockquote>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/colclasses.html" rel="tag">colClasses</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/readcsv.html" rel="tag">read.csv</a>,  <a href="http://blog.mollietaylor.com/tag/readtable.html" rel="tag">read.table</a>,  <a href="http://blog.mollietaylor.com/tag/series-large-data.html" rel="tag">Series: Large Data</a>,  <a href="http://blog.mollietaylor.com/tag/setup.html" rel="tag">setup</a>,  <a href="http://blog.mollietaylor.com/tag/systemtime.html" rel="tag">system.time</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">

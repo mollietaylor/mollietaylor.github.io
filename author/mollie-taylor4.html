@@ -43,6 +43,76 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<div class="date"><a href="http://blog.mollietaylor.com/2013/09/using-colclasses-to-load-data-more.html">Thu 05 September 2013</a></div>
+		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
+			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://blog.mollietaylor.com/2013/09/using-colclasses-to-load-data-more.html" title="Permalink to Using colClasses to Load Data More Quickly in R" rel="bookmark">Using colClasses to Load Data More Quickly in R</a>
+		</h2>
+		<div class="entry-content">
+			<p>Specifying a <code>colClasses</code> argument to <code>read.table</code> or <code>read.csv</code> can save time on importing data, while also saving steps to specify classes for each variable later.</p>
+<p>For example, loading a 893 MB took 441 seconds to load when not using <code>colClasses</code>, but only 268 seconds to load when using <code>colClasses</code>. The <code>system.time</code> function in <strong>base</strong> can help you check your own times.</p>
+<p>Without specifying <code>colClasses</code>:</p>
+<div class="highlight"><pre><span class="code-line">   user  system elapsed </span>
+<span class="code-line"><span class="m">441.224</span>   <span class="m">8.200</span> <span class="m">454.155</span></span>
+</pre></div>
+
+
+<p>When specifying <code>colClasses</code>:</p>
+<div class="highlight"><pre><span class="code-line">   user  system elapsed </span>
+<span class="code-line"><span class="m">268.036</span>   <span class="m">6.096</span> <span class="m">284.099</span></span>
+</pre></div>
+
+
+<p>Dates that are in the <a href="http://blog.mollietaylor.com/2013/08/date-formats-in-r.html">form %Y-%m-%d or Y/%m/%d</a> will import correctly. <a href="http://stackoverflow.com/a/13022441">This tip allows you to import dates properly</a> for dates in other formats.</p>
+<div class="highlight"><pre><span class="code-line"><span class="kp">system.time</span><span class="p">(</span>largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span></span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    colClasses <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;complex&quot;</span><span class="p">,</span> </span>
+<span class="code-line">        <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;factor&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> </span>
+<span class="code-line">        <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;numeric&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span> <span class="s">&quot;character&quot;</span><span class="p">,</span></span>
+<span class="code-line">        <span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="s">&quot;logical&quot;</span><span class="p">)))</span></span>
+</pre></div>
+
+
+<p>If there aren't any classes that you want to change from their defaults, you can read in the first few rows, <a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">determine the classes from that</a>, and then import the rest of the file:</p>
+<div class="highlight"><pre><span class="code-line">sampleData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> nrows <span class="o">=</span> <span class="m">5</span><span class="p">)</span></span>
+<span class="code-line">classes <span class="o">&lt;-</span> <span class="kp">sapply</span><span class="p">(</span>sampleData<span class="p">,</span> <span class="kp">class</span><span class="p">)</span></span>
+<span class="code-line">largeData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;huge-file.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> colClasses <span class="o">=</span> classes<span class="p">)</span></span>
+<span class="code-line">str<span class="p">(</span>largeData<span class="p">)</span></span>
+</pre></div>
+
+
+<p>If you aren't concerned about the time it takes to read the data file, but instead just want the classes to be correct on import, you have the option of only specifying certain classes:</p>
+<div class="highlight"><pre><span class="code-line">smallData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;small-file.csv&quot;</span><span class="p">,</span> </span>
+<span class="code-line">    header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span></span>
+<span class="code-line">    colClasses<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;variableName&quot;</span><span class="o">=</span><span class="s">&quot;character&quot;</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">&gt;</span> <span class="kp">class</span><span class="p">(</span>smallData<span class="o">$</span>variableName<span class="p">)</span></span>
+<span class="code-line"><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="s">&quot;character&quot;</span></span>
+</pre></div>
+
+
+<blockquote>
+<p>This post is one part of <a href="http://blog.mollietaylor.com/tag/series-large-data.html">my series on dealing with large datasets</a>.</p>
+</blockquote>
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/2805357/specifying-colclasses-in-the-read-csv">http://stackoverflow.com/questions/2805357/specifying-colclasses-in-the-read-csv</a></li>
+<li><a href="http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html">http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html</a></li>
+<li><a href="http://blog.mollietaylor.com/2013/08/date-formats-in-r.html">Date Formats in R</a></li>
+<li><a href="http://stackoverflow.com/a/13022441">http://stackoverflow.com/a/13022441</a></li>
+</ul>
+<blockquote>
+<p>In a <a href="http://mollietaylor.blogspot.com/2013/09/using-colclasses-to-load-data-more.html?showComment=1378560018132#c2964058082964060072">comment</a>, Michael pointed out that if you don't need all the columns in your dataset, providing their <code>colClass</code> as <code>NULL</code> will exclude them from being loaded.</p>
+</blockquote>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="http://blog.mollietaylor.com/tag/colclasses.html" rel="tag">colClasses</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/readcsv.html" rel="tag">read.csv</a>,  <a href="http://blog.mollietaylor.com/tag/readtable.html" rel="tag">read.table</a>,  <a href="http://blog.mollietaylor.com/tag/series-large-data.html" rel="tag">Series: Large Data</a>,  <a href="http://blog.mollietaylor.com/tag/setup.html" rel="tag">setup</a>,  <a href="http://blog.mollietaylor.com/tag/systemtime.html" rel="tag">system.time</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<div class="date"><a href="http://blog.mollietaylor.com/2013/08/plot-weekly-or-monthly-totals-in-r.html">Thu 29 August 2013</a></div>
 		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
 			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
@@ -913,83 +983,6 @@
 		</div> <!--/#entry-content-->
     		<span class="tag-links"><strong>Tagged</strong>
  <a href="http://blog.mollietaylor.com/tag/dget.html" rel="tag">dget</a>,  <a href="http://blog.mollietaylor.com/tag/function.html" rel="tag">function</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/source.html" rel="tag">source</a>    		</span>
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<div class="date"><a href="http://blog.mollietaylor.com/2013/01/calculating-gini-coefficients-for.html">Thu 17 January 2013</a></div>
-		<span class="byline">By <a href="http://blog.mollietaylor.com/author/mollie-taylor.html">Mollie Taylor</a></span>
-			<span class="cat-links"><a href="http://blog.mollietaylor.com/category/r.html" title="View all posts in R" rel="category tag">R</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="http://blog.mollietaylor.com/2013/01/calculating-gini-coefficients-for.html" title="Permalink to Calculating Gini Coefficients for a Number of Locales at Once in R" rel="bookmark">Calculating Gini Coefficients for a Number of Locales at Once in R</a>
-		</h2>
-		<div class="entry-content">
-			<p>The <a href="http://en.wikipedia.org/wiki/Gini_coefficient">Gini coefficient</a> is a measure of the inequality of a distribution, most commonly used to compare inequality in income or wealth among countries.</p>
-<p>Let's first generate some random data to analyze. You can <a href="https://gist.github.com/4432069">download my random data</a> or use the code below to generate your own. Of course, if you generate your own, your graphs and results will be different from those shown below.</p>
-<div class="highlight"><pre><span class="code-line">city <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">,</span> <span class="s">&quot;D&quot;</span><span class="p">,</span> <span class="s">&quot;E&quot;</span><span class="p">,</span> <span class="s">&quot;F&quot;</span><span class="p">,</span> <span class="s">&quot;G&quot;</span><span class="p">,</span> <span class="s">&quot;H&quot;</span><span class="p">,</span> <span class="s">&quot;I&quot;</span><span class="p">,</span> <span class="s">&quot;J&quot;</span><span class="p">)</span></span>
-<span class="code-line">income <span class="o">&lt;-</span> <span class="kp">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">100000</span><span class="p">,</span></span>
-<span class="code-line">    <span class="m">100</span><span class="p">,</span></span>
-<span class="code-line">    replace <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span></span>
-<span class="code-line">cities <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>city<span class="p">,</span> income<span class="p">)</span></span>
-</pre></div>
-
-
-<p>Next, let's graph our data:</p>
-<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span></span>
-<span class="code-line">ggplot<span class="p">(</span>cities<span class="p">,</span></span>
-<span class="code-line">    aes<span class="p">(</span>income<span class="p">))</span> <span class="o">+</span></span>
-<span class="code-line">    stat_density<span class="p">(</span>geom <span class="o">=</span> <span class="s">&quot;path&quot;</span><span class="p">,</span></span>
-<span class="code-line">        position <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">)</span> <span class="o">+</span></span>
-<span class="code-line">    facet_wrap<span class="p">(</span><span class="o">~</span> city<span class="p">,</span> ncol <span class="o">=</span> <span class="m">2</span><span class="p">)</span></span>
-</pre></div>
-
-
-<p><img alt="Histogram of each city's incomes // Your results will differ if using random data" src="http://blog.mollietaylor.com/images/r-gini-hist.png" /></p>
-<p>The Gini coefficient is easy enough to calculate in R for a single locale using the <code>gini</code> function from the <strong>reldist</strong> package.</p>
-<div class="highlight"><pre><span class="code-line"><span class="kn">library</span><span class="p">(</span>reldist<span class="p">)</span></span>
-<span class="code-line">gini<span class="p">(</span>cities<span class="p">[</span><span class="kp">which</span><span class="p">(</span>cities<span class="o">$</span>city <span class="o">==</span> <span class="s">&quot;A&quot;</span><span class="p">),</span> <span class="p">]</span><span class="o">$</span>income<span class="p">)</span></span>
-</pre></div>
-
-
-<p>But we don't want to replicate this code over and over to calculate the Gini coefficient for a large number of locales. We also want the coefficients to be in a data frame for easy use in R or for export for use in another program.</p>
-<p>There are <a href="http://www.slideshare.net/jeffreybreen/grouping-summarizing-data-in-r">many ways to automate a function</a> to run over many subsets of a data frame. The most straightforward in our particular case is <code>aggregate</code>:</p>
-<div class="highlight"><pre><span class="code-line">ginicities <span class="o">&lt;-</span> aggregate<span class="p">(</span>income <span class="o">~</span> city<span class="p">,</span></span>
-<span class="code-line">    data <span class="o">=</span> cities<span class="p">,</span></span>
-<span class="code-line">    FUN <span class="o">=</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span></span>
-<span class="code-line"><span class="kp">names</span><span class="p">(</span>ginisec<span class="p">)</span> <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;city&quot;</span><span class="p">,</span> <span class="s">&quot;gini&quot;</span><span class="p">)</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="o">&gt;</span> ginisec</span>
-<span class="code-line">   city      gini</span>
-<span class="code-line"><span class="m">1</span>     A <span class="m">0.2856827</span></span>
-<span class="code-line"><span class="m">2</span>     B <span class="m">0.3639070</span></span>
-<span class="code-line"><span class="m">3</span>     C <span class="m">0.3288934</span></span>
-<span class="code-line"><span class="m">4</span>     D <span class="m">0.1863783</span></span>
-<span class="code-line"><span class="m">5</span>     E <span class="m">0.3565739</span></span>
-<span class="code-line"><span class="m">6</span>     <span class="bp">F</span> <span class="m">0.2587475</span></span>
-<span class="code-line"><span class="m">7</span>     G <span class="m">0.3022642</span></span>
-<span class="code-line"><span class="m">8</span>     H <span class="m">0.3795288</span></span>
-<span class="code-line"><span class="m">9</span>     I <span class="m">0.3311034</span></span>
-<span class="code-line"><span class="m">10</span>    J <span class="m">0.2496933</span></span>
-</pre></div>
-
-
-<p>And finally, let's go ahead and export our data using <code>write.csv</code>:</p>
-<div class="highlight"><pre><span class="code-line">write.csv<span class="p">(</span>ginicities<span class="p">,</span> <span class="s">&quot;gini.csv&quot;</span><span class="p">,</span></span>
-<span class="code-line">    row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span></span>
-</pre></div>
-
-
-<p>While you're at it, you might want to try using other functions on your dataset, such as <code>mean</code>, <code>median</code>, and <code>length</code>.</p>
-<p>The full code is available in a <a href="https://gist.github.com/4432069">gist</a>.</p>
-<h2>Citations and Further Reading</h2>
-<ul>
-<li><a href="http://rss.acs.unt.edu/Rdoc/library/reldist/html/gini.html">http://rss.acs.unt.edu/Rdoc/library/reldist/html/gini.html</a></li>
-<li><a href="http://www.slideshare.net/jeffreybreen/grouping-summarizing-data-in-r">http://www.slideshare.net/jeffreybreen/grouping-summarizing-data-in-r</a></li>
-</ul>
-		</div> <!--/#entry-content-->
-    		<span class="tag-links"><strong>Tagged</strong>
- <a href="http://blog.mollietaylor.com/tag/aggregate.html" rel="tag">aggregate</a>,  <a href="http://blog.mollietaylor.com/tag/analysis.html" rel="tag">analysis</a>,  <a href="http://blog.mollietaylor.com/tag/ggplot2.html" rel="tag">ggplot2</a>,  <a href="http://blog.mollietaylor.com/tag/gini.html" rel="tag">gini</a>,  <a href="http://blog.mollietaylor.com/tag/r.html" rel="tag">R</a>,  <a href="http://blog.mollietaylor.com/tag/reldist.html" rel="tag">reldist</a>,  <a href="http://blog.mollietaylor.com/tag/sample.html" rel="tag">sample</a>,  <a href="http://blog.mollietaylor.com/tag/stat_density.html" rel="tag">stat_density</a>,  <a href="http://blog.mollietaylor.com/tag/writecsv.html" rel="tag">write.csv</a>    		</span>
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
 		<div class="nav-previous">
